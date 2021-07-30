@@ -1,0 +1,46 @@
+.formDiv{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+form{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.outerDiv{
+    margin-top: 30px;
+}
+.grid{
+    display: flex;
+}
+.gridR{
+    float: left;
+    width: 70%;
+}
+.gridL{
+    float: right;
+    width: 30%;
+}
+.profilePic{
+    margin-top: 30px;
+}
+.nameDiv{
+    display: flex;
+}
+#firstName{
+    width: 50%;
+    padding:  0% 1% 0% 0%;
+}
+#lastName{
+    width: 50%;
+
+}
+/* .firstNameTxt{
+    width: 300px;
+}
+.lastNameTxt{
+    width: 300px;
+} */
+/* .nameInitialTxt{
+    width: 728px;
+} */
