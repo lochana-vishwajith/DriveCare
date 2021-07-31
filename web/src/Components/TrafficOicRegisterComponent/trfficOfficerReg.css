@@ -44,3 +44,32 @@ form{
 /* .nameInitialTxt{
     width: 728px;
 } */
+
+.mobileShort { display: none; }
+@media (max-width: 1200px) {
+    .mobileShort { display: inline-block; }
+    .mobileLong { display: none; }
+}
+.officerShort { display: none; }
+@media (max-width: 1200px) {
+    .officerShort { display: inline-block; }
+    .officerLong { display: none; }
+}
+.officerRegBtn{
+    background: #920E0E;
+    color: aliceblue;
+    width: 10rem;
+    height: 2.5rem;
+    border-radius: 1rem;
+    font-size: x-large;
+    border: 0rem;
+}
+.officerRegBtn:hover, .officerRegBtn:focus, .officerRegBtn:active {
+    color: rgb(2, 2, 2);
+    background-color:aliceblue;
+    border-color: #920E0E; /*set the color you want here*/
+    border: 1px solid #920E0E;
+}
+label{
+    font-size: medium;
+}
