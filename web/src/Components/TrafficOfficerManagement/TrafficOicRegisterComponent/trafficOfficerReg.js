@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import DateBox from "devextreme-react/date-box";
-import Button from "../ButtonComponent/button";
+import Button from "../../ButtonComponent/button";
 import { Center } from "devextreme-react/map";
+import { storage } from "../../../firebase/firebase";
 
 export default class trafficOfficerReg extends Component {
   constructor(props) {
@@ -18,10 +19,54 @@ export default class trafficOfficerReg extends Component {
       home: "",
       nic: "",
       officerReg: "",
+      profilePic: "",
+      profilePicUrl: "",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628163860453_157-1578186_user-profile-default-image-png-clipart.png?alt=media&token=928ccf58-f40a-4432-a6d1-fd980c18202c",
     };
   }
+
+  hnadlerFileChange = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState == 2) {
+        this.setState({ image: reader.result });
+        this.setState({ profilePic: e.target.files[0] });
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  imageUpload = () => {
+    const { profilePic } = this.state;
+    const date = Date.now();
+
+    const uploadTask = storage
+      .ref(`images/profileImages/${date}_${profilePic.name}`)
+      .put(profilePic);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images/profileImages/")
+          .child(`${date}_${profilePic.name}`)
+          .getDownloadURL()
+          .then((url) => {
+            console.log(url);
+            this.setState({ profilePicUrl: url });
+            //setTimeout(this.SubmitDetails(), 1000);
+          });
+      }
+    );
+  };
+
   onSubmit = () => {};
   render() {
+    const { image } = this.state;
     return (
       <div className="container">
         <div className="outerDiv">
@@ -126,7 +171,52 @@ export default class trafficOfficerReg extends Component {
                   </div>
                 </div>
                 <div className="gridL">
-                  <label className="profilePic">Upload A Profile Picture</label>
+                  <div className="profilePicDiv">
+                    <center>
+                      <img
+                        src={image}
+                        class="w-100 shadow-1-strong rounded mb-4"
+                        id="profilePic"
+                        alt=""
+                      />
+                    </center>
+                    <center>
+                      <b>
+                        <label className="profilePicLabel">
+                          Upload A Profile Picture
+                        </label>
+                      </b>
+                    </center>
+
+                    <center>
+                      <input
+                        type="file"
+                        className="officerImgBtn"
+                        id="officerImgBtn"
+                        name="profilePic"
+                        onChange={this.hnadlerFileChange}
+                        hidden
+                      />
+                    </center>
+                    <center>
+                      <label
+                        for="officerImgBtn"
+                        id="officerImgBtnlabel"
+                        className="imgLong"
+                      >
+                        Choose An Image
+                      </label>
+                    </center>
+                    <center>
+                      <label
+                        for="officerImgBtn"
+                        id="officerImgBtnlabel"
+                        className="imgShort"
+                      >
+                        Choose
+                      </label>
+                    </center>
+                  </div>
                 </div>
                 <br />
               </div>
@@ -137,7 +227,7 @@ export default class trafficOfficerReg extends Component {
                     value={"Register"}
                     classname={"officerRegBtn"}
                     type={"submit"}
-                    onSubmit={this.onSubmit}
+                    onSubmit={this.imageUpload}
                   />
                 </center>
               </div>

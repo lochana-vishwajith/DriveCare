@@ -7,7 +7,7 @@ import {
   NavLink,
   Switch,
 } from "react-router-dom";
-import TrafficOfficerReg from "./Components/TrafficOicRegisterComponent/trafficOfficerReg";
+import TrafficOfficerReg from "./Components/TrafficOfficerManagement/TrafficOicRegisterComponent/trafficOfficerReg";
 
 export default class App extends Component {
   render() {
