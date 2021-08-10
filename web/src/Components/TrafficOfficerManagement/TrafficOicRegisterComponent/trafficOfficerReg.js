@@ -21,7 +21,7 @@ export default class trafficOfficerReg extends Component {
       profilePic: "",
       profilePicUrl: "",
       image:
-        "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628163860453_157-1578186_user-profile-default-image-png-clipart.png?alt=media&token=928ccf58-f40a-4432-a6d1-fd980c18202c",
+        "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628183905292_pngwing.com.png?alt=media&token=0f85489d-8c99-4f2b-9d0e-1144b64c733d",
     };
   }
 
