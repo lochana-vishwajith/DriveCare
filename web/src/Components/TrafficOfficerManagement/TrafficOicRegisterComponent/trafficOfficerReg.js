@@ -4,7 +4,6 @@ import { Grid, Paper } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import DateBox from "devextreme-react/date-box";
 import Button from "../../ButtonComponent/button";
-import { Center } from "devextreme-react/map";
 import { storage } from "../../../firebase/firebase";
 
 export default class trafficOfficerReg extends Component {

@@ -19,16 +19,6 @@ form {
     box-sizing: border-box;
 }
 
-/* .gridR {
-    float: left;
-    width: 70%;
-}
-
-.gridL {
-    float: right;
-    width: 30%;
-} */
-
 .profilePic {
     margin-top: 30px;
 }
@@ -148,5 +138,11 @@ label {
 
     .imgLong {
         display: none;
+    }
+}
+@media (max-width: 1200px) {
+    .gridL {
+        display: block;
+        
     }
 }
