@@ -1,0 +1,93 @@
+.trafficloginmaindiv{
+    display: grid;
+    grid-template-columns: 60% 40%;
+    box-sizing: border-box;
+    column-gap: 4%;
+    margin-top: 4%;
+}
+.officerLogin{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-sizing: border-box;    
+}
+.officerTwoID{
+    padding-left: 2%;
+}
+.trafficloginlogo{
+    background-color: darkgray;
+}
+
+@media (max-width: 1200px) {
+    .trafficloginlogo{
+        display: none;
+    }
+    .trafficloginmaindiv{
+        display: inline;
+    }
+    .loginhr{
+        margin-right: 3%;
+    }
+}
+.loginShort {
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    .loginShort {
+        display: inline-block;
+    }
+
+    .loginLong {
+        display: none;
+    }
+}
+.loginWelcomeTextLong{
+    margin-top: 3%;
+    font-size: 2rem;
+    margin-left: 3%;
+    font-family: Apple Chancery, cursive;
+}
+.loginWelcomeTextShort {
+    display: none;
+}
+#driveLoginLogo{
+    display: none;
+}
+.loginWelcomeNameTextLong{
+    margin-top: -1rem;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+@media (max-width: 1200px) {
+    .loginWelcomeTextShort {
+        display: inline-block;
+        font-size: large;
+        margin-top: 2%;
+        margin-left: 3%;
+        text-align: center;
+    }
+    .loginWelcomeNameTextLong{
+        display: none;
+    }
+    #loginDrive{
+        font-size: xx-large;
+        margin-top: -0.6rem;
+    }
+    #driveLoginLogo{
+        display: grid;
+        width: 30%;
+    }
+
+    .loginWelcomeTextLong {
+        display: none;
+    }
+}
+.loginText{
+    margin-left: 3%;
+    font-size: x-large;
+    margin-top: -6rem;
+}
+.loginhr{
+    margin-left: 3%;
+ 
+}

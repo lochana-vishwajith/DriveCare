@@ -7,15 +7,16 @@ import {
   NavLink,
   Switch,
 } from "react-router-dom";
+import TrafficOfficerLogin from "./Components/TrafficOfficerManagement/TrafficOfficerloginComponent/trafficOfficerLogin";
 import TrafficOfficerReg from "./Components/TrafficOfficerManagement/TrafficOicRegisterComponent/trafficOfficerReg";
-
 export default class App extends Component {
   render() {
     return (
       <div>
         <Router>
           <Switch>
-            <Route to="/" component={TrafficOfficerReg} />
+            <Route exact path="/" component={TrafficOfficerLogin} />
+            <Route exact path="/register" component={TrafficOfficerReg} />
           </Switch>
         </Router>
       </div>
