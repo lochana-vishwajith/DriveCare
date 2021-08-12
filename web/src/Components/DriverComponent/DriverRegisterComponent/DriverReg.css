@@ -1,0 +1,146 @@
+.formDiv {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 50px;
+}
+
+form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.outerDiv {
+  margin-top: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  box-sizing: border-box;
+}
+
+.profilePic {
+  margin-top: 30px;
+}
+
+.nameDiv {
+  display: flex;
+}
+
+#firstName {
+  width: 50%;
+  padding: 0% 1% 0% 0%;
+}
+
+#lastName {
+  width: 50%;
+}
+
+/* .firstNameTxt{
+    width: 300px;
+}
+.lastNameTxt{
+    width: 300px;
+} */
+/* .nameInitialTxt{
+    width: 728px;
+} */
+
+.mobileShort {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .mobileShort {
+    display: inline-block;
+  }
+
+  .mobileLong {
+    display: none;
+  }
+}
+
+.officerShort {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .officerShort {
+    display: inline-block;
+  }
+
+  .officerLong {
+    display: none;
+  }
+}
+
+.officerRegBtn {
+  background: #920e0e;
+  color: aliceblue;
+  width: 10rem;
+  height: 2.5rem;
+  border-radius: 1rem;
+  font-size: x-large;
+  border: 0rem;
+}
+
+.officerRegBtn:hover,
+.officerRegBtn:focus,
+.officerRegBtn:active {
+  color: rgb(2, 2, 2);
+  background-color: aliceblue;
+  border-color: #920e0e;
+  /*set the color you want here*/
+  border: 1px solid #920e0e;
+}
+
+label {
+  font-size: medium;
+}
+
+#profilePic {
+  max-width: 73%;
+  max-height: 80%;
+  padding-right: 4%;
+  border-radius: 3rem;
+  margin-top: 10%;
+}
+
+.profilePicLabel {
+  text-align: center;
+  font-size: large;
+}
+
+#officerImgBtnlabel {
+  background: #920e0e;
+  color: aliceblue;
+  width: max-content;
+  height: 2rem;
+  border-radius: 1rem;
+  font-size: medium;
+  border: 0rem;
+  padding: 2% 2% 2% 2%;
+  text-align: center;
+  margin-top: 3%;
+}
+
+.imgShort {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .imgShort {
+    display: inline-block;
+    padding: 3%;
+    font-size: small;
+  }
+
+  .imgLong {
+    display: none;
+  }
+}
+@media (max-width: 1200px) {
+  .gridL {
+    display: block;
+  }
+}
