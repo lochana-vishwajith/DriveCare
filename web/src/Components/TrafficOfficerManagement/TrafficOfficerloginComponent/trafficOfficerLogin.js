@@ -3,7 +3,10 @@ import React, { Component } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import Button from "../../ButtonComponent/button";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 export default class trafficOfficerLogin extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +17,32 @@ export default class trafficOfficerLogin extends Component {
       logo: "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628608858660_erik-mclean-ZRns2R5azu0-unsplash.jpg?alt=media&token=2e03d4ea-a040-48a8-9e7f-bbcd5a6af1b4",
     };
   }
+
+  officerOneIDChanged = (e) => {
+    this.setState({ officerOneID: e.value });
+  };
+  officerTwoIDChanged = (e) => {
+    this.setState({ officerTwoID: e.value });
+  };
+  officerPWChanged = (e) => {
+    this.setState({ officerPassword: e.value });
+  };
+  pressLoginBtn = () => {
+    if (
+      this.state.officerOneID == "" ||
+      this.state.officerTwoID == "" ||
+      this.state.officerPassword == ""
+    ) {
+      toast.error("Please Fill The Form Correctly", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } else {
+      toast.success("Login Success", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
+
   render() {
     return (
       <div className="container">
@@ -55,7 +84,9 @@ export default class trafficOfficerLogin extends Component {
                           mask="0000000000"
                           className="officerReg"
                           name="officerOneID"
+                          value={this.state.officerOneID}
                           showClearButton={true}
+                          onValueChanged={this.officerOneIDChanged}
                         />
                       </div>
                       <div className="officerTwoID">
@@ -67,7 +98,9 @@ export default class trafficOfficerLogin extends Component {
                           mask="0000000000"
                           className="officerReg"
                           name="officerTwoID"
+                          value={this.state.officerTwoID}
                           showClearButton={true}
+                          onValueChanged={this.officerTwoIDChanged}
                         />
                       </div>
                     </div>
@@ -79,6 +112,8 @@ export default class trafficOfficerLogin extends Component {
                         placeholder="Enter password"
                         name="officerPassword"
                         showClearButton={true}
+                        value={this.state.officerPassword}
+                        onValueChanged={this.officerPWChanged}
                       />
                     </div>
                     <br />
@@ -89,6 +124,7 @@ export default class trafficOfficerLogin extends Component {
                         value={"Login"}
                         classname={"officerRegBtn"}
                         type={"submit"}
+                        onSubmit={this.pressLoginBtn}
                       />
                     </center>
                   </div>
