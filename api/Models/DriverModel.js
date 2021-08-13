@@ -14,17 +14,13 @@ const driverSchema = new Schema({
     type: String,
     required: true,
   },
-  firstName: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     required: true,
   },
   address: {
     type: String,
-    required: true,
+    required: false,
   },
   licenceNumber: {
     type: String,
@@ -32,19 +28,19 @@ const driverSchema = new Schema({
   },
   licenceExpiryDate: {
     type: Date,
-    required: true,
+    required: false,
   },
   NIC: {
     type: String,
-    required: true,
+    required: false,
   },
   mobile: {
     type: String,
-    required: true,
+    required: false,
   },
   dob: {
     type: Date,
-    required: true,
+    required: false,
   },
   password: {
     type: String,
@@ -52,7 +48,7 @@ const driverSchema = new Schema({
   },
   profilePicURL: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
