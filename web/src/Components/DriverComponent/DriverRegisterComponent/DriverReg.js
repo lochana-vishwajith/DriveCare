@@ -2,15 +2,15 @@ import { Grid, Link, Paper } from "@material-ui/core";
 import "./DriverReg.css";
 import TextBox from "devextreme-react/text-box";
 import React, { Component } from "react";
-import DateBox from "devextreme-react/date-box";
 import Button from "../../ButtonComponent/button";
 import {
   Validator,
   RequiredRule,
   CompareRule,
   EmailRule,
-  AsyncRule,
 } from "devextreme-react/validator";
+import DriverHeader from "../DriverHeaderComponent/DriverHeader";
+import DriverFooter from "../DriverFooterComponent/DriverFooter";
 
 export default class DriverReg extends Component {
   constructor(props) {
@@ -29,7 +29,6 @@ export default class DriverReg extends Component {
 
     this.passwordCompair = this.passwordCompair.bind(this);
     this.onPasswordChanged = this.onPasswordChanged.bind(this);
-    this.handlerChange = this.handlerChange.bind(this);
   }
 
   passwordCompair() {
@@ -42,13 +41,31 @@ export default class DriverReg extends Component {
     });
   }
 
-  handlerChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
+  fNameChange = (e) => {
+    this.setState({ fName: e.value });
+  };
+
+  lNameChange = (e) => {
+    this.setState({ lName: e.value });
+  };
+
+  dNameChange = (e) => {
+    this.setState({ displayName: e.value });
+  };
+
+  dLicenceChange = (e) => {
+    this.setState({ dLisenseNo: e.value });
+  };
+
+  emailChange = (e) => {
+    this.setState({ email: e.value });
+  };
 
   onSubmit = () => {};
   render() {
     return (
+      <div>
+      <DriverHeader/>
       <div className="container">
         <div className="mt-1">
           <center>
@@ -71,7 +88,7 @@ export default class DriverReg extends Component {
                     <TextBox
                       name="fName"
                       value={this.state.fName}
-                      onChange={this.handlerChange}
+                      onValueChanged={this.fNameChange}
                       showClearButton={true}
                     >
                       <Validator>
@@ -82,7 +99,12 @@ export default class DriverReg extends Component {
 
                   <div className="dx-field" id="d-text-in">
                     <label id="labelName">Last Name</label>
-                    <TextBox name="lName" showClearButton={true}>
+                    <TextBox
+                      name="lName"
+                      showClearButton={true}
+                      value={this.state.lName}
+                      onValueChanged={this.lNameChange}
+                    >
                       <Validator>
                         <RequiredRule message="Last Name is required" />
                       </Validator>
@@ -91,7 +113,12 @@ export default class DriverReg extends Component {
                   <div className="dx-field" id="d-text-in">
                     <label id="labelName">Display Name</label>
 
-                    <TextBox name="displayName" showClearButton={true}>
+                    <TextBox
+                      name="displayName"
+                      showClearButton={true}
+                      value={this.state.displayName}
+                      onValueChanged={this.dNameChange}
+                    >
                       <Validator>
                         <RequiredRule message="Display Name is required" />
                       </Validator>
@@ -99,7 +126,13 @@ export default class DriverReg extends Component {
                   </div>
                   <div className="dx-field" id="d-text-in">
                     <label id="labelName">Driving Lincence Number</label>
-                    <TextBox name="dLisenseNo" showClearButton={true}>
+                    <TextBox
+                      name="dLisenseNo"
+                      mask="a0000000"
+                      showClearButton={true}
+                      value={this.state.dLisenseNo}
+                      onValueChanged={this.dLicenceChange}
+                    >
                       <Validator>
                         <RequiredRule message="Licence Number is required" />
                       </Validator>
@@ -107,9 +140,15 @@ export default class DriverReg extends Component {
                   </div>
                   <div className="dx-field" id="d-text-in">
                     <label id="labelName">Email</label>
-                    <TextBox name="email" showClearButton={true}>
+                    <TextBox
+                      name="email"
+                      showClearButton={true}
+                      value={this.state.email}
+                      onValueChanged={this.emailChange}
+                    >
                       <Validator>
                         <RequiredRule message="Email is required" />
+                        <EmailRule message="Email is invalid" />
                       </Validator>
                     </TextBox>
                   </div>
@@ -140,24 +179,38 @@ export default class DriverReg extends Component {
                       </Validator>
                     </TextBox>
                   </div>
-                  <Button
-                    id={"driverReg"}
-                    value={"Sign Up"}
-                    classname={"driverRegBtn"}
-                    type={"submit"}
-                  />
-                  <div className="mt-3">
-                    <Link>
-                      <small>
-                        Already Have a Account? <b>Sign In</b>
-                      </small>
-                    </Link>
+                  <div className="d-btn-aling">
+                    <div className="d-btnReg-long">
+                      <Button
+                        id={"driverReg"}
+                        value={"Sign Up"}
+                        classname={"driverRegBtn"}
+                        type={"submit"}
+                      />
+                    </div>
+                    <div className="d-btnReg-short">
+                      <Button
+                        id={"driverReg"}
+                        value={"Sign Up"}
+                        classname={"driverRegBtn-short"}
+                        type={"submit"}
+                      />
+                    </div>
+                    <div className="mt-3 d-link">
+                      <Link>
+                        <small>
+                          Already Have a Account? <b>Sign In</b>
+                        </small>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </Paper>
         </Grid>
+      </div>
+      <DriverFooter/>
       </div>
     );
   }
