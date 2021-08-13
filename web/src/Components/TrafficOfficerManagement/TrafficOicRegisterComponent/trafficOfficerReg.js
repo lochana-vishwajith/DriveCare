@@ -103,13 +103,13 @@ export default class trafficOfficerReg extends Component {
   onSubmit = async () => {
     try {
       if (
-        this.state.firstName == "" ||
-        this.state.lastName == "" ||
-        this.state.nameInitial == "" ||
-        this.state.dob == "" ||
-        this.state.mobile == "" ||
-        this.state.nic == "" ||
-        this.state.officerReg == ""
+        this.state.firstName === "" ||
+        this.state.lastName === "" ||
+        this.state.nameInitial === "" ||
+        this.state.dob === "" ||
+        this.state.mobile === "" ||
+        this.state.nic === "" ||
+        this.state.officerReg === ""
       ) {
         toast.error("Please Fill The Form Correctly", {
           position: toast.POSITION.TOP_RIGHT,
@@ -140,10 +140,11 @@ export default class trafficOfficerReg extends Component {
         };
         axios
           .post("http://localhost:9000/trafficOfficer", details)
-          .then(async (res) => {
+          .then(async () => {
             toast.success("Successfully Registered", {
               position: toast.POSITION.TOP_RIGHT,
             });
+            setTimeout();
           });
       }
     } catch (err) {
