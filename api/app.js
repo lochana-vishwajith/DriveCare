@@ -22,6 +22,9 @@ mongoose.connect(url, {
 const trafficOfficerDetails = require("./Routes/TrafficOfficerRoutes");
 app.use("/trafficOfficer", trafficOfficerDetails);
 
+const driverDetails = require("./Routes/DriverRoutes");
+app.use("/driver", driverDetails);
+
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Connected to mongo DB");
