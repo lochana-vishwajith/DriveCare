@@ -28,10 +28,10 @@ router.post("/", (req, res) => {
   trafficOfficerDetails
     .save()
     .then((result) => {
-      res.json("data is added", result);
+      res.status(200).send({ result });
     })
     .catch((err) => {
-      res.json(err);
+      res.send(err);
     });
 });
 
