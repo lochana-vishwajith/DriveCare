@@ -5,6 +5,10 @@ import TextBox from "devextreme-react/text-box";
 import DateBox from "devextreme-react/date-box";
 import Button from "../../ButtonComponent/button";
 import { storage } from "../../../firebase/firebase";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { BeatLoader } from "react-spinners";
 
 export default class trafficOfficerReg extends Component {
   constructor(props) {
@@ -24,6 +28,30 @@ export default class trafficOfficerReg extends Component {
         "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628183905292_pngwing.com.png?alt=media&token=0f85489d-8c99-4f2b-9d0e-1144b64c733d",
     };
   }
+  firstNameChanged = (e) => {
+    this.setState({ firstName: e.value });
+  };
+  lastNameChanged = (e) => {
+    this.setState({ lastName: e.value });
+  };
+  nameInitialChanged = (e) => {
+    this.setState({ nameInitial: e.value });
+  };
+  dobChanged = (e) => {
+    this.setState({ dob: e.value });
+  };
+  mobileChanged = (e) => {
+    this.setState({ mobile: e.value });
+  };
+  homeChanged = (e) => {
+    this.setState({ home: e.value });
+  };
+  nicChanged = (e) => {
+    this.setState({ nic: e.value });
+  };
+  officerRegChanged = (e) => {
+    this.setState({ officerReg: e.value });
+  };
 
   hnadlerFileChange = (e) => {
     const reader = new FileReader();
@@ -48,6 +76,9 @@ export default class trafficOfficerReg extends Component {
       (snapshot) => {},
       (error) => {
         console.log(error);
+        toast.error("Image Uploading Failed Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       },
       () => {
         storage
@@ -57,13 +88,71 @@ export default class trafficOfficerReg extends Component {
           .then((url) => {
             console.log(url);
             this.setState({ profilePicUrl: url });
-            //setTimeout(this.SubmitDetails(), 1000);
+            setTimeout(this.onSubmit(), 1000);
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Image Uploading Failed Failed", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
           });
       }
     );
   };
 
-  onSubmit = () => {};
+  onSubmit = async () => {
+    try {
+      if (
+        this.state.firstName == "" ||
+        this.state.lastName == "" ||
+        this.state.nameInitial == "" ||
+        this.state.dob == "" ||
+        this.state.mobile == "" ||
+        this.state.nic == "" ||
+        this.state.officerReg == ""
+      ) {
+        toast.error("Please Fill The Form Correctly", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } else {
+        const {
+          firstName,
+          lastName,
+          nameInitial,
+          dob,
+          mobile,
+          home,
+          nic,
+          officerReg,
+          profilePicUrl,
+        } = this.state;
+
+        const details = {
+          firstName,
+          lastName,
+          nameInitial,
+          dob,
+          mobile,
+          home,
+          nic,
+          officerReg,
+          profilePicUrl,
+        };
+        axios
+          .post("http://localhost:9000/trafficOfficer", details)
+          .then(async (res) => {
+            toast.success("Successfully Registered", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          });
+      }
+    } catch (err) {
+      console.log("Error in reg on submit" + err);
+      toast.error("Registration Failed", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
   render() {
     const { image } = this.state;
     return (
@@ -86,7 +175,9 @@ export default class trafficOfficerReg extends Component {
                         <TextBox
                           className="firstNameTxt"
                           name="firstName"
+                          value={this.state.firstName}
                           showClearButton={true}
+                          onValueChanged={this.firstNameChanged}
                         />
                       </div>
                       <div className="dx-field" id="lastName">
@@ -95,7 +186,9 @@ export default class trafficOfficerReg extends Component {
                         <TextBox
                           className="lastNameTxt"
                           name="lastName"
+                          value={this.state.lastName}
                           showClearButton={true}
+                          onValueChanged={this.lastNameChanged}
                         />
                       </div>
                     </div>
@@ -105,7 +198,9 @@ export default class trafficOfficerReg extends Component {
                       <TextBox
                         className="nameInitialTxt"
                         name="nameInitial"
+                        value={this.state.nameInitial}
                         showClearButton={true}
+                        onValueChanged={this.nameInitialChanged}
                       />
                     </div>
                     <div className="dx-field">
@@ -115,7 +210,9 @@ export default class trafficOfficerReg extends Component {
                         type="date"
                         className="dob"
                         name="dob"
+                        value={this.state.dob}
                         showClearButton={true}
+                        onValueChanged={this.dobChanged}
                       />
                     </div>
                     <br />
@@ -128,7 +225,9 @@ export default class trafficOfficerReg extends Component {
                           mask="(000) 000-0000"
                           className="mobile"
                           name="mobile"
+                          value={this.state.mobile}
                           showClearButton={true}
+                          onValueChanged={this.mobileChanged}
                         />
                       </div>
                       <div className="dx-field" id="lastName">
@@ -138,7 +237,9 @@ export default class trafficOfficerReg extends Component {
                           mask="(000) 000-0000"
                           className="homeTxt"
                           name="home"
+                          value={this.state.home}
                           showClearButton={true}
+                          onValueChanged={this.homeChanged}
                         />
                       </div>
                     </div>
@@ -150,7 +251,9 @@ export default class trafficOfficerReg extends Component {
                         <TextBox
                           className="nic"
                           name="nic"
+                          value={this.state.nic}
                           showClearButton={true}
+                          onValueChanged={this.nicChanged}
                         />
                       </div>
                       <div className="dx-field" id="lastName">
@@ -163,7 +266,9 @@ export default class trafficOfficerReg extends Component {
                           mask="0000000000"
                           className="officerReg"
                           name="officerReg"
+                          value={this.state.officerReg}
                           showClearButton={true}
+                          onValueChanged={this.officerRegChanged}
                         />
                       </div>
                     </div>
