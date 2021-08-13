@@ -19,6 +19,9 @@ mongoose.connect(url, {
   useFindAndModify: false,
 });
 
+const trafficOfficerDetails = require("./Routes/TrafficOfficerRoutes");
+app.use("/trafficOfficer", trafficOfficerDetails);
+
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Connected to mongo DB");

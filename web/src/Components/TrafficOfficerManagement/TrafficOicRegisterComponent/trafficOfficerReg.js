@@ -7,6 +7,8 @@ import Button from "../../ButtonComponent/button";
 import { storage } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { BeatLoader } from "react-spinners";
 
 export default class trafficOfficerReg extends Component {
   constructor(props) {
@@ -74,6 +76,9 @@ export default class trafficOfficerReg extends Component {
       (snapshot) => {},
       (error) => {
         console.log(error);
+        toast.error("Image Uploading Failed Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       },
       () => {
         storage
@@ -83,13 +88,19 @@ export default class trafficOfficerReg extends Component {
           .then((url) => {
             console.log(url);
             this.setState({ profilePicUrl: url });
-            //setTimeout(this.SubmitDetails(), 1000);
+            setTimeout(this.onSubmit(), 1000);
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Image Uploading Failed Failed", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
           });
       }
     );
   };
 
-  onSubmit = () => {
+  onSubmit = async () => {
     try {
       if (
         this.state.firstName == "" ||
@@ -97,19 +108,43 @@ export default class trafficOfficerReg extends Component {
         this.state.nameInitial == "" ||
         this.state.dob == "" ||
         this.state.mobile == "" ||
-        this.state.home == "" ||
         this.state.nic == "" ||
-        this.state.officerReg == "" ||
-        this.state.profilePicUrl == ""
+        this.state.officerReg == ""
       ) {
         toast.error("Please Fill The Form Correctly", {
           position: toast.POSITION.TOP_RIGHT,
         });
       } else {
-        this.imageUpload();
-        toast.success("Successfully Registered", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        const {
+          firstName,
+          lastName,
+          nameInitial,
+          dob,
+          mobile,
+          home,
+          nic,
+          officerReg,
+          profilePicUrl,
+        } = this.state;
+
+        const details = {
+          firstName,
+          lastName,
+          nameInitial,
+          dob,
+          mobile,
+          home,
+          nic,
+          officerReg,
+          profilePicUrl,
+        };
+        axios
+          .post("http://localhost:9000/trafficOfficer", details)
+          .then(async (res) => {
+            toast.success("Successfully Registered", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          });
       }
     } catch (err) {
       console.log("Error in reg on submit" + err);
@@ -296,7 +331,7 @@ export default class trafficOfficerReg extends Component {
                     value={"Register"}
                     classname={"officerRegBtn"}
                     type={"submit"}
-                    onSubmit={this.onSubmit}
+                    onSubmit={this.imageUpload}
                   />
                 </center>
               </div>
