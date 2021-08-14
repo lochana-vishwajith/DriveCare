@@ -11,6 +11,8 @@ import {
 } from "devextreme-react/validator";
 import DriverHeader from "../DriverHeaderComponent/DriverHeader";
 import DriverFooter from "../DriverFooterComponent/DriverFooter";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default class DriverReg extends Component {
   constructor(props) {
@@ -61,156 +63,182 @@ export default class DriverReg extends Component {
     this.setState({ email: e.value });
   };
 
-  onSubmit = () => {};
+  onSubmit = () => {
+    console.log("Submit works");
+    const dataSet = {
+      firstName: this.state.fName,
+      lastName: this.state.lName,
+      displayName: this.state.displayName,
+      email: this.state.email,
+      licenceNumber: this.state.dLisenseNo,
+      password: this.state.password,
+    };
+
+    console.log("Data: ", dataSet);
+    axios
+      .post("http://localhost:9000/driver", dataSet)
+      .then(async () => {
+        toast.success("Successfully Registered", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+      .catch((error) => {
+        console.log("Error Registration Failed", error);
+        toast.error("Registration Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
   render() {
     return (
       <div>
-      <DriverHeader/>
-      <div className="container">
-        <div className="mt-1">
-          <center>
-            <div className="d-reg">
-              <i>Register to</i>
-            </div>
-            <div className="d-dc">
-              <b>DriveCare</b>
-            </div>
-          </center>
-          <hr></hr>
-        </div>
-        <Grid>
-          <Paper elevation={20}>
-            <div className="d-center-form">
-              <div className="d-center-input">
-                <div className="dx-fieldset">
-                  <div className="dx-field" id="d-text-in">
-                    <label id="labelName">First Name</label>
-                    <TextBox
-                      name="fName"
-                      value={this.state.fName}
-                      onValueChanged={this.fNameChange}
-                      showClearButton={true}
-                    >
-                      <Validator>
-                        <RequiredRule message="First Name is required" />
-                      </Validator>
-                    </TextBox>
-                  </div>
+        <DriverHeader />
+        <div className="container">
+          <div className="mt-1">
+            <center>
+              <div className="d-reg">
+                <i>Register to</i>
+              </div>
+              <div className="d-dc">
+                <b>DriveCare</b>
+              </div>
+            </center>
+            <hr></hr>
+          </div>
+          <Grid>
+            <Paper elevation={20}>
+              <div className="d-center-form">
+                <div className="d-center-input">
+                  <div className="dx-fieldset">
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">First Name</label>
+                      <TextBox
+                        name="fName"
+                        value={this.state.fName}
+                        onValueChanged={this.fNameChange}
+                        showClearButton={true}
+                      >
+                        <Validator>
+                          <RequiredRule message="First Name is required" />
+                        </Validator>
+                      </TextBox>
+                    </div>
 
-                  <div className="dx-field" id="d-text-in">
-                    <label id="labelName">Last Name</label>
-                    <TextBox
-                      name="lName"
-                      showClearButton={true}
-                      value={this.state.lName}
-                      onValueChanged={this.lNameChange}
-                    >
-                      <Validator>
-                        <RequiredRule message="Last Name is required" />
-                      </Validator>
-                    </TextBox>
-                  </div>
-                  <div className="dx-field" id="d-text-in">
-                    <label id="labelName">Display Name</label>
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Last Name</label>
+                      <TextBox
+                        name="lName"
+                        showClearButton={true}
+                        value={this.state.lName}
+                        onValueChanged={this.lNameChange}
+                      >
+                        <Validator>
+                          <RequiredRule message="Last Name is required" />
+                        </Validator>
+                      </TextBox>
+                    </div>
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Display Name</label>
 
-                    <TextBox
-                      name="displayName"
-                      showClearButton={true}
-                      value={this.state.displayName}
-                      onValueChanged={this.dNameChange}
-                    >
-                      <Validator>
-                        <RequiredRule message="Display Name is required" />
-                      </Validator>
-                    </TextBox>
-                  </div>
-                  <div className="dx-field" id="d-text-in">
-                    <label id="labelName">Driving Lincence Number</label>
-                    <TextBox
-                      name="dLisenseNo"
-                      mask="a0000000"
-                      showClearButton={true}
-                      value={this.state.dLisenseNo}
-                      onValueChanged={this.dLicenceChange}
-                    >
-                      <Validator>
-                        <RequiredRule message="Licence Number is required" />
-                      </Validator>
-                    </TextBox>
-                  </div>
-                  <div className="dx-field" id="d-text-in">
-                    <label id="labelName">Email</label>
-                    <TextBox
-                      name="email"
-                      showClearButton={true}
-                      value={this.state.email}
-                      onValueChanged={this.emailChange}
-                    >
-                      <Validator>
-                        <RequiredRule message="Email is required" />
-                        <EmailRule message="Email is invalid" />
-                      </Validator>
-                    </TextBox>
-                  </div>
-                  <div className="dx-field" id="d-text-in">
-                    <label id="labelName">Password</label>
-                    <TextBox
-                      mode="password"
-                      name="password"
-                      value={this.state.password}
-                      showClearButton={true}
-                      onValueChanged={this.onPasswordChanged}
-                    >
-                      <Validator>
-                        <RequiredRule message="Password is required" />
-                      </Validator>
-                    </TextBox>
-                  </div>
-                  <div className="dx-field" id="d-text-in">
-                    <label id="labelName">Confirm Password</label>
+                      <TextBox
+                        name="displayName"
+                        showClearButton={true}
+                        value={this.state.displayName}
+                        onValueChanged={this.dNameChange}
+                      >
+                        <Validator>
+                          <RequiredRule message="Display Name is required" />
+                        </Validator>
+                      </TextBox>
+                    </div>
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Driving Lincence Number</label>
+                      <TextBox
+                        name="dLisenseNo"
+                        mask="a0000000"
+                        showClearButton={true}
+                        value={this.state.dLisenseNo}
+                        onValueChanged={this.dLicenceChange}
+                      >
+                        <Validator>
+                          <RequiredRule message="Licence Number is required" />
+                        </Validator>
+                      </TextBox>
+                    </div>
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Email</label>
+                      <TextBox
+                        name="email"
+                        showClearButton={true}
+                        value={this.state.email}
+                        onValueChanged={this.emailChange}
+                      >
+                        <Validator>
+                          <RequiredRule message="Email is required" />
+                          <EmailRule message="Email is invalid" />
+                        </Validator>
+                      </TextBox>
+                    </div>
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Password</label>
+                      <TextBox
+                        mode="password"
+                        name="password"
+                        value={this.state.password}
+                        showClearButton={true}
+                        onValueChanged={this.onPasswordChanged}
+                      >
+                        <Validator>
+                          <RequiredRule message="Password is required" />
+                        </Validator>
+                      </TextBox>
+                    </div>
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Confirm Password</label>
 
-                    <TextBox mode="password" showClearButton={true}>
-                      <Validator>
-                        <RequiredRule message="Confirm Password is required" />
-                        <CompareRule
-                          message="Password and Confirm Password do not match"
-                          comparisonTarget={this.passwordCompair}
+                      <TextBox mode="password" showClearButton={true}>
+                        <Validator>
+                          <RequiredRule message="Confirm Password is required" />
+                          <CompareRule
+                            message="Password and Confirm Password do not match"
+                            comparisonTarget={this.passwordCompair}
+                          />
+                        </Validator>
+                      </TextBox>
+                    </div>
+                    <div className="d-btn-aling">
+                      <div className="d-btnReg-long">
+                        <Button
+                          id={"driverReg"}
+                          value={"Sign Up"}
+                          classname={"driverRegBtn"}
+                          type={"submit"}
                         />
-                      </Validator>
-                    </TextBox>
-                  </div>
-                  <div className="d-btn-aling">
-                    <div className="d-btnReg-long">
-                      <Button
-                        id={"driverReg"}
-                        value={"Sign Up"}
-                        classname={"driverRegBtn"}
-                        type={"submit"}
-                      />
-                    </div>
-                    <div className="d-btnReg-short">
-                      <Button
-                        id={"driverReg"}
-                        value={"Sign Up"}
-                        classname={"driverRegBtn-short"}
-                        type={"submit"}
-                      />
-                    </div>
-                    <div className="mt-3 d-link">
-                      <Link>
-                        <small>
-                          Already Have a Account? <b>Sign In</b>
-                        </small>
-                      </Link>
+                      </div>
+                      <div className="d-btnReg-short">
+                        <Button
+                          id={"driverReg"}
+                          value={"Sign Up"}
+                          classname={"driverRegBtn-short"}
+                          type={"submit"}
+                          onSubmit={this.onSubmit}
+                        />
+                      </div>
+                      <div className="mt-3 d-link">
+                        <Link>
+                          <small>
+                            Already Have a Account? <b>Sign In</b>
+                          </small>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Paper>
-        </Grid>
-      </div>
-      <DriverFooter/>
+            </Paper>
+          </Grid>
+        </div>
+        <DriverFooter />
       </div>
     );
   }
