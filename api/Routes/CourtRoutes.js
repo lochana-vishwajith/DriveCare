@@ -49,4 +49,14 @@ router.put("/putc/:id", async (req, res) => {
   }
 });
 
+router.delete("/deletec/:id", async (req, res) => {
+  try {
+    const c = await Court.findById(req.params.id);
+    const c1 = await c.remove();
+    res.send("Comment deleted !");
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
