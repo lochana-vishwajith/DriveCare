@@ -36,4 +36,17 @@ router.post("/postc", async (req, res) => {
   }
 });
 
+//update a comment
+router.put("/putc/:id", async (req, res) => {
+  const c = await Court.findById(req.params.id);
+
+  try {
+    c.comment = req.body.comment ? req.body.comment : c.comment;
+    const c1 = c.save(c);
+    res.send("Update Sucessfully");
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
