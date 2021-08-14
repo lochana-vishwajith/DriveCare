@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "devextreme": "21.1.4",
+    "devextreme-aspnet-data-nojquery": "^2.8.6",
     "devextreme-react": "21.1.4",
     "firebase": "^8.8.1",
     "media-query-react": "^1.0.4",

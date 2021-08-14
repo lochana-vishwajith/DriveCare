@@ -14,7 +14,7 @@ export default class trafficOfficerLogin extends Component {
       officerOneID: "",
       officerTwoID: "",
       officerPassword: "",
-      logo: "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628608858660_erik-mclean-ZRns2R5azu0-unsplash.jpg?alt=media&token=2e03d4ea-a040-48a8-9e7f-bbcd5a6af1b4",
+      logo: "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628967576900_colored-logo.png?alt=media&token=166ac21d-89be-45b2-9b0b-17e5a400e359",
     };
   }
 
@@ -140,6 +140,7 @@ export default class trafficOfficerLogin extends Component {
                     id="driveLoginLong"
                     alt=""
                   />
+
                   <div>
                     <label className="loginWelcomeTextLong">Welcome to</label>
                     <br />

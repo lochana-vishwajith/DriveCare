@@ -10,6 +10,7 @@ import {
 import TrafficOfficerLogin from "./Components/TrafficOfficerManagement/TrafficOfficerloginComponent/trafficOfficerLogin";
 import TrafficOfficerReg from "./Components/TrafficOfficerManagement/TrafficOicRegisterComponent/trafficOfficerReg";
 import DriverReg from "./Components/DriverComponent/DriverRegisterComponent/DriverReg";
+import OfficerDetailsDisplay from "./Components/TrafficOfficerManagement/OfficerDetailsDisplay/officerDetailsDisplay";
 import DriverLogin from "./Components/DriverComponent/DriverLoginComponent/DriverLogin";
 export default class App extends Component {
   render() {
@@ -19,8 +20,13 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={TrafficOfficerLogin} />
             <Route exact path="/register" component={TrafficOfficerReg} />
-            <Route exact path="/driverRegister" component={DriverReg} />
-            <Route exact path="/driverLogin" component={DriverLogin} />
+            <Route exact path="/driverRegister" component={DriverReg} />     
+             <Route exact path="/driverLogin" component={DriverLogin} />
+             <Route
+              exact
+              path="/officerDisplay"
+              component={OfficerDetailsDisplay}
+            />
           </Switch>
         </Router>
       </div>
