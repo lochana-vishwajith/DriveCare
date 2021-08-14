@@ -91,3 +91,14 @@
     margin-left: 3%;
  
 }
+#driveLoginLong{
+    margin-top: 10%;
+    max-width: 60%;
+}
+@media (max-width: 1200px) {
+    .w-100{
+        padding-top: 12% ;
+        max-width: 40%;
+    }
+}
+
