@@ -35,10 +35,23 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
-  TrafficOfficer.find()
+router.get("/", async (req, res) => {
+  await TrafficOfficer.find()
     .then((result) => {
       res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(501).send(err);
+    });
+});
+
+router.delete("/:id", async (req, res) => {
+  let id = req.params.id;
+
+  await TrafficOfficer.findByIdAndDelete(id)
+    .then((result) => {
+      console.log("data is deleted");
+      res.status(200).send({ status: result });
     })
     .catch((err) => {
       res.status(501).send(err);
