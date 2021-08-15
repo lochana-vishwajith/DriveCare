@@ -89,6 +89,7 @@ export default class officerDetailsDisplay extends Component {
                     </Item>
                   </Form>
                 </Editing>
+
                 <Scrolling mode="virtual" rowRenderingMode="virtual" />
                 <Paging defaultPageSize={200} />
                 <HeaderFilter visible={true} allowSearch={true} />
