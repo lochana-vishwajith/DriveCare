@@ -1,7 +1,8 @@
-import { Grid, Paper } from "@material-ui/core";
+import { Button, Grid, Paper } from "@material-ui/core";
 import axios from "axios";
 import React, { Component } from "react";
 import "./DriverProfile.css";
+import { Link } from "react-router-dom";
 
 export default class DriverProfile extends Component {
   constructor(props) {
@@ -15,17 +16,18 @@ export default class DriverProfile extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:9000/driver/B1234567")
+      .get("http://localhost:9000/driver/L1254869")
       .then((result) => {
         console.log("Data:", result.data);
         this.setState({ driverDetails: result.data });
-        console.log(this.state.driverDetails[0]);
+        console.log(this.state.driverDetails);
       })
       .catch((error) => {
         console.log("Data not Retriewed", error);
       });
   }
   render() {
+    const { driverDetails } = this.state;
     return (
       <div>
         <div className="container">
@@ -35,69 +37,124 @@ export default class DriverProfile extends Component {
                 <b>User Profile</b>
               </h2>
             </label>
+            <Link to="/driverProfileUpdate">
+              <button type="button" class="btn btn-outline-danger btn-sm px-4">
+                Edit
+              </button>
+            </Link>
             <hr />
             <Grid>
               <Paper elevation={20} className="p-4">
                 <div className="d-dispaly-web">
-                  <div className="d-grid">
-                    <div className="border rounded p-3">
-                      <label>
-                        <h3>Basic Info</h3>
-                      </label>
-                      <div className="ml-2">
-                        <label>Full name</label>
-                        <br />
-                        <b>Savi Rana</b>
-                        <br />
-                        <label>Display name</label>
-                        <br />
-                        <b>Saviya98</b>
-                        <br />
-                        <label>Driving Licence Number</label>
-                        <br />
-                        <b>B1254896</b>
-                        <br />
-                        <label>NIC Number</label>
-                        <br />
-                        <b>980956984V</b>
-                        <br />
-                        <label>Date of Birth</label>
-                        <br />
-                        <b>08th April 1998</b>
-                      </div>
-                    </div>
-                    <div className="border rounded p-3 ml-1">
-                      <label>
-                        <h3>Contact Info</h3>
-                      </label>
-                      <div className="ml-2">
-                        <label>Email</label>
-                        <br />
-                        <b>Saviya@gmail.com</b>
-                        <br />
-                        <label>Mobile</label>
-                        <br />
-                        <b>076985421</b>
-                        <br />
-                        <label>Address</label>
-                        <br />
-                        <b>51, Kingswood Rd, Malabe.</b>
-                        <hr />
+                  {driverDetails.map((item, index) => (
+                    <div className="d-grid" key={index}>
+                      <div className="border rounded border-danger p-3">
                         <label>
-                          <h3>Licence Status</h3>
+                          <h3>Basic Info</h3>
                         </label>
                         <div className="ml-2">
-                          <label>Status</label>
+                          <label>Full name</label>
                           <br />
-                          <b>Available</b>
+                          <b>
+                            {item.firstName} {item.lastName}
+                          </b>
                           <br />
-                          <label>Expiry Date</label>
+                          <label>Display name</label>
                           <br />
-                          <b>22th July 2028</b>
+                          <b>{item.displayName}</b>
+                          <br />
+                          <label>Driving Licence Number</label>
+                          <br />
+                          <b>{item.licenceNumber}</b>
+                          <br />
+                          <label>NIC Number</label>
+                          <br />
+                          <b>{item.NIC}</b>
+                          <br />
+                          <label>Date of Birth</label>
+                          <br />
+                          <b>{item.dob}</b>
+                        </div>
+                      </div>
+                      <div className="border rounded border-danger p-3 ml-1">
+                        <label>
+                          <h3>Contact Info</h3>
+                        </label>
+                        <div className="ml-2">
+                          <label>Email</label>
+                          <br />
+                          <b>{item.email}</b>
+                          <br />
+                          <label>Mobile</label>
+                          <br />
+                          <b>{item.mobile}</b>
+                          <br />
+                          <label>Address</label>
+                          <br />
+                          <b>{item.address}</b>
+                          <hr />
+                          <label>
+                            <h3>Licence Status</h3>
+                          </label>
+                          <div className="ml-2">
+                            <label>Status</label>
+                            <br />
+                            {item.licenceStatus == "Active" && (
+                              <b className="d-btn-active">
+                                {item.licenceStatus}
+                              </b>
+                            )}
+                            {item.licenceStatus == "Pending" && (
+                              <b className="d-btn-pending">
+                                {item.licenceStatus}
+                              </b>
+                            )}
+                            {item.licenceStatus == "Cancelled" && (
+                              <b className="d-btn-Cancelled">
+                                {item.licenceStatus}
+                              </b>
+                            )}
+                            <br />
+                            <label>Expiry Date</label>
+                            <br />
+                            <b>{item.licenceExpiryDate}</b>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="border rounded border-danger p-3 ml-1">
+                        <center>
+                          <img
+                            src={this.state.image}
+                            class="w-100 shadow-1-strong rounded mb-4"
+                            id="profilePic"
+                            alt=""
+                          />
+                        </center>
+                        <hr />
+                        <div className="border rounded border border-success p-1">
+                          <center>
+                            <label>My Points</label>
+                            <br />
+                            {item.points >= 20 && (
+                              <b className="d-points-g">{item.points}</b>
+                            )}
+                            {item.points >= 10 && item.points < 20 && (
+                              <b className="d-points-y">{item.points}</b>
+                            )}
+                            {item.points < 10 && (
+                              <b className="d-points-r">{item.points}</b>
+                            )}
+                            <br />
+                            <label>Out of 30</label>
+                          </center>
                         </div>
                       </div>
                     </div>
-                    <div className="border rounded p-3 ml-1">
+                  ))}
+                </div>
+                {driverDetails.map((item, index) => (
+                  <div className="d-grid-responsive" key={(item, index)}>
+                    <div className="border rounded border-danger p-3 ml-1">
                       <center>
                         <img
                           src={this.state.image}
@@ -107,99 +164,99 @@ export default class DriverProfile extends Component {
                         />
                       </center>
                       <hr />
-                      <div className="border rounded p-1">
+                      <div className="border rounded border-danger p-1">
                         <center>
                           <label>My Points</label>
                           <br />
-                          <b className="d-points">25</b>
+                          {item.points >= 20 && (
+                            <b className="d-points-g">{item.points}</b>
+                          )}
+                          {item.points >= 10 && item.points < 20 && (
+                            <b className="d-points-y">{item.points}</b>
+                          )}
+                          {item.points < 10 && (
+                            <b className="d-points-r">{item.points}</b>
+                          )}
                           <br />
                           <label>Out of 30</label>
                         </center>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="d-grid-responsive">
-                  <div className="border rounded p-3 ml-1">
-                    <center>
-                      <img
-                        src={this.state.image}
-                        class="w-100 shadow-1-strong rounded mb-4"
-                        id="profilePic"
-                        alt=""
-                      />
-                    </center>
-                    <hr />
-                    <div className="border rounded p-1">
-                      <center>
-                        <label>My Points</label>
-                        <br />
-                        <b className="d-points">25</b>
-                        <br />
-                        <label>Out of 30</label>
-                      </center>
-                    </div>
-                  </div>
-                  <br />
-                  <div className="border rounded p-3">
-                    <label>
-                      <h3>Basic Info</h3>
-                    </label>
-                    <div className="ml-2">
-                      <label>Full name</label>
-                      <br />
-                      <b>Savi Rana</b>
-                      <br />
-                      <label>Display name</label>
-                      <br />
-                      <b>Saviya98</b>
-                      <br />
-                      <label>Driving Licence Number</label>
-                      <br />
-                      <b>B1254896</b>
-                      <br />
-                      <label>NIC Number</label>
-                      <br />
-                      <b>980956984V</b>
-                      <br />
-                      <label>Date of Birth</label>
-                      <br />
-                      <b>08th April 1998</b>
-                    </div>
-                  </div>
-                  <br />
-                  <div className="border rounded p-3 ml-1">
-                    <label>
-                      <h3>Contact Info</h3>
-                    </label>
-                    <div className="ml-2">
-                      <label>Email</label>
-                      <br />
-                      <b>Saviya@gmail.com</b>
-                      <br />
-                      <label>Mobile</label>
-                      <br />
-                      <b>076985421</b>
-                      <br />
-                      <label>Address</label>
-                      <br />
-                      <b>51, Kingswood Rd, Malabe.</b>
-                      <hr />
+                    <br />
+                    <div className="border rounded border-danger p-3">
                       <label>
-                        <h3>Licence Status</h3>
+                        <h3>Basic Info</h3>
                       </label>
                       <div className="ml-2">
-                        <label>Status</label>
+                        <label>Full name</label>
                         <br />
-                        <b>Available</b>
+                        <b>
+                          {item.firstName} {item.lastName}
+                        </b>
                         <br />
-                        <label>Expiry Date</label>
+                        <label>Display name</label>
                         <br />
-                        <b>22th July 2028</b>
+                        <b>{item.displayName}</b>
+                        <br />
+                        <label>Driving Licence Number</label>
+                        <br />
+                        <b>{item.licenceNumber}</b>
+                        <br />
+                        <label>NIC Number</label>
+                        <br />
+                        <b>{item.NIC}</b>
+                        <br />
+                        <label>Date of Birth</label>
+                        <br />
+                        <b>{item.dob}</b>
+                      </div>
+                    </div>
+                    <br />
+                    <div className="border rounded border-danger p-3 ml-1">
+                      <label>
+                        <h3>Contact Info</h3>
+                      </label>
+                      <div className="ml-2">
+                        <label>Email</label>
+                        <br />
+                        <b>{item.email}</b>
+                        <br />
+                        <label>Mobile</label>
+                        <br />
+                        <b>{item.mobile}</b>
+                        <br />
+                        <label>Address</label>
+                        <br />
+                        <b>{item.address}</b>
+                        <hr />
+                        <label>
+                          <h3>Licence Status</h3>
+                        </label>
+                        <div className="ml-2">
+                          <label>Status</label>
+                          <br />
+                          {item.licenceStatus == "Active" && (
+                            <b className="d-btn-active">{item.licenceStatus}</b>
+                          )}
+                          {item.licenceStatus == "Pending" && (
+                            <b className="d-btn-pending">
+                              {item.licenceStatus}
+                            </b>
+                          )}
+                          {item.licenceStatus == "Cancelled" && (
+                            <b className="d-btn-Cancelled">
+                              {item.licenceStatus}
+                            </b>
+                          )}
+                          <br />
+                          <label>Expiry Date</label>
+                          <br />
+                          <b>{item.licenceExpiryDate}</b>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </Paper>
             </Grid>
           </div>

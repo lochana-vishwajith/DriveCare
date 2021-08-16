@@ -13,6 +13,7 @@ import DriverReg from "./Components/DriverComponent/DriverRegisterComponent/Driv
 import OfficerDetailsDisplay from "./Components/TrafficOfficerManagement/OfficerDetailsDisplay/officerDetailsDisplay";
 import DriverLogin from "./Components/DriverComponent/DriverLoginComponent/DriverLogin";
 import DriverProfile from "./Components/DriverComponent/DriverProfileComponent/DriverProfile";
+import DriverProfileUpdate from "./Components/DriverComponent/DriverProfileUpdateComponent/DriverProfileUpdate";
 export default class App extends Component {
   render() {
     return (
@@ -29,6 +30,11 @@ export default class App extends Component {
               component={OfficerDetailsDisplay}
             />
             <Route exact path="/driverDisplay" component={DriverProfile} />
+            <Route
+              exact
+              path="/driverProfileUpdate"
+              component={DriverProfileUpdate}
+            />
           </Switch>
         </Router>
       </div>
