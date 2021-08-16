@@ -3,8 +3,20 @@ const Driver = require("../Models/DriverModel");
 
 router.post("/", (req, res) => {
   console.log("inside post");
-  const { firstName, lastName, displayName, email, licenceNumber, password } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    displayName,
+    email,
+    licenceNumber,
+    password,
+    address,
+    licenceExpiryDate,
+    NIC,
+    mobile,
+    dob,
+    profilePicURL,
+  } = req.body;
 
   const driverDetails = new Driver({
     firstName,
@@ -13,6 +25,14 @@ router.post("/", (req, res) => {
     email,
     licenceNumber,
     password,
+    address,
+    licenceExpiryDate,
+    NIC,
+    mobile,
+    dob,
+    profilePicURL,
+    licenceStatus: "Active",
+    points: 30,
   });
 
   console.log("Data tika", driverDetails);

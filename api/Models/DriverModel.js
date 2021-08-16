@@ -50,6 +50,14 @@ const driverSchema = new Schema({
     type: String,
     required: false,
   },
+  licenceStatus: {
+    type: String,
+    required: true,
+  },
+  points: {
+    type: Number,
+    required: true,
+  },
 });
 
 const driverDetails = mongoose.model("Driver", driverSchema);
