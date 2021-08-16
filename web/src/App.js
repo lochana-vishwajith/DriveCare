@@ -12,6 +12,7 @@ import TrafficOfficerReg from "./Components/TrafficOfficerManagement/TrafficOicR
 import DriverReg from "./Components/DriverComponent/DriverRegisterComponent/DriverReg";
 import OfficerDetailsDisplay from "./Components/TrafficOfficerManagement/OfficerDetailsDisplay/officerDetailsDisplay";
 import DriverLogin from "./Components/DriverComponent/DriverLoginComponent/DriverLogin";
+import DriverProfile from "./Components/DriverComponent/DriverProfileComponent/DriverProfile";
 export default class App extends Component {
   render() {
     return (
@@ -20,13 +21,14 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={TrafficOfficerLogin} />
             <Route exact path="/register" component={TrafficOfficerReg} />
-            <Route exact path="/driverRegister" component={DriverReg} />     
-             <Route exact path="/driverLogin" component={DriverLogin} />
-             <Route
+            <Route exact path="/driverRegister" component={DriverReg} />
+            <Route exact path="/driverLogin" component={DriverLogin} />
+            <Route
               exact
               path="/officerDisplay"
               component={OfficerDetailsDisplay}
             />
+            <Route exact path="/driverDisplay" component={DriverProfile} />
           </Switch>
         </Router>
       </div>
