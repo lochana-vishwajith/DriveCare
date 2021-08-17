@@ -12,6 +12,15 @@ import TrafficOfficerReg from "./Components/TrafficOfficerManagement/TrafficOicR
 import DriverReg from "./Components/DriverComponent/DriverRegisterComponent/DriverReg";
 import OfficerDetailsDisplay from "./Components/TrafficOfficerManagement/OfficerDetailsDisplay/officerDetailsDisplay";
 import DriverLogin from "./Components/DriverComponent/DriverLoginComponent/DriverLogin";
+import AddComment from "./Components/CourtComponent/AddComment/AddComment";
+import CourtLogin from "./Components/CourtComponent/CourtLogin/CourtLogin";
+import SearchDriver from "./Components/CourtComponent/SearchDriver/SearchDriver";
+import EditComment from "./Components/CourtComponent/EditComment/EditComment";
+import DriverDetails from "./Components/CourtComponent/DriverDetails/DriverDetails";
+import DriverComments from "./Components/CourtComponent/DriverComments/DriverComments";
+import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDetails";
+import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
+
 export default class App extends Component {
   render() {
     return (
@@ -20,13 +29,29 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={TrafficOfficerLogin} />
             <Route exact path="/register" component={TrafficOfficerReg} />
-            <Route exact path="/driverRegister" component={DriverReg} />     
-             <Route exact path="/driverLogin" component={DriverLogin} />
-             <Route
+            <Route exact path="/driverRegister" component={DriverReg} />
+            <Route exact path="/driverLogin" component={DriverLogin} />
+            <Route
               exact
               path="/officerDisplay"
               component={OfficerDetailsDisplay}
             />
+            <Route exact path="/courtAddComment" component={AddComment} />
+            <Route exact path="/courtLogin" component={CourtLogin} />
+            <Route exact path="/courtSearch" component={SearchDriver} />
+            <Route exact path="/courtEditComment" component={EditComment} />
+            <Route exact path="/courtDriverDetails" component={DriverDetails} />
+            <Route
+              exact
+              path="/courtDriverComments"
+              component={DriverComments}
+            />
+            <Route
+              exact
+              path="/courtOfficerDetails"
+              component={OfficerDetails}
+            />
+            <Route exact path="/courtChangePoints" component={ChangePoints} />
           </Switch>
         </Router>
       </div>
