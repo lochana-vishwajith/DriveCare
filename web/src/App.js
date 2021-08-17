@@ -14,6 +14,8 @@ import OfficerDetailsDisplay from "./Components/TrafficOfficerManagement/Officer
 import DriverLogin from "./Components/DriverComponent/DriverLoginComponent/DriverLogin";
 import AddComment from "./Components/CourtComponent/AddComment/AddComment";
 import CourtLogin from "./Components/CourtComponent/CourtLogin/CourtLogin";
+import DriverProfile from "./Components/DriverComponent/DriverProfileComponent/DriverProfile";
+import DriverProfileUpdate from "./Components/DriverComponent/DriverProfileUpdateComponent/DriverProfileUpdate";
 import SearchDriver from "./Components/CourtComponent/SearchDriver/SearchDriver";
 import EditComment from "./Components/CourtComponent/EditComment/EditComment";
 import DriverDetails from "./Components/CourtComponent/DriverDetails/DriverDetails";
@@ -35,6 +37,12 @@ export default class App extends Component {
               exact
               path="/officerDisplay"
               component={OfficerDetailsDisplay}
+            />
+            <Route exact path="/driverDisplay" component={DriverProfile} />
+            <Route
+              exact
+              path="/driverProfileUpdate"
+              component={DriverProfileUpdate}
             />
             <Route exact path="/courtAddComment" component={AddComment} />
             <Route exact path="/courtLogin" component={CourtLogin} />

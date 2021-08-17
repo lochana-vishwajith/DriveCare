@@ -1,0 +1,56 @@
+.d-grid {
+  display: grid;
+  grid-template-columns: 35% 40% 20%;
+  grid-gap: 1%;
+  box-sizing: border-box;
+}
+
+.d-grid > div {
+  padding: 1% 0;
+  font-size: 20px;
+}
+
+.d-points {
+  font-size: 55px;
+}
+
+.d-grid-responsive {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .d-dispaly-web {
+    display: none;
+  }
+
+  .d-grid-responsive {
+    display: grid;
+  }
+}
+
+.d-btn-active {
+  color: rgb(20, 170, 20);
+}
+
+.d-btn-pending {
+  color: rgb(204, 204, 21);
+}
+
+.d-btn-Cancelled {
+  color: rgb(199, 31, 31);
+}
+
+.d-points-g {
+  color: rgb(20, 170, 20);
+  font-size: 55px;
+}
+
+.d-points-y {
+  color: rgb(204, 204, 21);
+  font-size: 55px;
+}
+
+.d-points-r {
+  color: rgb(199, 31, 31);
+  font-size: 55px;
+}
