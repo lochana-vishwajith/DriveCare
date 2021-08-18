@@ -59,6 +59,16 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/", (req, res) => {
+  Driver.find()
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(501).status(err);
+    });
+});
+
 router.put("/:id", async (req, res) => {
   const id = req.params.id;
   const dataSet = req.body;

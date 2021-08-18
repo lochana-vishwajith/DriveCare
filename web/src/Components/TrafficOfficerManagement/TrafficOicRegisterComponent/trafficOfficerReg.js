@@ -144,7 +144,7 @@ export default class trafficOfficerReg extends Component {
             toast.success("Successfully Registered", {
               position: toast.POSITION.TOP_RIGHT,
             });
-            setTimeout();
+            
           });
       }
     } catch (err) {
