@@ -33,14 +33,15 @@ class DriverComments extends React.Component {
         <button type="button" class="btn btn-success">
           Generate Report
         </button>
-
-        <button
-          type="button"
-          class="btn btn-primary"
-          style={{ float: "right" }}
-        >
-          Add Comment
-        </button>
+        <a href="/courtAddComment">
+          <button
+            type="button"
+            class="btn btn-primary"
+            style={{ float: "right" }}
+          >
+            Add Comment
+          </button>
+        </a>
       </div>
     );
   }

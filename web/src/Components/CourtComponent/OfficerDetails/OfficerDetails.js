@@ -7,9 +7,29 @@ class OfficerDetails extends React.Component {
       <div>
         <h1>Officer Details</h1>
 
+        <div className="card pointcard">
+          <div className="card-header">Points</div>
+          <div className="card-body">
+            <h5 className="card-title" style={{ fontSize: "60px" }}>
+              07
+            </h5>
+            <a href="/courtChangePoints">
+              <button type="button" className="btn btn-primary">
+                Change Points
+              </button>
+            </a>
+          </div>
+        </div>
+
         <div className="form-group">
           <label>Name :</label>
-          <input type="text" class="form-control" id="name" height="250px" />
+          <input
+            disabled
+            type="text"
+            class="form-control"
+            id="name"
+            height="250px"
+          />
         </div>
         <br />
         <br />
@@ -36,9 +56,11 @@ class OfficerDetails extends React.Component {
           </tbody>
         </table>
         <br />
-        <button type="button" className="btn btn-primary">
-          Add Comment
-        </button>
+        <a href="/courtAddComment">
+          <button type="button" className="btn btn-primary">
+            Add Comment
+          </button>
+        </a>
         <br />
       </div>
     );

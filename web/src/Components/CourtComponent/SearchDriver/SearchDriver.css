@@ -1,3 +1,7 @@
 h4 {
   font-style: italic;
 }
+
+.btnSearch {
+  float: right;
+}
