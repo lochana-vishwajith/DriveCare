@@ -31,6 +31,11 @@ app.use("/court", courtDetails);
 const PoliceStationDetails =require("./Routes/PoliceStationRoutes")
 app.use("/policeStation",PoliceStationDetails);
 
+
+const Rules = require("./Routes/RulesRoutes")
+app.use("/rules",Rules)
+
+
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Connected to mongo DB");
