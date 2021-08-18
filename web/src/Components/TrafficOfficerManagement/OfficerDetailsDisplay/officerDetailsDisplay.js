@@ -1,26 +1,10 @@
 import React, { Component } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import "./officerDetailsDisplay.css";
-import DataGrid, {
-  Popup,
-  Form,
-  Editing,
-  Scrolling,
-  Paging,
-  Column,
-  HeaderFilter,
-} from "devextreme-react/data-grid";
-import * as AspNetData from "devextreme-aspnet-data-nojquery";
 import axios from "axios";
 import "devextreme-react/text-area";
-import { Item } from "devextreme-react/form";
-
-const notesEditorOptions = { height: 60 };
-
-const dataSource = AspNetData.createStore({
-  key: "_id",
-  loadUrl: "http://localhost:9000/trafficOfficer",
-});
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default class officerDetailsDisplay extends Component {
   constructor(props) {
@@ -30,6 +14,24 @@ export default class officerDetailsDisplay extends Component {
     };
   }
 
+  aaa = () => {
+    alert("ss");
+  };
+
+  deleteOfficer = (id) => {
+    axios
+      .delete(`http://localhost:9000/trafficOfficer/${id}`)
+      .then((res) => {
+        toast.success("Successfully Deleted", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+      .catch((err) => {
+        toast.error("Delete Operation Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
   componentDidMount() {
     axios.get("http://localhost:9000/trafficOfficer").then((res) => {
       console.log("res : ", res);
@@ -37,86 +39,62 @@ export default class officerDetailsDisplay extends Component {
     });
   }
   render() {
+    const { officerDetails } = this.state;
     return (
       <div className="container">
-        <div className="officerDetailsDisplay">
-          <label className="OfficerDetaisDis">
-            <h2>
-              <b>Traffic Officer Details</b>
-            </h2>
-          </label>
-          <hr />
+        <label className="OfficerDetaisDis">
+          <h2>
+            <b>Traffic Officer Details</b>
+          </h2>
+        </label>
+        <hr />
+
+        <div className="officerdisplayDiv">
           <Grid>
             <Paper elevation={20}>
-              <DataGrid
-                elementAttr={{
-                  id: "gridContainer",
-                }}
-                dataSource={dataSource}
-                showBorders={true}
-                remoteOperations={true}
-                wordWrapEnabled={true}
-              >
-                <Editing
-                  mode="popup"
-                  allowUpdating={true}
-                  allowAdding={true}
-                  allowDeleting={true}
-                >
-                  <Popup
-                    title="Traffic Officer Information"
-                    showTitle={true}
-                    width={700}
-                    height={345}
-                  />
-                  <Form>
-                    <Item itemType="group" colCount={2} colSpan={2}>
-                      <Item dataField="firstName" caption="First Name" />
-                      <Item dataField="lastName" caption="Last Name" />
-                      <Item
-                        dataField="nameInitial"
-                        caption="Name with intials"
-                      />
-                      <Item dataField="nic" caption="NIC" />
-                      <Item dataField="dob" caption="Date Of Birth" />
-                      <Item
-                        dataField="officerReg"
-                        caption="Officer Reg.No"
-                        disabled={true}
-                      />
-                      <Item dataField="mobile" caption="Mobile No" />
-                      <Item dataField="home" caption="Home No" />
-                    </Item>
-                  </Form>
-                </Editing>
-
-                <Scrolling mode="virtual" rowRenderingMode="virtual" />
-                <Paging defaultPageSize={200} />
-                <HeaderFilter visible={true} allowSearch={true} />
-
-                <Column dataField="_id" width={75} visible={false} />
-                <Column
-                  dataField="firstName"
-                  caption="First Name"
-                  width={150}
-                />
-                <Column dataField="lastName" caption="Last Name" width={120} />
-                <Column dataField="nameInitial" caption="Name with intials" />
-
-                <Column dataField="nic" caption="NIC" />
-                <Column
-                  dataField="dob"
-                  caption="Date Of Birth"
-                  dataType="date"
-                  format="yyyy-MM-dd"
-                  width={100}
-                />
-                <Column dataField="officerReg" caption="Officer Reg.No" />
-                <Column dataField="mobile" caption="Mobile No" width={100} />
-                <Column dataField="home" caption="Home No" width={100} />
-              </DataGrid>
+              <div className="officerDetailsDisplay">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr className="table-dark">
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Name With Initials</th>
+                      <th scope="col">Date Of Birth</th>
+                      <th scope="col">NIC</th>
+                      <th scope="col">Officer Registration No</th>
+                      <th scope="col">Mobile No</th>
+                      <th scope="col">Home No</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {officerDetails.map((officer) => (
+                      <tr className="table-light">
+                        <td>{officer.firstName}</td>
+                        <td>{officer.lastName}</td>
+                        <td>{officer.nameInitial}</td>
+                        <td>{officer.dob}</td>
+                        <td>{officer.nic}</td>
+                        <td>{officer.officerReg}</td>
+                        <td>{officer.mobile}</td>
+                        <td>{officer.home}</td>
+                        <td className="btnCol">
+                          <i
+                            className="far fa-eye fa-lg"
+                            onClick={this.aaa}
+                            id="offView"
+                          />
+                          <i className="fas fa-pencil-alt fa-lg" />
+                          <i className="fas fa-trash fa-lg" />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </Paper>
           </Grid>
+          <div className="policeCenterDisplay"></div>
         </div>
       </div>
     );

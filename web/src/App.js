@@ -16,6 +16,8 @@ import AddComment from "./Components/CourtComponent/AddComment/AddComment";
 import CourtLogin from "./Components/CourtComponent/CourtLogin/CourtLogin";
 import DriverProfile from "./Components/DriverComponent/DriverProfileComponent/DriverProfile";
 import DriverProfileUpdate from "./Components/DriverComponent/DriverProfileUpdateComponent/DriverProfileUpdate";
+import CreateFineUi from "./Components/TrafficOfficerManagement/createFineUI/createFineUi";
+
 import SearchDriver from "./Components/CourtComponent/SearchDriver/SearchDriver";
 import EditComment from "./Components/CourtComponent/EditComment/EditComment";
 import DriverDetails from "./Components/CourtComponent/DriverDetails/DriverDetails";
@@ -47,6 +49,7 @@ export default class App extends Component {
               path="/driverProfileUpdate"
               component={DriverProfileUpdate}
             />
+            <Route exact path="/createFine" component={CreateFineUi} />
             <Route exact path="/courtAddComment" component={AddComment} />
             <Route exact path="/courtLogin" component={CourtLogin} />
             <Route exact path="/courtSearch" component={SearchDriver} />
