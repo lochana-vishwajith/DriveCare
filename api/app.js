@@ -35,6 +35,11 @@ app.use("/policeStation",PoliceStationDetails);
 const Rules = require("./Routes/RulesRoutes")
 app.use("/rules",Rules)
 
+const RulesCategory = require("./Routes/RulesCategoryRoutes")
+app.use("/rulesCategory",RulesCategory);
+
+const adminDetails =require("./Routes/CentralAdminDetailsRoute");
+app.use("/adminDetails",adminDetails);
 
 const connection = mongoose.connection;
 connection.once("open", () => {
