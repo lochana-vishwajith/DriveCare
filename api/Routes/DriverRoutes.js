@@ -59,26 +59,14 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const id = req.params.id;
-  const dataSet = {
-    firstName:req.body.firstName,
-    lastName:req.body.lastName,
-    displayName:req.body.displayName,
-    email:req.body.email,
-    licenceNumber:req.body.licenceNumber,
-    password:req.body.password,
-    address:req.body.address,
-    licenceExpiryDate:req.body.licenceExpiryDate,
-    NIC:req.body.NIC,
-    mobile:req.body.mobile,
-    dob:req.body.dob,
-    profilePicURL:req.body.profilePicURL,
-  };
+  const dataSet = req.body;
   console.log("Data", dataSet);
-  Driver.findByIdAndUpdate({ _id: id })
-    .then((result) => {
-      res.status(200).send(result);
+  await Driver.findByIdAndUpdate(id,dataSet)
+    .then((data) => {
+      console.log(data)
+      res.status(200).send({data:data},);
     })
     .catch((error) => {
       res.send(error);

@@ -1,5 +1,4 @@
 import { Grid, Link, Paper } from "@material-ui/core";
-import "./DriverReg.css";
 import TextBox from "devextreme-react/text-box";
 import React, { Component } from "react";
 import Button from "../../ButtonComponent/button";
@@ -13,6 +12,7 @@ import DriverHeader from "../DriverHeaderComponent/DriverHeader";
 import DriverFooter from "../DriverFooterComponent/DriverFooter";
 import axios from "axios";
 import { toast } from "react-toastify";
+import "./DriverReg.css";
 
 export default class DriverReg extends Component {
   constructor(props) {
