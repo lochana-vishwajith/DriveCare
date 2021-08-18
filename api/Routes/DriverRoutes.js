@@ -59,4 +59,30 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  const id = req.params.id;
+  const dataSet = {
+    firstName:req.body.firstName,
+    lastName:req.body.lastName,
+    displayName:req.body.displayName,
+    email:req.body.email,
+    licenceNumber:req.body.licenceNumber,
+    password:req.body.password,
+    address:req.body.address,
+    licenceExpiryDate:req.body.licenceExpiryDate,
+    NIC:req.body.NIC,
+    mobile:req.body.mobile,
+    dob:req.body.dob,
+    profilePicURL:req.body.profilePicURL,
+  };
+  console.log("Data", dataSet);
+  Driver.findByIdAndUpdate({ _id: id })
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
 module.exports = router;
