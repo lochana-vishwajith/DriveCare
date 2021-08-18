@@ -69,4 +69,18 @@ router.get("/", (req, res) => {
     });
 });
 
+router.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  const dataSet = req.body;
+  console.log("Data", dataSet);
+  await Driver.findByIdAndUpdate(id,dataSet)
+    .then((data) => {
+      console.log(data)
+      res.status(200).send({data:data},);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
 module.exports = router;

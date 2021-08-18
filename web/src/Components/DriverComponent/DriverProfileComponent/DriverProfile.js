@@ -1,8 +1,8 @@
-import { Button, Grid, Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import axios from "axios";
 import React, { Component } from "react";
-import "./DriverProfile.css";
 import { Link } from "react-router-dom";
+import "./DriverProfile.css";
 
 export default class DriverProfile extends Component {
   constructor(props) {
@@ -124,7 +124,7 @@ export default class DriverProfile extends Component {
                       <div className="border rounded border-danger p-3 ml-1">
                         <center>
                           <img
-                            src={this.state.image}
+                            src={this.state.profilePicURL}
                             class="w-100 shadow-1-strong rounded mb-4"
                             id="profilePic"
                             alt=""
@@ -157,7 +157,7 @@ export default class DriverProfile extends Component {
                     <div className="border rounded border-danger p-3 ml-1">
                       <center>
                         <img
-                          src={this.state.image}
+                          src={this.state.profilePicURL}
                           class="w-100 shadow-1-strong rounded mb-4"
                           id="profilePic"
                           alt=""
