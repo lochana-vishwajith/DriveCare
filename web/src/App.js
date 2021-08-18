@@ -22,7 +22,10 @@ import DriverDetails from "./Components/CourtComponent/DriverDetails/DriverDetai
 import DriverComments from "./Components/CourtComponent/DriverComments/DriverComments";
 import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDetails";
 import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
-
+import CentralAdminAddDetails from "./Components/CentralAdminComponent/CentralAdminDetails/CentralAdminDataAdd"
+import AdminLogin from "./Components/CentralAdminComponent/CentralAdminLogin/CentralAdminLogin"
+import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin"
+import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation"
 export default class App extends Component {
   render() {
     return (
@@ -60,6 +63,11 @@ export default class App extends Component {
               component={OfficerDetails}
             />
             <Route exact path="/courtChangePoints" component={ChangePoints} />
+
+            <Route exact path = "/centralAdminAdd" component = {CentralAdminAddDetails}/>
+            <Route exact path = "/adminLogin" component = {AdminLogin} />
+            <Route exact path = "/policeStationLogin" component = {PoliceStationLogin} />
+            <Route exact path = "/AddPoliceStation" component = {PoliceStationAdd} />
           </Switch>
         </Router>
       </div>

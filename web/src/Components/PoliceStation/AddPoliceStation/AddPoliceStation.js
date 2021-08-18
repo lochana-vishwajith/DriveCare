@@ -2,7 +2,6 @@ import { Grid, Paper, Link } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
-
 import Button from "../../ButtonComponent/button";
 
 export default class PoliceStationLogin extends Component {
@@ -20,7 +19,7 @@ export default class PoliceStationLogin extends Component {
                                 <i>Welcome to</i>
                             </div>
                             <div className="d-dc">
-                                <b>Central Admin Data Add</b>
+                                <b>DriveCare Police Station Add</b>
                             </div>
                         </center>
                         <hr></hr>
@@ -28,7 +27,6 @@ export default class PoliceStationLogin extends Component {
                     <Grid>
                         <Paper elevation={20}>
                             <div className="d-center-form">
-
                             </div>
                         </Paper>
                     </Grid>
