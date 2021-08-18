@@ -6,3 +6,19 @@
 .officerDetailsDisplay{
     margin-top: 2%;
 }
+
+.officerdisplayDiv{
+    display: grid;
+    grid-template-columns: 75% 25%;
+    box-sizing: border-box;
+    
+}
+th{
+    text-align: center;
+}
+td{
+    text-align: center;
+}
+.btnCol{
+    width: 6rem;
+}

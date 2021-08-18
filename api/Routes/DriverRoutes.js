@@ -59,4 +59,14 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/", (req, res) => {
+  Driver.find()
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(501).status(err);
+    });
+});
+
 module.exports = router;

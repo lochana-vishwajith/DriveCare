@@ -14,6 +14,8 @@ import OfficerDetailsDisplay from "./Components/TrafficOfficerManagement/Officer
 import DriverLogin from "./Components/DriverComponent/DriverLoginComponent/DriverLogin";
 import DriverProfile from "./Components/DriverComponent/DriverProfileComponent/DriverProfile";
 import DriverProfileUpdate from "./Components/DriverComponent/DriverProfileUpdateComponent/DriverProfileUpdate";
+import CreateFineUi from "./Components/TrafficOfficerManagement/createFineUI/createFineUi";
+
 export default class App extends Component {
   render() {
     return (
@@ -35,6 +37,7 @@ export default class App extends Component {
               path="/driverProfileUpdate"
               component={DriverProfileUpdate}
             />
+            <Route exact path="/createFine" component={CreateFineUi} />
           </Switch>
         </Router>
       </div>
