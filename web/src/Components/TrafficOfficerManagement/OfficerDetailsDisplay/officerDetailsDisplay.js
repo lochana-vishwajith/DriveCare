@@ -65,6 +65,8 @@ export default class officerDetailsDisplay extends Component {
                       <th scope="col">Mobile No</th>
                       <th scope="col">Home No</th>
                       <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -78,13 +80,15 @@ export default class officerDetailsDisplay extends Component {
                         <td>{officer.officerReg}</td>
                         <td>{officer.mobile}</td>
                         <td>{officer.home}</td>
-                        <td className="btnCol">
-                          <i
+                        <td className="btnCol"><i
                             className="far fa-eye fa-lg"
                             onClick={this.aaa}
                             id="offView"
-                          />
-                          <i className="fas fa-pencil-alt fa-lg" />
+                          /></td>
+                        <td className="btnCol">                          <i className="fas fa-pencil-alt fa-lg" />
+</td>
+                        <td className="btnCol">
+                          
                           <i className="fas fa-trash fa-lg" />
                         </td>
                       </tr>

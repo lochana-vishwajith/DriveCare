@@ -11,6 +11,7 @@
     grid-template-columns: 80% 20%;
     box-sizing: border-box;
     column-gap: 2%;
+    margin-left: -4rem;
 }
 
 .fineInnerGrid {
@@ -94,6 +95,5 @@
     color: rgb(2, 2, 2);
     background-color: aliceblue;
     border-color: #920E0E;
-    /*set the color you want here*/
     border: 1px solid #920E0E;
 }

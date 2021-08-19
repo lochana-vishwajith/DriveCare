@@ -99,7 +99,7 @@ label {
     font-size: medium;
 }
 
-#profilePic {
+#profilePicOfficer {
     max-width: 73%;
     max-height: 80%;
     padding-right: 4%;
@@ -140,9 +140,10 @@ label {
         display: none;
     }
 }
+
 @media (max-width: 1200px) {
     .gridL {
         display: block;
-        
+
     }
 }
