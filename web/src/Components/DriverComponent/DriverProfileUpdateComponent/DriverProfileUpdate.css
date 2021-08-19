@@ -1,0 +1,42 @@
+.d-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  box-sizing: border-box;
+}
+#officerImgBtnlabel {
+  background: #920e0e;
+  color: aliceblue;
+  width: max-content;
+  height: 2rem;
+  border-radius: 1rem;
+  font-size: medium;
+  border: 0rem;
+  padding: 2% 2% 2% 2%;
+  text-align: center;
+  margin-top: 3%;
+}
+
+#d-text-in {
+  width: 100%;
+}
+
+#profilePic {
+  max-width: 25%;
+  max-height: 25%;
+  padding-right: 4%;
+  border-radius: 3rem;
+  margin-top: 2%;
+}
+
+#officerImgBtnlabel {
+  background: #920e0e;
+  color: aliceblue;
+  width: max-content;
+  height: 2rem;
+  border-radius: 1rem;
+  font-size: medium;
+  border: 0rem;
+  padding: 2% 2% 2% 2%;
+  text-align: center;
+  margin-top: 3%;
+}

@@ -37,6 +37,10 @@ const trafficOfficerSchema = new Schema({
     type: String,
     required: true,
   },
+  points: {
+    type: Number,
+    required: true,
+  },
 });
 const officerDetails = mongoose.model(
   "TrafficPoliceOfficer",
