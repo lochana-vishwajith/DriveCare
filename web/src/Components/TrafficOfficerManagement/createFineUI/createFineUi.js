@@ -6,6 +6,7 @@ import axios from "axios";
 import "./createFineUi.css";
 import moment from "moment";
 import DateBox from "devextreme-react/date-box";
+import Button from '../../ButtonComponent/button'
 
 const violations = [
   {
@@ -108,15 +109,19 @@ export default class createFineUi extends Component {
     );
   };
 
+  onCreateFine = () => {
+    alert("pressed");
+  }
+
   render() {
     const { onSelectDriver, violationType, finetype, selectedDriverDetails } =
       this.state;
     return (
       <div className="container">
         <div className="createFineMainDiv">
-          <h3>
+          <h2>
             <b>Create Fine</b>
-          </h3>
+          </h2>
           <hr />
           <div className="createFineGrid">
             <div className="formDiv">
@@ -252,9 +257,17 @@ export default class createFineUi extends Component {
                         )}
                       </div>
                     </form>
-                    <br />
-                    <br />
+                   
+                    
                   </div>
+                  <center><Button
+                    id={"createFine"}
+                    value={"Create Fine"}
+                    classname={"createFineBtn"}
+                    type={"submit"}
+                    onSubmit={this.onCreateFine}
+                  /></center>
+                  <br/>
                 </Paper>
               </Grid>
             </div>
@@ -342,6 +355,7 @@ export default class createFineUi extends Component {
               </div>
             </div>
           </div>
+         
         </div>
       </div>
     );
