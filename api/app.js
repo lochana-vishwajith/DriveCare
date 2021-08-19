@@ -42,6 +42,8 @@ app.use("/adminDetails", adminDetails);
 
 const fineDetails = require("./Routes/fineRoutes");
 app.use("/fine", fineDetails);
+const driverComments = require("./Routes/DriverCommentsRoute");
+app.use("/driverComments", driverComments);
 
 const connection = mongoose.connection;
 connection.once("open", () => {
