@@ -28,18 +28,20 @@ app.use("/driver", driverDetails);
 const courtDetails = require("./Routes/CourtRoutes");
 app.use("/court", courtDetails);
 
-const PoliceStationDetails =require("./Routes/PoliceStationRoutes")
-app.use("/policeStation",PoliceStationDetails);
+const PoliceStationDetails = require("./Routes/PoliceStationRoutes");
+app.use("/policeStation", PoliceStationDetails);
 
+const Rules = require("./Routes/RulesRoutes");
+app.use("/rules", Rules);
 
-const Rules = require("./Routes/RulesRoutes")
-app.use("/rules",Rules)
+const RulesCategory = require("./Routes/RulesCategoryRoutes");
+app.use("/rulesCategory", RulesCategory);
 
-const RulesCategory = require("./Routes/RulesCategoryRoutes")
-app.use("/rulesCategory",RulesCategory);
+const adminDetails = require("./Routes/CentralAdminDetailsRoute");
+app.use("/adminDetails", adminDetails);
 
-const adminDetails =require("./Routes/CentralAdminDetailsRoute");
-app.use("/adminDetails",adminDetails);
+const fineDetails = require("./Routes/fineRoutes");
+app.use("/fine", fineDetails);
 
 const connection = mongoose.connection;
 connection.once("open", () => {
