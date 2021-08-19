@@ -47,10 +47,10 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = req.params.id;
 
-  Driver.find({ licenceNumber: id })
+  await Driver.find({ licenceNumber: id })
     .then((result) => {
       res.status(200).send(result);
     })

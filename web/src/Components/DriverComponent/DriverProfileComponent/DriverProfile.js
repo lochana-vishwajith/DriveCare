@@ -76,7 +76,7 @@ export default class DriverProfile extends Component {
                           <b>{item.dob}</b>
                         </div>
                       </div>
-                      <div className="border rounded border-danger p-3 ml-1">
+                      <div className="border rounded border-danger p-3">
                         <label>
                           <h3>Contact Info</h3>
                         </label>
@@ -121,7 +121,7 @@ export default class DriverProfile extends Component {
                           </div>
                         </div>
                       </div>
-                      <div className="border rounded border-danger p-3 ml-1">
+                      <div className="border rounded border-danger p-3">
                         <center>
                           <img
                             src={this.state.profilePicURL}
@@ -153,7 +153,7 @@ export default class DriverProfile extends Component {
                   ))}
                 </div>
                 {driverDetails.map((item, index) => (
-                  <div className="d-grid-responsive" key={(item, index)}>
+                  <div className="d-grid-responsive" key={index}>
                     <div className="border rounded border-danger p-3 ml-1">
                       <center>
                         <img

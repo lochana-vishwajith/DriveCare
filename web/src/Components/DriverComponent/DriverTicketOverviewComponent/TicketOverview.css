@@ -1,0 +1,14 @@
+.d-ticekt-grid {
+display: grid;
+  grid-template-columns: 60% 40%;
+  grid-gap: 1%;
+  box-sizing: border-box;
+  margin-bottom: 1%;
+}
+
+.d-comment-grid{
+    display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 1%;
+  box-sizing: border-box;
+}

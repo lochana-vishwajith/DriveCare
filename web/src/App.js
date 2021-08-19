@@ -24,6 +24,8 @@ import DriverDetails from "./Components/CourtComponent/DriverDetails/DriverDetai
 import DriverComments from "./Components/CourtComponent/DriverComments/DriverComments";
 import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDetails";
 import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
+import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketComponent/OngoingTicket";
+import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
 
 export default class App extends Component {
   render() {
@@ -63,6 +65,8 @@ export default class App extends Component {
               component={OfficerDetails}
             />
             <Route exact path="/courtChangePoints" component={ChangePoints} />
+            <Route exact path="/ongoingTickets" component={OngoingTicket} />
+            <Route exact path="/ticketOverview" component={TicketOverview} />
           </Switch>
         </Router>
       </div>
