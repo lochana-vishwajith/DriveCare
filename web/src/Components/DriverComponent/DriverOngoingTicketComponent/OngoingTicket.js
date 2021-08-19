@@ -31,7 +31,7 @@ export default class OngoingTicket extends Component {
               <div>
                 <ul className="list-group list-group-flush">
                     <Link to={"/ticketOverview"}>
-                    <li className="list-group-item d-flex justify-content-around">
+                    <li className="list-group-item d-flex justify-content-around">                                                        
                         <h4 className="p-3">High Speed</h4><p className="p-3">at Battaramulla</p><p className="p-3">Fine: Rs.1500</p><p className="p-3">08/05/2021</p>
                     </li>
                     </Link>
