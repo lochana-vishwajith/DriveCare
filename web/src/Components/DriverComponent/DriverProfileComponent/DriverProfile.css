@@ -1,6 +1,6 @@
 .d-grid {
   display: grid;
-  grid-template-columns: 40% 40% 20%;
+  grid-template-columns: 200px 200px 100px;
   grid-gap: 1%;
   box-sizing: border-box;
 }
