@@ -3,22 +3,25 @@
     padding: 2%;
 }
 
-.officerDetailsDisplay{
+.officerDetailsDisplay {
     margin-top: 2%;
 }
 
-.officerdisplayDiv{
+.officerdisplayDiv {
     display: grid;
     grid-template-columns: 75% 25%;
     box-sizing: border-box;
-    
+
 }
-th{
+
+th {
     text-align: center;
 }
-td{
+
+td {
     text-align: center;
 }
-.btnCol{
-    width: 6rem;
+
+.btnCol {
+    width: 1rem;
 }

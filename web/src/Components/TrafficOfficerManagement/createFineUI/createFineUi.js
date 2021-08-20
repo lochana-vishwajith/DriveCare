@@ -6,18 +6,21 @@ import axios from "axios";
 import "./createFineUi.css";
 import moment from "moment";
 import DateBox from "devextreme-react/date-box";
+import Button from "../../ButtonComponent/button";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const violations = [
   {
-    value: 1200.0,
+    value: [1200.0, "611b3f058448cc2c78a12776"],
     label: "sssss",
   },
   {
-    value: 3000.0,
+    value: [3000.0, "611b3f058448cc2c78a12776"],
     label: "dddd",
   },
   {
-    value: 1000.0,
+    value: [1000.0, "611b3f058448cc2c78a12776"],
     label: "hhhh",
   },
 ];
@@ -39,8 +42,26 @@ export default class createFineUi extends Component {
       violationType: [],
       selectedDriverDetails: "",
       totalFine: 0,
+      onSelectDriver: "",
+      officerDetails: [],
+      ViolationRules: [],
     };
   }
+
+  getViolationRules = () => {
+    axios
+      .get("http://localhost:9000/rules")
+      .then((res) => {
+        console.log("Data : ", res.data);
+        this.setState({ ViolationRules: res.data });
+      })
+      .catch((err) => {
+        console.log("failed to get rules");
+        toast.error("Failed To Retreive Rules", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
 
   componentDidMount() {
     axios
@@ -61,7 +82,18 @@ export default class createFineUi extends Component {
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Failed To Retreive Drivers", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
+
+    this.setState({
+      officerDetails: [
+        localStorage.getItem("officerOne"),
+        localStorage.getItem("officerTwo"),
+      ],
+    });
+    this.getViolationRules();
   }
 
   getDriverDetailsByNic = (id) => {
@@ -103,9 +135,38 @@ export default class createFineUi extends Component {
   calculateTotalFine = () => {
     this.setState(
       this.state.violationType.forEach((element) => {
-        this.state.totalFine = this.state.totalFine + element.value;
+        this.state.totalFine = this.state.totalFine + element.value[0];
       })
     );
+  };
+
+  onCreateFine = () => {
+    const {
+      violationType,
+      finetype,
+      selectedDriverDetails,
+      courtDate,
+      officerDetails,
+    } = this.state;
+    const details = {
+      driverID: selectedDriverDetails._id,
+      violationType,
+      Officers: officerDetails._id,
+      courtDate,
+      fineType: finetype,
+    };
+    axios
+      .post("http://localhost:9000/fine", details)
+      .then((res) => {
+        toast.success("Successfully Fine Created", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+      .catch((err) => {
+        toast.error("Fine Creation Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
   };
 
   render() {
@@ -114,9 +175,9 @@ export default class createFineUi extends Component {
     return (
       <div className="container">
         <div className="createFineMainDiv">
-          <h3>
+          <h2>
             <b>Create Fine</b>
-          </h3>
+          </h2>
           <hr />
           <div className="createFineGrid">
             <div className="formDiv">
@@ -252,9 +313,17 @@ export default class createFineUi extends Component {
                         )}
                       </div>
                     </form>
-                    <br />
-                    <br />
                   </div>
+                  <center>
+                    <Button
+                      id={"createFine"}
+                      value={"Create Fine"}
+                      classname={"createFineBtn"}
+                      type={"submit"}
+                      onSubmit={this.onCreateFine}
+                    />
+                  </center>
+                  <br />
                 </Paper>
               </Grid>
             </div>

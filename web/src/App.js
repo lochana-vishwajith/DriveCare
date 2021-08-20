@@ -26,6 +26,8 @@ import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDe
 import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
 import CentralAdminAddDetails from "./Components/CentralAdminComponent/CentralAdminDetails/CentralAdminDataAdd"
 import AdminLogin from "./Components/CentralAdminComponent/CentralAdminLogin/CentralAdminLogin"
+import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketComponent/OngoingTicket";
+import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
 import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin"
 import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation"
 export default class App extends Component {
@@ -68,6 +70,8 @@ export default class App extends Component {
             <Route exact path="/courtChangePoints" component={ChangePoints} />
 
             <Route exact path = "/centralAdminAdd" component = {CentralAdminAddDetails}/>
+            <Route exact path="/ongoingTickets" component={OngoingTicket} />
+            <Route exact path="/ticketOverview" component={TicketOverview} />
             <Route exact path = "/adminLogin" component = {AdminLogin} />
             <Route exact path = "/policeStationLogin" component = {PoliceStationLogin} />
             <Route exact path = "/AddPoliceStation" component = {PoliceStationAdd} />
