@@ -5,3 +5,9 @@ h1 {
 .points {
   padding-left: 30%;
 }
+
+.pointcard {
+  padding-left: 85%;
+  text-align: center;
+  border-color: aliceblue;
+}

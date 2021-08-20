@@ -8,7 +8,7 @@ class SearchDriver extends React.Component {
         <h1>Search the driver</h1>
         <br />
         <br />
-
+        <h3>Enter the drivers licences number</h3>
         <br />
         <div className="input-group rounded">
           <input
@@ -18,9 +18,9 @@ class SearchDriver extends React.Component {
             aria-label="Search"
             aria-describedby="search-addon"
           />
-
-          <button className="btn btn-primary">Search</button>
         </div>
+        <br />
+        <button className="btn btn-primary btnSearch">Search</button>
       </div>
     );
   }
