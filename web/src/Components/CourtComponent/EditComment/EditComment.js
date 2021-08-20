@@ -19,7 +19,7 @@ class EditComment extends React.Component {
     axios
       .get(`http://localhost:9000/court/getc/${this.props.match.params.id}`)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         this.setState({ date: response.data.date });
         this.setState({ comment: response.data.comment });
       })
@@ -33,6 +33,7 @@ class EditComment extends React.Component {
   }
 
   onSubmit(e) {
+    e.preventDefault();
     const newComment = {
       comment: this.state.comment,
     };
@@ -43,6 +44,8 @@ class EditComment extends React.Component {
         newComment
       )
       .then((response) => {
+        console.log("awaaaaaaaaaa");
+        console.log(e);
         alert("Comment updated sucessfully");
         window.location = "/courtDriverComments";
       })
