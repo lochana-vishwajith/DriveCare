@@ -50,7 +50,7 @@ export default class App extends Component {
             <Route exact path="/courtAddComment" component={AddComment} />
             <Route exact path="/courtLogin" component={CourtLogin} />
             <Route exact path="/courtSearch" component={SearchDriver} />
-            <Route exact path="/courtEditComment" component={EditComment} />
+            <Route exact path="/courtEditComment/:id" component={EditComment} />
             <Route exact path="/courtDriverDetails" component={DriverDetails} />
             <Route
               exact

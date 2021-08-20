@@ -9,6 +9,7 @@ class DriverComments extends React.Component {
       comments: [],
     };
     this.deleteComment = this.deleteComment.bind(this);
+    this.updateComment = this.updateComment.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +35,11 @@ class DriverComments extends React.Component {
       .catch((error) => {
         console.log(`Error - ${error.message}`);
       });
+  }
+
+  updateComment(e) {
+    console.log(e);
+    window.location = `/courtEditComment/${e}`;
   }
 
   render() {
@@ -62,6 +68,16 @@ class DriverComments extends React.Component {
                     }}
                   >
                     Delete
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    onClick={(e) => {
+                      this.updateComment(comment._id);
+                    }}
+                  >
+                    Update
                   </button>
                 </td>
               </tr>
