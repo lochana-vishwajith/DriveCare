@@ -1,22 +1,73 @@
 import React from "react";
 import "./EditComment.css";
+import axios from "axios";
+
+const initialState = {
+  date: "",
+  comment: "",
+};
 
 class EditComment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    axios
+      .get(`http://localhost:9000/court/getc/${this.props.match.params.id}`)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ date: response.data.date });
+        this.setState({ comment: response.data.comment });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmit(e) {
+    const newComment = {
+      comment: this.state.comment,
+    };
+
+    axios
+      .put(
+        `http://localhost:9000/court/putc/${this.props.match.params.id}`,
+        newComment
+      )
+      .then((response) => {
+        alert("Comment updated sucessfully");
+        window.location = "/courtDriverComments";
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
   render() {
     return (
       <div className="container">
         <h1>Edit Comment</h1>
 
-        <form>
+        <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label for="exampleInputEmail1">Enter Date</label>
             <input
               disabled
-              type="date"
+              type="text"
               class="form-control"
-              id="date"
+              name="date"
               placeholder="Enter the date"
               height="250px"
+              onChange={this.onChange}
+              value={this.state.date}
             />
           </div>
           <br />
@@ -26,9 +77,11 @@ class EditComment extends React.Component {
             <textarea
               type="text"
               class="form-control"
-              id="text"
+              name="comment"
               aria-describedby="emailHelp"
               placeholder="Enter the description"
+              onChange={this.onChange}
+              value={this.state.comment}
             />
           </div>
           <br />
