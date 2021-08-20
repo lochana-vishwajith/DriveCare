@@ -281,7 +281,7 @@ export default class trafficOfficerReg extends Component {
                       <img
                         src={image}
                         class="w-100 shadow-1-strong rounded mb-4"
-                        id="profilePic"
+                        id="profilePicOfficer"
                         alt=""
                       />
                     </center>

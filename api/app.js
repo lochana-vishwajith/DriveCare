@@ -40,6 +40,8 @@ app.use("/rulesCategory", RulesCategory);
 const adminDetails = require("./Routes/CentralAdminDetailsRoute");
 app.use("/adminDetails", adminDetails);
 
+const fineDetails = require("./Routes/fineRoutes");
+app.use("/fine", fineDetails);
 const driverComments = require("./Routes/DriverCommentsRoute");
 app.use("/driverComments", driverComments);
 
