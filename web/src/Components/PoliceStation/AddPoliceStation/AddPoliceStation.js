@@ -39,54 +39,48 @@ export default class PoliceStationLogin extends Component {
 
 
                                 <form>
-                                    <div className="one-line-box">
-                                        <div className="form-group col-md-6">
-                                            <label htmlFor="name" float = "right" >registrationNo</label>
-                                            <input type="text" className="form-control" id="name"
-                                                   placeholder="Name" name="name"/>
+                                    <div className="row">
+                                        <div className="col">
+                                            <label htmlFor="registrationNo">Registration Number</label>
+                                            <input type="text" className="form-control" placeholder="Registration Number"
+                                                   aria-label="registrationNo" name = "registrationNo" id="registrationNo"/>
                                         </div>
-                                        <div className="text-box-2">
-                                            <label htmlFor="nicNumber">office_Number</label>
-                                            <input type="text" className="form-control" id="nicNumber"
-                                                   placeholder="NIC Number" name="nicNumber"/>
+                                        <div className="col">
+                                            <label htmlFor="officeNumber">Office Number</label>
+                                            <input type="text" className="form-control" placeholder="Office Number"
+                                                   aria-label="officeNumber" id="officeNumber" name = "officeNumber"/>
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="workstation">workstation_Address</label>
-                                        <input type="text" className="form-control" id="workstation"
-                                               placeholder="workstation" name="workstation"/>
+                                        <label htmlFor="workstation_Address">Address</label>
+                                        <input type="text" className="form-control" id="workstation_Address"
+                                               placeholder="Address" name="workstation_Address"/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="OfficeAddress">email</label>
-                                        <input type="text" className="form-control" id="OfficeAddress"
-                                               placeholder="Office Address"  name ="OfficeAddress"/>
+                                        <label htmlFor="email">Email</label>
+                                        <input type="text" className="form-control" id="email"
+                                               placeholder="Email"  name ="email"/>
                                     </div>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
-                                            <label htmlFor="email">Email</label>
-                                            <input type="text" className="form-control" id="email" name = "email" placeholder="Email"/>
+                                            <label htmlFor="mobile_Number">Telephone</label>
+                                            <input type="text" className="form-control" id="mobile_Number" name = "mobile_Number" placeholder="Telephone Number"/>
                                         </div>
+                                        <br></br>
                                         <div className="form-group col-md-6">
-                                            <label htmlFor="officerRegistrationNumber">Officer RegistrationNumber</label>
-                                            <input type="text" className="form-control" id="officerRegistrationNumber" name = "officerRegistrationNumber"
-                                                   placeholder="Officer RegistrationNumber"/>
-                                        </div>
-                                    </div>
-                                    <div className="form-row">
-                                        <div className="form-group col-md-6">
-                                            <label htmlFor="officeTelephone" float = "right" >Office Telephone Number</label>
-                                            <input type="name" className="form-control" id="officeTelephone"
-                                                   placeholder="Office Telephone Number" name="officeTelephone"/>
-                                        </div>
-                                        <div className="form-group col-md-6">
-                                            <label htmlFor="mobileNumber">Mobile Number</label>
-                                            <input type="text" className="form-control" id="mobileNumber"
-                                                   placeholder="Mobile Number" name= " mobileNumber"/>
+                                            <label htmlFor="station_grade">Station Category</label>
+                                            <select className="custom-select custom-select-sm" id="station_grade" name = "station_grade">
+                                                <option selected>Open this select menu</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
                                         </div>
                                     </div>
+                                    <br></br>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
-                                            <label htmlFor="password" password= "right" >Password</label>
+                                            <label htmlFor="password" >Password</label>
                                             <input type="password" className="form-control" id="password"
                                                    placeholder="Password" name="password"/>
                                         </div>
@@ -95,9 +89,11 @@ export default class PoliceStationLogin extends Component {
                                             <input type="password" className="form-control" id="rPassword"
                                                    placeholder="Re-Enter Password" name= "rPassword"/>
                                         </div>
+                                        <br/>
                                     </div>
-
-                                    <button type="submit" className="btn btn-primary">Sign in</button>
+                                    <div className="col-md-12 text-center">
+                                    <button  type="submit" className="btn btn-primary">Add Police Station</button>
+                                    </div>
                                 </form>
 
 

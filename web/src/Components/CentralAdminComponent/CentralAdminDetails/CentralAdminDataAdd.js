@@ -9,32 +9,52 @@ export default class PoliceStationLogin extends Component {
     constructor(props) {
         super(props);
 
+        this.state ={
+
+        }
+
     }
     //name,nicNumber,email,workstation,mobileNumber,officeAddress,officeNumber,officerRegistrationNumber
     render() {
         return (
             <div>
+                <div className="container">
+                    <div className="mt-1">
+                        <center>
+                            <div className="d-reg">
+                                <i>Welcome to</i>
+                            </div>
+                            <div className="d-dc">
+                                <b>Edit Central Admin Details</b>
+                            </div>
+                        </center>
+                        <hr></hr>
+                    </div>
+                    <Grid>
+                        <Paper elevation={20}>
                             <div className="d-center-form">
+
+
                                 <form>
-                                    <div className="one-line-box">
-                                        <div className="form-group col-md-6">
-                                            <label htmlFor="name" float = "right" >Name</label>
-                                            <input type="text" className="form-control" id="name"
-                                                   placeholder="Name" name="name"/>
+                                    <div className="row">
+                                        <div className="col">
+                                            <label htmlFor="name">Name</label>
+                                            <input type="text" className="form-control" placeholder="Name"
+                                                   aria-label="name" name = "name" id="name"/>
                                         </div>
-                                        <div className="text-box-2">
-                                            <label htmlFor="nicNumber">NIC Number</label>
-                                            <input type="text" className="form-control" id="nicNumber"
-                                                   placeholder="NIC Number" name="nicNumber"/>
+                                        <div className="col">
+                                            <label htmlFor="nicNumber">Nic Number</label>
+                                            <input type="text" className="form-control" placeholder="Nic Number"
+                                                   aria-label="nicNumber" id="nicNumber" name = "nicNumber"/>
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="workstation">workstation</label>
+                                        <label htmlFor="workstation">Workstation</label>
                                         <input type="text" className="form-control" id="workstation"
                                                placeholder="workstation" name="workstation"/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="OfficeAddress">officeAddress</label>
+                                        <label htmlFor="OfficeAddress">Office Address</label>
                                         <input type="text" className="form-control" id="OfficeAddress"
                                                placeholder="Office Address"  name ="OfficeAddress"/>
                                     </div>
@@ -43,11 +63,11 @@ export default class PoliceStationLogin extends Component {
                                             <label htmlFor="email">Email</label>
                                             <input type="text" className="form-control" id="email" name = "email" placeholder="Email"/>
                                         </div>
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="officerRegistrationNumber">Officer RegistrationNumber</label>
-                                                <input type="text" className="form-control" id="officerRegistrationNumber" name = "officerRegistrationNumber"
-                                                       placeholder="Officer RegistrationNumber"/>
-                                            </div>
+                                        <div className="form-group col-md-6">
+                                            <label htmlFor="officerRegistrationNumber">Officer RegistrationNumber</label>
+                                            <input type="text" className="form-control" id="officerRegistrationNumber" name = "officerRegistrationNumber"
+                                                   placeholder="Officer RegistrationNumber"/>
+                                        </div>
                                     </div>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
@@ -61,11 +81,15 @@ export default class PoliceStationLogin extends Component {
                                                    placeholder="Mobile Number" name= " mobileNumber"/>
                                         </div>
                                     </div>
-                                    <button type="submit" className="btn btn-primary">Sign in</button>
+                                    <div className="col-md-12 text-center">
+                                        <button type="submit" className="btn btn-primary">Sign in</button>
+                                    </div>
                                 </form>
-
                             </div>
-                       </div>
+                        </Paper>
+                    </Grid>
+                </div>
+            </div>
         );
     }
 }

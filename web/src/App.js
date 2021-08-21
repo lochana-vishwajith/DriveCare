@@ -30,6 +30,9 @@ import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketCompo
 import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
 import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin"
 import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation"
+import AddRuleCategories from "./Components/CentralAdminComponent/RuleCategories/AddRuleCategories/AddRuleCategories";
+import AddRules from "./Components/CentralAdminComponent/Rules/AddRule/AddRules";
+
 export default class App extends Component {
   render() {
     return (
@@ -75,6 +78,8 @@ export default class App extends Component {
             <Route exact path = "/adminLogin" component = {AdminLogin} />
             <Route exact path = "/policeStationLogin" component = {PoliceStationLogin} />
             <Route exact path = "/AddPoliceStation" component = {PoliceStationAdd} />
+            <Route exact path = "/addRulesCategories" component = {AddRuleCategories} />
+            <Route  path = "/addRules" component = {AddRules} />
           </Switch>
         </Router>
       </div>
