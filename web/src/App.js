@@ -26,6 +26,7 @@ import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDe
 import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
 import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketComponent/OngoingTicket";
 import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
+import AddCommentPolice from "./Components/CourtComponent/AddCommentPolice/AddCommentPolice";
 
 export default class App extends Component {
   render() {
@@ -50,6 +51,11 @@ export default class App extends Component {
             />
             <Route exact path="/createFine" component={CreateFineUi} />
             <Route exact path="/courtAddComment" component={AddComment} />
+            <Route
+              exact
+              path="/courtAddCommentpolice"
+              component={AddCommentPolice}
+            />
             <Route exact path="/courtLogin" component={CourtLogin} />
             <Route exact path="/courtSearch" component={SearchDriver} />
             <Route exact path="/courtEditComment/:id" component={EditComment} />

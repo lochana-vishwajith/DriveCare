@@ -51,7 +51,7 @@ class DriverComments extends React.Component {
           <thead className="thead-dark">
             <tr>
               <th scope="col">DATE</th>
-              <th scope="col">DESCRIPTION</th>
+              <th scope="col">COMMENT</th>
               <th></th>
               <th></th>
             </tr>

@@ -28,6 +28,9 @@ app.use("/driver", driverDetails);
 const courtDetails = require("./Routes/CourtRoutes");
 app.use("/court", courtDetails);
 
+const courtPoliceDetails = require("./Routes/CourtPoliceRoutes");
+app.use("/courtp", courtPoliceDetails);
+
 const PoliceStationDetails = require("./Routes/PoliceStationRoutes");
 app.use("/policeStation", PoliceStationDetails);
 
