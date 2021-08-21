@@ -12,27 +12,20 @@ import TrafficOfficerReg from "./Components/TrafficOfficerManagement/TrafficOicR
 import DriverReg from "./Components/DriverComponent/DriverRegisterComponent/DriverReg";
 import OfficerDetailsDisplay from "./Components/TrafficOfficerManagement/OfficerDetailsDisplay/officerDetailsDisplay";
 import DriverLogin from "./Components/DriverComponent/DriverLoginComponent/DriverLogin";
+<<<<<<< HEAD
 import AddComment from "./Components/CourtComponent/AddComment/AddComment";
 import CourtLogin from "./Components/CourtComponent/CourtLogin/CourtLogin";
-import DriverProfile from "./Components/DriverComponent/DriverProfileComponent/DriverProfile";
-import DriverProfileUpdate from "./Components/DriverComponent/DriverProfileUpdateComponent/DriverProfileUpdate";
-import CreateFineUi from "./Components/TrafficOfficerManagement/createFineUI/createFineUi";
-
 import SearchDriver from "./Components/CourtComponent/SearchDriver/SearchDriver";
 import EditComment from "./Components/CourtComponent/EditComment/EditComment";
 import DriverDetails from "./Components/CourtComponent/DriverDetails/DriverDetails";
 import DriverComments from "./Components/CourtComponent/DriverComments/DriverComments";
 import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDetails";
 import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
-import CentralAdminAddDetails from "./Components/CentralAdminComponent/CentralAdminDetails/CentralAdminDataAdd"
-import AdminLogin from "./Components/CentralAdminComponent/CentralAdminLogin/CentralAdminLogin"
-import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketComponent/OngoingTicket";
-import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
-import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin"
-import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation"
-import AddRuleCategories from "./Components/CentralAdminComponent/RuleCategories/AddRuleCategories/AddRuleCategories";
-import AddRules from "./Components/CentralAdminComponent/Rules/AddRule/AddRules";
 
+=======
+import DriverProfile from "./Components/DriverComponent/DriverProfileComponent/DriverProfile";
+import DriverProfileUpdate from "./Components/DriverComponent/DriverProfileUpdateComponent/DriverProfileUpdate";
+>>>>>>> origin/master
 export default class App extends Component {
   render() {
     return (
@@ -48,17 +41,11 @@ export default class App extends Component {
               path="/officerDisplay"
               component={OfficerDetailsDisplay}
             />
-            <Route exact path="/driverDisplay" component={DriverProfile} />
-            <Route
-              exact
-              path="/driverProfileUpdate"
-              component={DriverProfileUpdate}
-            />
-            <Route exact path="/createFine" component={CreateFineUi} />
+<<<<<<< HEAD
             <Route exact path="/courtAddComment" component={AddComment} />
             <Route exact path="/courtLogin" component={CourtLogin} />
             <Route exact path="/courtSearch" component={SearchDriver} />
-            <Route exact path="/courtEditComment/:id" component={EditComment} />
+            <Route exact path="/courtEditComment" component={EditComment} />
             <Route exact path="/courtDriverDetails" component={DriverDetails} />
             <Route
               exact
@@ -71,15 +58,14 @@ export default class App extends Component {
               component={OfficerDetails}
             />
             <Route exact path="/courtChangePoints" component={ChangePoints} />
-
-            <Route exact path = "/centralAdminAdd" component = {CentralAdminAddDetails}/>
-            <Route exact path="/ongoingTickets" component={OngoingTicket} />
-            <Route exact path="/ticketOverview" component={TicketOverview} />
-            <Route exact path = "/adminLogin" component = {AdminLogin} />
-            <Route exact path = "/policeStationLogin" component = {PoliceStationLogin} />
-            <Route exact path = "/AddPoliceStation" component = {PoliceStationAdd} />
-            <Route exact path = "/addRulesCategories" component = {AddRuleCategories} />
-            <Route  path = "/addRules" component = {AddRules} />
+=======
+            <Route exact path="/driverDisplay" component={DriverProfile} />
+            <Route
+              exact
+              path="/driverProfileUpdate"
+              component={DriverProfileUpdate}
+            />
+>>>>>>> origin/master
           </Switch>
         </Router>
       </div>
