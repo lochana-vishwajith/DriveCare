@@ -1,5 +1,5 @@
 import React from "react";
-import "./EditComment.css";
+import "./AddCommentPolice.css";
 import axios from "axios";
 
 const initialState = {
@@ -7,25 +7,12 @@ const initialState = {
   comment: "",
 };
 
-class EditComment extends React.Component {
+class AddComment extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState;
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    axios
-      .get(`http://localhost:9000/court/getc/${this.props.match.params.id}`)
-      .then((response) => {
-        //console.log(response.data);
-        this.setState({ date: response.data.date });
-        this.setState({ comment: response.data.comment });
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
   }
 
   onChange(e) {
@@ -34,20 +21,17 @@ class EditComment extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const newComment = {
+    const comment = {
+      date: this.state.date,
       comment: this.state.comment,
     };
+    console.log("data entered");
 
     axios
-      .put(
-        `http://localhost:9000/court/putc/${this.props.match.params.id}`,
-        newComment
-      )
-      .then((response) => {
-        console.log("awaaaaaaaaaa");
-        console.log(e);
-        alert("Comment updated sucessfully");
-        window.location = "/courtDriverComments";
+      .post(`http://localhost:9000/courtp/postc`, comment)
+      .then((respose) => {
+        alert("Comment entered");
+        window.location = "/courtOfficerDetails";
       })
       .catch((error) => {
         console.log(error.message);
@@ -57,20 +41,18 @@ class EditComment extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1>Edit Comment</h1>
+        <h1>Add Comment</h1>
 
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label for="exampleInputEmail1">Enter Date</label>
             <input
-              disabled
-              type="text"
-              class="form-control"
+              type="date"
+              className="form-control"
               name="date"
               placeholder="Enter the date"
               height="250px"
               onChange={this.onChange}
-              value={this.state.date}
             />
           </div>
           <br />
@@ -79,16 +61,15 @@ class EditComment extends React.Component {
             <label for="exampleInputEmail1">Enter the Description</label>
             <textarea
               type="text"
-              class="form-control"
+              className="form-control"
               name="comment"
               aria-describedby="emailHelp"
               placeholder="Enter the description"
               onChange={this.onChange}
-              value={this.state.comment}
             />
           </div>
           <br />
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </form>
@@ -97,4 +78,4 @@ class EditComment extends React.Component {
   }
 }
 
-export default EditComment;
+export default AddComment;

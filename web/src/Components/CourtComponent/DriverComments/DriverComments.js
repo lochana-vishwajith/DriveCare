@@ -48,50 +48,65 @@ class DriverComments extends React.Component {
         <h1>Driver Comments</h1>
 
         <table className="table">
-          <thead>
+          <thead className="thead-dark">
             <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Description</th>
+              <th scope="col">DATE</th>
+              <th scope="col">COMMENT</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
 
           {this.state.comments.map((comment, index) => (
             <tbody key={index}>
               <tr>
-                <th scope="row">{comment.date}</th>
+                <td scope="row">{comment.date}</td>
                 <td>{comment.comment}</td>
                 <td>
-                  <button
+                  {/* <button
                     className="btn btn-danger"
                     onClick={(e) => {
                       this.deleteComment(comment._id);
                     }}
                   >
                     Delete
-                  </button>
+                  </button> */}
+                  <i
+                    style={{ color: "red" }}
+                    className="fas fa-trash fa-2x"
+                    onClick={(e) => {
+                      this.deleteComment(comment._id);
+                    }}
+                  />
                 </td>
                 <td>
-                  <button
+                  {/* <button
                     className="btn btn-primary"
                     onClick={(e) => {
                       this.updateComment(comment._id);
                     }}
                   >
                     Update
-                  </button>
+                  </button> */}
+                  <i
+                    className="fas fa-edit fa-2x"
+                    onClick={(e) => {
+                      this.updateComment(comment._id);
+                    }}
+                  ></i>
                 </td>
               </tr>
             </tbody>
           ))}
         </table>
 
-        <button type="button" class="btn btn-success">
+        <button type="button" class="btn btn-success btnz">
           Generate Report
         </button>
         <a href="/courtAddComment">
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary btnz"
             style={{ float: "right" }}
           >
             Add Comment
