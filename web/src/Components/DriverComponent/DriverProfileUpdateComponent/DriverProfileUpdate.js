@@ -28,6 +28,7 @@ export default class DriverProfileUpdate extends Component {
       image:
         "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628183905292_pngwing.com.png?alt=media&token=0f85489d-8c99-4f2b-9d0e-1144b64c733d",
       driverDetails: [],
+      licenseIssueDate: "",
     };
   }
   componentDidMount() {
@@ -89,6 +90,10 @@ export default class DriverProfileUpdate extends Component {
 
   licenceExChange = (e) => {
     this.setState({ licenceExDate: e.value });
+  };
+
+  licenceIssueChange = (e) => {
+    this.setState({ licenseIssueDate: e.value });
   };
 
   hnadlerFileChange = (e) => {
@@ -171,6 +176,9 @@ export default class DriverProfileUpdate extends Component {
       profilePicURL: this.state.profilePicUrl
         ? this.state.profilePicUrl
         : this.state.driverDetails[0].profilePicURL,
+      licenseIssueDate: this.state.licenseIssueDate
+        ? this.state.licenseIssueDate
+        : this.state.driverDetails[0].licenseIssueDate,
     };
     console.log("Data:", dataSet);
     axios

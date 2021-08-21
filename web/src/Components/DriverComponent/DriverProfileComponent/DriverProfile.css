@@ -1,56 +1,66 @@
-.d-grid {
+.d-grid-d {
   display: grid;
-  grid-template-columns: 200px 200px 100px;
+  grid-template-columns: 39% 39% 20%;
   grid-gap: 1%;
   box-sizing: border-box;
 }
 
-.d-grid > div {
+.d-grid-d > div {
   padding: 1% 0;
   font-size: 20px;
 }
 
-.d-points {
+.d-points-d {
   font-size: 55px;
 }
 
-.d-grid-responsive {
+.d-grid-responsive-d {
   display: none;
 }
 
 @media (max-width: 1200px) {
-  .d-dispaly-web {
+  .d-dispaly-web-d {
     display: none;
   }
 
-  .d-grid-responsive {
+  .d-grid-responsive-d {
     display: grid;
   }
 }
 
-.d-btn-active {
+.d-btn-active-d {
   color: rgb(20, 170, 20);
 }
 
-.d-btn-pending {
+.d-btn-pending-d {
   color: rgb(204, 204, 21);
 }
 
-.d-btn-Cancelled {
+.d-btn-Cancelled-d {
   color: rgb(199, 31, 31);
 }
 
-.d-points-g {
+.d-points-g-d {
   color: rgb(20, 170, 20);
   font-size: 55px;
 }
 
-.d-points-y {
+.d-points-y-d {
   color: rgb(204, 204, 21);
   font-size: 55px;
 }
 
-.d-points-r {
+.d-points-r-d {
   color: rgb(199, 31, 31);
   font-size: 55px;
+}
+
+.img {
+  width: 194.5px;
+  height: 194.5px;
+  border-radius: 50%;
+}
+
+.d-grid-clr {
+  background-color: #f2f2f2;
 }

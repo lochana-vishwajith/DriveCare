@@ -35,9 +35,9 @@ router.post("/", (req, res) => {
     .then((result) => {
       console.log("Successfully added to the fine db");
       driver
-        .findByIdAndUpdate(result, {
+        .findByIdAndUpdate(driverID, {
           $push: {
-            Fines: result._id,
+            fines: result._id,
           },
         })
         .then((data) => {
