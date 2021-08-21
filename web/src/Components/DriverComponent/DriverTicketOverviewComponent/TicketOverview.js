@@ -3,7 +3,10 @@ import React, { Component } from "react";
 import "./TicketOverview.css";
 import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
 import axios from "axios";
-import TextBox from "devextreme-react/text-box";
+import TextArea from "devextreme-react/text-area";
+import { toast } from "react-toastify";
+import moment from "moment";
+import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 
 export default class TicketOverview extends Component {
   constructor(props) {
@@ -37,6 +40,69 @@ export default class TicketOverview extends Component {
   handleClose = () => {
     this.setState({ popupVisible: false });
   };
+
+  commentChange = (e) => {
+    this.setState({ newComments: e.value });
+  };
+
+  onAddComment = () => {
+    const dataSet = {
+      comment: this.state.newComments,
+    };
+    axios
+      .post("http://localhost:9000/driverComments", dataSet)
+      .then(async () => {
+        toast.success("Successfully Comment Added", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        axios
+          .get("http://localhost:9000/driverComments/611ea43896506623c8d173a0")
+          .then((response) => {
+            console.log("Data:", response);
+            this.setState({ comments: response.data });
+            console.log(this.state.comments);
+          })
+          .catch((error) => {
+            console.log("Data not Retriewed", error);
+          });
+      })
+      .catch((error) => {
+        console.log("Comment Adding Failed", error);
+        toast.error("Comment Adding Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+
+  onDeleteComment = (id) => {
+    console.log("Delete Worked", id);
+
+    axios
+      .delete(`http://localhost:9000/driverComments/${id}`)
+      .then((response) => {
+        toast.success("Comment Deleted!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+
+        axios
+          .get("http://localhost:9000/driverComments/611ea43896506623c8d173a0")
+          .then((response) => {
+            console.log("Data:", response);
+            this.setState({ comments: response.data });
+            console.log(this.state.comments);
+          })
+          .catch((error) => {
+            console.log("Data not Retriewed", error);
+          });
+      })
+      .catch((error) => {
+        console.log("Delete Error", error);
+        toast.error("Comment Delete Failed! ", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+
   render() {
     return (
       <div>
@@ -52,7 +118,7 @@ export default class TicketOverview extends Component {
           <Grid>
             <Paper elevation={20} className="p-4">
               <div className="d-ticekt-grid">
-                <div className="border rounded  border-danger p-3">
+                <div className="border rounded  border-danger p-3 d-ticket-clr">
                   <label>
                     <h3>Violation Details</h3>
                   </label>
@@ -74,7 +140,7 @@ export default class TicketOverview extends Component {
                     <br />
                   </div>
                 </div>
-                <div className="border rounded  border-danger p-3">
+                <div className="border rounded  border-danger p-3 d-ticket-clr">
                   <label>
                     <h3>Officer Details</h3>
                   </label>
@@ -86,7 +152,7 @@ export default class TicketOverview extends Component {
                     <h3>Comments</h3>
                     <button
                       type="button"
-                      class="btn btn-outline-danger btn-sm px-4"
+                      className="btn btn-outline-danger btn-sm px-4"
                       onClick={this.handleOpen}
                     >
                       Add
@@ -110,35 +176,62 @@ export default class TicketOverview extends Component {
                       of={this.state.positionOf}
                     />
                     <div className="dx-field" id="d-text-in">
-                      <TextBox
+                      <TextArea
+                        height={150}
                         name="newComments"
                         value={this.state.newComments}
-                        onValueChanged={this.fNameChange}
+                        onValueChanged={this.commentChange}
                         showClearButton={true}
                         placeholder="Add Comment here"
-                      >
-                      </TextBox>
-                      <button
-                          type="button"
-                          class="btn btn-outline-danger btn-sm px-4"
-                        >
-                          Add
-                        </button>
+                      />
+                      <div class="row">
+                        <div class="col text-center">
+                          <button
+                            type="button"
+                            className="btn btn-outline-danger btn-sm px-4 mt-3"
+                            onClick={this.onAddComment}
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </Popup>
-                  <ul >
-                    <li className="d-flex">
-                      <p>Test</p><p className="float-right">date</p>
-                      <hr/>
-                    </li>
-                  </ul>
+                  <div class="row d-flex justify-content-center mt-2">
+                    {this.state.comments.map((item, index) => (
+                      <div class="col-md-12" key={index}>
+                        <div class="card p-2">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="user d-flex flex-row align-items-center">
+                              <span>
+                                <small class="font-weight-bold">
+                                  {item.comment}
+                                </small>
+                              </span>
+                            </div>
+                            <small>
+                              {moment(item.commentDate)
+                                .startOf("hour")
+                                .fromNow()}
+                              <DeleteForeverOutlinedIcon
+                                color="action"
+                                onClick={() => {
+                                  this.onDeleteComment(item._id);
+                                }}
+                              />
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className="border rounded  border-danger p-3">
                   <label className="d-flex justify-content-between">
                     <h3>Evidance</h3>
                     <button
                       type="button"
-                      class="btn btn-outline-danger btn-sm px-4"
+                      className="btn btn-outline-danger btn-sm px-4"
                     >
                       Add
                     </button>

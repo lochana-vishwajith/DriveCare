@@ -1,7 +1,28 @@
 import React from "react";
 import "./OfficerDetails.css";
+import axios from "axios";
 
 class OfficerDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "Kamal Gunarathana",
+      comments: [],
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get(`http://localhost:9000/courtp/getc/`)
+      .then((response) => {
+        this.setState({ comments: response.data });
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
   render() {
     return (
       <div>
@@ -24,6 +45,7 @@ class OfficerDetails extends React.Component {
         <div className="form-group">
           <label>Name :</label>
           <input
+            value={this.state.name}
             disabled
             type="text"
             class="form-control"
@@ -34,30 +56,29 @@ class OfficerDetails extends React.Component {
         <br />
         <br />
         <table className="table">
-          <thead>
+          <thead className="thead-dark">
             <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Comment</th>
+              <th scope="col">DATE</th>
+              <th scope="col">COMMENT</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-            </tr>
-          </tbody>
+
+          {this.state.comments.map((comment, index) => (
+            <tbody key={index}>
+              <tr>
+                <td scope="row">{comment.date}</td>
+                <td>{comment.comment}</td>
+              </tr>
+            </tbody>
+          ))}
         </table>
         <br />
-        <a href="/courtAddComment">
-          <button type="button" className="btn btn-primary">
+        <a href="/courtAddCommentpolice">
+          <button
+            style={{ float: "right" }}
+            type="button"
+            className="btn btn-primary"
+          >
             Add Comment
           </button>
         </a>
