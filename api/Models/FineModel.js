@@ -15,6 +15,31 @@ const fineSchema = new Schema({
     type: Date,
     required: true,
   },
+  offenceDate: {
+    type: Date,
+    required: true,
+  },
+  place: {
+    type: String,
+    required: true,
+  },
+  vehicelNo: {
+    type: String,
+    required: true,
+  },
+  CourtPlace: {
+    type: String,
+    required: true,
+  },
+  isPayed: {
+    type: Boolean,
+    required: false,
+  },
+
+  confirmImage: {
+    type: String,
+    required: false,
+  },
   violationType: [
     {
       type: mongoose.Schema.Types.ObjectId,

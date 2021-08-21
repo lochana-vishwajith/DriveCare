@@ -1,10 +1,20 @@
 const router = require("express").Router();
 const Fines = require("../Models/FineModel");
-const Driver = require("../Models/DriverModel");
+const driver = require("../Models/DriverModel");
 
 router.post("/", (req, res) => {
-  const { driverID, violationType, Officers, comments, courtDate, fineType } =
-    req.body;
+  const {
+    driverID,
+    violationType,
+    Officers,
+    comments,
+    courtDate,
+    fineType,
+    vehicelNo,
+    offenceDate,
+    place,
+    CourtPlace,
+  } = req.body;
 
   const fineDetails = new Fines({
     driverID,
@@ -13,23 +23,30 @@ router.post("/", (req, res) => {
     comments,
     courtDate,
     fineType,
+    vehicelNo,
+    offenceDate,
+    place,
+    CourtPlace,
+    isPayed: false,
   });
 
   fineDetails
     .save()
     .then((result) => {
-      console.log("Successfully added");
-      res.status(200).send(result);
-      Driver.findByIdAndUpdate(driverID, {
-        $push: {
-          fines: result._id,
-        },
-      })
-        .then((data) => {
-          console.log("Fine Added Successfully ", data);
+      console.log("Successfully added to the fine db");
+      driver
+        .findByIdAndUpdate(driverID, {
+          $push: {
+            fines: result._id,
+          },
         })
-        .catch((error) => {
-          console.log("Error", error);
+        .then((data) => {
+          console.log("Successfully added to the driver db");
+          res.status(200).send({ result, data });
+        })
+        .catch((err) => {
+          console.log("error in adding to the driver db");
+          res.status(501).send(err);
         });
     })
     .catch((err) => {
