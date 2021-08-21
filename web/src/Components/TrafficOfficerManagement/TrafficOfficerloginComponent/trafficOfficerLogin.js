@@ -5,8 +5,10 @@ import TextBox from "devextreme-react/text-box";
 import Button from "../../ButtonComponent/button";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import OfficerHeader from "../TrafficOfficerHeader/trafficOfficerHeader";
 
 toast.configure();
+
 export default class trafficOfficerLogin extends Component {
   constructor(props) {
     super(props);
@@ -45,115 +47,129 @@ export default class trafficOfficerLogin extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Grid>
-          <Paper elevation={20}>
-            <div className="trafficloginmaindiv">
-              <div className="trafficloginform">
-                <center>
-                  <img
-                    src={this.state.logo}
-                    class="w-100 shadow-1-strong rounded mb-4"
-                    id="driveLoginLogo"
-                    alt=""
-                  />
-                  <label className="loginWelcomeTextShort">Welcome to</label>
-                  <br />
-                  <label className="loginWelcomeTextShort" id="loginDrive">
-                    <b>DriveCare</b>
-                  </label>
-                </center>
-                <br />
-                <label className="loginText">
-                  <h2>
-                    <b>Login to expore</b>
-                  </h2>
-                </label>
-                <hr className="loginhr" />
-                <div class="dx-fieldset">
-                  <div class="dx-field">
+      <>
+        <OfficerHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div className="container">
+          <Grid>
+            <Paper elevation={20}>
+              <div className="trafficloginmaindiv">
+                <div className="trafficloginform">
+                  <center>
+                    <img
+                      src={this.state.logo}
+                      class="w-100 shadow-1-strong rounded mb-4"
+                      id="driveLoginLogo"
+                      alt=""
+                    />
+                    <label className="loginWelcomeTextShort">Welcome to</label>
                     <br />
-                    <br />
-                    <div className="officerLogin">
-                      <div className="officerOneID">
-                        <label className="loginLong">
-                          Officer Registration ID :
-                        </label>
-                        <label className="loginShort">Officer ID : </label>
-                        <TextBox
-                          mask="0000000000"
-                          className="officerReg"
-                          name="officerOneID"
-                          value={this.state.officerOneID}
-                          showClearButton={true}
-                          onValueChanged={this.officerOneIDChanged}
-                        />
-                      </div>
-                      <div className="officerTwoID">
-                        <label className="loginLong">
-                          Patner Officer Registration ID :
-                        </label>
-                        <label className="loginShort">Patner ID : </label>
-                        <TextBox
-                          mask="0000000000"
-                          className="officerReg"
-                          name="officerTwoID"
-                          value={this.state.officerTwoID}
-                          showClearButton={true}
-                          onValueChanged={this.officerTwoIDChanged}
-                        />
-                      </div>
-                    </div>
-                    <br />
-                    <div className="officerPW">
-                      <label>Password </label>
-                      <TextBox
-                        mode="password"
-                        placeholder="Enter password"
-                        name="officerPassword"
-                        showClearButton={true}
-                        value={this.state.officerPassword}
-                        onValueChanged={this.officerPWChanged}
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <center>
-                      <Button
-                        id={"officerReg"}
-                        value={"Login"}
-                        classname={"officerRegBtn"}
-                        type={"submit"}
-                        onSubmit={this.pressLoginBtn}
-                      />
-                    </center>
-                  </div>
-                </div>
-                <br />
-                <br />
-              </div>
-              <div className="trafficloginlogo">
-                <center>
-                  <img
-                    src={this.state.logo}
-                    class="w-100 shadow-1-strong rounded mb-4"
-                    id="driveLoginLong"
-                    alt=""
-                  />
-
-                  <div>
-                    <label className="loginWelcomeTextLong">Welcome to</label>
-                    <br />
-                    <label className="loginWelcomeNameTextLong">
+                    <label className="loginWelcomeTextShort" id="loginDrive">
                       <b>DriveCare</b>
                     </label>
+                  </center>
+                  <br />
+                  <label className="loginText">
+                    <h2>
+                      <b>Login to expore</b>
+                    </h2>
+                  </label>
+                  <hr className="loginhr" />
+                  <div class="dx-fieldset">
+                    <div class="dx-field">
+                      <br />
+                      <br />
+                      <div className="officerLogin">
+                        <div className="officerOneID">
+                          <label className="loginLong">
+                            Officer Registration ID :
+                          </label>
+                          <label className="loginShort">Officer ID : </label>
+                          <TextBox
+                            mask="0000000000"
+                            className="officerReg"
+                            name="officerOneID"
+                            value={this.state.officerOneID}
+                            showClearButton={true}
+                            onValueChanged={this.officerOneIDChanged}
+                          />
+                        </div>
+                        <div className="officerTwoID">
+                          <label className="loginLong">
+                            Patner Officer Registration ID :
+                          </label>
+                          <label className="loginShort">Patner ID : </label>
+                          <TextBox
+                            mask="0000000000"
+                            className="officerReg"
+                            name="officerTwoID"
+                            value={this.state.officerTwoID}
+                            showClearButton={true}
+                            onValueChanged={this.officerTwoIDChanged}
+                          />
+                        </div>
+                      </div>
+                      <br />
+                      <div className="officerPW">
+                        <label>Password </label>
+                        <TextBox
+                          mode="password"
+                          placeholder="Enter password"
+                          name="officerPassword"
+                          showClearButton={true}
+                          value={this.state.officerPassword}
+                          onValueChanged={this.officerPWChanged}
+                        />
+                      </div>
+                      <br />
+                      <br />
+                      <br />
+                      <center>
+                        <Button
+                          id={"officerReg"}
+                          value={"Login"}
+                          classname={"officerRegBtn"}
+                          type={"submit"}
+                          onSubmit={this.pressLoginBtn}
+                        />
+                        <br />
+                        <br />
+                        <p className="pwForgot">
+                          <b>Forgot Your Password?</b>
+                        </p>
+                      </center>
+                    </div>
                   </div>
-                </center>
+                  <br />
+                  <br />
+                </div>
+                <div className="trafficloginlogo">
+                  <center>
+                    <img
+                      src={this.state.logo}
+                      class="w-100 shadow-1-strong rounded mb-4"
+                      id="driveLoginLong"
+                      alt=""
+                    />
+
+                    <div>
+                      <label className="loginWelcomeTextLong">Welcome to</label>
+                      <br />
+                      <label className="loginWelcomeNameTextLong">
+                        <b>DriveCare</b>
+                      </label>
+                    </div>
+                  </center>
+                </div>
               </div>
-            </div>
-          </Paper>
-        </Grid>
-      </div>
+            </Paper>
+          </Grid>
+        </div>
+      </>
     );
   }
 }
