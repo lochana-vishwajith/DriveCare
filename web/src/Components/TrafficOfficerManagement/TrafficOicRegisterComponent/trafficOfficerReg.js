@@ -138,6 +138,7 @@ export default class trafficOfficerReg extends Component {
           nic,
           officerReg,
           profilePicUrl,
+          password: this.state.nic,
         };
         axios
           .post("http://localhost:9000/trafficOfficer", details)
@@ -159,15 +160,24 @@ export default class trafficOfficerReg extends Component {
     return (
       <div>
         <OfficerHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <div className="container">
           <div className="outerDiv">
-            <h3>
-              <b>Traffic Officer Registration</b>
-            </h3>
-            <hr />
-            <br />
             <Grid>
               <Paper elevation={20}>
+                <br />
+                <h3>
+                  <b className="regidterTxtOfficer">
+                    Traffic Officer Registration
+                  </b>
+                </h3>
+                <hr />
+                <br />
                 <div className="grid">
                   <div className="gridR">
                     <div className="dx-fieldset">
