@@ -25,4 +25,13 @@ router.post("/", (req, res) => {
         });
 });
 
+router.get("/getAllPoliceStations", async (req, res) => {
+    try {
+        const stations = await PoliceStation.find();
+        res.send(stations);
+    } catch (error) {
+        res.send(`Error - ${error}`);
+    }
+});
+
 module.exports = router;

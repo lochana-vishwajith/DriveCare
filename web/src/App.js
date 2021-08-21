@@ -32,7 +32,7 @@ import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLo
 import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation"
 import AddRuleCategories from "./Components/CentralAdminComponent/RuleCategories/AddRuleCategories/AddRuleCategories";
 import AddRules from "./Components/CentralAdminComponent/Rules/AddRule/AddRules";
-
+import PoliceStationList from "./Components/PoliceStation/PoliceStationList/PoliceStationList";
 export default class App extends Component {
   render() {
     return (
@@ -80,6 +80,7 @@ export default class App extends Component {
             <Route exact path = "/AddPoliceStation" component = {PoliceStationAdd} />
             <Route exact path = "/addRulesCategories" component = {AddRuleCategories} />
             <Route  path = "/addRules" component = {AddRules} />
+            <Route  path = "/policestationList" component = {PoliceStationList} />
           </Switch>
         </Router>
       </div>
