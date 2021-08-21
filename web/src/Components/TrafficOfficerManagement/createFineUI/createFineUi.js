@@ -13,20 +13,6 @@ import Header from "../TrafficOfficerHeader/trafficOfficerHeader";
 
 const competentDrive = ["A", "B", "C"];
 
-const violations = [
-  {
-    value: [1200.0, "611b3f058448cc2c78a12776"],
-    label: "sssss",
-  },
-  {
-    value: [3000.0, "611b3f058448cc2c78a12776"],
-    label: "dddd",
-  },
-  {
-    value: [1000.0, "611b3f058448cc2c78a12776"],
-    label: "hhhh",
-  },
-];
 const Court = [
   {
     value: "Kotuwa",
@@ -55,17 +41,20 @@ export default class createFineUi extends Component {
       mobile: "",
       expire: "",
       finetype: "",
+      address: "",
       courtDate: "",
+      licenseIssueDate: "",
       violationType: [],
       selectedDriverDetails: "",
       totalFine: 0,
       onSelectDriver: "",
-      officerDetails: [],
+      Officers: [],
       ViolationRules: [],
       offenceDate: "",
       place: "",
       vehicelNo: "",
       CourtPlace: "",
+      allrules: [],
       image:
         "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628183905292_pngwing.com.png?alt=media&token=0f85489d-8c99-4f2b-9d0e-1144b64c733d",
     };
@@ -78,6 +67,16 @@ export default class createFineUi extends Component {
       .then((res) => {
         console.log("Data : ", res.data);
         this.setState({ ViolationRules: res.data });
+        let violations = [];
+        this.state.ViolationRules.map((item, index) => {
+          let categoryDetails = {
+            value: item._id,
+            label: item.ruleName,
+          };
+          console.log(categoryDetails.value);
+          violations.push(categoryDetails);
+        });
+        this.setState({ allrules: violations });
       })
       .catch((err) => {
         console.log("failed to get rules");
@@ -88,6 +87,8 @@ export default class createFineUi extends Component {
   };
 
   componentDidMount() {
+    localStorage.setItem("officerOne", "6116b0b785807701e005c57f");
+    localStorage.setItem("officerTwo", "6116b0b785807701e005c57f");
     axios
       .get("http://localhost:9000/driver")
       .then((res) => {
@@ -112,7 +113,7 @@ export default class createFineUi extends Component {
       });
 
     this.setState({
-      officerDetails: [
+      Officers: [
         localStorage.getItem("officerOne"),
         localStorage.getItem("officerTwo"),
       ],
@@ -132,8 +133,14 @@ export default class createFineUi extends Component {
         this.setState({ mobile: element.mobile });
         this.setState({ selectedDriverDetails: element });
         this.setState({ image: element.profilePicURL });
+        this.setState({ address: element.address });
         this.setState({
           expire: moment(element.licenceExpiryDate).format("YYYY-MM-DD"),
+        });
+        this.setState({
+          licenseIssueDate: moment(element.licenseIssueDate).format(
+            "YYYY-MM-DD"
+          ),
         });
       }
     });
@@ -166,10 +173,11 @@ export default class createFineUi extends Component {
   };
 
   onSelectViolationType = (violationType) => {
-    this.setState({ violationType });
+    this.setState({ violationType: violationType.value });
+    console.log("v T :", violationType);
     this.calculateTotalFine();
   };
-  onSelectViolationType = (CourtPlace) => {
+  onSelectCourtPlace = (CourtPlace) => {
     this.setState({ CourtPlace });
   };
 
@@ -183,18 +191,26 @@ export default class createFineUi extends Component {
 
   onCreateFine = () => {
     const {
-      violationType,
-      finetype,
       selectedDriverDetails,
+      violationType,
+      Officers,
       courtDate,
-      officerDetails,
+      finetype,
+      vehicelNo,
+      offenceDate,
+      place,
+      CourtPlace,
     } = this.state;
     const details = {
       driverID: selectedDriverDetails._id,
       violationType,
-      Officers: officerDetails._id,
+      Officers,
       courtDate,
       fineType: finetype,
+      vehicelNo,
+      offenceDate,
+      place,
+      CourtPlace,
     };
     axios
       .post("http://localhost:9000/fine", details)
@@ -288,7 +304,7 @@ export default class createFineUi extends Component {
                               <div className="FineValidPerio">
                                 <div>
                                   <TextBox
-                                    value={this.state.LicenseIssueDate}
+                                    value={this.state.licenseIssueDate}
                                     showClearButton={true}
                                     className="fineTextBox"
                                     readOnly={true}
@@ -329,6 +345,7 @@ export default class createFineUi extends Component {
                                 value={this.state.place}
                                 showClearButton={true}
                                 className="fineTextBox"
+                                onValueChanged={this.placeChanged}
                               />
                             </div>
                             <div>
@@ -340,6 +357,7 @@ export default class createFineUi extends Component {
                                 value={this.state.vehicelNo}
                                 showClearButton={true}
                                 className="fineTextBox"
+                                onValueChanged={this.vehicelNoChanged}
                               />
                             </div>
                           </div>
@@ -351,7 +369,7 @@ export default class createFineUi extends Component {
                           <Select
                             className="basic-single"
                             isSearchable={true}
-                            options={violations}
+                            options={this.state.allrules}
                             onChange={this.onSelectViolationType}
                             value={violationType}
                             id="officerSelectVio"
@@ -431,6 +449,7 @@ export default class createFineUi extends Component {
                                   onChange={this.onSelectCourt}
                                   value={CourtPlace}
                                   id="officerSelectVio"
+                                  onChange={this.onSelectCourtPlace}
                                 />
                               </div>
                             </div>

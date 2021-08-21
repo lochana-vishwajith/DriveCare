@@ -50,7 +50,7 @@ router.post("/", (req, res) => {
         });
     })
     .catch((err) => {
-      console.log("error in adding");
+      console.log("error in adding", err);
       res.status(501).send(err);
     });
 });
