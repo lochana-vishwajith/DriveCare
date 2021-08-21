@@ -29,6 +29,7 @@ import AdminLogin from "./Components/CentralAdminComponent/CentralAdminLogin/Cen
 import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketComponent/OngoingTicket";
 import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
 import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin"
+import AddCommentPolice from "./Components/CourtComponent/AddCommentPolice/AddCommentPolice";
 import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation"
 import AddRuleCategories from "./Components/CentralAdminComponent/RuleCategories/AddRuleCategories/AddRuleCategories";
 import AddRules from "./Components/CentralAdminComponent/Rules/AddRule/AddRules";
@@ -48,14 +49,19 @@ export default class App extends Component {
               path="/officerDisplay"
               component={OfficerDetailsDisplay}
             />
-            <Route exact path="/driverDisplay" component={DriverProfile} />
+            <Route exact path="/driverDisplay/:id" component={DriverProfile} />
             <Route
               exact
-              path="/driverProfileUpdate"
+              path="/driverProfileUpdate/:id"
               component={DriverProfileUpdate}
             />
             <Route exact path="/createFine" component={CreateFineUi} />
             <Route exact path="/courtAddComment" component={AddComment} />
+            <Route
+              exact
+              path="/courtAddCommentpolice"
+              component={AddCommentPolice}
+            />
             <Route exact path="/courtLogin" component={CourtLogin} />
             <Route exact path="/courtSearch" component={SearchDriver} />
             <Route exact path="/courtEditComment/:id" component={EditComment} />

@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./DriverProfile.css";
+import moment from "moment";
 
 export default class DriverProfile extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class DriverProfile extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:9000/driver/L1254869")
+      .get(`http://localhost:9000/driver/${this.props.match.params.id}`)
       .then((result) => {
         console.log("Data:", result.data);
         this.setState({ driverDetails: result.data });
@@ -37,7 +38,7 @@ export default class DriverProfile extends Component {
                 <b>User Profile</b>
               </h2>
             </label>
-            <Link to="/driverProfileUpdate">
+            <Link to={`/driverProfileUpdate/${this.props.match.params.id}`}>
               <button type="button" class="btn btn-outline-danger btn-sm px-4">
                 Edit
               </button>
@@ -73,7 +74,7 @@ export default class DriverProfile extends Component {
                           <br />
                           <label>Date of Birth</label>
                           <br />
-                          <b>{item.dob}</b>
+                          <b>{moment(item.dob).format("MMMM Do YYYY")}</b>
                         </div>
                       </div>
                       <div className="border rounded border-danger p-3">
@@ -117,18 +118,31 @@ export default class DriverProfile extends Component {
                             <br />
                             <label>Expiry Date</label>
                             <br />
-                            <b>{item.licenceExpiryDate}</b>
+                            <b>
+                              {moment(item.licenceExpiryDate).format(
+                                "MMMM Do YYYY"
+                              )}
+                            </b>
                           </div>
                         </div>
                       </div>
                       <div className="border rounded border-danger p-3">
                         <center>
-                          <img
-                            src={this.state.profilePicURL}
-                            class="w-100 shadow-1-strong rounded mb-4"
-                            id="profilePic"
-                            alt=""
-                          />
+                          {this.state.profilePicURL ? (
+                            <img
+                              src={this.state.profilePicURL}
+                              class="w-100 shadow-1-strong rounded mb-4"
+                              id="profilePic"
+                              alt=""
+                            />
+                          ) : (
+                            <img
+                              src={this.state.image}
+                              class="w-100 shadow-1-strong rounded mb-4"
+                              id="profilePic"
+                              alt=""
+                            />
+                          )}
                         </center>
                         <hr />
                         <div className="border rounded border border-success p-1">
@@ -156,12 +170,21 @@ export default class DriverProfile extends Component {
                   <div className="d-grid-responsive" key={index}>
                     <div className="border rounded border-danger p-3 ml-1">
                       <center>
-                        <img
-                          src={this.state.profilePicURL}
-                          class="w-100 shadow-1-strong rounded mb-4"
-                          id="profilePic"
-                          alt=""
-                        />
+                        {this.state.profilePicURL ? (
+                          <img
+                            src={this.state.profilePicURL}
+                            class="w-100 shadow-1-strong rounded mb-4"
+                            id="profilePic"
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            src={this.state.image}
+                            class="w-100 shadow-1-strong rounded mb-4"
+                            id="profilePic"
+                            alt=""
+                          />
+                        )}
                       </center>
                       <hr />
                       <div className="border rounded border-danger p-1">
@@ -208,7 +231,7 @@ export default class DriverProfile extends Component {
                         <br />
                         <label>Date of Birth</label>
                         <br />
-                        <b>{item.dob}</b>
+                        <b>{moment(item.dob).format("MMMM Do YYYY")}</b>
                       </div>
                     </div>
                     <br />
@@ -251,7 +274,11 @@ export default class DriverProfile extends Component {
                           <br />
                           <label>Expiry Date</label>
                           <br />
-                          <b>{item.licenceExpiryDate}</b>
+                          <b>
+                            {moment(item.licenceExpiryDate).format(
+                              "MMMM Do YYYY"
+                            )}
+                          </b>
                         </div>
                       </div>
                     </div>

@@ -13,7 +13,6 @@ import DriverFooter from "../DriverFooterComponent/DriverFooter";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "./DriverReg.css";
-
 export default class DriverReg extends Component {
   constructor(props) {
     super(props);
@@ -81,6 +80,7 @@ export default class DriverReg extends Component {
         toast.success("Successfully Registered", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        window.location = `/driverProfileUpdate/${this.state.dLisenseNo}`;
       })
       .catch((error) => {
         console.log("Error Registration Failed", error);
@@ -110,7 +110,7 @@ export default class DriverReg extends Component {
               <div className="d-center-form">
                 <div className="d-center-input">
                   <div className="dx-fieldset">
-                    <div className="dx-field" id="d-text-in">
+                    <div className="dx-field d-text-in">
                       <label id="labelName">First Name</label>
                       <TextBox
                         name="fName"
@@ -124,7 +124,7 @@ export default class DriverReg extends Component {
                       </TextBox>
                     </div>
 
-                    <div className="dx-field" id="d-text-in">
+                    <div className="dx-field d-text-in">
                       <label id="labelName">Last Name</label>
                       <TextBox
                         name="lName"
@@ -137,7 +137,7 @@ export default class DriverReg extends Component {
                         </Validator>
                       </TextBox>
                     </div>
-                    <div className="dx-field" id="d-text-in">
+                    <div className="dx-field d-text-in">
                       <label id="labelName">Display Name</label>
 
                       <TextBox
@@ -151,7 +151,7 @@ export default class DriverReg extends Component {
                         </Validator>
                       </TextBox>
                     </div>
-                    <div className="dx-field" id="d-text-in">
+                    <div className="dx-field d-text-in">
                       <label id="labelName">Driving Lincence Number</label>
                       <TextBox
                         name="dLisenseNo"
@@ -165,7 +165,7 @@ export default class DriverReg extends Component {
                         </Validator>
                       </TextBox>
                     </div>
-                    <div className="dx-field" id="d-text-in">
+                    <div className="dx-field d-text-in">
                       <label id="labelName">Email</label>
                       <TextBox
                         name="email"
@@ -179,7 +179,7 @@ export default class DriverReg extends Component {
                         </Validator>
                       </TextBox>
                     </div>
-                    <div className="dx-field" id="d-text-in">
+                    <div className="dx-field d-text-in">
                       <label id="labelName">Password</label>
                       <TextBox
                         mode="password"
@@ -193,7 +193,7 @@ export default class DriverReg extends Component {
                         </Validator>
                       </TextBox>
                     </div>
-                    <div className="dx-field" id="d-text-in">
+                    <div className="dx-field d-text-in">
                       <label id="labelName">Confirm Password</label>
 
                       <TextBox mode="password" showClearButton={true}>
@@ -213,6 +213,7 @@ export default class DriverReg extends Component {
                           value={"Sign Up"}
                           classname={"driverRegBtn"}
                           type={"submit"}
+                          onSubmit={this.onSubmit}
                         />
                       </div>
                       <div className="d-btnReg-short">
@@ -225,7 +226,7 @@ export default class DriverReg extends Component {
                         />
                       </div>
                       <div className="mt-3 d-link">
-                        <Link>
+                        <Link to="/driverLogin">
                           <small>
                             Already Have a Account? <b>Sign In</b>
                           </small>
