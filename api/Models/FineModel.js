@@ -13,7 +13,7 @@ const fineSchema = new Schema({
   },
   courtDate: {
     type: Date,
-    required: true,
+    required: false,
   },
   offenceDate: {
     type: Date,
@@ -29,7 +29,7 @@ const fineSchema = new Schema({
   },
   CourtPlace: {
     type: String,
-    required: true,
+    required: false,
   },
   isPayed: {
     type: Boolean,
