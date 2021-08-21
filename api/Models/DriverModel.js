@@ -72,6 +72,10 @@ const driverSchema = new Schema({
       ref: "vehicelcategory",
     },
   ],
+  licenseIssueDate: {
+    type: Date,
+    required: false,
+  },
 });
 
 const driverDetails = mongoose.model("Driver", driverSchema);
