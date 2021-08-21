@@ -7,6 +7,7 @@ import "./DriverProfileUpdate.css";
 import { storage } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
 import axios from "axios";
+import moment from "moment";
 
 export default class DriverProfileUpdate extends Component {
   constructor(props) {
@@ -29,14 +30,21 @@ export default class DriverProfileUpdate extends Component {
       driverDetails: [],
     };
   }
-
   componentDidMount() {
     axios
-      .get("http://localhost:9000/driver/B1478523")
+      .get(`http://localhost:9000/driver/${this.props.match.params.id}`)
       .then((result) => {
         console.log("Data:", result.data);
         this.setState({ driverDetails: result.data });
         console.log(this.state.driverDetails);
+        {
+          if (!this.state.driverDetails[0].NIC) {
+            alert("Please Complete Your Info Here!");
+          }
+          // !this.state.driverDetails[0].NIC
+          //   ? alert("Please Complete Your Info Here!")
+          //   : alert("hi");
+        }
       })
       .catch((error) => {
         console.log("Data not Retriewed", error);
@@ -130,23 +138,39 @@ export default class DriverProfileUpdate extends Component {
     );
   };
 
-  userID = "611aa886d52aae35f410a634";
-
   onSubmit = async () => {
-    const userID = "611aa886d52aae35f410a634";
-    console.log("DriverDetails:", this.state.driverDetails);
+    const userID = this.state.driverDetails[0]._id;
+    console.log("DriverID:", userID);
     const dataSet = {
-      firstName: this.state.fName ? this.state.fName : this.state.driverDetails[0].firstName,
-      lastName: this.state.lName ? this.state.lName : this.state.driverDetails[0].lastName,
-      displayName: this.state.displayName ? this.state.displayName : this.state.driverDetails[0].displayName,
-      email: this.state.email ? this.state.email : this.state.driverDetails[0].email,
-      licenceNumber: this.state.dLisenseNo ? this.state.dLisenseNo : this.state.driverDetails[0].licenceNumber,
-      address: this.state.address ? this.state.address : this.state.driverDetails[0].address,
-      licenceExpiryDate: this.state.licenceExDate ? this.state.licenceExDate : this.state.driverDetails[0].licenceExpiryDate,
+      firstName: this.state.fName
+        ? this.state.fName
+        : this.state.driverDetails[0].firstName,
+      lastName: this.state.lName
+        ? this.state.lName
+        : this.state.driverDetails[0].lastName,
+      displayName: this.state.displayName
+        ? this.state.displayName
+        : this.state.driverDetails[0].displayName,
+      email: this.state.email
+        ? this.state.email
+        : this.state.driverDetails[0].email,
+      licenceNumber: this.state.dLisenseNo
+        ? this.state.dLisenseNo
+        : this.state.driverDetails[0].licenceNumber,
+      address: this.state.address
+        ? this.state.address
+        : this.state.driverDetails[0].address,
+      licenceExpiryDate: this.state.licenceExDate
+        ? this.state.licenceExDate
+        : this.state.driverDetails[0].licenceExpiryDate,
       NIC: this.state.nic ? this.state.nic : this.state.driverDetails[0].NIC,
-      mobile: this.state.mobile ? this.state.mobile : this.state.driverDetails[0].mobile,
+      mobile: this.state.mobile
+        ? this.state.mobile
+        : this.state.driverDetails[0].mobile,
       dob: this.state.dob ? this.state.dob : this.state.driverDetails[0].dob,
-      profilePicURL: this.state.profilePicUrl ? this.state.profilePicUrl : this.state.driverDetails[0].profilePicURL,
+      profilePicURL: this.state.profilePicUrl
+        ? this.state.profilePicUrl
+        : this.state.driverDetails[0].profilePicURL,
     };
     console.log("Data:", dataSet);
     axios
@@ -156,6 +180,7 @@ export default class DriverProfileUpdate extends Component {
         toast.success("Changes Saved!", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        // window.location = `/driverDisplay/${this.state.dLisenseNo}`;
       })
       .catch((error) => {
         console.log("Data not Retriewed", error);
@@ -284,7 +309,7 @@ export default class DriverProfileUpdate extends Component {
                         value={this.state.dob}
                         showClearButton={true}
                         onValueChanged={this.dobChanged}
-                        placeholder={item.dob}
+                        placeholder={moment(item.dob).format("MMMM Do YYYY")}
                       >
                         <Validator>
                           <RequiredRule message="Birthday is required" />
@@ -360,7 +385,9 @@ export default class DriverProfileUpdate extends Component {
                         value={this.state.licenceExDate}
                         showClearButton={true}
                         onValueChanged={this.licenceExChange}
-                        placeholder={item.licenceExpiryDate}
+                        placeholder={moment(item.licenceExpiryDate).format(
+                          "MMMM Do YYYY"
+                        )}
                       >
                         <Validator>
                           <RequiredRule message="Licence Expiry Date is required" />

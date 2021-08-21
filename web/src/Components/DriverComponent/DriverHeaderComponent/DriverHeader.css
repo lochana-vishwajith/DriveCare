@@ -1,7 +1,43 @@
-.color {
-    background-color: brown;
+.navbar-brand {
+  color: blanchedalmond !important;
+}
+.nav-link {
+  color: blanchedalmond !important;
+}
+#navbarNav {
+  color: blanchedalmond !important;
 }
 
-.d-nav-edit {
-    float: right;
+#driveLoginLogoH {
+  width: 3rem !important;
+  margin-left: 2rem !important;
+  margin-top: 0.5rem !important;
+}
+@media (max-width: 1200px) {
+  .driveLoginLogoH {
+    width: 5rem !important;
+    align-content: center !important;
+  }
+  .officerNav {
+    background: #880d11 !important;
+  }
+}
+@media (min-width: 1200px) {
+  .officerNav {
+    background: #880d11 !important;
+    height: 10% !important;
+  }
+}
+.profileOfficer {
+  float: right;
+}
+
+.headerDiv {
+  display: grid;
+  grid-template-columns: repeat();
+  box-sizing: border-box;
+}
+
+.d-space {
+  margin-bottom: 7%;
 }
