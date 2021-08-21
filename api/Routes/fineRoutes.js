@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Fines = require("../Models/FineModel");
+const Driver = require("../Models/DriverModel");
 
 router.post("/", (req, res) => {
   const { driverID, violationType, Officers, comments, courtDate, fineType } =
@@ -19,6 +20,17 @@ router.post("/", (req, res) => {
     .then((result) => {
       console.log("Successfully added");
       res.status(200).send(result);
+      Driver.findByIdAndUpdate(driverID, {
+        $push: {
+          fines: result._id,
+        },
+      })
+        .then((data) => {
+          console.log("Fine Added Successfully ", data);
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
     })
     .catch((err) => {
       console.log("error in adding");

@@ -22,10 +22,12 @@ export default class TicketOverview extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:9000/driverComments/611ea43896506623c8d173a0")
+      .get(
+        "http://localhost:9000/driverComments/comments/6120f31b6ae44444448b4cb0"
+      )
       .then((response) => {
         console.log("Data:", response);
-        this.setState({ comments: response.data });
+        this.setState({ comments: response.data.comments });
         console.log(this.state.comments);
       })
       .catch((error) => {
@@ -50,21 +52,15 @@ export default class TicketOverview extends Component {
       comment: this.state.newComments,
     };
     axios
-      .post("http://localhost:9000/driverComments", dataSet)
+      .post(
+        "http://localhost:9000/driverComments/6120f31b6ae44444448b4cb0",
+        dataSet
+      )
       .then(async () => {
         toast.success("Successfully Comment Added", {
           position: toast.POSITION.TOP_RIGHT,
         });
-        axios
-          .get("http://localhost:9000/driverComments/611ea43896506623c8d173a0")
-          .then((response) => {
-            console.log("Data:", response);
-            this.setState({ comments: response.data });
-            console.log(this.state.comments);
-          })
-          .catch((error) => {
-            console.log("Data not Retriewed", error);
-          });
+        window.location.reload();
       })
       .catch((error) => {
         console.log("Comment Adding Failed", error);
@@ -84,16 +80,7 @@ export default class TicketOverview extends Component {
           position: toast.POSITION.TOP_RIGHT,
         });
 
-        axios
-          .get("http://localhost:9000/driverComments/611ea43896506623c8d173a0")
-          .then((response) => {
-            console.log("Data:", response);
-            this.setState({ comments: response.data });
-            console.log(this.state.comments);
-          })
-          .catch((error) => {
-            console.log("Data not Retriewed", error);
-          });
+        window.location.reload();
       })
       .catch((error) => {
         console.log("Delete Error", error);
@@ -199,7 +186,7 @@ export default class TicketOverview extends Component {
                   </Popup>
                   <div class="row d-flex justify-content-center mt-2">
                     {this.state.comments.map((item, index) => (
-                      <div class="col-md-12" key={index}>
+                      <div class="col-md-12 mb-1" key={index}>
                         <div class="card p-2">
                           <div class="d-flex justify-content-between align-items-center">
                             <div class="user d-flex flex-row align-items-center">
