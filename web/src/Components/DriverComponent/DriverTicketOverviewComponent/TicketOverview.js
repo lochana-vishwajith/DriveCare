@@ -1,9 +1,8 @@
-import { Grid, IconButton, Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import React, { Component } from "react";
 import "./TicketOverview.css";
 import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
 import axios from "axios";
-import TextBox from "devextreme-react/text-box";
 import TextArea from "devextreme-react/text-area";
 import { toast } from "react-toastify";
 import moment from "moment";
@@ -56,6 +55,16 @@ export default class TicketOverview extends Component {
         toast.success("Successfully Comment Added", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        axios
+          .get("http://localhost:9000/driverComments/611ea43896506623c8d173a0")
+          .then((response) => {
+            console.log("Data:", response);
+            this.setState({ comments: response.data });
+            console.log(this.state.comments);
+          })
+          .catch((error) => {
+            console.log("Data not Retriewed", error);
+          });
       })
       .catch((error) => {
         console.log("Comment Adding Failed", error);
@@ -67,6 +76,31 @@ export default class TicketOverview extends Component {
 
   onDeleteComment = (id) => {
     console.log("Delete Worked", id);
+
+    axios
+      .delete(`http://localhost:9000/driverComments/${id}`)
+      .then((response) => {
+        toast.success("Comment Deleted!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+
+        axios
+          .get("http://localhost:9000/driverComments/611ea43896506623c8d173a0")
+          .then((response) => {
+            console.log("Data:", response);
+            this.setState({ comments: response.data });
+            console.log(this.state.comments);
+          })
+          .catch((error) => {
+            console.log("Data not Retriewed", error);
+          });
+      })
+      .catch((error) => {
+        console.log("Delete Error", error);
+        toast.error("Comment Delete Failed! ", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
   };
 
   render() {
@@ -163,14 +197,6 @@ export default class TicketOverview extends Component {
                       </div>
                     </div>
                   </Popup>
-                  {/* <ul>
-                    <li>
-                      <p>Test</p>
-                      <p className="float-right">date</p>
-                      <hr />
-                    </li>
-                  </ul> */}
-
                   <div class="row d-flex justify-content-center mt-2">
                     {this.state.comments.map((item, index) => (
                       <div class="col-md-12" key={index}>

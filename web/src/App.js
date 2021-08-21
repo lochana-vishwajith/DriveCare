@@ -43,10 +43,10 @@ export default class App extends Component {
               path="/officerDisplay"
               component={OfficerDetailsDisplay}
             />
-            <Route exact path="/driverDisplay" component={DriverProfile} />
+            <Route exact path="/driverDisplay/:id" component={DriverProfile} />
             <Route
               exact
-              path="/driverProfileUpdate"
+              path="/driverProfileUpdate/:id"
               component={DriverProfileUpdate}
             />
             <Route exact path="/createFine" component={CreateFineUi} />
