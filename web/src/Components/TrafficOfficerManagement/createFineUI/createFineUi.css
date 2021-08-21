@@ -25,6 +25,10 @@
     margin-top: 2%;
     margin-bottom: 2%;
 }
+#fineTextBox {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
 
 .leftDiv {
     padding-right: 2%;
@@ -96,4 +100,16 @@
     background-color: aliceblue;
     border-color: #920E0E;
     border: 1px solid #920E0E;
+}
+.createFineTxt{
+    margin-left: 2%;
+}
+.FineValidPerio{
+    display: grid;
+    grid-template-columns: 45% 10% 45%;
+    box-sizing: border-box;
+}
+.fineTo{
+    margin-left: 1rem;
+    margin-top: 0.5rem;
 }

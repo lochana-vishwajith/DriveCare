@@ -58,6 +58,20 @@ const driverSchema = new Schema({
     type: Number,
     required: true,
   },
+  fines: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "Fines",
+    },
+  ],
+  competentDrive: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "vehicelcategory",
+    },
+  ],
 });
 
 const driverDetails = mongoose.model("Driver", driverSchema);
