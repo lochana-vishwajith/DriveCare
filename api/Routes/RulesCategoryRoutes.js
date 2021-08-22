@@ -23,4 +23,18 @@ router.post("/", (req, res) => {
         });
 });
 
+
+router.get("/:id", async (req, res) => {
+    const id = req.params.id;
+
+    await RulesCategory.find({ licenceNumber: id })
+        .then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
+
+
 module.exports = router;

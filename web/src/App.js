@@ -34,6 +34,8 @@ import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPol
 import AddRuleCategories from "./Components/CentralAdminComponent/RuleCategories/AddRuleCategories/AddRuleCategories";
 import AddRules from "./Components/CentralAdminComponent/Rules/AddRule/AddRules";
 import PoliceStationList from "./Components/PoliceStation/PoliceStationList/PoliceStationList";
+import Viewadmindetails from "./Components/CentralAdminComponent/CentralAdminDataShow/Viewadmindetails";
+import PoliceStationViewSearchResult from "./Components/PoliceStation/ViewSearchResultComponent/ViewSearchResult";
 export default class App extends Component {
   render() {
     return (
@@ -87,6 +89,8 @@ export default class App extends Component {
             <Route exact path = "/addRulesCategories" component = {AddRuleCategories} />
             <Route  path = "/addRules" component = {AddRules} />
             <Route  path = "/policestationList" component = {PoliceStationList} />
+            <Route  path = "/viewAdminDetails" component = {Viewadmindetails} />
+            <Route  path = "/viewpolicesearch/:id" component = {PoliceStationViewSearchResult} />
           </Switch>
         </Router>
       </div>
