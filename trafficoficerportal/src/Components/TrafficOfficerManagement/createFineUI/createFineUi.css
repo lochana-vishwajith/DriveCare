@@ -1,0 +1,115 @@
+#officerSelectDriver {
+    padding: 2%;
+}
+
+.officerSelectDriver {
+    padding-left: 2%;
+}
+
+.createFineGrid {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    box-sizing: border-box;
+    column-gap: 2%;
+    margin-left: -4rem;
+}
+
+.fineInnerGrid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-sizing: border-box;
+
+}
+
+.fineTextBox {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+#fineTextBox {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.leftDiv {
+    padding-right: 2%;
+}
+
+.fineRadio {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-sizing: border-box;
+}
+
+.diverCards {
+    margin-top: 16%;
+}
+
+#driverStatusOfficer {
+    margin-top: -2rem;
+}
+
+#driverOfficerCards {
+    background: #a6a6a6 !important;
+
+}
+
+.createFineMainDiv {
+    margin-top: 3%;
+}
+
+#officerDisRem {
+    font-size: large;
+    color: black;
+}
+
+.pointGreenOfficer {
+    color: green;
+    font-size: 3rem;
+}
+
+.pointYellowOfficer {
+    color: yellow;
+    font-size: 3rem;
+
+}
+
+.pointRedOfficer {
+    color: red;
+    font-size: 3rem;
+
+}
+
+.fineTotal {
+    font-size: 3rem;
+}
+
+.createFineBtn {
+    background: #920E0E;
+    color: aliceblue;
+    width: 10rem;
+    height: 2.5rem;
+    border-radius: 1rem;
+    font-size: x-large;
+    border: 0rem;
+}
+
+.createFineBtn:hover,
+.createFineBtn:focus,
+.createFineBtn:active {
+    color: rgb(2, 2, 2);
+    background-color: aliceblue;
+    border-color: #920E0E;
+    border: 1px solid #920E0E;
+}
+.createFineTxt{
+    margin-left: 2%;
+}
+.FineValidPerio{
+    display: grid;
+    grid-template-columns: 45% 10% 45%;
+    box-sizing: border-box;
+}
+.fineTo{
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+}
