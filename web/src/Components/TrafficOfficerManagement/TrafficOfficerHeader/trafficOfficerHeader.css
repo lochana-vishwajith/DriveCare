@@ -28,6 +28,11 @@
         height: 15% !important;
     }
 }
+@media (min-width: 1200px) {
+    .links{
+        padding-top: 10%;
+    }
+}
 .profileOfficer{
     float: right;
 }
