@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const courtShema = new Schema({
   date: {
     type: Date,
-    required: false,
+    required: true,
   },
   comment: {
     type: String,

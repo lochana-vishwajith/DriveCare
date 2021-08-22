@@ -1,6 +1,7 @@
 import React from "react";
 import "./AddCommentPolice.css";
 import axios from "axios";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 const initialState = {
   date: "",
@@ -41,12 +42,24 @@ class AddComment extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1>Add Comment</h1>
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <h1>
+          <strong>Add Comment</strong>
+        </h1>
 
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label for="exampleInputEmail1">Enter Date</label>
             <input
+              required="true"
               type="date"
               className="form-control"
               name="date"
@@ -60,6 +73,7 @@ class AddComment extends React.Component {
           <div className="form-group">
             <label for="exampleInputEmail1">Enter the Description</label>
             <textarea
+              required="true"
               type="text"
               className="form-control"
               name="comment"
@@ -69,7 +83,11 @@ class AddComment extends React.Component {
             />
           </div>
           <br />
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            style={{ float: "right" }}
+            className="btn btn-danger"
+          >
             Submit
           </button>
         </form>

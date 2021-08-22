@@ -12,6 +12,7 @@ router.post("/", (req, res) => {
     nic,
     officerReg,
     profilePicUrl,
+    password,
   } = req.body;
 
   const trafficOfficerDetails = new TrafficOfficer({
@@ -24,6 +25,7 @@ router.post("/", (req, res) => {
     nic,
     officerReg,
     profilePicUrl,
+    password,
   });
   trafficOfficerDetails
     .save()
@@ -56,6 +58,10 @@ router.delete("/:id", async (req, res) => {
     .catch((err) => {
       res.status(501).send(err);
     });
+});
+
+router.put("/updatePw/:id", (req, res) => {
+  let id = req.params.id;
 });
 
 module.exports = router;

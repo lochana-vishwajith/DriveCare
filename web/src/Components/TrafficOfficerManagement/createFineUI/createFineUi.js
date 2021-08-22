@@ -11,18 +11,20 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../TrafficOfficerHeader/trafficOfficerHeader";
 
-const violations = [
+const competentDrive = ["A", "B", "C"];
+
+const Court = [
   {
-    value: [1200.0, "611b3f058448cc2c78a12776"],
-    label: "sssss",
+    value: "Kotuwa",
+    label: "Kotuwa",
   },
   {
-    value: [3000.0, "611b3f058448cc2c78a12776"],
-    label: "dddd",
+    value: "Nugegoda",
+    label: "Nugegoda",
   },
   {
-    value: [1000.0, "611b3f058448cc2c78a12776"],
-    label: "hhhh",
+    value: "Kaduwela",
+    label: "Kaduwela",
   },
 ];
 
@@ -39,14 +41,24 @@ export default class createFineUi extends Component {
       mobile: "",
       expire: "",
       finetype: "",
+      address: "",
       courtDate: "",
+      licenseIssueDate: "",
       violationType: [],
       selectedDriverDetails: "",
       totalFine: 0,
       onSelectDriver: "",
-      officerDetails: [],
+      Officers: [],
       ViolationRules: [],
+      offenceDate: "",
+      place: "",
+      vehicelNo: "",
+      CourtPlace: "",
+      allrules: [],
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628183905292_pngwing.com.png?alt=media&token=0f85489d-8c99-4f2b-9d0e-1144b64c733d",
     };
+    this.now = new Date();
   }
 
   getViolationRules = () => {
@@ -55,6 +67,16 @@ export default class createFineUi extends Component {
       .then((res) => {
         console.log("Data : ", res.data);
         this.setState({ ViolationRules: res.data });
+        let violations = [];
+        this.state.ViolationRules.map((item, index) => {
+          let categoryDetails = {
+            value: item._id,
+            label: item.ruleName,
+          };
+          console.log(categoryDetails.value);
+          violations.push(categoryDetails);
+        });
+        this.setState({ allrules: violations });
       })
       .catch((err) => {
         console.log("failed to get rules");
@@ -65,6 +87,8 @@ export default class createFineUi extends Component {
   };
 
   componentDidMount() {
+    localStorage.setItem("officerOne", "6116b0b785807701e005c57f");
+    localStorage.setItem("officerTwo", "6116b0b785807701e005c57f");
     axios
       .get("http://localhost:9000/driver")
       .then((res) => {
@@ -89,7 +113,7 @@ export default class createFineUi extends Component {
       });
 
     this.setState({
-      officerDetails: [
+      Officers: [
         localStorage.getItem("officerOne"),
         localStorage.getItem("officerTwo"),
       ],
@@ -108,11 +132,28 @@ export default class createFineUi extends Component {
         this.setState({ dob: moment(element.dob).format("YYYY-MM-DD") });
         this.setState({ mobile: element.mobile });
         this.setState({ selectedDriverDetails: element });
+        this.setState({ image: element.profilePicURL });
+        this.setState({ address: element.address });
         this.setState({
           expire: moment(element.licenceExpiryDate).format("YYYY-MM-DD"),
         });
+        this.setState({
+          licenseIssueDate: moment(element.licenseIssueDate).format(
+            "YYYY-MM-DD"
+          ),
+        });
       }
     });
+  };
+
+  offenceDateChanged = (e) => {
+    this.setState({ offenceDate: e.value });
+  };
+  placeChanged = (e) => {
+    this.setState({ place: e.value });
+  };
+  vehicelNoChanged = (e) => {
+    this.setState({ vehicelNo: e.value });
   };
 
   handlerChange = (e) => {
@@ -122,6 +163,9 @@ export default class createFineUi extends Component {
   courtDateSelected = (e) => {
     this.setState({ courtDate: e.value });
   };
+  offenceDateSelected = (e) => {
+    this.setState({ offenceDate: e.value });
+  };
 
   onSelectDriver = (onSelectDriver) => {
     this.setState({ onSelectDriver });
@@ -129,8 +173,12 @@ export default class createFineUi extends Component {
   };
 
   onSelectViolationType = (violationType) => {
-    this.setState({ violationType });
+    this.setState({ violationType: violationType.value });
+    console.log("v T :", violationType);
     this.calculateTotalFine();
+  };
+  onSelectCourtPlace = (CourtPlace) => {
+    this.setState({ CourtPlace });
   };
 
   calculateTotalFine = () => {
@@ -143,18 +191,26 @@ export default class createFineUi extends Component {
 
   onCreateFine = () => {
     const {
-      violationType,
-      finetype,
       selectedDriverDetails,
+      violationType,
+      Officers,
       courtDate,
-      officerDetails,
+      finetype,
+      vehicelNo,
+      offenceDate,
+      place,
+      CourtPlace,
     } = this.state;
     const details = {
       driverID: selectedDriverDetails._id,
       violationType,
-      Officers: officerDetails._id,
+      Officers,
       courtDate,
       fineType: finetype,
+      vehicelNo,
+      offenceDate,
+      place,
+      CourtPlace,
     };
     axios
       .post("http://localhost:9000/fine", details)
@@ -171,23 +227,33 @@ export default class createFineUi extends Component {
   };
 
   render() {
-    const { onSelectDriver, violationType, finetype, selectedDriverDetails } =
-      this.state;
+    const {
+      onSelectDriver,
+      violationType,
+      finetype,
+      selectedDriverDetails,
+      CourtPlace,
+      image,
+    } = this.state;
 
     return (
       <div>
         <Header />
         <div className="container">
+          <br />
+          <br />
+          <br />
           <div className="createFineMainDiv">
-            <h2>
-              <b>Create Fine</b>
-            </h2>
-            <hr />
             <div className="createFineGrid">
               <div className="formDiv">
                 <Grid>
                   <Paper elevation={20}>
                     <div className="fineForm">
+                      <br />
+                      <h2 className="createFineTxt">
+                        <b>Create Fine</b>
+                      </h2>
+                      <hr />
                       <form>
                         <br />
                         <label className="officerSelectDriver">
@@ -220,38 +286,78 @@ export default class createFineUi extends Component {
                             </div>
                             <div>
                               <label className="fineDriverName">
-                                Date Of Birth :
+                                Home Address :
                               </label>
 
                               <TextBox
-                                value={this.state.dob}
+                                value={this.state.address}
                                 showClearButton={true}
                                 className="fineTextBox"
                                 readOnly={true}
                               />
                             </div>
+
                             <div className="leftDiv">
                               <label className="fineDriverName">
-                                Driver Mobile No :
+                                Licence Valid Period :
+                              </label>
+                              <div className="FineValidPerio">
+                                <div>
+                                  <TextBox
+                                    value={this.state.licenseIssueDate}
+                                    showClearButton={true}
+                                    className="fineTextBox"
+                                    readOnly={true}
+                                  />
+                                </div>
+                                <div>
+                                  <label className="fineTo">to</label>
+                                </div>
+                                <div>
+                                  <TextBox
+                                    value={this.state.expire}
+                                    showClearButton={true}
+                                    className="fineTextBox"
+                                    readOnly={true}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <label className="fineDriverName">
+                                Date & Time Of Offence :
                               </label>
 
+                              <DateBox
+                                type="datetime"
+                                className="fineTextBox"
+                                name="offenceDate"
+                                defaultValue={this.now}
+                                value={this.state.offenceDate}
+                                showClearButton={true}
+                                onValueChanged={this.offenceDateSelected}
+                              />
+                            </div>
+                            <div className="leftDiv">
+                              <label className="fineDriverName">Place :</label>
+                              <br />
                               <TextBox
-                                value={this.state.mobile}
+                                value={this.state.place}
                                 showClearButton={true}
                                 className="fineTextBox"
-                                readOnly={true}
+                                onValueChanged={this.placeChanged}
                               />
                             </div>
                             <div>
                               <label className="fineDriverName">
-                                Licence Expire Date :
+                                Vehicle Registration Number :
                               </label>
-
+                              <br />
                               <TextBox
-                                value={this.state.expire}
+                                value={this.state.vehicelNo}
                                 showClearButton={true}
                                 className="fineTextBox"
-                                readOnly={true}
+                                onValueChanged={this.vehicelNoChanged}
                               />
                             </div>
                           </div>
@@ -263,11 +369,23 @@ export default class createFineUi extends Component {
                           <Select
                             className="basic-single"
                             isSearchable={true}
-                            options={violations}
+                            options={this.state.allrules}
                             onChange={this.onSelectViolationType}
                             value={violationType}
                             id="officerSelectVio"
                             isMulti
+                          />
+                          <br />
+                          <label className="fineDriverName">
+                            Competent To Drive :
+                          </label>
+
+                          <Select
+                            className="basic-single"
+                            value={competentDrive}
+                            id="officerSelectVio"
+                            isMulti
+                            readOnly
                           />
                           <br />
                           <div className="fineRadio">
@@ -306,14 +424,35 @@ export default class createFineUi extends Component {
                           </div>
                           <br />
                           {finetype == "court" && (
-                            <DateBox
-                              type="date"
-                              className="courtDate"
-                              name="courtDate"
-                              value={this.state.courtDate}
-                              showClearButton={true}
-                              onValueChanged={this.courtDateSelected}
-                            />
+                            <div className="fineInnerGrid">
+                              <div className="leftDiv">
+                                <label className="fineDriverName">
+                                  Court Date :
+                                </label>
+                                <DateBox
+                                  type="date"
+                                  className="courtDate"
+                                  name="courtDate"
+                                  value={this.state.courtDate}
+                                  showClearButton={true}
+                                  onValueChanged={this.courtDateSelected}
+                                />
+                              </div>
+                              <div>
+                                <label className="fineDriverName">
+                                  Court :
+                                </label>
+                                <Select
+                                  className="basic-single"
+                                  isSearchable={true}
+                                  options={Court}
+                                  onChange={this.onSelectCourt}
+                                  value={CourtPlace}
+                                  id="officerSelectVio"
+                                  onChange={this.onSelectCourtPlace}
+                                />
+                              </div>
+                            </div>
                           )}
                         </div>
                       </form>
@@ -328,10 +467,20 @@ export default class createFineUi extends Component {
                       />
                     </center>
                     <br />
+                    <br />
+                    <br />
                   </Paper>
                 </Grid>
               </div>
               <div className="pointOfficer">
+                <center>
+                  <img
+                    src={image}
+                    class="w-100 shadow-1-strong rounded mb-4"
+                    id="profilePicOfficer"
+                    alt=""
+                  />
+                </center>
                 <div className="diverCards">
                   <div
                     className="shadow-lg p-3 mb-5 bg-white rounded"

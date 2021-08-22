@@ -34,7 +34,6 @@ app.use("/courtp", courtPoliceDetails);
 const PoliceStationDetails = require("./Routes/PoliceStationRoutes");
 app.use("/policeStation", PoliceStationDetails);
 
-
 const Rules = require("./Routes/RulesRoutes");
 app.use("/rules", Rules);
 
@@ -47,8 +46,12 @@ app.use("/adminDetails", adminDetails);
 
 const fineDetails = require("./Routes/fineRoutes");
 app.use("/fine", fineDetails);
+
 const driverComments = require("./Routes/DriverCommentsRoute");
 app.use("/driverComments", driverComments);
+
+const vehicelcategory = require("./Routes/vehicleCategoryRoutes");
+app.use("/vehicelcategory", vehicelcategory);
 
 const connection = mongoose.connection;
 connection.once("open", () => {

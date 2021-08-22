@@ -2,6 +2,7 @@ import { Grid, Paper, Link } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 import Button from "../../ButtonComponent/button";
 
@@ -26,6 +27,14 @@ export default class CourtLogin extends Component {
     return (
       <div>
         <div className="container">
+          <CourtHeader />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
           <div className="mt-1">
             <center>
               <div className="d-reg">

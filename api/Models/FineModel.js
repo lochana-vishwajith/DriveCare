@@ -13,7 +13,32 @@ const fineSchema = new Schema({
   },
   courtDate: {
     type: Date,
+    required: false,
+  },
+  offenceDate: {
+    type: Date,
     required: true,
+  },
+  place: {
+    type: String,
+    required: true,
+  },
+  vehicelNo: {
+    type: String,
+    required: true,
+  },
+  CourtPlace: {
+    type: String,
+    required: false,
+  },
+  isPayed: {
+    type: Boolean,
+    required: false,
+  },
+
+  confirmImage: {
+    type: String,
+    required: false,
   },
   violationType: [
     {
@@ -31,8 +56,9 @@ const fineSchema = new Schema({
   ],
   comments: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: false,
+      ref: "DriverComments",
     },
   ],
 });
