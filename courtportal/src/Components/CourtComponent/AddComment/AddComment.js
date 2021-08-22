@@ -5,6 +5,7 @@ import CourtHeader from "../CourtHeader/CourtHeader";
 
 const initialState = {
   driverID: "61221d7b15d1cb322ce7d94c",
+  judgeID: "612273ca2b539024f4063aee",
   date: "",
   comment: "",
 };
@@ -25,6 +26,7 @@ class AddComment extends React.Component {
     e.preventDefault();
     const comment = {
       driverID: this.state.driverID,
+      judgeID: this.state.judgeID,
       date: this.state.date,
       comment: this.state.comment,
     };
@@ -88,7 +90,7 @@ class AddComment extends React.Component {
           <br />
           <button
             type="submit"
-            style={{ float: "right" }}
+            style={{ float: "right", backgroundColor: "#920e0e" }}
             className="btn btn-danger"
           >
             Submit

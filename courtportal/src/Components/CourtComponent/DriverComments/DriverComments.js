@@ -120,7 +120,7 @@ class DriverComments extends React.Component {
           <button
             type="button"
             class="btn btn-danger btnz"
-            style={{ float: "right" }}
+            style={{ float: "right", backgroundColor: "#920e0e" }}
           >
             Add Comment
           </button>

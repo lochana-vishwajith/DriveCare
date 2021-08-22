@@ -1,0 +1,31 @@
+.d-reg {
+  font-size: 1.3rem;
+  margin-left: -11.1%;
+}
+
+.d-dc {
+  font-size: 3rem;
+}
+
+@media (max-width: 1200px) {
+  .d-btnReg-long {
+    display: none;
+  }
+
+  .d-btnReg-short {
+    display: inline;
+  }
+
+  .d-center-input {
+    display: inline;
+  }
+
+  .d-reg {
+    font-size: 1rem;
+    margin-left: -21.1%;
+  }
+
+  .d-dc {
+    font-size: 2rem;
+  }
+}
