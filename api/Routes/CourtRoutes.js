@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Court = require("../Models/CourtModel");
+const driver = require("../Models/DriverModel");
 
 //get comments
 router.get("/getc", async (req, res) => {
@@ -22,19 +23,51 @@ router.get("/getc/:id", async (req, res) => {
 });
 
 //put a comment
+
 router.post("/postc", async (req, res) => {
-  const comment = new Court({
-    date: req.body.date,
-    comment: req.body.comment,
+  const { driverID, date, comment } = req.body;
+  const commentz = new Court({
+    driverID,
+    date,
+    comment,
   });
 
-  try {
-    const c1 = await comment.save();
-    res.send(c1);
-  } catch (error) {
-    res.send(error);
-  }
+  commentz
+    .save()
+    .then((result) => {
+      console.log(`REsult eka - ${result}`);
+
+      driver
+        .findByIdAndUpdate(driverID, {
+          $push: {
+            courtComments: result._id,
+          },
+        })
+        .then((response) => {
+          res.send("Successfully added");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((error) => {
+      console.log(`Error - ${error}`);
+    });
 });
+
+// router.post("/postc", async (req, res) => {
+//   const comment = new Court({
+//     date: req.body.date,
+//     comment: req.body.comment,
+//   });
+
+// try {
+//   const c1 = await comment.save();
+//   res.send(c1);
+// } catch (error) {
+//   res.send(error);
+// }
+// });
 
 //update a comment
 router.put("/putc/:id", async (req, res) => {

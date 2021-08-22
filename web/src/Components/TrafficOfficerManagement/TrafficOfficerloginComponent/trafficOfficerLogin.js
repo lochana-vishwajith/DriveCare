@@ -13,26 +13,31 @@ export default class trafficOfficerLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      officerOneID: "",
-      officerTwoID: "",
+      officerOne: "",
+      officerTwo: "",
       officerPassword: "",
       logo: "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628967576900_colored-logo.png?alt=media&token=166ac21d-89be-45b2-9b0b-17e5a400e359",
     };
   }
 
-  officerOneIDChanged = (e) => {
-    this.setState({ officerOneID: e.value });
+  setVal = (e) => {
+    localStorage.setItem("officerOne", "6116b0b785807701e005c57f");
+    localStorage.setItem("officerTwo", "6116b0b785807701e005c57f");
+    this.props.history.push("/createFine");
   };
-  officerTwoIDChanged = (e) => {
-    this.setState({ officerTwoID: e.value });
+  officerOneChanged = (e) => {
+    this.setState({ officerOne: e.value });
+  };
+  officerTwoChanged = (e) => {
+    this.setState({ officerTwo: e.value });
   };
   officerPWChanged = (e) => {
     this.setState({ officerPassword: e.value });
   };
   pressLoginBtn = () => {
     if (
-      this.state.officerOneID == "" ||
-      this.state.officerTwoID == "" ||
+      this.state.officerOne == "" ||
+      this.state.officerTwo == "" ||
       this.state.officerPassword == ""
     ) {
       toast.error("Please Fill The Form Correctly", {
@@ -84,7 +89,7 @@ export default class trafficOfficerLogin extends Component {
                       <br />
                       <br />
                       <div className="officerLogin">
-                        <div className="officerOneID">
+                        <div className="officerOne">
                           <label className="loginLong">
                             Officer Registration ID :
                           </label>
@@ -92,13 +97,13 @@ export default class trafficOfficerLogin extends Component {
                           <TextBox
                             mask="0000000000"
                             className="officerReg"
-                            name="officerOneID"
-                            value={this.state.officerOneID}
+                            name="officerOne"
+                            value={this.state.officerOne}
                             showClearButton={true}
-                            onValueChanged={this.officerOneIDChanged}
+                            onValueChanged={this.officerOneChanged}
                           />
                         </div>
-                        <div className="officerTwoID">
+                        <div className="officerTwo">
                           <label className="loginLong">
                             Patner Officer Registration ID :
                           </label>
@@ -106,10 +111,10 @@ export default class trafficOfficerLogin extends Component {
                           <TextBox
                             mask="0000000000"
                             className="officerReg"
-                            name="officerTwoID"
-                            value={this.state.officerTwoID}
+                            name="officerTwo"
+                            value={this.state.officerTwo}
                             showClearButton={true}
-                            onValueChanged={this.officerTwoIDChanged}
+                            onValueChanged={this.officerTwoChanged}
                           />
                         </div>
                       </div>
@@ -134,7 +139,7 @@ export default class trafficOfficerLogin extends Component {
                           value={"Login"}
                           classname={"officerRegBtn"}
                           type={"submit"}
-                          onSubmit={this.pressLoginBtn}
+                          onSubmit={this.setVal}
                         />
                         <br />
                         <br />

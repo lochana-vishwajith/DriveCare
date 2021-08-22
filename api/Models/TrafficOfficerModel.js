@@ -41,6 +41,14 @@ const trafficOfficerSchema = new Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: String,
+    required: true,
+  },
+  isNewUser: {
+    type: String,
+    required: true,
+  },
   points: {
     type: Number,
     required: true,

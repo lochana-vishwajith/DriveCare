@@ -1,6 +1,7 @@
 import React from "react";
 import "./DriverComments.css";
 import axios from "axios";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 class DriverComments extends React.Component {
   constructor(props) {
@@ -44,8 +45,20 @@ class DriverComments extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Driver Comments</h1>
+      <div className="container">
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <h1>
+          {" "}
+          <strong>Driver Comments</strong>
+        </h1>
 
         <table className="table">
           <thead className="thead-dark">
@@ -106,7 +119,7 @@ class DriverComments extends React.Component {
         <a href="/courtAddComment">
           <button
             type="button"
-            class="btn btn-primary btnz"
+            class="btn btn-danger btnz"
             style={{ float: "right" }}
           >
             Add Comment
