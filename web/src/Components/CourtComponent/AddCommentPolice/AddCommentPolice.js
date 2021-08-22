@@ -1,6 +1,7 @@
 import React from "react";
 import "./AddCommentPolice.css";
 import axios from "axios";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 const initialState = {
   date: "",
@@ -41,6 +42,14 @@ class AddComment extends React.Component {
   render() {
     return (
       <div className="container">
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <h1>Add Comment</h1>
 
         <form onSubmit={this.onSubmit}>

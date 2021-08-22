@@ -1,9 +1,18 @@
 import React from "react";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 class ChangePoints extends React.Component {
   render() {
     return (
-      <div>
+      <div className="container">
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <h1>Change Points</h1>
 
         <div className="form-group">

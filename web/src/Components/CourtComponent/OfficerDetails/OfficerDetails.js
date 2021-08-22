@@ -1,6 +1,7 @@
 import React from "react";
 import "./OfficerDetails.css";
 import axios from "axios";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 class OfficerDetails extends React.Component {
   constructor(props) {
@@ -26,6 +27,14 @@ class OfficerDetails extends React.Component {
   render() {
     return (
       <div className="container">
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <h1>Officer Details</h1>
 
         <div className="card pointcard">

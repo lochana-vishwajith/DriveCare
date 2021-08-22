@@ -1,10 +1,12 @@
 import React from "react";
 import "./SearchDriver.css";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 class SearchDriver extends React.Component {
   render() {
     return (
-      <div>
+      <div className="container">
+        <CourtHeader />
         <h1>Search the driver</h1>
         <br />
         <br />

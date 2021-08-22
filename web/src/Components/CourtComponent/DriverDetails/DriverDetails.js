@@ -1,10 +1,19 @@
 import React from "react";
 import "./DriverDetails.css";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 class DriverDetails extends React.Component {
   render() {
     return (
-      <div>
+      <div className="container">
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <h1>Driver Details</h1>
 
         <div className="card pointcard">
