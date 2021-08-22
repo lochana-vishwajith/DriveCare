@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Rules = require("../Models/RulesModel");
+const RulesCategory = require("../Models/RulesCategoryModel");
 
 router.post("/", (req, res) => {
   const {
@@ -44,5 +45,43 @@ router.get("/", (req, res) => {
       res.status(501).send(err);
     });
 });
+
+router.post("/fullrule",async (req, res) => {
+    if (req.body) {
+        const ruleCategory = req.body.RuleCategoryId
+        console.log(ruleCategory);
+        const rules = new Rules(req.body);
+        await rules
+            .save()
+            .then((data) => {
+                res.status(200).send({ data: data });
+                console.log(data);
+                 RulesCategory.findByIdAndUpdate(ruleCategory, {
+                    $push: {
+                        Rules: data._id,
+                    },
+                }).then(
+                    console.log(RulesCategory.findById(ruleCategory))
+                 )
+                    .then((data) => {
+                        console.log("Successfully added the Research Details...", data);
+                    })
+                    .catch((err) => {
+                        console.log({ error: err.message });
+                    });
+            })
+            .catch((error) => {
+                res.status(500).send({
+                    error: error.message,
+                });
+            });
+    }
+});
+
+
+
+
+
+
 
 module.exports = router;

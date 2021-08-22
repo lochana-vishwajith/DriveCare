@@ -17,14 +17,6 @@ export default class PoliceStationList extends React.Component{
             this.setState({ stationDetails: res.data });
         });
     }
-/*"registrationNo": "CPKY12224",
-        "email": "kandypolice@gmail.com",
-        "workstation_Address": "No 2 Kandy Police Station",
-        "mobile_Number": "0712345436",
-        "office_Number": "081234567",
-        "password": "kandy",
-        "station_grade": "A",
-        "__v": 0*/
     render() {
         const { stationDetails } = this.state;
         return (
@@ -80,13 +72,10 @@ export default class PoliceStationList extends React.Component{
                                             </tr>
                                         ))}
 
-                                        <tr>
-                                            <div className="d-grid gap-2">
-                                                <button className="btn btn-primary" type="button">Add PoliceStation</button>
-                                            </div>
-                                        </tr>
                                         </tbody>
+
                                     </table>
+                                        <button className="btn btn-primary" type="button">Add PoliceStation</button>
                                 </div>
                             </Paper>
                         </Grid>
