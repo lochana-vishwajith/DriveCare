@@ -89,7 +89,7 @@ class DriverDetails extends React.Component {
         <a href="/courtDriverComments">
           <button
             type="button"
-            style={{ float: "right" }}
+            style={{ float: "right", backgroundColor: "#920e0e" }}
             className="btn btn-danger"
           >
             Comments

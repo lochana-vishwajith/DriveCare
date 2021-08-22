@@ -53,6 +53,14 @@ const trafficOfficerSchema = new Schema({
     type: Number,
     required: true,
   },
+
+  courtComments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "CourtPolice",
+    },
+  ],
 });
 const officerDetails = mongoose.model(
   "TrafficPoliceOfficer",

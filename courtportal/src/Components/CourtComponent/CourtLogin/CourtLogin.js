@@ -2,9 +2,13 @@ import { Grid, Paper, Link } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
-import CourtHeader from "../CourtHeader/CourtHeader";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./CourtLogin.css";
+//import Button from "../../ButtonComponent/button";
 import Button from "../../ButtonComponent/button";
+import CourtHeader from "../CourtHeader/CourtHeader";
+// import { Form } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 
 export default class CourtLogin extends Component {
   constructor(props) {
@@ -15,26 +19,19 @@ export default class CourtLogin extends Component {
     };
   }
 
-  onDrivingLicenceChanged = (e) => {
-    this.setState({ dlicenceNo: e.value });
-  };
-
-  onPasswordChanged = (e) => {
-    this.setState({ password: e.value });
-  };
-
   render() {
     return (
       <div>
-        <div className="container">
-          <CourtHeader />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+        <div></div>
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div className="container d-margin-top">
           <div className="mt-1">
             <center>
               <div className="d-reg">
@@ -46,13 +43,14 @@ export default class CourtLogin extends Component {
             </center>
             <hr></hr>
           </div>
-          <Grid>
+
+          {/* <Grid>
             <Paper elevation={20}>
               <div className="d-center-form">
                 <div className="d-center-input">
                   <div className="dx-fieldset">
                     <div className="dx-field" id="d-text-in">
-                      <label id="labelName">UserName</label>
+                      <label id="labelName">Judge Username</label>
                       <TextBox
                         name="dlicenceNo"
                         value={this.state.dlicenceNo}
@@ -108,7 +106,40 @@ export default class CourtLogin extends Component {
                 </div>
               </div>
             </Paper>
-          </Grid>
+          </Grid> */}
+        </div>
+        <div className="container">
+          <form>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input
+                type="email"
+                className="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+              />
+              <br />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="exampleInputPassword1"
+                placeholder="Password"
+              />
+            </div>
+            <br />
+            <br />
+            <button
+              type="submit"
+              style={{ float: "right", backgroundColor: "#920e0e" }}
+              className="btn btn-danger"
+            >
+              SignIn
+            </button>
+          </form>
         </div>
       </div>
     );

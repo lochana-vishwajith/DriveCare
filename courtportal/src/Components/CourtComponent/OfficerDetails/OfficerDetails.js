@@ -90,7 +90,7 @@ class OfficerDetails extends React.Component {
         <br />
         <a href="/courtAddCommentpolice">
           <button
-            style={{ float: "right" }}
+            style={{ float: "right", backgroundColor: "#920e0e" }}
             type="button"
             className="btn btn-danger"
           >

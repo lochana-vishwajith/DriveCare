@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Court = require("../Models/CourtModel");
 const driver = require("../Models/DriverModel");
+const Judge = require("../Models/JudgeModel");
 
 //get comments
 router.get("/getc", async (req, res) => {
@@ -25,9 +26,10 @@ router.get("/getc/:id", async (req, res) => {
 //put a comment
 
 router.post("/postc", async (req, res) => {
-  const { driverID, date, comment } = req.body;
+  const { driverID, judgeID, date, comment } = req.body;
   const commentz = new Court({
     driverID,
+    judgeID,
     date,
     comment,
   });
@@ -37,12 +39,18 @@ router.post("/postc", async (req, res) => {
     .then((result) => {
       console.log(`REsult eka - ${result}`);
 
-      driver
-        .findByIdAndUpdate(driverID, {
-          $push: {
-            courtComments: result._id,
-          },
-        })
+      driver.findByIdAndUpdate(driverID, {
+        $push: {
+          courtComments: result._id,
+        },
+      });
+
+      Judge.findByIdAndUpdate(judgeID, {
+        $push: {
+          driverComments: result._id,
+        },
+      })
+
         .then((response) => {
           res.send("Successfully added");
         })

@@ -7,6 +7,11 @@ const courtShema = new Schema({
     required: true,
     ref: "Driver",
   },
+  judgeID: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "judge",
+  },
   date: {
     type: Date,
     required: true,
