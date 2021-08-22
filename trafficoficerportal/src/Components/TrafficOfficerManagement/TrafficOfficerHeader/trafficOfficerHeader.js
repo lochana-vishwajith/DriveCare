@@ -42,14 +42,14 @@ export default class trafficOfficerHeader extends Component {
                     View Fines
                   </Nav.Link>
                   <Nav.Link
-                    className="links"
+                   // className="links"
                     href=""
                     className="profileOfficer"
                   >
                     Profile
                   </Nav.Link>
                   <Nav.Link
-                    className="links"
+                  //  className="links"
                     href=""
                     className="profileOfficer"
                   >
