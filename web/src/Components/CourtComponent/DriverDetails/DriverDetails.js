@@ -3,6 +3,12 @@ import "./DriverDetails.css";
 import CourtHeader from "../CourtHeader/CourtHeader";
 
 class DriverDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "Hasitha Rangana",
+    };
+  }
   render() {
     return (
       <div className="container">
@@ -14,16 +20,22 @@ class DriverDetails extends React.Component {
         <br />
         <br />
         <br />
-        <h1>Driver Details</h1>
+
+        <h1>
+          <strong>Driver Details</strong>
+        </h1>
 
         <div className="card pointcard">
-          <div className="card-header">Points</div>
+          <div className="card-header">
+            {" "}
+            <strong>Points</strong>
+          </div>
           <div className="card-body">
             <h5 className="card-title" style={{ fontSize: "60px" }}>
               07
             </h5>
             <a href="/courtChangePoints">
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-success">
                 Change Points
               </button>
             </a>
@@ -33,6 +45,7 @@ class DriverDetails extends React.Component {
         <div className="form-group">
           <label>Name :</label>
           <input
+            value={this.state.name}
             disabled
             type="text"
             class="form-control"
@@ -53,19 +66,19 @@ class DriverDetails extends React.Component {
           </thead>
           <tbody>
             <tr>
-              <th scope="row">1</th>
+              <td scope="row">1</td>
               <td>Mark</td>
               <td>Otto</td>
               <td>@mdo</td>
             </tr>
             <tr>
-              <th scope="row">2</th>
+              <td scope="row">2</td>
               <td>Jacob</td>
               <td>Thornton</td>
               <td>@fat</td>
             </tr>
             <tr>
-              <th scope="row">3</th>
+              <td scope="row">3</td>
               <td>Larry</td>
               <td>the Bird</td>
               <td>@twitter</td>
@@ -74,7 +87,11 @@ class DriverDetails extends React.Component {
         </table>
         <br />
         <a href="/courtDriverComments">
-          <button type="button" className="btn btn-primary">
+          <button
+            type="button"
+            style={{ float: "right" }}
+            className="btn btn-danger"
+          >
             Comments
           </button>
         </a>

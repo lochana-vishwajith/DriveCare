@@ -54,7 +54,11 @@ class DriverComments extends React.Component {
         <br />
         <br />
         <br />
-        <h1>Driver Comments</h1>
+
+        <h1>
+          {" "}
+          <strong>Driver Comments</strong>
+        </h1>
 
         <table className="table">
           <thead className="thead-dark">
@@ -115,7 +119,7 @@ class DriverComments extends React.Component {
         <a href="/courtAddComment">
           <button
             type="button"
-            class="btn btn-primary btnz"
+            class="btn btn-danger btnz"
             style={{ float: "right" }}
           >
             Add Comment

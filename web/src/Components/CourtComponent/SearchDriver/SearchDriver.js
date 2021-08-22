@@ -7,7 +7,18 @@ class SearchDriver extends React.Component {
     return (
       <div className="container">
         <CourtHeader />
-        <h1>Search the driver</h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <h1>
+          <strong>Search the driver</strong>
+        </h1>
+
         <br />
         <br />
         <h3>Enter the drivers licences number</h3>
@@ -22,7 +33,7 @@ class SearchDriver extends React.Component {
           />
         </div>
         <br />
-        <button className="btn btn-primary btnSearch">Search</button>
+        <button className="btn btn-danger btnSearch">Search</button>
       </div>
     );
   }

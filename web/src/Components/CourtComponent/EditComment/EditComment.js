@@ -97,7 +97,11 @@ class EditComment extends React.Component {
             />
           </div>
           <br />
-          <button type="submit" class="btn btn-primary">
+          <button
+            type="submit"
+            style={{ float: "right" }}
+            class="btn btn-danger"
+          >
             Submit
           </button>
         </form>

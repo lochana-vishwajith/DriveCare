@@ -50,7 +50,10 @@ class AddComment extends React.Component {
         <br />
         <br />
         <br />
-        <h1>Add Comment</h1>
+
+        <h1>
+          <strong>Add Comment</strong>
+        </h1>
 
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
@@ -80,7 +83,11 @@ class AddComment extends React.Component {
             />
           </div>
           <br />
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            style={{ float: "right" }}
+            className="btn btn-danger"
+          >
             Submit
           </button>
         </form>
