@@ -47,6 +47,7 @@ class AddComment extends React.Component {
           <div className="form-group">
             <label for="exampleInputEmail1">Enter Date</label>
             <input
+              required="true"
               type="date"
               className="form-control"
               name="date"
@@ -60,6 +61,7 @@ class AddComment extends React.Component {
           <div className="form-group">
             <label for="exampleInputEmail1">Enter the Description</label>
             <textarea
+              required="true"
               type="text"
               className="form-control"
               name="comment"

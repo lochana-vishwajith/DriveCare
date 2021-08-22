@@ -25,7 +25,7 @@ class OfficerDetails extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Officer Details</h1>
 
         <div className="card pointcard">

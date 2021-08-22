@@ -44,7 +44,7 @@ class DriverComments extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Driver Comments</h1>
 
         <table className="table">
