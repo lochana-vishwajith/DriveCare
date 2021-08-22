@@ -385,6 +385,24 @@ export default class DriverProfileUpdate extends Component {
                       </TextBox>
                     </div>
                     <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Licence Issued Date</label>
+                      <DateBox
+                        type="date"
+                        className="dob"
+                        name="licenseIssueDate"
+                        value={this.state.licenseIssueDate}
+                        showClearButton={true}
+                        onValueChanged={this.licenceIssueChange}
+                        placeholder={moment(item.licenseIssueDate).format(
+                          "MMMM Do YYYY"
+                        )}
+                      >
+                        <Validator>
+                          <RequiredRule message="Licence Expiry Date is required" />
+                        </Validator>
+                      </DateBox>
+                    </div>
+                    <div className="dx-field" id="d-text-in">
                       <label id="labelName">Licence Expiry Date</label>
                       <DateBox
                         type="date"
