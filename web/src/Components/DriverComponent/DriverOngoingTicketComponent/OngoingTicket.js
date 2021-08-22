@@ -37,35 +37,41 @@ export default class OngoingTicket extends Component {
           </div>
           <Grid>
             <Paper elevation={20} className="p-4">
-              <table class="table table-danger table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Violation</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Fine Amount</th>
-                    <th scope="col">Fine Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.ticketDetails.map((item, index) => (
-                    <tr
-                      key={index}
-                      onClick={() => {
-                        this.navigateOverview = item._id;
-                      }}
-                    >
-                      <td>
-                        {item.violationType.map((val, k) => val.description)}
-                      </td>
-                      <td>{item.place}</td>
-                      <td>
-                        {item.violationType.map((val, k) => val.fineAmount)}
-                      </td>
-                      <td>{item.offenceDate}</td>
+              {this.state.ticketDetails ? (
+                <table class="table table-danger table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Violation</th>
+                      <th scope="col">Location</th>
+                      <th scope="col">Fine Amount</th>
+                      <th scope="col">Fine Date</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {this.state.ticketDetails.map((item, index) => (
+                      <tr
+                        key={index}
+                        onClick={() => {
+                          this.navigateOverview(item._id);
+                        }}
+                      >
+                        <td>
+                          {item.violationType.map((val, k) => val.description)}
+                        </td>
+                        <td>{item.place}</td>
+                        <td>
+                          {item.violationType.map((val, k) => val.fineAmount)}
+                        </td>
+                        <td>{item.offenceDate}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <h1 class="text-success">
+                  No Tickets to show. You Drive Perfectly!
+                </h1>
+              )}
             </Paper>
           </Grid>
         </div>

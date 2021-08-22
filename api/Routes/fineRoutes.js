@@ -55,10 +55,23 @@ router.post("/", (req, res) => {
     });
 });
 
-//IT18014396
+//IT18014396 - retrieve ongoing tickets
 router.get("/ongoin/:id", (req, res) => {
   Fines.find({ driverID: req.params.id }, { isPayed: false })
     .populate("violationType")
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
+//IT18014396 - retrieve tickets details
+router.get("/:id", (req, res) => {
+  Fines.findById({ _id: req.params.id })
+    .populate("violationType")
+    .populate("Officers")
     .then((result) => {
       res.status(200).send(result);
     })
