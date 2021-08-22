@@ -4,6 +4,7 @@ import axios from "axios";
 import CourtHeader from "../CourtHeader/CourtHeader";
 
 const initialState = {
+  driverID: "61221d7b15d1cb322ce7d94c",
   date: "",
   comment: "",
 };
@@ -23,6 +24,7 @@ class AddComment extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     const comment = {
+      driverID: this.state.driverID,
       date: this.state.date,
       comment: this.state.comment,
     };

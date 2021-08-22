@@ -76,6 +76,14 @@ const driverSchema = new Schema({
     type: Date,
     required: false,
   },
+
+  courtComments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "Court",
+    },
+  ],
 });
 
 const driverDetails = mongoose.model("Driver", driverSchema);
