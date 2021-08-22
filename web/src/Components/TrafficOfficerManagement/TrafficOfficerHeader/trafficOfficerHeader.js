@@ -12,6 +12,11 @@ export default class trafficOfficerHeader extends Component {
       logo: "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1629491743966_DriveCare.png?alt=media&token=357fa383-7939-49b9-89d7-2e710f4b73bc",
     };
   }
+
+  componentDidMount() {
+    this.setState({ offlicerOne: localStorage.getItem("officerOne") });
+    this.setState({ officerTwo: localStorage.getItem("officerTwo") });
+  }
   render() {
     const { offlicerOne, officerTwo } = this.state;
     return (
@@ -30,12 +35,24 @@ export default class trafficOfficerHeader extends Component {
                       alt=""
                     />
                   </Nav.Link>
-                  <Nav.Link href="/createFine">Create Fine</Nav.Link>
-                  <Nav.Link href="/officerDisplay">View Fines</Nav.Link>
-                  <Nav.Link href="" className="profileOfficer">
+                  <Nav.Link className="links" href="/createFine">
+                    Create Fine
+                  </Nav.Link>
+                  <Nav.Link className="links" href="/officerDisplay">
+                    View Fines
+                  </Nav.Link>
+                  <Nav.Link
+                    className="links"
+                    href=""
+                    className="profileOfficer"
+                  >
                     Profile
                   </Nav.Link>
-                  <Nav.Link href="" className="profileOfficer">
+                  <Nav.Link
+                    className="links"
+                    href=""
+                    className="profileOfficer"
+                  >
                     <i className="fas fa-sign-out-alt" />
                   </Nav.Link>
                 </Nav>
