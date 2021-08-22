@@ -66,7 +66,10 @@ class EditComment extends React.Component {
         <br />
         <br />
         <br />
-        <h1>Edit Comment</h1>
+
+        <h1>
+          <strong>Edit Comment</strong>
+        </h1>
 
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
@@ -99,7 +102,7 @@ class EditComment extends React.Component {
           <br />
           <button
             type="submit"
-            style={{ float: "right" }}
+            style={{ float: "right", backgroundColor: "#920e0e" }}
             class="btn btn-danger"
           >
             Submit
