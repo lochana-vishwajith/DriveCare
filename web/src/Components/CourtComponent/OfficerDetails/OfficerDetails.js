@@ -1,6 +1,7 @@
 import React from "react";
 import "./OfficerDetails.css";
 import axios from "axios";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 class OfficerDetails extends React.Component {
   constructor(props) {
@@ -25,17 +26,31 @@ class OfficerDetails extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Officer Details</h1>
+      <div className="container">
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <h1>
+          <strong>Officer Details</strong>
+        </h1>
 
         <div className="card pointcard">
-          <div className="card-header">Points</div>
+          <div className="card-header">
+            {" "}
+            <strong>Points</strong>
+          </div>
           <div className="card-body">
             <h5 className="card-title" style={{ fontSize: "60px" }}>
               07
             </h5>
             <a href="/courtChangePoints">
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-success">
                 Change Points
               </button>
             </a>
@@ -77,7 +92,7 @@ class OfficerDetails extends React.Component {
           <button
             style={{ float: "right" }}
             type="button"
-            className="btn btn-primary"
+            className="btn btn-danger"
           >
             Add Comment
           </button>

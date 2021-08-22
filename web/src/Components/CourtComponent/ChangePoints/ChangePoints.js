@@ -1,10 +1,23 @@
 import React from "react";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 class ChangePoints extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Change Points</h1>
+      <div className="container">
+        <CourtHeader />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <h1>
+          {" "}
+          <strong>Change Points </strong>
+        </h1>
 
         <div className="form-group">
           <label>Points</label>
@@ -16,7 +29,11 @@ class ChangePoints extends React.Component {
           />
         </div>
         <br />
-        <button type="button" className="btn btn-primary">
+        <button
+          type="button"
+          style={{ float: "right" }}
+          className="btn btn-danger"
+        >
           Save
         </button>
         <br />
