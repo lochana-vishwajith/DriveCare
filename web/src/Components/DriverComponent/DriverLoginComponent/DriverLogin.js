@@ -6,6 +6,8 @@ import "./DriverLogin.css";
 import Button from "../../ButtonComponent/button";
 import DriverHeader from "../DriverHeaderComponent/DriverHeader";
 import DriverFooter from "../DriverFooterComponent/DriverFooter";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 export default class DriverLogin extends Component {
   constructor(props) {
@@ -22,6 +24,26 @@ export default class DriverLogin extends Component {
 
   onPasswordChanged = (e) => {
     this.setState({ password: e.value });
+  };
+
+  onSubmit = () => {
+    const loginDetails = {
+      licenceNumber: this.state.dlicenceNo,
+      password: this.state.password,
+    };
+
+    axios
+      .post(`http://localhost:9000/driver/login`, loginDetails)
+      .then((res) => {
+        console.log(res.data.id);
+        console.log(res.status);
+        localStorage.setItem("DriverID", res.data.id);
+        if (res.status === 200) {
+          dispatch({ type: "DRIVER", payload: true });
+          alert("Login Successful");
+          useHistory.push("/driverDisplay");
+        }
+      });
   };
 
   render() {

@@ -8,6 +8,7 @@ import { storage } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
 import axios from "axios";
 import moment from "moment";
+import Select from "react-select";
 
 export default class DriverProfileUpdate extends Component {
   constructor(props) {
@@ -29,6 +30,10 @@ export default class DriverProfileUpdate extends Component {
         "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628183905292_pngwing.com.png?alt=media&token=0f85489d-8c99-4f2b-9d0e-1144b64c733d",
       driverDetails: [],
       licenseIssueDate: "",
+      bloodGroup: "",
+      vehicleCategories: [],
+      allCategories: [],
+      vehicleType: [],
     };
   }
   componentDidMount() {
@@ -50,7 +55,34 @@ export default class DriverProfileUpdate extends Component {
       .catch((error) => {
         console.log("Data not Retriewed", error);
       });
+
+    this.getVehicleCategories();
   }
+
+  getVehicleCategories = () => {
+    axios
+      .get("http://localhost:9000/vehicelcategory")
+      .then((res) => {
+        console.log("Data : ", res.data);
+        this.setState({ vehicleCategories: res.data });
+        let vCategories = [];
+        this.state.vehicleCategories.map((item, index) => {
+          let categoryDetails = {
+            value: item._id,
+            label: item.categoryCode + " - " + item.categoryName,
+          };
+          console.log(categoryDetails.value);
+          vCategories.push(categoryDetails);
+        });
+        this.setState({ allCategories: vCategories });
+      })
+      .catch((err) => {
+        console.log("failed to get Categories");
+        toast.error("Failed To Retreive Categories", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
 
   fNameChange = (e) => {
     this.setState({ fName: e.value });
@@ -94,6 +126,15 @@ export default class DriverProfileUpdate extends Component {
 
   licenceIssueChange = (e) => {
     this.setState({ licenseIssueDate: e.value });
+  };
+
+  bloodGroupChange = (e) => {
+    this.setState({ bloodGroup: e.value });
+  };
+
+  onSelectVehicleType = (vehicleType) => {
+    this.setState({ vehicleType: vehicleType.value });
+    console.log("v T :", vehicleType);
   };
 
   hnadlerFileChange = (e) => {
@@ -179,6 +220,9 @@ export default class DriverProfileUpdate extends Component {
       licenseIssueDate: this.state.licenseIssueDate
         ? this.state.licenseIssueDate
         : this.state.driverDetails[0].licenseIssueDate,
+      bloodGroup: this.state.bloodGroup
+        ? this.state.bloodGroup
+        : this.state.driverDetails[0].bloodGroup,
     };
     console.log("Data:", dataSet);
     axios
@@ -323,6 +367,31 @@ export default class DriverProfileUpdate extends Component {
                           <RequiredRule message="Birthday is required" />
                         </Validator>
                       </DateBox>
+                    </div>
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Blood Group</label>
+                      <TextBox
+                        name="bloodGroup"
+                        showClearButton={true}
+                        value={this.state.bloodGroup}
+                        onValueChanged={this.bloodGroupChange}
+                        placeholder={item.bloodGroup}
+                      >
+                        <Validator>
+                          <RequiredRule message="Blood Group is required" />
+                        </Validator>
+                      </TextBox>
+                    </div>
+                    <div className="dx-field" id="d-text-in">
+                      <label id="labelName">Competent to Drive</label>
+                      <Select
+                        className="basic-single"
+                        isSearchable={true}
+                        options={this.state.allCategories}
+                        onChange={this.onSelectViolationType}
+                        value={this.state.vehicleType}
+                        isMulti
+                      />
                     </div>
                   </div>
                   <div className="dx-fieldset">
