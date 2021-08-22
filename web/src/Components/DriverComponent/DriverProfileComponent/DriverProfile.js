@@ -2,6 +2,7 @@ import { Grid, Paper } from "@material-ui/core";
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import "./DriverProfile.css";
 
 export default class DriverProfile extends Component {
@@ -16,7 +17,7 @@ export default class DriverProfile extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:9000/driver/L1254869")
+      .get(`http://localhost:9000/driver/${this.props.match.params.id}`)
       .then((result) => {
         console.log("Data:", result.data);
         this.setState({ driverDetails: result.data });
@@ -32,23 +33,28 @@ export default class DriverProfile extends Component {
       <div>
         <div className="container">
           <div className="mt-3">
-            <label>
-              <h2>
-                <b>User Profile</b>
-              </h2>
-            </label>
-            <Link to="/driverProfileUpdate">
-              <button type="button" class="btn btn-outline-danger btn-sm px-4">
-                Edit
-              </button>
-            </Link>
+            <div className="d-flex justify-content-between">
+              <label>
+                <h2>
+                  <b>User Profile</b>
+                </h2>
+              </label>
+              <Link to={`/driverProfileUpdate/${this.props.match.params.id}`}>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm px-4"
+                >
+                  Edit
+                </button>
+              </Link>
+            </div>
             <hr />
             <Grid>
-              <Paper elevation={20} className="p-4">
-                <div className="d-dispaly-web">
+              <Paper elevation={20} className="p-3">
+                <div className="d-dispaly-web-d">
                   {driverDetails.map((item, index) => (
-                    <div className="d-grid" key={index}>
-                      <div className="border rounded border-danger p-3">
+                    <div className="d-grid-d" key={index}>
+                      <div className="border rounded border-danger p-3 d-grid-clr">
                         <label>
                           <h3>Basic Info</h3>
                         </label>
@@ -73,10 +79,10 @@ export default class DriverProfile extends Component {
                           <br />
                           <label>Date of Birth</label>
                           <br />
-                          <b>{item.dob}</b>
+                          <b>{moment(item.dob).format("MMMM Do YYYY")}</b>
                         </div>
                       </div>
-                      <div className="border rounded border-danger p-3">
+                      <div className="border rounded border-danger p-3 d-grid-clr">
                         <label>
                           <h3>Contact Info</h3>
                         </label>
@@ -100,35 +106,38 @@ export default class DriverProfile extends Component {
                             <label>Status</label>
                             <br />
                             {item.licenceStatus == "Active" && (
-                              <b className="d-btn-active">
+                              <b className="d-btn-active-d">
                                 {item.licenceStatus}
                               </b>
                             )}
                             {item.licenceStatus == "Pending" && (
-                              <b className="d-btn-pending">
+                              <b className="d-btn-pending-d">
                                 {item.licenceStatus}
                               </b>
                             )}
                             {item.licenceStatus == "Cancelled" && (
-                              <b className="d-btn-Cancelled">
+                              <b className="d-btn-Cancelled-d">
                                 {item.licenceStatus}
                               </b>
                             )}
                             <br />
                             <label>Expiry Date</label>
                             <br />
-                            <b>{item.licenceExpiryDate}</b>
+                            <b>
+                              {moment(item.licenceExpiryDate).format(
+                                "MMMM Do YYYY"
+                              )}
+                            </b>
                           </div>
                         </div>
                       </div>
-                      <div className="border rounded border-danger p-3">
+                      <div className="border rounded border-danger p-3 d-grid-clr">
                         <center>
-                          <img
-                            src={this.state.profilePicURL}
-                            class="w-100 shadow-1-strong rounded mb-4"
-                            id="profilePic"
-                            alt=""
-                          />
+                          {!item.profilePicURL ? (
+                            <img src={this.state.image} class="img" alt="" />
+                          ) : (
+                            <img src={item.profilePicURL} class="img" alt="" />
+                          )}
                         </center>
                         <hr />
                         <div className="border rounded border border-success p-1">
@@ -136,13 +145,13 @@ export default class DriverProfile extends Component {
                             <label>My Points</label>
                             <br />
                             {item.points >= 20 && (
-                              <b className="d-points-g">{item.points}</b>
+                              <b className="d-points-g-d">{item.points}</b>
                             )}
                             {item.points >= 10 && item.points < 20 && (
-                              <b className="d-points-y">{item.points}</b>
+                              <b className="d-points-y-d">{item.points}</b>
                             )}
                             {item.points < 10 && (
-                              <b className="d-points-r">{item.points}</b>
+                              <b className="d-points-r-d">{item.points}</b>
                             )}
                             <br />
                             <label>Out of 30</label>
@@ -153,15 +162,14 @@ export default class DriverProfile extends Component {
                   ))}
                 </div>
                 {driverDetails.map((item, index) => (
-                  <div className="d-grid-responsive" key={index}>
-                    <div className="border rounded border-danger p-3 ml-1">
+                  <div className="d-grid-responsive-d" key={index}>
+                    <div className="border rounded border-danger p-3 ml-1 d-grid-clr">
                       <center>
-                        <img
-                          src={this.state.profilePicURL}
-                          class="w-100 shadow-1-strong rounded mb-4"
-                          id="profilePic"
-                          alt=""
-                        />
+                        {item.profilePicURL ? (
+                          <img src={item.profilePicURL} class="img" alt="" />
+                        ) : (
+                          <img src={this.state.image} class="img" alt="" />
+                        )}
                       </center>
                       <hr />
                       <div className="border rounded border-danger p-1">
@@ -169,13 +177,13 @@ export default class DriverProfile extends Component {
                           <label>My Points</label>
                           <br />
                           {item.points >= 20 && (
-                            <b className="d-points-g">{item.points}</b>
+                            <b className="d-points-g-d">{item.points}</b>
                           )}
                           {item.points >= 10 && item.points < 20 && (
-                            <b className="d-points-y">{item.points}</b>
+                            <b className="d-points-y-d">{item.points}</b>
                           )}
                           {item.points < 10 && (
-                            <b className="d-points-r">{item.points}</b>
+                            <b className="d-points-r-d">{item.points}</b>
                           )}
                           <br />
                           <label>Out of 30</label>
@@ -183,7 +191,7 @@ export default class DriverProfile extends Component {
                       </div>
                     </div>
                     <br />
-                    <div className="border rounded border-danger p-3">
+                    <div className="border rounded border-danger p-3 d-grid-clr">
                       <label>
                         <h3>Basic Info</h3>
                       </label>
@@ -208,11 +216,11 @@ export default class DriverProfile extends Component {
                         <br />
                         <label>Date of Birth</label>
                         <br />
-                        <b>{item.dob}</b>
+                        <b>{moment(item.dob).format("MMMM Do YYYY")}</b>
                       </div>
                     </div>
                     <br />
-                    <div className="border rounded border-danger p-3 ml-1">
+                    <div className="border rounded border-danger p-3 ml-1 d-grid-clr">
                       <label>
                         <h3>Contact Info</h3>
                       </label>
@@ -236,22 +244,28 @@ export default class DriverProfile extends Component {
                           <label>Status</label>
                           <br />
                           {item.licenceStatus == "Active" && (
-                            <b className="d-btn-active">{item.licenceStatus}</b>
+                            <b className="d-btn-active-d">
+                              {item.licenceStatus}
+                            </b>
                           )}
                           {item.licenceStatus == "Pending" && (
-                            <b className="d-btn-pending">
+                            <b className="d-btn-pending-d">
                               {item.licenceStatus}
                             </b>
                           )}
                           {item.licenceStatus == "Cancelled" && (
-                            <b className="d-btn-Cancelled">
+                            <b className="d-btn-Cancelled-d">
                               {item.licenceStatus}
                             </b>
                           )}
                           <br />
                           <label>Expiry Date</label>
                           <br />
-                          <b>{item.licenceExpiryDate}</b>
+                          <b>
+                            {moment(item.licenceExpiryDate).format(
+                              "MMMM Do YYYY"
+                            )}
+                          </b>
                         </div>
                       </div>
                     </div>

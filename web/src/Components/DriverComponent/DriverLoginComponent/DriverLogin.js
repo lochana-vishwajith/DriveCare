@@ -4,6 +4,8 @@ import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
 import "./DriverLogin.css";
 import Button from "../../ButtonComponent/button";
+import DriverHeader from "../DriverHeaderComponent/DriverHeader";
+import DriverFooter from "../DriverFooterComponent/DriverFooter";
 
 export default class DriverLogin extends Component {
   constructor(props) {
@@ -25,7 +27,10 @@ export default class DriverLogin extends Component {
   render() {
     return (
       <div>
-        <div className="container">
+        <div>
+          <DriverHeader />
+        </div>
+        <div className="container d-margin-top">
           <div className="mt-1">
             <center>
               <div className="d-reg">
@@ -100,6 +105,9 @@ export default class DriverLogin extends Component {
               </div>
             </Paper>
           </Grid>
+        </div>
+        <div>
+          <DriverFooter />
         </div>
       </div>
     );

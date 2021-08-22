@@ -1,0 +1,9 @@
+.one-line-box{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-sizing: border-box;
+}
+
+.text-box-2{
+    padding-left: 2%;
+}
