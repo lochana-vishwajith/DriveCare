@@ -29,7 +29,7 @@ const RulesCategory = new Schema({
     }]
 });
 const rulesCategoryModel = mongoose.model(
-    "rulesCategories",
+    "rulescategories",
     RulesCategory
 );
 module.exports = rulesCategoryModel ;

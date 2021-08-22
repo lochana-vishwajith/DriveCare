@@ -26,4 +26,13 @@ router.post("/", (req, res) => {
         });
 });
 
+router.get("/getcentraladmin", async (req, res) => {
+    try {
+        const admin = await CentralAdmin.find();
+        res.send(admin);
+    } catch (error) {
+        res.send(`Error - ${error}`);
+    }
+});
+
 module.exports = router;

@@ -24,16 +24,18 @@ import DriverDetails from "./Components/CourtComponent/DriverDetails/DriverDetai
 import DriverComments from "./Components/CourtComponent/DriverComments/DriverComments";
 import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDetails";
 import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
-import CentralAdminAddDetails from "./Components/CentralAdminComponent/CentralAdminDetails/CentralAdminDataAdd"
-import AdminLogin from "./Components/CentralAdminComponent/CentralAdminLogin/CentralAdminLogin"
+import CentralAdminAddDetails from "./Components/CentralAdminComponent/CentralAdminDetails/CentralAdminDataAdd";
+import AdminLogin from "./Components/CentralAdminComponent/CentralAdminLogin/CentralAdminLogin";
 import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketComponent/OngoingTicket";
 import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
-import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin"
+import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin";
 import AddCommentPolice from "./Components/CourtComponent/AddCommentPolice/AddCommentPolice";
-import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation"
+import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation";
 import AddRuleCategories from "./Components/CentralAdminComponent/RuleCategories/AddRuleCategories/AddRuleCategories";
 import AddRules from "./Components/CentralAdminComponent/Rules/AddRule/AddRules";
 import PoliceStationList from "./Components/PoliceStation/PoliceStationList/PoliceStationList";
+import Viewadmindetails from "./Components/CentralAdminComponent/CentralAdminDataShow/Viewadmindetails";
+import PoliceStationViewSearchResult from "./Components/PoliceStation/ViewSearchResultComponent/ViewSearchResult";
 export default class App extends Component {
   render() {
     return (
@@ -78,15 +80,37 @@ export default class App extends Component {
             />
             <Route exact path="/courtChangePoints" component={ChangePoints} />
 
-            <Route exact path = "/centralAdminAdd" component = {CentralAdminAddDetails}/>
+            <Route
+              exact
+              path="/centralAdminAdd"
+              component={CentralAdminAddDetails}
+            />
             <Route exact path="/ongoingTickets" component={OngoingTicket} />
-            <Route exact path="/ticketOverview" component={TicketOverview} />
-            <Route exact path = "/adminLogin" component = {AdminLogin} />
-            <Route exact path = "/policeStationLogin" component = {PoliceStationLogin} />
-            <Route exact path = "/AddPoliceStation" component = {PoliceStationAdd} />
-            <Route exact path = "/addRulesCategories" component = {AddRuleCategories} />
-            <Route  path = "/addRules" component = {AddRules} />
-            <Route  path = "/policestationList" component = {PoliceStationList} />
+            <Route
+              exact
+              path="/ticketOverview/:id"
+              component={TicketOverview}
+            />
+            <Route exact path="/adminLogin" component={AdminLogin} />
+            <Route
+              exact
+              path="/policeStationLogin"
+              component={PoliceStationLogin}
+            />
+            <Route
+              exact
+              path="/AddPoliceStation"
+              component={PoliceStationAdd}
+            />
+            <Route
+              exact
+              path="/addRulesCategories"
+              component={AddRuleCategories}
+            />
+            <Route path="/addRules" component={AddRules} />
+            <Route path="/policestationList" component={PoliceStationList} />
+            <Route  path = "/viewAdminDetails" component = {Viewadmindetails} />
+            <Route  path = "/viewpolicesearch/:id" component = {PoliceStationViewSearchResult} />
           </Switch>
         </Router>
       </div>

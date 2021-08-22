@@ -55,4 +55,16 @@ router.post("/", (req, res) => {
     });
 });
 
+//IT18014396
+router.get("/ongoin/:id", (req, res) => {
+  Fines.find({ driverID: req.params.id }, { isPayed: false })
+    .populate("violationType")
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
 module.exports = router;

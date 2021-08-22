@@ -32,7 +32,7 @@ const Rules = new Schema({
     RuleCategoryId:{
         type:mongoose.Schema.Types.ObjectId,
         require: false,
-        ref: "rulesCategories",
+        ref: "rulescategories",
     }
 });
 const rulesModel = mongoose.model(
