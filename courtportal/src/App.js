@@ -17,6 +17,7 @@ import DriverComments from "./Components/CourtComponent/DriverComments/DriverCom
 import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDetails";
 import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
 import AddCommentPolice from "./Components/CourtComponent/AddCommentPolice/AddCommentPolice";
+import JudgeRegister from "./Components/CourtComponent/JudgeRegister/JudgeRegister";
 
 export default class App extends Component {
   render() {
@@ -30,7 +31,7 @@ export default class App extends Component {
               path="/courtAddCommentpolice"
               component={AddCommentPolice}
             />
-            <Route exact path="/courtLogin" component={CourtLogin} />
+            <Route exact path="/" component={CourtLogin} />
             <Route exact path="/courtSearch" component={SearchDriver} />
             <Route exact path="/courtEditComment/:id" component={EditComment} />
             <Route exact path="/courtDriverDetails" component={DriverDetails} />
@@ -45,6 +46,7 @@ export default class App extends Component {
               component={OfficerDetails}
             />
             <Route exact path="/courtChangePoints" component={ChangePoints} />
+            <Route exact path="/judgeRegister" component={JudgeRegister} />
           </Switch>
         </Router>
       </div>

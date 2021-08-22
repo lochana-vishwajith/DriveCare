@@ -75,10 +75,11 @@ router.get("/ongoin/:id", (req, res) => {
 //IT18014396 - retrieve tickets details
 router.get("/:id", (req, res) => {
   Fines.findById({ _id: req.params.id })
-    .populate("violationType")
-    .populate("Officers")
+    .populate("violationType", "ruleName description fineAmount")
+    .populate("Officers", "nameInitial officerReg")
     .then((result) => {
-      res.status(200).send(result);
+      console.log(result);
+      res.status(200).send([result]);
     })
     .catch((error) => {
       res.send(error);

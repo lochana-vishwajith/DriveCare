@@ -17,7 +17,11 @@ export default class TicketOverview extends Component {
       popupVisible: false,
       positionOf: "",
       newComments: "",
-      fine: "",
+      fine: [],
+      fineAmount: "",
+      fineDescription: "",
+      fineRule: "",
+      officers: "",
     };
   }
 
@@ -37,13 +41,21 @@ export default class TicketOverview extends Component {
 
     axios
       .get(`http://localhost:9000/fine/${this.props.match.params.id}`)
-      .then((response) => {
-        console.log("Fine Data:", response);
-        this.setState({ fine: response.data });
-        console.log(this.state.fine.violationType[0].fineAmount);
+      .then((res) => {
+        console.log("Fine Data:", JSON.stringify(res.data));
+        this.setState({ fine: res.data });
+        // console.log(this.state.fine.violationType[0].fineAmount);
+        this.setState({
+          fineAmount: this.state.fine.violationType[0].fineAmount,
+          fineDescription: this.state.fine.violationType[0].description,
+          fineRule: this.state.fine.violationType[0].ruleName,
+          officers: res.data,
+        });
+
+        // console.log("Offi:", this.state.fine.Officers.map);
       })
       .catch((error) => {
-        console.log("Data not Retriewed", error);
+        console.log("Violation Data not Retriewed", error);
       });
   }
 
@@ -121,28 +133,64 @@ export default class TicketOverview extends Component {
                   <label>
                     <h3>Violation Details</h3>
                   </label>
-                  <div className="ml-2">
-                    <label>Violation : </label>
-                    {/* <b>{this.state.fine.violationType[0].ruleName}</b> */}
-                    <br />
-                    <label>Location : </label>
-                    <b>{this.state.fine.place}</b>
-                    <br />
-                    <label>Description : </label>
-                    {/* <b>{this.state.fine.violationType[0].description}</b> */}
-                    <br />
-                    <label>Fine : </label>
-                    {/* <b>{this.state.fine.violationType[0].fineAmount}</b> */}
-                    <br />
-                    <label>Court Date : </label>
-                    <b>{this.state.fine.courtDate}</b>
-                    <br />
-                  </div>
+                  {this.state.fine.map((item, index) => (
+                    <div className="ml-2 d-violation-body">
+                      <label>Violation : </label>
+                      <b>{item.violationType.map((val, k) => val.ruleName)}</b>
+                      <br />
+                      <label>Location : </label>
+                      <b>{item.place}</b>
+                      <br />
+                      <label>Description : </label>
+                      <b>
+                        {item.violationType.map((val, k) => val.description)}
+                      </b>
+                      <br />
+                      <label>Vehicle Number : </label>
+                      <b>{item.vehicelNo}</b>
+                      <br />
+                      <label>Fine : </label>
+                      <b>
+                        Rs. {item.violationType.map((val, k) => val.fineAmount)}
+                      </b>
+                      <br />
+                      {item.courtDate ? (
+                        <div>
+                          <label>Court Date : </label>
+                          <b>
+                            {moment(item.courtDate).format(
+                              "MMMM Do YYYY, h:mm:ss a"
+                            )}
+                          </b>
+                          <label>Court : </label>
+                          <b>{item.CourtPlace}</b>
+                        </div>
+                      ) : (
+                        <div>
+                          <label>Fine Type : </label>
+                          <b>On Premises</b>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
                 <div className="border rounded p-3 d-ticket-clr shadow p-3 mb-5 bg-body rounded">
                   <label>
                     <h3>Officer Details</h3>
                   </label>
+                  {this.state.fine.map((item, index) => (
+                    <div className="ml-2 d-violation-body">
+                      <div key={index}>
+                        <label>Officer Name : </label>
+                        <b>{item.Officers.map((i, k) => i.nameInitial)}</b>
+                        <br />
+                        <label>Officer ID : </label>
+                        <b>{item.Officers.map((i, k) => i.officerReg)}</b>
+                        <br />
+                        <label>Police Station : </label>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="d-comment-grid">
@@ -210,9 +258,7 @@ export default class TicketOverview extends Component {
                                 </span>
                               </div>
                               <small>
-                                {moment(item.commentDate)
-                                  .startOf("hour")
-                                  .fromNow()}
+                                {moment(item.commentDate).fromNow()}
                                 <DeleteForeverOutlinedIcon
                                   color="action"
                                   onClick={() => {

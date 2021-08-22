@@ -33,7 +33,12 @@ class SearchDriver extends React.Component {
           />
         </div>
         <br />
-        <button className="btn btn-danger btnSearch">Search</button>
+        <button
+          style={{ backgroundColor: "#920e0e" }}
+          className="btn btn-danger btnSearch"
+        >
+          Search
+        </button>
       </div>
     );
   }

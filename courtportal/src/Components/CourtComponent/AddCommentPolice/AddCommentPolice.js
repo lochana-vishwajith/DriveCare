@@ -4,6 +4,8 @@ import axios from "axios";
 import CourtHeader from "../CourtHeader/CourtHeader";
 
 const initialState = {
+  officerID: "6116b0b785807701e005c57f",
+  judgeID: "612273ca2b539024f4063aee",
   date: "",
   comment: "",
 };
@@ -23,6 +25,8 @@ class AddComment extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     const comment = {
+      officerID: this.state.officerID,
+      judgeID: this.state.judgeID,
       date: this.state.date,
       comment: this.state.comment,
     };
@@ -85,7 +89,7 @@ class AddComment extends React.Component {
           <br />
           <button
             type="submit"
-            style={{ float: "right" }}
+            style={{ float: "right", backgroundColor: "#920e0e" }}
             className="btn btn-danger"
           >
             Submit

@@ -16,3 +16,12 @@
 .d-ticket-clr {
   background-color: #eff2f5;
 }
+
+.d-violation-body b {
+  margin-left: 5px;
+}
+
+.d-violation-body label {
+  margin-left: 15px;
+  padding: 2px;
+}
