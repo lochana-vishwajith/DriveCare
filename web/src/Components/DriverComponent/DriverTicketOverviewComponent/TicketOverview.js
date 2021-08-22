@@ -17,18 +17,30 @@ export default class TicketOverview extends Component {
       popupVisible: false,
       positionOf: "",
       newComments: "",
+      fine: "",
     };
   }
 
   componentDidMount() {
     axios
       .get(
-        "http://localhost:9000/driverComments/comments/6120f31b6ae44444448b4cb0"
+        `http://localhost:9000/driverComments/comments/${this.props.match.params.id}`
       )
       .then((response) => {
-        console.log("Data:", response);
+        console.log("Comment Data:", response);
         this.setState({ comments: response.data.comments });
         console.log(this.state.comments);
+      })
+      .catch((error) => {
+        console.log("Data not Retriewed", error);
+      });
+
+    axios
+      .get(`http://localhost:9000/fine/${this.props.match.params.id}`)
+      .then((response) => {
+        console.log("Fine Data:", response);
+        this.setState({ fine: response.data });
+        console.log(this.state.fine.violationType[0].fineAmount);
       })
       .catch((error) => {
         console.log("Data not Retriewed", error);
@@ -53,7 +65,7 @@ export default class TicketOverview extends Component {
     };
     axios
       .post(
-        "http://localhost:9000/driverComments/6120f31b6ae44444448b4cb0",
+        `http://localhost:9000/driverComments/${this.props.match.params.id}`,
         dataSet
       )
       .then(async () => {
@@ -105,29 +117,29 @@ export default class TicketOverview extends Component {
           <Grid>
             <Paper elevation={20} className="p-4">
               <div className="d-ticekt-grid">
-                <div className="border rounded  border-danger p-3 d-ticket-clr">
+                <div className="border rounded shadow p-3 mb-5 bg-body rounded p-3 d-ticket-clr">
                   <label>
                     <h3>Violation Details</h3>
                   </label>
                   <div className="ml-2">
                     <label>Violation : </label>
-                    <b> Speeding</b>
+                    {/* <b>{this.state.fine.violationType[0].ruleName}</b> */}
                     <br />
                     <label>Location : </label>
-                    <b> Malabe</b>
+                    <b>{this.state.fine.place}</b>
                     <br />
                     <label>Description : </label>
-                    <b> Speed is over 120 kmph on the main road.</b>
+                    {/* <b>{this.state.fine.violationType[0].description}</b> */}
                     <br />
                     <label>Fine : </label>
-                    <b> Rs.1500.00</b>
+                    {/* <b>{this.state.fine.violationType[0].fineAmount}</b> */}
                     <br />
                     <label>Court Date : </label>
-                    <b> 25/09/2021</b>
+                    <b>{this.state.fine.courtDate}</b>
                     <br />
                   </div>
                 </div>
-                <div className="border rounded  border-danger p-3 d-ticket-clr">
+                <div className="border rounded p-3 d-ticket-clr shadow p-3 mb-5 bg-body rounded">
                   <label>
                     <h3>Officer Details</h3>
                   </label>
@@ -184,34 +196,46 @@ export default class TicketOverview extends Component {
                       </div>
                     </div>
                   </Popup>
-                  <div class="row d-flex justify-content-center mt-2">
-                    {this.state.comments.map((item, index) => (
-                      <div class="col-md-12 mb-1" key={index}>
-                        <div class="card p-2">
-                          <div class="d-flex justify-content-between align-items-center">
-                            <div class="user d-flex flex-row align-items-center">
-                              <span>
-                                <small class="font-weight-bold">
-                                  {item.comment}
-                                </small>
-                              </span>
+                  {this.state.comments.length > 0 ? (
+                    <div class="row d-flex justify-content-center mt-2">
+                      {this.state.comments.map((item, index) => (
+                        <div class="col-md-12 mb-1" key={index}>
+                          <div class="card p-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="user d-flex flex-row align-items-center">
+                                <span>
+                                  <small class="font-weight-bold">
+                                    {item.comment}
+                                  </small>
+                                </span>
+                              </div>
+                              <small>
+                                {moment(item.commentDate)
+                                  .startOf("hour")
+                                  .fromNow()}
+                                <DeleteForeverOutlinedIcon
+                                  color="action"
+                                  onClick={() => {
+                                    this.onDeleteComment(item._id);
+                                  }}
+                                />
+                              </small>
                             </div>
-                            <small>
-                              {moment(item.commentDate)
-                                .startOf("hour")
-                                .fromNow()}
-                              <DeleteForeverOutlinedIcon
-                                color="action"
-                                onClick={() => {
-                                  this.onDeleteComment(item._id);
-                                }}
-                              />
-                            </small>
                           </div>
                         </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div class="row d-flex justify-content-center mt-2">
+                      <div class="card p-2">
+                        <div className="card-body">
+                          <h4 className="text-muted">
+                            Add Your Comment Here...
+                          </h4>
+                        </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  )}
                 </div>
                 <div className="border rounded  border-danger p-3">
                   <label className="d-flex justify-content-between">
