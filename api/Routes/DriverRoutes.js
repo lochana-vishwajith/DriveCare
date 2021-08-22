@@ -1,8 +1,11 @@
 const router = require("express").Router();
 const Driver = require("../Models/DriverModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 router.post("/", (req, res) => {
   console.log("inside post");
+
   const {
     firstName,
     lastName,
@@ -18,33 +21,61 @@ router.post("/", (req, res) => {
     profilePicURL,
   } = req.body;
 
-  const driverDetails = new Driver({
-    firstName,
-    lastName,
-    displayName,
-    email,
-    licenceNumber,
-    password,
-    address,
-    licenceExpiryDate,
-    NIC,
-    mobile,
-    dob,
-    profilePicURL,
-    licenceStatus: "Active",
-    points: 30,
+  bcrypt.hash(password, 10).then((hash) => {
+    const driverDetails = new Driver({
+      firstName,
+      lastName,
+      displayName,
+      email,
+      licenceNumber,
+      password: hash,
+      address,
+      licenceExpiryDate,
+      NIC,
+      mobile,
+      dob,
+      profilePicURL,
+      licenceStatus: "Active",
+      points: 30,
+    });
+
+    console.log("Data tika", driverDetails);
+
+    driverDetails
+      .save()
+      .then((result) => {
+        res.status(200).send({ result });
+      })
+      .catch((error) => {
+        res.send(error);
+      });
+  });
+});
+
+router.post("/login", async (req, res) => {
+  const { licenceNumber, password } = req.body;
+
+  const login = await Driver.findOne({ licenceNumber: licenceNumber });
+
+  const isMatch = await bcrypt.compare(password, login.password);
+
+  const token = await login.generateAuthToken();
+
+  res.cookie("JWTToken", token, {
+    expires: new Date(Date.now() + 25892000000),
+    httpOnly: true,
   });
 
-  console.log("Data tika", driverDetails);
-
-  driverDetails
-    .save()
-    .then((result) => {
-      res.status(200).send({ result });
-    })
-    .catch((error) => {
-      res.send(error);
-    });
+  if (!isMatch) {
+    console.log("Password is Incorrect");
+    res.json({ error: "Login Failed" });
+  } else if (!login) {
+    console.log("ID is Incorrect");
+    res.json({ error: "Login Failed" });
+  } else {
+    console.log("Login Successful");
+    res.json({ message: "Login Successful", id: login._id });
+  }
 });
 
 router.get("/:id", async (req, res) => {
@@ -73,10 +104,10 @@ router.put("/:id", async (req, res) => {
   const id = req.params.id;
   const dataSet = req.body;
   console.log("Data", dataSet);
-  await Driver.findByIdAndUpdate(id,dataSet)
+  await Driver.findByIdAndUpdate(id, dataSet)
     .then((data) => {
-      console.log(data)
-      res.status(200).send({data:data},);
+      console.log(data);
+      res.status(200).send({ data: data });
     })
     .catch((error) => {
       res.send(error);

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const jwt = require("jsonwebtoken");
 
 const driverSchema = new Schema({
   firstName: {
@@ -84,7 +85,30 @@ const driverSchema = new Schema({
       ref: "Court",
     },
   ],
+  bloodGroup: {
+    type: String,
+    required: false,
+  },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
+
+driverSchema.methods.generateAuthToken = async function () {
+  try {
+    let token = jwt.sign({ _id: this._id }, "dr1v#c@re$#cr#t");
+    this.tokens = this.tokens.concat({ token: token });
+    await this.save();
+    return token;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const driverDetails = mongoose.model("Driver", driverSchema);
 
