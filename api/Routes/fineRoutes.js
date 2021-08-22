@@ -5,7 +5,7 @@ const driver = require("../Models/DriverModel");
 router.post("/", (req, res) => {
   const {
     driverID,
-    violationType,
+    violationtype,
     Officers,
     comments,
     courtDate,
@@ -15,6 +15,11 @@ router.post("/", (req, res) => {
     place,
     CourtPlace,
   } = req.body;
+
+  let violationType = [];
+  violationtype.forEach((element) => {
+    violationType.push(element.value);
+  });
 
   const fineDetails = new Fines({
     driverID,
@@ -29,7 +34,7 @@ router.post("/", (req, res) => {
     CourtPlace,
     isPayed: false,
   });
-
+  console.log("VV : ", violationType);
   fineDetails
     .save()
     .then((result) => {

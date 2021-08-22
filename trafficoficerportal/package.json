@@ -16,6 +16,7 @@
     "devextreme-react": "21.1.4",
     "dotenv": "^8.2.0",
     "firebase": "^8.8.1",
+    "jquery": "^3.6.0",
     "media-query-react": "^1.0.4",
     "moment": "^2.29.1",
     "react": "^17.0.2",

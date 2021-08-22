@@ -175,7 +175,7 @@ export default class createFineUi extends Component {
   onSelectViolationType = (violationType) => {
     this.setState({ violationType: violationType.value });
     console.log("v T :", violationType);
-    this.calculateTotalFine();
+    //this.calculateTotalFine();
   };
   onSelectCourtPlace = (CourtPlace) => {
     this.setState({ CourtPlace });

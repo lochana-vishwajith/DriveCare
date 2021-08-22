@@ -5,6 +5,9 @@
     column-gap: 4%;
     margin-top: 4%;
 }
+.officerOne{
+    padding-right: 4%;
+}
 .officerLogin{
     display: grid;
     grid-template-columns: 50% 50%;

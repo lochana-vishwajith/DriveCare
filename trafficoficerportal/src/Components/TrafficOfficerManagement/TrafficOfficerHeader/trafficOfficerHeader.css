@@ -3,42 +3,69 @@
 }
 .nav-link{
     color: blanchedalmond !important;
+    font-size: large !important;
 }
 #navbarNav{
     color: blanchedalmond !important;
+    
 }
 
+.navbar{
+  background: #880D11 !important;
+  
+}
+nav{
+  top: 0;
+  box-shadow: 0% 4% 6% 0% rgba(0, 0, 0, 08);
+  padding-top: .55rem;
+  padding-bottom: .5rem;
+
+}
+.navbar-nav{
+  margin-right: 4rem;
+}
+nav .navbar-collapse.collapse{
+  display: block;
+}
+@media (max-width: 1200px) {
+  nav .navbar-collapse.collapse{
+    overflow: hidden;
+  }
+  nav .navbar-collapse.active{
+    height: 100vh !important;
+  }
+ 
+}
+
+nav .navbar-collapse{
+  transition: .6s all ease-in-out;
+  height: 0 !important;
+}
 #driveLoginLogoH{
-    width: 5rem !important;
+    width: 4rem !important;
     margin-left: 2rem !important;
-    margin-top: 0.5rem !important;
 }
 @media (max-width: 1200px) {
     .driveLoginLogoH {
         width: 5rem !important;
         align-content: center !important;
     }
-    .officerNav{
-        background: #880D11 !important;
-    }
+   
 }
+
 @media (min-width: 1200px) {
-    .officerNav{
+    .navbar{
         background: #880D11 !important;
         height: 15% !important;
     }
 }
+
 @media (min-width: 1200px) {
     .links{
         padding-top: 10%;
+        font-size: large;
     }
 }
-.profileOfficer{
-    float: right;
-}
 
-.headerDiv{
-    display: grid;
-    grid-template-columns: repeat();
-    box-sizing: border-box;
-}
+
+
