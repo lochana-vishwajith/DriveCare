@@ -36,5 +36,20 @@ router.get("/:id", async (req, res) => {
         });
 });
 
+router.get("/getcatrules/:id", async (req, res) => {
+    if (req.params && req.params.id) {
+        await RulesCategory.findById(req.params.id)
+            .populate('rules', 'ruleNo ruleName demeritPoints')
+            .then(data => {
+                res.status(200).send({ rules: data.rules});
+                console.log(data);
+            })
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+    }
+})
+
+
 
 module.exports = router;

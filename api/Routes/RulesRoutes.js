@@ -77,9 +77,30 @@ router.post("/fullrule",async (req, res) => {
             });
     }
 });
+router.get("/:id", async (req, res) => {
+    const id = req.params.id;
+
+    await Rules.find({ _id: id })
+        .then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
 
 
+router.get("/getrulesincat/:id", async (req, res) => {
+    const id = req.params.id;
 
+    await Rules.find({ RuleCategoryId: id })
+        .then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
 
 
 

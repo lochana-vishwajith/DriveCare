@@ -32,11 +32,11 @@ const Rules = new Schema({
     RuleCategoryId:{
         type:mongoose.Schema.Types.ObjectId,
         require: false,
-        ref: "rulescategories",
+        ref: 'rulescategories',
     }
 });
 const rulesModel = mongoose.model(
-    "rules",
+    'rules',
     Rules
 );
 module.exports = rulesModel ;

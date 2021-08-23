@@ -25,11 +25,11 @@ const RulesCategory = new Schema({
     Rules:[{
         type:mongoose.Schema.Types.ObjectId,
         require: false,
-        ref: "rules",
+        ref: 'rules',
     }]
 });
 const rulesCategoryModel = mongoose.model(
-    "rulescategories",
+    'rulescategories',
     RulesCategory
 );
 module.exports = rulesCategoryModel ;

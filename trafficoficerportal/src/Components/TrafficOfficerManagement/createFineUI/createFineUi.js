@@ -9,7 +9,6 @@ import DateBox from "devextreme-react/date-box";
 import Button from "../../ButtonComponent/button";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "../TrafficOfficerHeader/trafficOfficerHeader";
 
 const competentDrive = ["A", "B", "C"];
 
@@ -44,7 +43,7 @@ export default class createFineUi extends Component {
       address: "",
       courtDate: "",
       licenseIssueDate: "",
-      violationType: [],
+      violationtype: [],
       selectedDriverDetails: "",
       totalFine: 0,
       onSelectDriver: "",
@@ -172,10 +171,9 @@ export default class createFineUi extends Component {
     this.getDriverDetailsByNic(onSelectDriver.value);
   };
 
-  onSelectViolationType = (violationType) => {
-    this.setState({ violationType: violationType.value });
-    console.log("v T :", violationType);
-    this.calculateTotalFine();
+  onSelectViolationType = (violationtype) => {
+    this.setState({ violationtype });
+    console.log("v T :", violationtype);
   };
   onSelectCourtPlace = (CourtPlace) => {
     this.setState({ CourtPlace });
@@ -183,7 +181,7 @@ export default class createFineUi extends Component {
 
   calculateTotalFine = () => {
     this.setState(
-      this.state.violationType.forEach((element) => {
+      this.state.violationtype.forEach((element) => {
         this.state.totalFine = this.state.totalFine + element.value[0];
       })
     );
@@ -192,7 +190,7 @@ export default class createFineUi extends Component {
   onCreateFine = () => {
     const {
       selectedDriverDetails,
-      violationType,
+      violationtype,
       Officers,
       courtDate,
       finetype,
@@ -201,9 +199,10 @@ export default class createFineUi extends Component {
       place,
       CourtPlace,
     } = this.state;
+    console.log("v : ", violationtype);
     const details = {
       driverID: selectedDriverDetails._id,
-      violationType,
+      violationtype,
       Officers,
       courtDate,
       fineType: finetype,
@@ -229,7 +228,7 @@ export default class createFineUi extends Component {
   render() {
     const {
       onSelectDriver,
-      violationType,
+      violationtype,
       finetype,
       selectedDriverDetails,
       CourtPlace,
@@ -238,24 +237,18 @@ export default class createFineUi extends Component {
 
     return (
       <div>
-        <Header />
         <div className="container">
-          <br />
-          <br />
-          <br />
           <div className="createFineMainDiv">
             <div className="createFineGrid">
               <div className="formDiv">
                 <Grid>
                   <Paper elevation={20}>
                     <div className="fineForm">
-                      <br />
                       <h2 className="createFineTxt">
                         <b>Create Fine</b>
                       </h2>
                       <hr />
                       <form>
-                        <br />
                         <label className="officerSelectDriver">
                           Driver NIC :
                         </label>
@@ -371,7 +364,7 @@ export default class createFineUi extends Component {
                             isSearchable={true}
                             options={this.state.allrules}
                             onChange={this.onSelectViolationType}
-                            value={violationType}
+                            value={violationtype}
                             id="officerSelectVio"
                             isMulti
                           />
