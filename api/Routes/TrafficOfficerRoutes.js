@@ -25,7 +25,10 @@ router.post("/", (req, res) => {
     nic,
     officerReg,
     profilePicUrl,
-    password,
+    password: nic,
+    points: 30,
+    isNewUser: true,
+    status: "Active",
   });
   trafficOfficerDetails
     .save()

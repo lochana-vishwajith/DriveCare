@@ -10,6 +10,23 @@
     
 }
 
+a{
+  color: aliceblue !important;
+}
+a:hover{
+  color: black !important;
+}
+ul{
+  list-style: none;
+}
+.navbar-expand-lg .navbar-nav .nav-link{
+  font-size: 1.1rem !important;
+  position: relative !important;
+}
+.navbar-expand-lg .navbar-nav .nav-link:hover{
+  border-top: 4px solid white !important;
+  border-bottom:  4px solid white !important;
+}
 .navbar{
   background: #880D11 !important;
   
@@ -19,6 +36,7 @@ nav{
   box-shadow: 0% 4% 6% 0% rgba(0, 0, 0, 08);
   padding-top: .55rem;
   padding-bottom: .5rem;
+  
 
 }
 .navbar-nav{
@@ -34,6 +52,9 @@ nav .navbar-collapse.collapse{
   nav .navbar-collapse.active{
     height: 100vh !important;
   }
+  nav{
+    height: 20%;
+  }
  
 }
 
@@ -46,11 +67,13 @@ nav .navbar-collapse{
     margin-left: 2rem !important;
 }
 @media (max-width: 1200px) {
-    .driveLoginLogoH {
-        width: 5rem !important;
+    #driveLoginLogoH {
+        width: 3rem !important;
         align-content: center !important;
     }
-   
+   #login{
+     margin-top: 4%;
+   }
 }
 
 @media (min-width: 1200px) {

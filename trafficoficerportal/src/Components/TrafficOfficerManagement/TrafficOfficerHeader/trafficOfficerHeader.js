@@ -27,12 +27,7 @@ export default class trafficOfficerHeader extends Component {
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
               <a className="navbar-brand text-info" href="#">
-                <img
-                  src={this.state.logo}
-                  class="w-100 shadow-1-strong rounded mb-4"
-                  id="driveLoginLogoH"
-                  alt=""
-                />
+                <img src={this.state.logo} id="driveLoginLogoH" alt="" />
               </a>
               <button
                 className="navbar-toggler border border-info text-info"
