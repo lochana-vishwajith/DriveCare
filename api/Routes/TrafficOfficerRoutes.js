@@ -75,6 +75,7 @@ router.get("/", async (req, res) => {
     });
 });
 router.get("/officerreg/:id", async (req, res) => {
+  let id = req.params.id;
   await TrafficOfficer.findOne({ officerReg: id })
     .then((result) => {
       res.status(200).send(result);
