@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import "./DriverProfile.css";
+import DriverHeader from "../DriverHeaderComponent/DriverHeader";
+import DriverFooter from "../DriverFooterComponent/DriverFooter";
 
 export default class DriverProfile extends Component {
   constructor(props) {
@@ -32,6 +34,9 @@ export default class DriverProfile extends Component {
     const { driverDetails } = this.state;
     return (
       <div>
+        <div>
+          <DriverHeader />
+        </div>
         <div className="container">
           <div className="mt-3">
             <div className="d-flex justify-content-between">
@@ -275,6 +280,9 @@ export default class DriverProfile extends Component {
               </Paper>
             </Grid>
           </div>
+        </div>
+        <div>
+          <DriverFooter />
         </div>
       </div>
     );

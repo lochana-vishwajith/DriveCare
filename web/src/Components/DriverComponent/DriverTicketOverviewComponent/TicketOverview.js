@@ -7,6 +7,8 @@ import TextArea from "devextreme-react/text-area";
 import { toast } from "react-toastify";
 import moment from "moment";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
+import DriverHeader from "../DriverHeaderComponent/DriverHeader";
+import DriverFooter from "../DriverFooterComponent/DriverFooter";
 
 export default class TicketOverview extends Component {
   constructor(props) {
@@ -117,6 +119,9 @@ export default class TicketOverview extends Component {
   render() {
     return (
       <div>
+        <div>
+          <DriverHeader />
+        </div>
         <div className="container">
           <div className="mt-3">
             <label>
@@ -297,6 +302,9 @@ export default class TicketOverview extends Component {
               </div>
             </Paper>
           </Grid>
+        </div>
+        <div>
+          <DriverFooter />
         </div>
       </div>
     );
