@@ -5,7 +5,6 @@ import axios from "axios";
 import "devextreme-react/text-area";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import TrafficOfficerHeader from "../TrafficOfficerHeader/trafficOfficerHeader";
 
 export default class officerDetailsDisplay extends Component {
   constructor(props) {
@@ -43,7 +42,6 @@ export default class officerDetailsDisplay extends Component {
     const { officerDetails } = this.state;
     return (
       <div>
-        <TrafficOfficerHeader />
         <div className="container">
           <label className="OfficerDetaisDis">
             <h2>

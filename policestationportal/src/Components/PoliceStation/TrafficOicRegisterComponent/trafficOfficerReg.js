@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
-import OfficerHeader from "../TrafficOfficerHeader/trafficOfficerHeader";
 
 export default class trafficOfficerReg extends Component {
   constructor(props) {
@@ -159,13 +158,6 @@ export default class trafficOfficerReg extends Component {
     const { image } = this.state;
     return (
       <div>
-        <OfficerHeader />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <div className="container">
           <div className="outerDiv">
             <Grid>

@@ -20,11 +20,6 @@ export default class trafficOfficerLogin extends Component {
     };
   }
 
-  setVal = (e) => {
-    localStorage.setItem("officerOne", "6116b0b785807701e005c57f");
-    localStorage.setItem("officerTwo", "6116b0b785807701e005c57f");
-    this.props.history.push("/createFine");
-  };
   officerOneChanged = (e) => {
     this.setState({ officerOne: e.value });
   };
@@ -53,12 +48,6 @@ export default class trafficOfficerLogin extends Component {
   render() {
     return (
       <>
-        <OfficerHeader />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <div className="container">
           <Grid>
             <Paper elevation={20}>
@@ -137,9 +126,9 @@ export default class trafficOfficerLogin extends Component {
                         <Button
                           id={"officerReg"}
                           value={"Login"}
-                          classname={"officerRegBtn"}
+                          classname={"createFineBtn"}
                           type={"submit"}
-                          onSubmit={this.setVal}
+                          onSubmit={this.pressLoginBtn}
                         />
                         <br />
                         <br />
