@@ -16,8 +16,9 @@ export default class DriverProfile extends Component {
   }
 
   componentDidMount() {
+    const id = localStorage.getItem("DriverID");
     axios
-      .get(`http://localhost:9000/driver/${this.props.match.params.id}`)
+      .get(`http://localhost:9000/driver/${id}`)
       .then((result) => {
         console.log("Data:", result.data);
         this.setState({ driverDetails: result.data });

@@ -388,7 +388,7 @@ export default class DriverProfileUpdate extends Component {
                         className="basic-single"
                         isSearchable={true}
                         options={this.state.allCategories}
-                        onChange={this.onSelectViolationType}
+                        onChange={this.onSelectVehicleType}
                         value={this.state.vehicleType}
                         isMulti
                       />

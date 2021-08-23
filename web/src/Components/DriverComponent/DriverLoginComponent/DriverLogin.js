@@ -27,6 +27,7 @@ export default class DriverLogin extends Component {
   };
 
   onSubmit = () => {
+    const { dispatch } = this.props;
     const loginDetails = {
       licenceNumber: this.state.dlicenceNo,
       password: this.state.password,

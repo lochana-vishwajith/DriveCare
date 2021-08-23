@@ -51,7 +51,7 @@ export default class App extends Component {
               path="/officerDisplay"
               component={OfficerDetailsDisplay}
             />
-            <Route exact path="/driverDisplay/:id" component={DriverProfile} />
+            <Route exact path="/driverDisplay" component={DriverProfile} />
             <Route
               exact
               path="/driverProfileUpdate/:id"
@@ -109,8 +109,11 @@ export default class App extends Component {
             />
             <Route path="/addRules" component={AddRules} />
             <Route path="/policestationList" component={PoliceStationList} />
-            <Route  path = "/viewAdminDetails" component = {Viewadmindetails} />
-            <Route  path = "/viewpolicesearch/:id" component = {PoliceStationViewSearchResult} />
+            <Route path="/viewAdminDetails" component={Viewadmindetails} />
+            <Route
+              path="/viewpolicesearch/:id"
+              component={PoliceStationViewSearchResult}
+            />
           </Switch>
         </Router>
       </div>
