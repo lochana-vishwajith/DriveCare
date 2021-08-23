@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import moment from "moment";
 import Select from "react-select";
+import DriverHeader from "../DriverHeaderComponent/DriverHeader";
+import DriverFooter from "../DriverFooterComponent/DriverFooter";
 
 export default class DriverProfileUpdate extends Component {
   constructor(props) {
@@ -37,8 +39,9 @@ export default class DriverProfileUpdate extends Component {
     };
   }
   componentDidMount() {
+    const id = localStorage.getItem("DriverID");
     axios
-      .get(`http://localhost:9000/driver/${this.props.match.params.id}`)
+      .get(`http://localhost:9000/driver/${id}`)
       .then((result) => {
         console.log("Data:", result.data);
         this.setState({ driverDetails: result.data });
@@ -232,7 +235,7 @@ export default class DriverProfileUpdate extends Component {
         toast.success("Changes Saved!", {
           position: toast.POSITION.TOP_RIGHT,
         });
-        // window.location = `/driverDisplay/${this.state.dLisenseNo}`;
+        window.location = `/driverDisplay`;
       })
       .catch((error) => {
         console.log("Data not Retriewed", error);
@@ -245,6 +248,9 @@ export default class DriverProfileUpdate extends Component {
     const { driverDetails } = this.state;
     return (
       <div>
+        <div>
+          <DriverHeader />
+        </div>
         <div className="container">
           <div className="mt-3">
             <label>
@@ -388,7 +394,7 @@ export default class DriverProfileUpdate extends Component {
                         className="basic-single"
                         isSearchable={true}
                         options={this.state.allCategories}
-                        onChange={this.onSelectViolationType}
+                        onChange={this.onSelectVehicleType}
                         value={this.state.vehicleType}
                         isMulti
                       />
@@ -503,6 +509,9 @@ export default class DriverProfileUpdate extends Component {
               </center>
             </Paper>
           </Grid>
+        </div>
+        <div>
+          <DriverFooter />
         </div>
       </div>
     );

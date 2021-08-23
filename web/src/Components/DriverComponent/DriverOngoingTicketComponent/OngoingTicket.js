@@ -2,6 +2,8 @@ import { Grid, Paper } from "@material-ui/core";
 import axios from "axios";
 import React, { Component } from "react";
 import "./OngoingTicket.css";
+import DriverHeader from "../DriverHeaderComponent/DriverHeader";
+import DriverFooter from "../DriverFooterComponent/DriverFooter";
 
 export default class OngoingTicket extends Component {
   constructor(props) {
@@ -26,6 +28,9 @@ export default class OngoingTicket extends Component {
   render() {
     return (
       <div>
+        <div>
+          <DriverHeader />
+        </div>
         <div className="container">
           <div className="mt-3">
             <label>
@@ -74,6 +79,9 @@ export default class OngoingTicket extends Component {
               )}
             </Paper>
           </Grid>
+        </div>
+        <div>
+          <DriverFooter />
         </div>
       </div>
     );
