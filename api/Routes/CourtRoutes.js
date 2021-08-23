@@ -34,34 +34,51 @@ router.post("/postc", async (req, res) => {
     comment,
   });
 
-  commentz
-    .save()
-    .then((result) => {
-      console.log(`REsult eka - ${result}`);
+  const c = await commentz.save();
+  res.send(c);
 
-      driver.findByIdAndUpdate(driverID, {
-        $push: {
-          courtComments: result._id,
-        },
-      });
+  const dr = await driver.findByIdAndUpdate(c.driverID, {
+    $push: {
+      courtComments: c._id,
+    },
+  });
+  console.log(dr);
 
-      Judge.findByIdAndUpdate(judgeID, {
-        $push: {
-          driverComments: result._id,
-        },
-      })
+  const jd = await Judge.findByIdAndUpdate(c.judgeID, {
+    $push: {
+      driverComments: c._id,
+    },
+  });
 
-        .then((response) => {
-          res.send("Successfully added");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    })
-    .catch((error) => {
-      console.log(`Error - ${error}`);
-    });
+  console.log(jd);
 });
+// commentz
+//   .save()
+//   .then((result) => {
+//     console.log(`REsult eka - ${result}`);
+
+//     driver.findByIdAndUpdate(driverID, {
+//       $push: {
+//         courtComments: result._id,
+//       },
+//     });
+
+//     Judge.findByIdAndUpdate(judgeID, {
+//       $push: {
+//         driverComments: result._id,
+//       },
+//     })
+
+//       .then((response) => {
+//         res.send(`Respone - ${response}`);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   })
+//   .catch((error) => {
+//     console.log(`Error - ${error}`);
+//   });
 
 // router.post("/postc", async (req, res) => {
 //   const comment = new Court({
