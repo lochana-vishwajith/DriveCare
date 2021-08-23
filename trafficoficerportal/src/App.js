@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { createContext, useReducer } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "devextreme/dist/css/dx.light.css";
 import {
@@ -11,11 +11,14 @@ import TrafficOfficerLogin from "./Components/TrafficOfficerManagement/TrafficOf
 import CreateFineUi from "./Components/TrafficOfficerManagement/createFineUI/createFineUi";
 import officerProfile from "./Components/TrafficOfficerManagement/OfficerProfileComponent/officerProfile";
 import Header from "./Components/TrafficOfficerManagement/TrafficOfficerHeader/trafficOfficerHeader";
+import { initialState, reducer } from "../src/Reducer/UseReducer";
 
-export default class App extends Component {
-  render() {
-    return (
-      <div>
+export const UserContext = createContext();
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div>
+      <UserContext.Provider value={{ state, dispatch }}>
         <Router>
           <Header />
           <Switch>
@@ -24,7 +27,9 @@ export default class App extends Component {
             <Route exact path="/profile" component={officerProfile} />
           </Switch>
         </Router>
-      </div>
-    );
-  }
+      </UserContext.Provider>
+    </div>
+  );
 }
+
+export default App;
