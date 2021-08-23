@@ -11,12 +11,13 @@ import {
 import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin";
 import display from "./Components/PoliceStation/OfficerDetailsDisplay/officerDetailsDisplay";
 import register from "./Components/PoliceStation/TrafficOicRegisterComponent/trafficOfficerReg";
-
+import Header from "./Components/HeaderComponent/header";
 export default class App extends Component {
   render() {
     return (
       <div>
         <Router>
+          <Header />
           <Switch>
             <Route exact path="/" component={PoliceStationLogin} />
             <Route exact path="/display" component={display} />

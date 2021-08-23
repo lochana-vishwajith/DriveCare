@@ -158,12 +158,6 @@ export default class trafficOfficerReg extends Component {
     const { image } = this.state;
     return (
       <div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <div className="container">
           <div className="outerDiv">
             <Grid>
