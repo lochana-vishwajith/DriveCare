@@ -7,10 +7,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { UserContext } from "../../../App";
+import { Link, useHistory } from "react-router-dom";
 
 toast.configure();
 
 function TrafficOfficerLogin() {
+  const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
   const [officerOne, setofficerOne] = useState("");
   const [officerTwo, setofficerTwo] = useState("");
@@ -33,17 +35,28 @@ function TrafficOfficerLogin() {
 
       axios
         .post("http://localhost:9000/trafficOfficer/login", credentials)
-        .then((res) => {
+        .then(async (res) => {
           console.log("res in log : ", res);
           dispatch({ type: "USER", payload: true });
-          toast.success("Login Success", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          await axios
+            .get(
+              `http://localhost:9000/trafficOfficer/officerreg/${officerTwo}`
+            )
+            .then((result) => {
+              console.log("officer two details : ", result.data);
+              localStorage.setItem("officerOne", res.data.id);
+              localStorage.setItem("officerTwo", result.data._id);
+              toast.success("Login Success", {
+                position: toast.POSITION.TOP_RIGHT,
+              });
+              setTimeout(() => {
+                history.push("/createFine");
+              }, 5000);
+            });
         });
     }
   }
 
-  //render() {
   return (
     <div className="container" id="login">
       <Grid>
