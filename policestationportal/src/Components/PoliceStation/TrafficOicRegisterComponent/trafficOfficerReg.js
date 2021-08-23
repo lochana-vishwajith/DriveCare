@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
+toast.configure();
 
 export default class trafficOfficerReg extends Component {
   constructor(props) {
@@ -139,13 +140,11 @@ export default class trafficOfficerReg extends Component {
           profilePicUrl,
           password: this.state.nic,
         };
-        axios
-          .post("http://localhost:9000/trafficOfficer", details)
-          .then(async () => {
-            toast.success("Successfully Registered", {
-              position: toast.POSITION.TOP_RIGHT,
-            });
+        axios.post("http://localhost:9000/trafficOfficer", details).then(() => {
+          toast.success("Successfully Registered", {
+            position: toast.POSITION.TOP_RIGHT,
           });
+        });
       }
     } catch (err) {
       console.log("Error in reg on submit" + err);
@@ -227,7 +226,7 @@ export default class trafficOfficerReg extends Component {
                           <label className="mobileShort">Mobile No</label>
                           <br />
                           <TextBox
-                            mask="(000) 000-0000"
+                            mask="(00) 000-0000"
                             className="mobile"
                             name="mobile"
                             value={this.state.mobile}

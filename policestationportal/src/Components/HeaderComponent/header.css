@@ -1,31 +1,94 @@
-.driveCareLogo{
-    max-width: 4rem;
-}
-.navbar-nav{
-    margin-left: 70%;
-}
 .navbar-brand{
-    margin-left: 6% !important;
+    color: blanchedalmond !important;
+}
+.nav-link{
+    color: blanchedalmond !important;
+    font-size: large !important;
+}
+#navbarNav{
+    color: blanchedalmond !important;
+    
+}
 
-}
-.navbar {
-    background: #920E0E !important;
-}
 a{
-    color: aliceblue !important;
+  color: aliceblue !important;
 }
 a:hover{
-    color: black !important;
+  color: black !important;
 }
 ul{
-    list-style: none;
+  list-style: none;
 }
-
 .navbar-expand-lg .navbar-nav .nav-link{
-    font-size: 1.1rem !important;
-    position: relative !important;
+  font-size: 1.1rem !important;
+  position: relative !important;
 }
 .navbar-expand-lg .navbar-nav .nav-link:hover{
-    border-top: 4px solid white !important;
-    border-bottom:  4px solid white !important;
+  border-top: 4px solid white !important;
+  border-bottom:  4px solid white !important;
 }
+.navbar{
+  background: #880D11 !important;
+  
+}
+nav{
+  top: 0;
+  box-shadow: 0% 4% 6% 0% rgba(0, 0, 0, 08);
+  padding-top: .55rem;
+  padding-bottom: .5rem;
+  
+
+}
+.navbar-nav{
+  margin-right: 4rem;
+}
+nav .navbar-collapse.collapse{
+  display: block;
+}
+@media (max-width: 1200px) {
+  nav .navbar-collapse.collapse{
+    overflow: hidden;
+  }
+  nav .navbar-collapse.active{
+    height: 100vh !important;
+  }
+  nav{
+    height: 20%;
+  }
+ 
+}
+
+nav .navbar-collapse{
+  transition: .6s all ease-in-out;
+  height: 0 !important;
+}
+#driveLoginLogoH{
+    width: 4rem !important;
+    margin-left: 2rem !important;
+}
+@media (max-width: 1200px) {
+    #driveLoginLogoH {
+        width: 3rem !important;
+        align-content: center !important;
+    }
+   #login{
+     margin-top: 4%;
+   }
+}
+
+@media (min-width: 1200px) {
+    .navbar{
+        background: #880D11 !important;
+        height: 15% !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .links{
+        padding-top: 10%;
+        font-size: large;
+    }
+}
+
+
+
