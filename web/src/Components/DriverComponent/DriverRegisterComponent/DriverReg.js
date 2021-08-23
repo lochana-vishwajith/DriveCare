@@ -76,7 +76,9 @@ export default class DriverReg extends Component {
     console.log("Data: ", dataSet);
     axios
       .post("http://localhost:9000/driver", dataSet)
-      .then(async () => {
+      .then(async (res) => {
+        console.log("Driver Reg", res.data.result._id);
+        localStorage.setItem("DriverID", res.data.result._id);
         toast.success("Successfully Registered", {
           position: toast.POSITION.TOP_RIGHT,
         });
