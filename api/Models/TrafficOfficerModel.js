@@ -54,7 +54,14 @@ const trafficOfficerSchema = new Schema({
     type: Number,
     required: true,
   },
-
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   courtComments: [
     {
       type: mongoose.Schema.Types.ObjectId,
