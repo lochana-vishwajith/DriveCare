@@ -1,0 +1,51 @@
+tbody {
+  cursor: pointer;
+}
+
+.animated-heading {
+  color: #a6d400;
+  font-family: arial;
+  border-bottom: 5px solid #d42000;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 10px;
+  padding: 0px 15px;
+}
+.txt {
+  text-align: center;
+  font-size: 40px;
+  border-radius: 10px;
+  display: block;
+  line-height: 60px;
+}
+.txt:first-child {
+  animation: spin 12s infinite;
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-margin-top: 0;
+  }
+  16% {
+    -webkit-margin-top: -60px;
+  }
+  33% {
+    -webkit-margin-top: -120px;
+  }
+  50% {
+    -webkit-margin-top: -180px;
+  }
+}
+@keyframes spin {
+  0% {
+    margin-top: 0;
+  }
+  16% {
+    margin-top: -60px;
+  }
+  33% {
+    margin-top: -120px;
+  }
+  50% {
+    margin-top: -180px;
+  }
+}

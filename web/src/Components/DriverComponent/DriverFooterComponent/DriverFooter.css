@@ -1,4 +1,11 @@
 .color {
-    background-color: brown;
-    margin-top: 5%;
+  background-color: brown;
+  margin-top: 6%;
+}
+
+.d-ali {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }

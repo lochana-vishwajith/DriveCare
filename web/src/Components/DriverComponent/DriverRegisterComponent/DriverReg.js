@@ -1,4 +1,4 @@
-import { Grid, Link, Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import React, { Component } from "react";
 import Button from "../../ButtonComponent/button";
@@ -8,11 +8,11 @@ import {
   CompareRule,
   EmailRule,
 } from "devextreme-react/validator";
-import DriverHeader from "../DriverHeaderComponent/DriverHeader";
-import DriverFooter from "../DriverFooterComponent/DriverFooter";
 import axios from "axios";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./DriverReg.css";
+import { Link } from "react-router-dom";
 export default class DriverReg extends Component {
   constructor(props) {
     super(props);
@@ -94,7 +94,6 @@ export default class DriverReg extends Component {
   render() {
     return (
       <div>
-        <DriverHeader />
         <div className="container">
           <div className="mt-1">
             <center>
@@ -227,9 +226,9 @@ export default class DriverReg extends Component {
                           onSubmit={this.onSubmit}
                         />
                       </div>
-                      <div className="mt-3 d-link">
-                        <Link to="/driverLogin">
-                          <small>
+                      <div className="mt-3">
+                        <Link to="/">
+                          <small className="d-r-link">
                             Already Have a Account? <b>Sign In</b>
                           </small>
                         </Link>
@@ -241,7 +240,6 @@ export default class DriverReg extends Component {
             </Paper>
           </Grid>
         </div>
-        <DriverFooter />
       </div>
     );
   }
