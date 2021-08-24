@@ -7,8 +7,6 @@ import "./CourtLogin.css";
 //import Button from "../../ButtonComponent/button";
 import Button from "../../ButtonComponent/button";
 import CourtHeader from "../CourtHeader/CourtHeader";
-// import { Form } from "react-bootstrap";
-// import { Button } from "react-bootstrap";
 
 export default class CourtLogin extends Component {
   constructor(props) {
