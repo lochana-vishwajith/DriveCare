@@ -21,10 +21,15 @@
   width: 80%;
 }
 
-.d-link {
+.d-r-link {
   cursor: pointer;
+  color: darkred;
 }
 
 .d-center-input {
   margin-left: 20%;
+}
+
+.d-r-link :hover {
+  color: rgb(70, 65, 65);
 }

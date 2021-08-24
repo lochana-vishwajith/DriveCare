@@ -68,10 +68,12 @@ router.post("/login", async (req, res) => {
 
   if (!isMatch) {
     console.log("Password is Incorrect");
-    res.json({ error: "Login Failed" });
+    // res.json({ error: "Login Failed" });
+    res.status(400).send();
   } else if (!login) {
     console.log("ID is Incorrect");
-    res.json({ error: "Login Failed" });
+    // res.json({ error: "Login Failed" });
+    res.status(401).send();
   } else {
     console.log("Login Successful");
     res.json({ message: "Login Successful", id: login._id });

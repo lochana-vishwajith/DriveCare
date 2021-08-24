@@ -7,8 +7,7 @@ import TextArea from "devextreme-react/text-area";
 import { toast } from "react-toastify";
 import moment from "moment";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
-import DriverHeader from "../DriverHeaderComponent/DriverHeader";
-import DriverFooter from "../DriverFooterComponent/DriverFooter";
+import "react-toastify/dist/ReactToastify.css";
 
 export default class TicketOverview extends Component {
   constructor(props) {
@@ -44,15 +43,15 @@ export default class TicketOverview extends Component {
     axios
       .get(`http://localhost:9000/fine/${this.props.match.params.id}`)
       .then((res) => {
-        console.log("Fine Data:", JSON.stringify(res.data));
+        console.log("Fine Data:", res.data);
         this.setState({ fine: res.data });
         // console.log(this.state.fine.violationType[0].fineAmount);
-        this.setState({
-          fineAmount: this.state.fine.violationType[0].fineAmount,
-          fineDescription: this.state.fine.violationType[0].description,
-          fineRule: this.state.fine.violationType[0].ruleName,
-          officers: res.data,
-        });
+        // this.setState({
+        //   fineAmount: this.state.fine.violationType[0].fineAmount,
+        //   fineDescription: this.state.fine.violationType[0].description,
+        //   fineRule: this.state.fine.violationType[0].ruleName,
+        //   officers: res.data,
+        // });
 
         // console.log("Offi:", this.state.fine.Officers.map);
       })
@@ -119,9 +118,6 @@ export default class TicketOverview extends Component {
   render() {
     return (
       <div>
-        <div>
-          <DriverHeader />
-        </div>
         <div className="container">
           <div className="mt-3">
             <label>
@@ -141,7 +137,13 @@ export default class TicketOverview extends Component {
                   {this.state.fine.map((item, index) => (
                     <div className="ml-2 d-violation-body">
                       <label>Violation : </label>
-                      <b>{item.violationType.map((val, k) => val.ruleName)}</b>
+                      <b>
+                        <ol>
+                          {item.violationType.map((val, k) => (
+                            <li className="d-inline"> {val.ruleName} |</li>
+                          ))}
+                        </ol>
+                      </b>
                       <br />
                       <label>Location : </label>
                       <b>{item.place}</b>
@@ -187,10 +189,22 @@ export default class TicketOverview extends Component {
                     <div className="ml-2 d-violation-body">
                       <div key={index}>
                         <label>Officer Name : </label>
-                        <b>{item.Officers.map((i, k) => i.nameInitial)}</b>
+                        <b>
+                          <ul>
+                            {item.Officers.map((i, k) => (
+                              <li className="d-inline">{i.nameInitial} |</li>
+                            ))}
+                          </ul>
+                        </b>
                         <br />
                         <label>Officer ID : </label>
-                        <b>{item.Officers.map((i, k) => i.officerReg)}</b>
+                        <b>
+                          <ul>
+                            {item.Officers.map((i, k) => (
+                              <li className="d-inline">{i.officerReg}</li>
+                            ))}
+                          </ul>
+                        </b>
                         <br />
                         <label>Police Station : </label>
                       </div>
@@ -265,6 +279,7 @@ export default class TicketOverview extends Component {
                               <small>
                                 {moment(item.commentDate).fromNow()}
                                 <DeleteForeverOutlinedIcon
+                                  className="d-delete"
                                   color="action"
                                   onClick={() => {
                                     this.onDeleteComment(item._id);
@@ -280,9 +295,9 @@ export default class TicketOverview extends Component {
                     <div class="row d-flex justify-content-center mt-2">
                       <div class="card p-2">
                         <div className="card-body">
-                          <h4 className="text-muted">
+                          <h3 className="text-muted">
                             Add Your Comment Here...
-                          </h4>
+                          </h3>
                         </div>
                       </div>
                     </div>
@@ -302,9 +317,6 @@ export default class TicketOverview extends Component {
               </div>
             </Paper>
           </Grid>
-        </div>
-        <div>
-          <DriverFooter />
         </div>
       </div>
     );

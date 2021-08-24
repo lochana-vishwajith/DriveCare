@@ -67,3 +67,11 @@
     font-size: 2rem;
   }
 }
+
+.d-link {
+  color: darkred;
+}
+
+.d-link :hover {
+  color: rgb(119, 116, 116);
+}
