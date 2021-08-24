@@ -5,13 +5,19 @@
 
 .officerDetailsDisplay {
     margin-top: 2%;
+    padding: 1%;
 }
 
 .officerdisplayDiv {
     display: grid;
-    grid-template-columns: 75% 25%;
+    grid-template-columns: 80% 20%;
     box-sizing: border-box;
+    margin-top: 2%;
 
+}
+.OfficerDetaisDis{
+    margin-top: 2%;
+    margin-left: 2%;
 }
 
 th {

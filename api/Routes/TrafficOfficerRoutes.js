@@ -1,5 +1,8 @@
 const router = require("express").Router();
+const { response } = require("express");
 const TrafficOfficer = require("../Models/TrafficOfficerModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 router.post("/", (req, res) => {
   const {
@@ -12,33 +15,68 @@ router.post("/", (req, res) => {
     nic,
     officerReg,
     profilePicUrl,
-    password,
   } = req.body;
-
-  const trafficOfficerDetails = new TrafficOfficer({
-    firstName,
-    lastName,
-    nameInitial,
-    dob,
-    mobile,
-    home,
-    nic,
-    officerReg,
-    profilePicUrl,
-    password,
-  });
-  trafficOfficerDetails
-    .save()
-    .then((result) => {
-      res.status(200).send({ result });
-    })
-    .catch((err) => {
-      res.send(err);
+  const password = nic;
+  bcrypt.hash(password, 10).then((hash) => {
+    const trafficOfficerDetails = new TrafficOfficer({
+      firstName,
+      lastName,
+      nameInitial,
+      dob,
+      mobile,
+      home,
+      nic,
+      officerReg,
+      profilePicUrl,
+      password: hash,
+      points: 30,
+      isNewUser: true,
+      status: "Active",
     });
+    trafficOfficerDetails
+      .save()
+      .then((result) => {
+        res.status(200).send({ result });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  });
+});
+
+router.post("/login", async (req, res) => {
+  const { officerReg, password } = req.body;
+
+  const login = await TrafficOfficer.findOne({ officerReg: officerReg });
+  const isMatch = await bcrypt.compare(password, login.password);
+  const token = await login.generateAuthToken();
+
+  res.cookie("JWTToken", token, {
+    expires: new Date(Date.now() + 25892000000),
+    httpOnly: true,
+  });
+
+  if (!isMatch) {
+    console.log("Password is incorrect");
+  } else if (!login) {
+    res.json({ error: "Login Failed" });
+  } else {
+    res.json({ message: "Login Successfull", id: login._id });
+  }
 });
 
 router.get("/", async (req, res) => {
   await TrafficOfficer.find()
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(501).send(err);
+    });
+});
+router.get("/officerreg/:id", async (req, res) => {
+  let id = req.params.id;
+  await TrafficOfficer.findOne({ officerReg: id })
     .then((result) => {
       res.status(200).send(result);
     })

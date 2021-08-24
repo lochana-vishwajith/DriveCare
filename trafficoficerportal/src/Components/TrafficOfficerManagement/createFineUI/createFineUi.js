@@ -86,8 +86,6 @@ export default class createFineUi extends Component {
   };
 
   componentDidMount() {
-    localStorage.setItem("officerOne", "6116b0b785807701e005c57f");
-    localStorage.setItem("officerTwo", "6116b0b785807701e005c57f");
     axios
       .get("http://localhost:9000/driver")
       .then((res) => {
