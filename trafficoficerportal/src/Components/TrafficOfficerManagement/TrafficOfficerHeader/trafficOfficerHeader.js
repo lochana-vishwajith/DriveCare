@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./trafficOfficerHeader.css";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import $ from "jquery";
 import { UserContext } from "../../../App";
 
@@ -28,9 +28,9 @@ export default function TrafficOfficerHeader() {
       {state && (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
-            <a className="navbar-brand text-info" href="#">
+            <Link className="navbar-brand text-info" to="#">
               <img src={logo} id="driveLoginLogoH" alt="" />
-            </a>
+            </Link>
             <button
               className="navbar-toggler border border-info text-info"
               onClick={() => {
@@ -55,19 +55,19 @@ export default function TrafficOfficerHeader() {
             >
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="#">
+                  <Link className="nav-link" aria-current="page" to="/createFine">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <Link className="nav-link" to="#">
                     View Fines
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <Link className="nav-link" to="/profile">
                     Profile
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -77,14 +77,14 @@ export default function TrafficOfficerHeader() {
       {!state && (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#">
+            <Link className="navbar-brand" to="#">
               <img
                 src={logo}
                 class="w-100 shadow-1-strong rounded mb-4"
                 id="driveLoginLogoH"
                 alt=""
               />
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"

@@ -8,6 +8,9 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { UserContext } from "../../../App";
 import { Link, useHistory } from "react-router-dom";
+// import firebase from "../../../firebase/firebase";
+import "firebase/auth";
+import firebase from "firebase/app";
 
 toast.configure();
 
@@ -16,6 +19,7 @@ function TrafficOfficerLogin() {
   const { state, dispatch } = useContext(UserContext);
   const [officerOne, setofficerOne] = useState("");
   const [officerTwo, setofficerTwo] = useState("");
+  const [otp, setOtp] = useState("");
   const [logo] = useState(
     "https:firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628967576900_colored-logo.png?alt=media&token=166ac21d-89be-45b2-9b0b-17e5a400e359"
   );
@@ -37,7 +41,7 @@ function TrafficOfficerLogin() {
         .post("http://localhost:9000/trafficOfficer/login", credentials)
         .then(async (res) => {
           console.log("res in log : ", res);
-          dispatch({ type: "USER", payload: true });
+          // dispatch({ type: "USER", payload: true });
           await axios
             .get(
               `http://localhost:9000/trafficOfficer/officerreg/${officerTwo}`
@@ -46,11 +50,13 @@ function TrafficOfficerLogin() {
               console.log("officer two details : ", result.data);
               localStorage.setItem("officerOne", res.data.id);
               localStorage.setItem("officerTwo", result.data._id);
+
               toast.success("Login Success", {
                 position: toast.POSITION.TOP_RIGHT,
               });
               setTimeout(() => {
                 history.push("/createFine");
+                dispatch({ type: "USER", payload: true });
               }, 5000);
             });
         });

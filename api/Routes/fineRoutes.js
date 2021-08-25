@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
     vehicelNo,
     offenceDate,
     place,
-    CourtPlace,
+    CourtPlace : CourtPlace.value,
     isPayed: false,
   });
   console.log("VV : ", violationType);
