@@ -13,6 +13,8 @@ import DriverProfile from "./Components/DriverComponent/DriverProfileComponent/D
 import DriverProfileUpdate from "./Components/DriverComponent/DriverProfileUpdateComponent/DriverProfileUpdate";
 import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketComponent/OngoingTicket";
 import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
+import DriverHeader from "./Components/DriverComponent/DriverHeaderComponent/DriverHeader";
+import DriverFooter from "./Components/DriverComponent/DriverFooterComponent/DriverFooter";
 
 import { initialState, reducer } from "../src/Reducer/UseReduser";
 export const UserContext = createContext();
@@ -23,6 +25,7 @@ function App() {
     <div>
       <UserContext.Provider value={{ state, dispatch }}>
         <Router>
+          <DriverHeader />
           <Switch>
             <Route exact path="/driverRegister" component={DriverReg} />
             <Route exact path="/" component={DriverLogin} />
@@ -39,6 +42,7 @@ function App() {
               component={TicketOverview}
             />
           </Switch>
+          <DriverFooter />
         </Router>
       </UserContext.Provider>
     </div>

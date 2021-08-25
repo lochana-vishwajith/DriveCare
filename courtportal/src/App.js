@@ -18,6 +18,7 @@ import OfficerDetails from "./Components/CourtComponent/OfficerDetails/OfficerDe
 import ChangePoints from "./Components/CourtComponent/ChangePoints/ChangePoints";
 import AddCommentPolice from "./Components/CourtComponent/AddCommentPolice/AddCommentPolice";
 import JudgeRegister from "./Components/CourtComponent/JudgeRegister/JudgeRegister";
+import CourtFooter from "./Components/CourtComponent/CourtFooter/CourtFooter";
 
 export default class App extends Component {
   render() {
@@ -48,6 +49,8 @@ export default class App extends Component {
             <Route exact path="/courtChangePoints" component={ChangePoints} />
             <Route exact path="/judgeRegister" component={JudgeRegister} />
           </Switch>
+
+          <CourtFooter />
         </Router>
       </div>
     );

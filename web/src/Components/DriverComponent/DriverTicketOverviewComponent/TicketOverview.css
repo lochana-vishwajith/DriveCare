@@ -25,3 +25,7 @@
   margin-left: 15px;
   padding: 2px;
 }
+
+.d-delete {
+  cursor: pointer;
+}

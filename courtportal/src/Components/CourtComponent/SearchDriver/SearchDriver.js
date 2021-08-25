@@ -36,7 +36,7 @@ class SearchDriver extends React.Component {
   }
 
   render() {
-    const { drivers, searchTerm } = this.state;
+    const { searchTerm } = this.state;
 
     return (
       <div className="container">
@@ -89,7 +89,7 @@ class SearchDriver extends React.Component {
 
           {this.state.drivers
             .filter((val) => {
-              if (searchTerm == "") {
+              if (searchTerm === "") {
                 return val;
               } else if (
                 val.licenceNumber

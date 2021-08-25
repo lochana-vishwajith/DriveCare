@@ -7,8 +7,6 @@ import "./CourtLogin.css";
 //import Button from "../../ButtonComponent/button";
 import Button from "../../ButtonComponent/button";
 import CourtHeader from "../CourtHeader/CourtHeader";
-// import { Form } from "react-bootstrap";
-// import { Button } from "react-bootstrap";
 
 export default class CourtLogin extends Component {
   constructor(props) {
@@ -43,70 +41,6 @@ export default class CourtLogin extends Component {
             </center>
             <hr></hr>
           </div>
-
-          {/* <Grid>
-            <Paper elevation={20}>
-              <div className="d-center-form">
-                <div className="d-center-input">
-                  <div className="dx-fieldset">
-                    <div className="dx-field" id="d-text-in">
-                      <label id="labelName">Judge Username</label>
-                      <TextBox
-                        name="dlicenceNo"
-                        value={this.state.dlicenceNo}
-                        onValueChanged={this.onDrivingLicenceChanged}
-                        showClearButton={true}
-                      >
-                        <Validator>
-                          <RequiredRule message="Licence Number is required" />
-                        </Validator>
-                      </TextBox>
-                    </div>
-                    <div className="dx-field" id="d-text-in">
-                      <label id="labelName">Password</label>
-                      <TextBox
-                        mode="password"
-                        name="password"
-                        value={this.state.password}
-                        showClearButton={true}
-                        onValueChanged={this.onPasswordChanged}
-                      >
-                        <Validator>
-                          <RequiredRule message="Password is required" />
-                        </Validator>
-                      </TextBox>
-                    </div>
-                    <div className="d-btn-aling">
-                      <div className="d-btnReg-long">
-                        <Button
-                          id={"driverReg"}
-                          value={"Sign In"}
-                          classname={"driverRegBtn"}
-                          type={"submit"}
-                        />
-                      </div>
-                      <div className="d-btnReg-short">
-                        <Button
-                          id={"driverReg"}
-                          value={"Sign In"}
-                          classname={"driverRegBtn-short"}
-                          type={"submit"}
-                          onSubmit={this.onSubmit}
-                        />
-                      </div>
-                      <div className="mt-3 d-link">
-                        <Link to="/driverRegister">
-                          <small>
-                            Don't Have a Account? <b>Sign Up</b>
-                          </small>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Paper>
-          </Grid> */}
         </div>
         <div className="container">
           <form>

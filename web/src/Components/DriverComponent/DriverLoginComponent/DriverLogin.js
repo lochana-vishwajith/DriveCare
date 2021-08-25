@@ -1,33 +1,22 @@
-import { Grid, Paper, Link } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { useContext, useState } from "react";
 import "./DriverLogin.css";
 import Button from "../../ButtonComponent/button";
-import DriverHeader from "../DriverHeaderComponent/DriverHeader";
-import DriverFooter from "../DriverFooterComponent/DriverFooter";
 import axios from "axios";
 import { UserContext } from "../../../App";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useHistory } from "react-router-dom";
+
+toast.configure();
 
 function DriverLogin() {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     dlicenceNo: "",
-  //     password: "",
-  //   };
-  // }
+  const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
   const [dlicenceNo, setdlicenceNo] = useState("");
   const [password, setpassword] = useState("");
-
-  // onDrivingLicenceChanged = (e) => {
-  //   this.setState({ dlicenceNo: e.value });
-  // };
-
-  // onPasswordChanged = (e) => {
-  //   this.setState({ password: e.value });
-  // };
 
   function onSubmit() {
     const loginDetails = {
@@ -43,18 +32,32 @@ function DriverLogin() {
         localStorage.setItem("DriverID", res.data.id);
         if (res.status === 200) {
           dispatch({ type: "DRIVER", payload: true });
-          alert("Login Successful");
-          window.location = "/driverDisplay";
+          toast.success("Login Successful", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setTimeout(() => {
+            history.push("/driverDisplay");
+          }, 2000);
+        } else if (res.status === 400) {
+          toast.error("Password is Incorrect", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        } else if (res.status === 401) {
+          toast.error("License Number is Incorrect", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
         }
+      })
+      .catch((error) => {
+        console.log("Error Login Failed", error);
+        toast.error("Login Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
   }
 
-  // render() {
   return (
     <div>
-      <div>
-        <DriverHeader />
-      </div>
       <div className="container d-margin-top">
         <div className="mt-1">
           <center>
@@ -122,9 +125,9 @@ function DriverLogin() {
                         onSubmit={onSubmit}
                       />
                     </div>
-                    <div className="mt-3 d-link">
+                    <div className="mt-3">
                       <Link to="/driverRegister">
-                        <small>
+                        <small className="d-link">
                           Don't Have a Account? <b>Sign Up</b>
                         </small>
                       </Link>
@@ -135,9 +138,6 @@ function DriverLogin() {
             </div>
           </Paper>
         </Grid>
-      </div>
-      <div>
-        <DriverFooter />
       </div>
     </div>
   );

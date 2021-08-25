@@ -9,8 +9,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import moment from "moment";
 import Select from "react-select";
-import DriverHeader from "../DriverHeaderComponent/DriverHeader";
-import DriverFooter from "../DriverFooterComponent/DriverFooter";
+import "react-toastify/dist/ReactToastify.css";
 
 export default class DriverProfileUpdate extends Component {
   constructor(props) {
@@ -248,9 +247,6 @@ export default class DriverProfileUpdate extends Component {
     const { driverDetails } = this.state;
     return (
       <div>
-        <div>
-          <DriverHeader />
-        </div>
         <div className="container">
           <div className="mt-3">
             <label>
@@ -509,9 +505,6 @@ export default class DriverProfileUpdate extends Component {
               </center>
             </Paper>
           </Grid>
-        </div>
-        <div>
-          <DriverFooter />
         </div>
       </div>
     );

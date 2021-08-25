@@ -1,7 +1,10 @@
 import React from 'react'
 import {Grid, Paper} from "@material-ui/core";
 import "./addRule.css"
+import navbar from "../../navbarComponent/navbar";
 import CButton from "../../../ButtonComponent/button"
+import example from "../../examp";
+import Navbar from "../../navbarComponent/navbar";
 export default class AddRules extends React.Component{
     constructor(props) {
         super(props);
@@ -26,26 +29,15 @@ export default class AddRules extends React.Component{
     }
 
     handlerChange=(e)=>{
-
         this.setState({ [e.target.name]: e.target.value });
-
     }
 
     render() {
         return (
             <div>
+                <Navbar topic1 = "Admin" topic2 = "lamaya" topic3 = "lamay2" link1 = "#admin" portal = "ADD RULES"/>
+                <example portal = "ADD RULES"/>
                 <div className="container">
-                    <div className="mt-1">
-                        <center>
-                            <div className="d-reg">
-                                <i>Welcome to</i>
-                            </div>
-                            <div className="d-dc">
-                                <b>Rules Add</b>
-                            </div>
-                        </center>
-                        <hr></hr>
-                    </div>
                     <Grid>
                         <Paper elevation={20}>
                             <div className="d-center-form">
