@@ -1,3 +1,9 @@
+.btn-outline-secondary{
+    background-color: #920E0E;
+    text-decoration-color: #f2f2f2;
+}
+.buttonHolder{ text-align: center;}
+
 .form-body-rules{
     margin: 30px;
 }

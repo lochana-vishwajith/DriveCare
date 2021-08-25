@@ -1,0 +1,35 @@
+
+#navbarNav {
+   color: blanchedalmond !important;
+}
+.nav-pills > li > a.active {
+   background-color: #a6a6a6 !important;
+}
+.navbar-dark{
+   background:#920E0E;
+
+}
+#driveLoginLogoH {
+   width: 5rem !important;
+   margin-left: 2rem !important;
+   margin-top: 0.5rem !important;
+}
+@media (max-width: 1200px) {
+   .driveLoginLogoH {
+      width: 5rem !important;
+      align-content: center !important;
+   }
+   .officerNav {
+      background: #880d11 !important;
+   }
+}
+@media (min-width: 1200px) {
+   .officerNav {
+      background: #880d11 !important;
+      height: 15% !important;
+   }
+}
+
+.thicker{
+   font-weight: 900;
+}

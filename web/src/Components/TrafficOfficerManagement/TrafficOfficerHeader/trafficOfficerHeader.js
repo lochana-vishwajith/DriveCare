@@ -44,14 +44,14 @@ export default class trafficOfficerHeader extends Component {
                   <Nav.Link
                     className="links"
                     href=""
-                    className="profileOfficer"
+
                   >
                     Profile
                   </Nav.Link>
                   <Nav.Link
                     className="links"
                     href=""
-                    className="profileOfficer"
+
                   >
                     <i className="fas fa-sign-out-alt" />
                   </Nav.Link>

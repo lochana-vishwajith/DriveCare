@@ -41,7 +41,7 @@ router.get("/getcatrules/:id", async (req, res) => {
         await RulesCategory.findById(req.params.id)
             .populate('rules', 'ruleNo ruleName demeritPoints')
             .then(data => {
-                res.status(200).send({ rules: data.rules});
+                res.status(200).send(data);
                 console.log(data);
             })
             .catch(error => {
@@ -49,6 +49,19 @@ router.get("/getcatrules/:id", async (req, res) => {
             });
     }
 })
+
+router.get("/", async(req, res) => {
+    console.log("awaaa");
+   await RulesCategory.find()
+        .then((result) => {
+            console.log("Data are fetched");
+            res.status(200).send(result);
+        })
+        .catch((err) => {
+            console.log("data not fetched", err);
+            res.status(501).send(err);
+        });
+});
 
 
 
