@@ -17,6 +17,11 @@ import PoliceStationList from "./Components/PoliceStation/PoliceStationList/Poli
 import Viewadmindetails from "./Components/CentralAdminComponent/CentralAdminDataShow/Viewadmindetails";
 import PoliceStationViewSearchResult from "./Components/PoliceStation/ViewSearchResultComponent/ViewSearchResult";
 import AdminDashboard from "./Components/CentralAdminComponent/CentraladminDashboard/AdminDashboard";
+import GetRulesCategoriesList from "./Components/CentralAdminComponent/RuleCategories/GetRulesInCategory/GetrulescategoriesList";
+import example from "./Components/CentralAdminComponent/examp";
+import GetRulesCat from "./Components/CentralAdminComponent/Rules/GetRulesInCategories/GetRulesCat";
+import ViewRule from "./Components/CentralAdminComponent/Rules/ViewRule/ViewRule";
+import Comex from "./ExamplesCom/Comex";
 export default class App extends Component {
   render() {
     return (
@@ -37,19 +42,24 @@ export default class App extends Component {
               component={PoliceStationAdd}
             />
             <Route
-              exact
+                exact
               path="/addRulesCategories"
               component={AddRuleCategories}
             />
-            <Route path="/addRules" component={AddRules} />
-            <Route path="/policestationList" component={PoliceStationList} />
-            <Route path="/viewAdminDetails" component={Viewadmindetails} />
+            <Route   exact path="/addRules" component={AddRules} />
+            <Route   exact path="/policestationList" component={PoliceStationList} />
+            <Route   exact path="/viewAdminDetails" component={Viewadmindetails} />
             <Route
-              path="/viewpolicesearch/:id"
+                exact path="/viewpolicesearch/:id"
               component={PoliceStationViewSearchResult}
             />
 
-            <Route path="/" component={AdminDashboard} />
+            <Route   exact path="/" component={AdminDashboard} />
+            <Route exact path="/example" component={example} />
+            <Route   exact path="/rulescategorylist" component={GetRulesCategoriesList} />
+            <Route exact path="/getrulescat/:id" component={GetRulesCat} />
+            <Route exact path="/viewrules/:id" component={ViewRule} />
+            <Route exact path="/comex" component={Comex} />
           </Switch>
         </Router>
       </div>
