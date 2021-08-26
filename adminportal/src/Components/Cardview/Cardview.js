@@ -28,15 +28,15 @@ export default class CardView extends React.Component{
                     </div>
                     <div className="row ">
                         <p className="card-text">
-                            <b> range - {this.props.range}</b>
+                            <b>RANGE - {this.props.range}</b>
                             <br></br>
-                            {this.props.description}
+                               {this.props.description}
                             <br></br>
-                            <b>Severity - {this.props.severity}/5</b>
+                            <b> SEVERITY {this.props.severity}</b>
                         </p>
                         <div className="buttonHolder text-light">
                             <button className="my-button text-center" value="Submit" title="I'm Feeling Lucky" name="lucky" btype ={this.props.bty} type="submit"
-                                    id="btn_i text-light" onClick={this.handlerSubmit}><b> view Rules</b></button>
+                                    id="btn_i text-light" onClick={this.handlerSubmit}><b> VIEW RULES </b></button>
                         </div>
 
                     </div>

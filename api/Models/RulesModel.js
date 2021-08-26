@@ -20,13 +20,13 @@ const Rules = new Schema({
     },
     date: {
         type: Date,
-        required: true,
+        required: false,
     },
     demeritPoints: {
-        type: Number,
+        type: String,
     },
     fineAmount: {
-        type: Number,
+        type: String,
         required: true,
     },
     RuleCategoryId:{

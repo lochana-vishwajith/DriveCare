@@ -50,6 +50,7 @@ router.post("/", (req, res) => {
       .save()
       .then((result) => {
         res.status(200).send({ result });
+        console.log(result)
       })
       .catch((error) => {
         res.send(error);

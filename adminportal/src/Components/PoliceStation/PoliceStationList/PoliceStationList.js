@@ -112,7 +112,7 @@ export default class PoliceStationList extends React.Component{
         return (<div>
 
 
-                <Navbar portal = "-POLICE STATION LIST-" topic1 = "POLICE STATION" topic2 = "ADMIN PORTAL"/>
+                <Navbar portal = "-POLICE STATION LIST-" topic1 = "POLICE STATION" topic2 = "DASHBOARD" link1 ="/policestationList" link2 ="/" />
 
 
                 <section className=" text-light p-2 sec1-color">

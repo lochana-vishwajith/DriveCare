@@ -2,9 +2,11 @@ import { Grid, Paper, Link } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
-
+import "./CentralAdminLogin.css"
 import Button from "../../ButtonComponent/button";
-
+import Navbar from "../navbarComponent/navbar";
+import Footer from "../../Footer/Footer";
+import {Route} from "react-router-dom";
 export default class CentralAdminLogin extends Component {
     constructor(props) {
         super(props);
@@ -15,96 +17,84 @@ export default class CentralAdminLogin extends Component {
         }
     }
 
-    nameChanged = (e) => {
-        this.setState({officerNo: e.value });
+    handlerChanged = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
     };
+    handlerError = () =>{
+        this.setState({ officerNo:'IT19KB'})
+        this.setState({ password:'HELLO'})
 
-    onPasswordChanged = (e) => {
-        this.setState({ password: e.value });
-    };
+    }
+    handlerSuccess = () =>{
+
+        this.setState({ officerNo:'IT1911KB'})
+        this.setState({ password:'hasitha'})
+    }
 
     handlerSubmit = (e) =>{
         e.preventDefault();
+        const{officerNo,
+            password} =this.state
+
+        if(password =='hasitha' && officerNo == 'IT1911KB'){
+            alert('WELCOME ADMIN YOU\'VE SIGNED IN');
+            window.location = '/'
+        }else{
+            alert('INVALID USER NAME OR PASSWORD')
+        }
+
         console.log('state',this.state);
     }
     render() {
         return (
+
             <div>
-                <div className="container">
-                    <div className="mt-1">
-                        <center>
-                            <div className="d-reg">
-                                <i>Welcome to</i>
-                            </div>
-                            <div className="d-dc">
-                                <b>DriveCare CentralAdmin Login</b>
-                            </div>
-                        </center>
-                        <hr></hr>
+                <Navbar portal = "-ADMIN LOGIN-" topic1 = "ADMIN LOGIN" link1 ="/adminLogin"/>
+
+        <div className="container">
+                <form className="form-body-rules p-2 " onSubmit={this.handlerSubmit}></form>
+                <div className="row">
+
+                    <div className="form-group pt-5 form-part" >
+                        <label htmlFor="username">OFFICER ID</label>
+                        <input type="text" className="form-control form-input-border"name ="officerNo" onChange={this.handlerChanged} value={this.state.officerNo} required={true}/>
                     </div>
-                    <Grid>
-                        <Paper elevation={20}>
-                            <div className="d-center-form">
-                                <div className="d-center-input">
-                                    <div className="dx-fieldset">
-                                        <div className="dx-field" id="d-text-in">
-                                            <label id="labelName">Admin Number</label>
-                                            <TextBox
-                                                name="adminNumber"
-                                                 value={this.state.officerNo}
-                                                onValueChanged={this.nameChanged}
-                                                showClearButton={true}
-                                            >
-                                                <Validator>
-                                                    <RequiredRule message="Licence Number is required" />
-                                                </Validator>
-                                            </TextBox>
-                                        </div>
-                                        <div className="dx-field" id="d-text-in">
-                                            <label id="labelName">Password</label>
-                                            <TextBox
-                                                mode="password"
-                                                name="password"
-                                                value={this.state.password}
-                                                showClearButton={true}
-                                                onValueChanged={this.onPasswordChanged}
-                                            >
-                                                <Validator>
-                                                    <RequiredRule message="Password is required" />
-                                                </Validator>
-                                            </TextBox>
-                                        </div>
-                                        <div className="d-btn-aling">
-                                            <div className="d-btnReg-long">
-                                                <Button
-                                                    id={"driverReg"}
-                                                    value={"Sign In"}
-                                                    classname={"driverRegBtn"}
-                                                    type={"submit"}
-                                                    onSubmit={this.handlerSubmit}
-                                                />
-                                            </div>
-                                            <div className="d-btnReg-short">
-                                                <Button
-                                                    id={"driverReg"}
-                                                    value={"Sign In"}
-                                                    classname={"driverRegBtn-short"}
-                                                    type={"submit"}
-                                                    onSubmit={this.onSubmit}
-                                                />
-                                            </div>
-                                            <div className="mt-3 d-link">
-                                                    <small>
-                                                       Don't Have a Account? <b>Please Find your Admin Password From the Organization</b>
-                                                    </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Paper>
-                    </Grid>
+
+
                 </div>
+
+                <div className="row">
+                    <div className="form-group pt-1 form-part" >
+                        <label htmlFor="username">PASSWORD</label>
+                        <input type="password" className="form-control form-input-border"name ="password" value = {this.state.password} onChange={this.handlerChanged}/>
+                    </div>
+
+                </div>
+
+
+<br></br>
+                <br></br>
+
+            <center><button className="btn btn-outline-secondary text-light" type="submit"
+                            id="button-addon2"
+                            onClick={this.handlerSubmit}
+            >LOGIN
+            </button></center>
+
+        </div>
+
+
+
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br><br></br><br></br><br></br><br></br>
+
+                <div className="btn-group-vertical">
+                    <button type="button" className="btn btn-danger" onClick={this.handlerError}>DEMO ERROR</button>
+                    <button type="button" className="btn btn-primary" onClick={this.handlerSuccess}>DEMO SUCCESS</button>
+                </div>
+                <Footer/>
             </div>
         );
     }
