@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../navbarComponent/navbar'
 import Footer from "../../Footer/Footer";
 
-//commented
+//Admin dashboard
 export default class AdminDashboard extends React.Component {
     render() {
         return(<div>
