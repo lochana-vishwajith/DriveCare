@@ -22,6 +22,7 @@ import example from "./Components/CentralAdminComponent/examp";
 import GetRulesCat from "./Components/CentralAdminComponent/Rules/GetRulesInCategories/GetRulesCat";
 import ViewRule from "./Components/CentralAdminComponent/Rules/ViewRule/ViewRule";
 import Comex from "./ExamplesCom/Comex";
+import PoliceStationLogin from "./Components/PoliceStation/PoliceStationLogin/PoliceStationLogin";
 export default class App extends Component {
   render() {
     return (
@@ -46,7 +47,7 @@ export default class App extends Component {
               path="/addRulesCategories"
               component={AddRuleCategories}
             />
-            <Route   exact path="/addRules" component={AddRules} />
+            <Route   exact path="/addRules/:id" component={AddRules} />
             <Route   exact path="/policestationList" component={PoliceStationList} />
             <Route   exact path="/viewAdminDetails" component={Viewadmindetails} />
             <Route
@@ -60,6 +61,7 @@ export default class App extends Component {
             <Route exact path="/getrulescat/:id" component={GetRulesCat} />
             <Route exact path="/viewrules/:id" component={ViewRule} />
             <Route exact path="/comex" component={Comex} />
+            <Route exact path="/policelogin" component={PoliceStationLogin} />
           </Switch>
         </Router>
       </div>

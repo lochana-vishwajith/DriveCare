@@ -5,7 +5,7 @@ router.post("/", (req, res) => {
     const { categoryName,categoryNumber,range,severity,description} =
         req.body;
 
-    const RulesCategory = new RulesCategory({
+    const RulesCategories = new RulesCategory({
         categoryName,
         categoryNumber,
         range,
@@ -13,7 +13,7 @@ router.post("/", (req, res) => {
         description
     });
 
-    RulesCategory
+    RulesCategories
         .save()
         .then((result) => {
             res.status(200).send({ result });

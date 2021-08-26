@@ -5,6 +5,7 @@ import navbar from "../../navbarComponent/navbar";
 import CButton from "../../../ButtonComponent/button"
 import example from "../../examp";
 import Navbar from "../../navbarComponent/navbar";
+import axios from "axios";
 export default class AddRules extends React.Component{
     constructor(props) {
         super(props);
@@ -16,15 +17,40 @@ export default class AddRules extends React.Component{
             gazetteNo:'',
             demeritPoints:'',
             fineAmount:'',
-            RuleCategoryId:'',
-            isAccepted:false
-
-
+            RuleCategoryId:this.props.match.params.id
         }
     }
     handlerSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state);
+        const {
+            ruleNo,
+            ruleName,
+            description,
+            gazetteNo,
+            demeritPoints,
+            fineAmount,
+            RuleCategoryId
+        }=this.state
+
+        const rule = {
+            ruleNo,
+            ruleName,
+            description,
+            gazetteNo,
+            demeritPoints,
+            fineAmount,
+            RuleCategoryId
+        }
+
+        axios
+            .post(`http://localhost:9000/rules/fullrule`, rule)
+            .then((response) => {
+                alert("Rule Added");
+                window.location = "/rulescategorylist"
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
 
     }
 
@@ -32,85 +58,106 @@ export default class AddRules extends React.Component{
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    handlerError=()=>{
+
+        this.setState({ ruleNo:'pkl-3241'});
+        this.setState({ description:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text'});
+        this.setState({ gazetteNo:'331-234'});
+        this.setState({ demeritPoints:'3'});
+        this.setState({ fineAmount:'100.00'});
+
+
+    }
+    handlerSuccess = () =>{
+        this.setState({ ruleNo:'pkl-3241'});
+        this.setState({ ruleName:'Town Speed Violation'});
+        this.setState({ description:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text'});
+        this.setState({ gazetteNo:'331-234'});
+        this.setState({ demeritPoints:'3'});
+        this.setState({ fineAmount:'100.00'});
+
+    }
+
     render() {
+        const portal =`-ADD RULES-`
         return (
             <div>
-                <Navbar topic1 = "Admin" topic2 = "lamaya" topic3 = "lamay2" link1 = "#admin" portal = "ADD RULES"/>
-                <example portal = "ADD RULES"/>
-                <div className="container">
-                    <Grid>
-                        <Paper elevation={20}>
-                            <div className="d-center-form">
-                                <form onSubmit={this.handlerSubmit}>
-                                    <div className="row">
-                                        <div className="raw">
-                                            <label htmlFor="ruleNo">Rule Number</label>
-                                            <input type="text" className="form-control" value ={this.state.ruleNo} onChange={this.handlerChange}  placeholder="Rule Number"
-                                                   aria-label="categoryName" name = "ruleNo" id="ruleNo"/>
-                                            <br/>
-                                        </div>
-                                        <br/>
-                                        <div className="raw">
-                                            <label htmlFor="ruleName">Rule Name</label>
-                                            <input type="text" className="form-control" placeholder="Rule Name"
-                                                   aria-label="categoryNumber" id="ruleName" value ={this.state.ruleName} onChange={this.handlerChange}  name = "ruleName"/>
-                                            <br/>
-                                        </div>
+                <Navbar portal = {portal}  topic1 = "RULES & CATEGORIES"  topic2 = "DASHBOARD" link2 ="/" link1 ="/rulescategorylist"  />
+                <form action="#" className=" p-1" onSubmit={this.handlerSubmit}>
 
+                    <section className="mt-0">
+                        <div className="container">
+                            <div className="row align-items-center justify-content-between" >
+                                <div className="col-md p-2">
+                                    <div className="form-group form-part">
+                                        <label htmlFor="email"><h3>RULE NAME</h3></label>
+                                        <input type="text" className="form-control form-input-border"name ="ruleName"  placeholder="RULE NAME" value={this.state.ruleName} required={true} onChange={this.handlerChange}/>
+                                    </div>
+                                    <div className="form-group form-part">
+                                        <label htmlFor="email"><h3>GAZETTE NUMBER</h3></label>
+                                        <input type="text" className="form-control form-input-border"name ="gazetteNo" placeholder="GAZETTE NUMBER" value={this.state.gazetteNo} required={true} onChange={this.handlerChange} />
                                     </div>
 
-                                    <div className="form-group">
-                                        <label htmlFor="description">Description</label>
-                                        <textarea className="form-control" id="description" name ="description"
-                                                  rows="3" value = {this.state.description} onChange={this.handlerChange}  ></textarea>
+                                    <div className="form-group form-part">
+                                        <label htmlFor="email"><h3>RULE NUMBER</h3></label>
+                                        <input type="text" className="form-control form-input-border"name ="ruleNo" placeholder="RULE NUMBER" value={this.state.ruleNo} required={true} onChange={this.handlerChange} />
                                     </div>
-                                    <br/>
+                                </div>
 
+                                <div className="col-md p-1">
 
-                                        <div className="raw">
-                                            <label htmlFor="gazetteNo">GazetteNo</label>
-                                            <input type="text" className="form-control" placeholder="GazetteNo"
-                                                   aria-label="gazetteNo" name = "gazetteNo" id="gazetteNo" onChange={this.handlerChange} value = {this.state.gazetteNo}/>
+                                    <p className="lead">
+                                        <div className="form-group form-part">
+                                            <br/>
+                                            <label htmlFor="description"><h3>DESCRIPTION</h3></label>
+                                            <textarea name="description" id="description" cols="30" rows="10" value={this.state.description} placeholder="DESCRIPTION" className="form-control border-b form-input-border" required={true} onChange={this.handlerChange}></textarea>
                                         </div>
-                                    <br/>
-                                        <div className="raw">
-                                            <label htmlFor="fineAmount">Fine Amount</label>
-                                            <input type="text" className="form-control" placeholder="Fine Amount"
-                                                   aria-label="fineAmount" id="fineAmount" name = "fineAmount" onChange={this.handlerChange}  value = {this.state.fineAmount}/>
-                                        </div>
-                                    <br/>
-                                        <div className="col form-group col-md-2 col-centered" >
-                                            <label htmlFor="demeritPoints" class className="col-sm-2 col-form-label" >Demerit Points</label>
-                                            <input type="number"max className="form-control" placeholder="Demerit Points"
-                                                   aria-label="demeritPoints" id="demeritPoints" value = {this.state.demeritPoints} onChange={this.handlerChange}  name = "demeritPoints"/>
-                                        </div>
-                                    <br/>
-
-                                    <label htmlFor="categoryName">Category Number</label>
-                                    <select className="form-select" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">High</option>
-                                        <option value="2">Medium</option>
-                                        <option value="3">Low</option>
-                                    </select>
-                                    <br/>
-
-
-                                        <div className="form-check col-md-2 col-centered">
-                                            <input type="checkbox" className="form-check-input" id="adminAccept" onChange={this.handlerChange}  value={this.state.isAccepted} name ="isAccepted"/>
-                                                <label className="form-check-label" htmlFor="adminAccept">ADMIN ACCEPTED </label>
-                                        </div>
-                                    <br/>
-                                    <div className="col text-center">
-
-                                    <button type="submit" className="btn btn-primary">Primary</button>
-                                        </div>
-                                </form>
+                                    </p>
+                                </div>
 
                             </div>
-                        </Paper>
-                    </Grid>
+
+                            <row className="align-items-center justify ">
+
+                                <p className="lead text-center ">
+                                    <div className="row">
+                                        <div className="col">
+                                            <div className="form-group form-part" >
+                                                <label htmlFor="RegistrationNumber"><h3>FINE AMOUNT</h3></label>
+                                                <input type="text" name="fineAmount" value={this.state.fineAmount} placeholder="FINE AMOUNT" className="form-control form-input-border" onChange={this.handlerChange} />
+                                            </div>
+                                        </div>
+                                        <div className="col">
+                                            <div className="form-group form-part" >
+                                                <label htmlFor="Mobile"><h3>DEMERITS POINTS</h3></label>
+                                                <input type="text" name = "demeritPoints"  value = {this.state.demeritPoints} placeholder="DEMERITS POINTS" className="form-control form-input-border" onChange={this.handlerChange}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p>
+
+                            </row>
+
+
+                        </div>
+                        <hr/>
+                        <center> <div className="btn-group btn-group-lg text-center align-items-center px-5 buttonHolder pb-5 pt-5" role="group" aria-label="...">
+                            <button className="btn btn-outline-secondary text-light px-5 mx-5" type="submit"
+                                    id="button-addon2">ADD RULE
+                            </button>
+                        </div>
+                        </center>
+                    </section>
+                </form>
+
+
+                <div className="btn-group-vertical">
+                    <button type="button" className="btn btn-danger" onClick={this.handlerError}>DEMO ERROR</button>
+                    <button type="button" className="btn btn-primary" onClick={this.handlerSuccess}>DEMO SUCCESS</button>
                 </div>
+
+                <footer/>
+
             </div>
         );
     }
