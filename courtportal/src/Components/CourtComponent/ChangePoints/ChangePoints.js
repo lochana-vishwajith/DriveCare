@@ -1,5 +1,6 @@
 import React from "react";
 import CourtHeader from "../CourtHeader/CourtHeader";
+import "./ChangePoints.css";
 
 class ChangePoints extends React.Component {
   render() {
@@ -32,7 +33,7 @@ class ChangePoints extends React.Component {
         <button
           type="button"
           style={{ float: "right" }}
-          className="btn btn-danger"
+          className="btn btn-danger btnSave"
         >
           Save
         </button>
