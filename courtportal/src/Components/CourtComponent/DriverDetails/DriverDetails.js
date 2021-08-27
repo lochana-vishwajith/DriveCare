@@ -1,18 +1,17 @@
 import React from "react";
 import "./DriverDetails.css";
-import CourtHeader from "../CourtHeader/CourtHeader";
 
 class DriverDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "Hasitha Rangana",
+      nic: "987654567V",
     };
   }
   render() {
     return (
       <div className="container">
-        <CourtHeader />
         <br />
         <br />
         <br />
@@ -20,7 +19,6 @@ class DriverDetails extends React.Component {
         <br />
         <br />
         <br />
-
         <h1>
           <strong>Driver Details</strong>
         </h1>
@@ -41,21 +39,33 @@ class DriverDetails extends React.Component {
             </a>
           </div>
         </div>
-
-        <div className="form-group">
-          <label>Name :</label>
-          <input
-            value={this.state.name}
-            disabled
-            type="text"
-            class="form-control"
-            id="name"
-            height="250px"
-          />
+        <div className="iname">
+          <div className="form-group ">
+            <label>Name :</label>
+            <input
+              value={this.state.name}
+              disabled
+              type="text"
+              class="form-control"
+              id="name"
+              height="250px"
+            />
+          </div>
+          <br />
+          <div className="form-group ">
+            <label>NIC :</label>
+            <input
+              value={this.state.nic}
+              disabled
+              type="text"
+              class="form-control"
+              id="name"
+              height="250px"
+            />
+          </div>
         </div>
         <br />
-        <br />
-        <table className="table">
+        <table className="table tablee ">
           <thead>
             <tr>
               <th scope="col">Violation</th>
@@ -66,22 +76,22 @@ class DriverDetails extends React.Component {
           </thead>
           <tbody>
             <tr>
-              <td scope="row">1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td scope="row">Drink and drive</td>
+              <td>2021-08-03</td>
+              <td>2500</td>
+              <td>@images</td>
             </tr>
             <tr>
-              <td scope="row">2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
+              <td scope="row">Hit and run</td>
+              <td>2021-08-03</td>
+              <td>2500</td>
+              <td>@images</td>
             </tr>
             <tr>
-              <td scope="row">3</td>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
+              <td scope="row">High speed</td>
+              <td>2021-08-03</td>
+              <td>2500</td>
+              <td>@images</td>
             </tr>
           </tbody>
         </table>

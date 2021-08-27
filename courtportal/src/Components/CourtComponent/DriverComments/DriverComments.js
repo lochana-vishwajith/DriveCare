@@ -1,7 +1,6 @@
 import React from "react";
 import "./DriverComments.css";
 import axios from "axios";
-import CourtHeader from "../CourtHeader/CourtHeader";
 
 class DriverComments extends React.Component {
   constructor(props) {
@@ -46,7 +45,6 @@ class DriverComments extends React.Component {
   render() {
     return (
       <div className="container">
-        <CourtHeader />
         <br />
         <br />
         <br />
