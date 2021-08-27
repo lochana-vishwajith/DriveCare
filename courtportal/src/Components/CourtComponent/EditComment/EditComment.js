@@ -1,7 +1,6 @@
 import React from "react";
 import "./EditComment.css";
 import axios from "axios";
-import CourtHeader from "../CourtHeader/CourtHeader";
 
 const initialState = {
   date: "",
@@ -58,7 +57,6 @@ class EditComment extends React.Component {
   render() {
     return (
       <div className="container">
-        <CourtHeader />
         <br />
         <br />
         <br />

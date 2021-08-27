@@ -1,7 +1,6 @@
 import React from "react";
 import "./AddComment.css";
 import axios from "axios";
-import CourtHeader from "../CourtHeader/CourtHeader";
 
 const initialState = {
   driverID: "61221d7b15d1cb322ce7d94c",
@@ -46,7 +45,6 @@ class AddComment extends React.Component {
   render() {
     return (
       <div className="container">
-        <CourtHeader />
         <br />
         <br />
         <br />

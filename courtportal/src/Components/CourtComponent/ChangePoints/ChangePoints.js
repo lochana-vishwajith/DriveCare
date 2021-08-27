@@ -1,12 +1,11 @@
 import React from "react";
-import CourtHeader from "../CourtHeader/CourtHeader";
+
 import "./ChangePoints.css";
 
 class ChangePoints extends React.Component {
   render() {
     return (
       <div className="container">
-        <CourtHeader />
         <br />
         <br />
         <br />
@@ -15,7 +14,7 @@ class ChangePoints extends React.Component {
         <br />
         <br />
 
-        <h1>
+        <h1 className="headerr">
           {" "}
           <strong>Change Points </strong>
         </h1>

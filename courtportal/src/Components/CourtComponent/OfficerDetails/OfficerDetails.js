@@ -1,13 +1,13 @@
 import React from "react";
 import "./OfficerDetails.css";
 import axios from "axios";
-import CourtHeader from "../CourtHeader/CourtHeader";
 
 class OfficerDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "Kamal Gunarathana",
+      officerID: "KLP12345",
       comments: [],
     };
   }
@@ -27,7 +27,6 @@ class OfficerDetails extends React.Component {
   render() {
     return (
       <div className="container">
-        <CourtHeader />
         <br />
         <br />
         <br />
@@ -56,21 +55,33 @@ class OfficerDetails extends React.Component {
             </a>
           </div>
         </div>
-
-        <div className="form-group">
-          <label>Name :</label>
-          <input
-            value={this.state.name}
-            disabled
-            type="text"
-            class="form-control"
-            id="name"
-            height="250px"
-          />
+        <div className="iname">
+          <div className="form-group">
+            <label>Name :</label>
+            <input
+              value={this.state.name}
+              disabled
+              type="text"
+              class="form-control"
+              id="name"
+              height="250px"
+            />
+          </div>
+          <br />
+          <div className="form-group">
+            <label>Officer ID :</label>
+            <input
+              value={this.state.officerID}
+              disabled
+              type="text"
+              class="form-control"
+              id="name"
+              height="250px"
+            />
+          </div>
         </div>
         <br />
-        <br />
-        <table className="table">
+        <table className="table tablee">
           <thead className="thead-dark">
             <tr>
               <th scope="col">DATE</th>
