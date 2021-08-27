@@ -6,13 +6,14 @@ import "./PolicestationLogin.css"
 import Button from "../../ButtonComponent/button";
 import Navbar from "../../CentralAdminComponent/navbarComponent/navbar";
 import Footer from "../../Footer/Footer";
+import axios from "axios";
 
 
 export default class PoliceStationLogin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            officeNo:'',
+            registrationNo:'',
             password:''
 
         }
@@ -25,26 +26,43 @@ export default class PoliceStationLogin extends Component {
 
     handlerSubmit = (e) =>{
         e.preventDefault();
-        const{officeNo,
+        const{registrationNo,
             password} =this.state
 
-        if(password =='kandy1' && officeNo == 'CPKY12224'){
-            alert('SUCCESSFULLY SIGNED IN');
-        }else{
-            alert('WRONG PASSWORD PLEASE CONTACT ADMIN TO VERIFY YORE USER NAME AND PASSWORD ')
+        //res.data
+        const station = {
+            registrationNo,
+            password
         }
+
+        alert('came')
+        axios
+            .post(`http://localhost:9000/policeStation/login`, station)
+            .then((response) => {
+                if(response.data.id){
+                    alert('login Sucess');
+                    localStorage.setItem('userid',response.data.id);
+                }else{
+                    alert('login failed');
+                }
+               // window.location = "/policestationList"
+            })
+            .catch((error) => {
+                alert('error')
+                console.log(error.message);
+            });
 
         console.log('state',this.state);
     }
 
     handlerError = () =>{
-        this.setState({ officeNo:'CPKY12224'})
+        this.setState({ registrationNo:'CPKY12224'})
         this.setState({ password:'HELLO'})
 
     }
     handlerSuccess = () =>{
 
-        this.setState({ officeNo:'CPKY12224'})
+        this.setState({ registrationNo:'CPKY12224'})
         this.setState({ password:'kandy1'})
     }
 
@@ -60,7 +78,7 @@ export default class PoliceStationLogin extends Component {
 
                         <div className="form-group pt-5 form-part" >
                             <label htmlFor="username">OFFICE ID</label>
-                            <input type="text" className="form-control form-input-border"name ="officerNo" onChange={this.handlerChanged} value={this.state.officeNo} required={true}/>
+                            <input type="text" className="form-control form-input-border"name ="registrationNo" onChange={this.handlerChanged} value={this.state.registrationNo} required={true}/>
                         </div>
 
 
