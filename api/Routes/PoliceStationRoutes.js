@@ -85,9 +85,11 @@ console.log(id)
 
 router.post("/login", async (req, res) => {
     const { registrationNo, password } = req.body;
+    console.log('awaa')
 
     const login = await PoliceStation.findOne({ registrationNo: registrationNo });
 
+    console.log(login)
     const isMatch = await bcrypt.compare(password, login.password);
 
     const token = await login.generateAuthToken();
