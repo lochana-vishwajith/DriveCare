@@ -1,7 +1,6 @@
 import React from "react";
 import "./SearchDriver.css";
 import axios from "axios";
-import CourtHeader from "../CourtHeader/CourtHeader";
 
 class SearchDriver extends React.Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class SearchDriver extends React.Component {
 
   navigateToDriverProfile(e) {
     console.log(e);
-    window.location = "/courtDriverDetails";
+    window.location = `/courtDriverDetails/${e}`;
   }
 
   render() {
@@ -40,7 +39,6 @@ class SearchDriver extends React.Component {
 
     return (
       <div className="container">
-        <CourtHeader />
         <br />
         <br />
         <br />
