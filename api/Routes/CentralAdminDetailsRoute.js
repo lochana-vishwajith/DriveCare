@@ -35,4 +35,18 @@ router.get("/getcentraladmin", async (req, res) => {
     }
 });
 
+router.put("/updateadmin/:id", async (req, res) => {
+    const id = req.params.id;
+    const dataSet = req.body;
+    console.log("Data", dataSet);
+    await CentralAdmin.findByIdAndUpdate(id, dataSet)
+        .then((data) => {
+            console.log(data);
+            res.status(200).send({ data: data });
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
+
 module.exports = router;
