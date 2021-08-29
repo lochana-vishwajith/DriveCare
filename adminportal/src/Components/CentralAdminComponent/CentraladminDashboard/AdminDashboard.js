@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../navbarComponent/navbar'
+import Navbar from '../../navbarComponent/navbar'
 import Footer from "../../Footer/Footer";
 
 //Admin dashboard

@@ -2,9 +2,9 @@ import { Grid, Paper, Link } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
-import Button from "../../ButtonComponent/button";
-import Navbar from "../../CentralAdminComponent/navbarComponent/navbar";
-import Footer from "../../Footer/Footer";
+import Button from "../../../../ButtonComponent/button";
+import Navbar from "../../../../navbarComponent/navbar";
+import Footer from "../../../../Footer/Footer";
 import axios from "axios";
 
 /**

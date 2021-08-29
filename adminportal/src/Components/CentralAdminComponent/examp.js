@@ -1,6 +1,6 @@
 import React from 'react'
 import Footer from "../Footer/Footer";
-import Navbar from "./navbarComponent/navbar";
+import Navbar from "../navbarComponent/navbar";
 import './examp.css'
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css"

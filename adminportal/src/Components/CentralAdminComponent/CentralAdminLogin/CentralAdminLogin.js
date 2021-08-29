@@ -4,7 +4,7 @@ import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
 import "./CentralAdminLogin.css"
 import Button from "../../ButtonComponent/button";
-import Navbar from "../navbarComponent/navbar";
+import Navbar from "../../navbarComponent/navbar";
 import Footer from "../../Footer/Footer";
 import {Route} from "react-router-dom";
 export default class CentralAdminLogin extends Component {

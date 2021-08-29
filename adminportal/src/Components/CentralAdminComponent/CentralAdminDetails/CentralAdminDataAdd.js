@@ -4,7 +4,7 @@ import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
 import "./Centraladmin.css"
 import Button from "../../ButtonComponent/button";
-import Navbar from "../navbarComponent/navbar";
+import Navbar from "../../navbarComponent/navbar";
 import Footer from "../../Footer/Footer";
 import axios from "axios";
 

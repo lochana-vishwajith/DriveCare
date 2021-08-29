@@ -1,7 +1,7 @@
 import React from 'react'
 import {Grid, Paper} from "@material-ui/core";
 import "./AddRulesCategories.css"
-import Navbar from "../../navbarComponent/navbar";
+import Navbar from "../../../navbarComponent/navbar";
 import axios from "axios";
 import Footer from "../../../Footer/Footer";
 

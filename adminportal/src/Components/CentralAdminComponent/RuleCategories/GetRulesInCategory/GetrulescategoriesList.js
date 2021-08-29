@@ -3,7 +3,7 @@ import axios from "axios";
 
 import CardView from "../../../Cardview/Cardview";
 import Footer from "../../../Footer/Footer";
-import Navbar from "../../navbarComponent/navbar"
+import Navbar from "../../../navbarComponent/navbar"
 
 export default class GetRulesCategoriesList extends React.Component{
 

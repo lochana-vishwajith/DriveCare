@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import Navbar from "../navbarComponent/navbar";
+import Navbar from "../../navbarComponent/navbar";
 import Footer from "../../Footer/Footer";
 
 export default class Viewadmindetails extends Component {

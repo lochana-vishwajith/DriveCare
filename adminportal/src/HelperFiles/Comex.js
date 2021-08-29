@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Comex.css"
-import Navbar from '../Components/CentralAdminComponent/navbarComponent/navbar'
+import Navbar from '../Components/navbarComponent/navbar'
 import Footer from "../Components/Footer/Footer";
 
 export default class Comex extends React.Component{
