@@ -1,8 +1,8 @@
 import React from 'react'
 import {Grid, Paper} from "@material-ui/core";
 import axios from "axios";
-import Navbar from "../../CentralAdminComponent/navbarComponent/navbar";
-import Footer from "../../Footer/Footer";
+import Navbar from "../../../../navbarComponent/navbar";
+import Footer from "../../../../Footer/Footer";
 import Modal from "react-bootstrap/Modal";
 
 /*

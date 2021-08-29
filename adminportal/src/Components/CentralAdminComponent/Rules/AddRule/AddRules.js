@@ -1,10 +1,10 @@
 import React from 'react'
 import {Grid, Paper} from "@material-ui/core";
 import "./addRule.css"
-import navbar from "../../navbarComponent/navbar";
+import navbar from "../../../navbarComponent/navbar";
 import CButton from "../../../ButtonComponent/button"
 import example from "../../examp";
-import Navbar from "../../navbarComponent/navbar";
+import Navbar from "../../../navbarComponent/navbar";
 import axios from "axios";
 export default class AddRules extends React.Component{
     constructor(props) {
