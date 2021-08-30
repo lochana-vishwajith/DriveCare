@@ -55,6 +55,10 @@ app.use("/driverComments", driverComments);
 const vehicelcategory = require("./Routes/vehicleCategoryRoutes");
 app.use("/vehicelcategory", vehicelcategory);
 
+const deleterules = require('./Routes/deletedRulesRoute');
+app.use("/deletedrules",deleterules);
+
+
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Connected to mongo DB");
