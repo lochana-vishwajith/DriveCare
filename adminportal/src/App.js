@@ -18,10 +18,8 @@ import Viewadmindetails from "./Components/CentralAdminComponent/CentralAdminDat
 import PoliceStationViewSearchResult from "./Components/CentralAdminComponent/Centraladminpolicestations/PoliceStation/ViewSearchResultComponent/ViewSearchResult";
 import AdminDashboard from "./Components/CentralAdminComponent/CentraladminDashboard/AdminDashboard";
 import GetRulesCategoriesList from "./Components/CentralAdminComponent/RuleCategories/GetRulesInCategory/GetrulescategoriesList";
-import example from "./Components/CentralAdminComponent/examp";
 import GetRulesCat from "./Components/CentralAdminComponent/Rules/GetRulesInCategories/GetRulesCat";
 import ViewRule from "./Components/CentralAdminComponent/Rules/ViewRule/ViewRule";
-import Comex from "./HelperFiles/Comex";
 import PoliceStationLogin from "./Components/CentralAdminComponent/Centraladminpolicestations/PoliceStation/PoliceStationLogin/PoliceStationLogin";
 export default class App extends Component {
   render() {
@@ -56,11 +54,9 @@ export default class App extends Component {
             />
 
             <Route   exact path="/" component={AdminDashboard} />
-            <Route exact path="/example" component={example} />
             <Route   exact path="/rulescategorylist" component={GetRulesCategoriesList} />
             <Route exact path="/getrulescat/:id" component={GetRulesCat} />
             <Route exact path="/viewrules/:id" component={ViewRule} />
-            <Route exact path="/comex" component={Comex} />
             <Route exact path="/policelogin" component={PoliceStationLogin} />
           </Switch>
         </Router>
