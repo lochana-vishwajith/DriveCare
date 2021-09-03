@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Rules = new Schema({
+const DeletedRules = new Schema({
     ruleNo: {
         type: String,
         required: true,
@@ -33,10 +33,25 @@ const Rules = new Schema({
         type:mongoose.Schema.Types.ObjectId,
         require: false,
         ref: 'rulescategories',
+    },
+    deletedDate:{
+       type:Date,
+        default:Date.now
+    },
+    deletedGazetteNo:{
+        type:String
+
+    },
+    comment:{
+        type:String,
+        required:true
+    },
+    ruleId:{
+        type:String
     }
 });
-const rulesModel = mongoose.model(
-    'rules',
-    Rules
+const deletedRulesModel = mongoose.model(
+    'deletedrules',
+    DeletedRules
 );
-module.exports = rulesModel ;
+module.exports = deletedRulesModel ;

@@ -50,6 +50,7 @@ router.post("/", (req, res) => {
       .save()
       .then((result) => {
         res.status(200).send({ result });
+        console.log(result)
       })
       .catch((error) => {
         res.send(error);
@@ -84,9 +85,11 @@ console.log(id)
 
 router.post("/login", async (req, res) => {
     const { registrationNo, password } = req.body;
+    console.log('awaa')
 
     const login = await PoliceStation.findOne({ registrationNo: registrationNo });
 
+    console.log(login)
     const isMatch = await bcrypt.compare(password, login.password);
 
     const token = await login.generateAuthToken();
@@ -106,6 +109,35 @@ router.post("/login", async (req, res) => {
         console.log("Login Successful");
         res.json({ message: "Login Successful", id: login._id });
     }
+});
+
+
+router.put("/updatepol/:id", async (req, res) => {
+    const id = req.params.id;
+    const dataSet = req.body;
+    console.log("Data", dataSet);
+    await PoliceStation.findByIdAndUpdate(id, dataSet)
+        .then((data) => {
+            console.log(data);
+            res.status(200).send({ data: data });
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
+
+router.delete("/deletepolice/:id", async (req, res) => {
+    const id = req.params.id;
+    const dataSet = req.body;
+    console.log("Data", dataSet);
+    await PoliceStation.findByIdAndDelete(id)
+        .then((data) => {
+            console.log(data);
+            res.status(200).send({ data: data });
+        })
+        .catch((error) => {
+            res.send(error);
+        });
 });
 
 

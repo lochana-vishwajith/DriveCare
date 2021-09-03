@@ -15,7 +15,7 @@ const RulesCategory = new Schema({
         required: true,
     },
     severity: {
-        type: Number,
+        type: String,
         required: true,
     },
     description: {

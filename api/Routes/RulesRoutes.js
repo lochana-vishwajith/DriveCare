@@ -48,6 +48,7 @@ router.get("/", (req, res) => {
 
 router.post("/fullrule",async (req, res) => {
     if (req.body) {
+        console.log('awaaa');
         const ruleCategory = req.body.RuleCategoryId
         console.log(ruleCategory);
         const rules = new Rules(req.body);
@@ -103,6 +104,18 @@ router.get("/getrulesincat/:id", async (req, res) => {
 });
 
 
-
+router.put("/update/:id", async (req, res) => {
+    const id = req.params.id;
+    const dataSet = req.body;
+    console.log("Data", dataSet);
+    await Rules.findByIdAndUpdate(id, dataSet)
+        .then((data) => {
+            console.log(data);
+            res.status(200).send({ data: data });
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
 
 module.exports = router;

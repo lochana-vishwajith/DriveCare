@@ -23,13 +23,13 @@ export default class navbar extends React.Component{
 
                         <ul className="navbar-nav ms-auto nav-pills "  >
                             <li className="nav-item">
-                                <a href={this.props.link1} className="nav-link active text-dark"><b>{this.props.topic1}</b></a>
+                                <a href={this.props.link1} className="nav-link active text-light"><b>{this.props.topic1}</b></a>
                             </li>
                             <li className="nav-item">
-                                <a href={this.props.link2} className="nav-link text-dark"><b>{this.props.topic2}</b></a>
+                                <a href={this.props.link2} className="nav-link text-light"><b>{this.props.topic2}</b></a>
                             </li>
                             <li className="nav-item">
-                                <a href={this.props.link2}  className="nav-link text-dark"><b>{this.props.topic3}</b></a>
+                                <a href={this.props.link2}  className="nav-link text-light"><b>{this.props.topic3}</b></a>
                             </li>
                         </ul>
                     </div>

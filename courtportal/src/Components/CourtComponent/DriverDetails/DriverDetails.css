@@ -1,5 +1,6 @@
 h1 {
   text-align: center;
+  margin-bottom: -2rem;
 }
 
 .points {
@@ -7,7 +8,16 @@ h1 {
 }
 
 .pointcard {
-  padding-left: 85%;
+  margin-left: 85%;
   text-align: center;
   border-color: aliceblue;
+}
+
+.iname {
+  margin-top: -10rem;
+  padding-right: 20%;
+}
+
+.tablee {
+  margin-top: 4rem;
 }

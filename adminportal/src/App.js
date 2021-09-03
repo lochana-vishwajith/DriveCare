@@ -10,18 +10,17 @@ import {
 
 import CentralAdminAddDetails from "./Components/CentralAdminComponent/CentralAdminDetails/CentralAdminDataAdd";
 import AdminLogin from "./Components/CentralAdminComponent/CentralAdminLogin/CentralAdminLogin";
-import PoliceStationAdd from "./Components/PoliceStation/AddPoliceStation/AddPoliceStation";
+import PoliceStationAdd from "./Components/CentralAdminComponent/Centraladminpolicestations/PoliceStation/AddPoliceStation/AddPoliceStation";
 import AddRuleCategories from "./Components/CentralAdminComponent/RuleCategories/AddRuleCategories/AddRuleCategories";
 import AddRules from "./Components/CentralAdminComponent/Rules/AddRule/AddRules";
-import PoliceStationList from "./Components/PoliceStation/PoliceStationList/PoliceStationList";
+import PoliceStationList from "./Components/CentralAdminComponent/Centraladminpolicestations/PoliceStation/PoliceStationList/PoliceStationList";
 import Viewadmindetails from "./Components/CentralAdminComponent/CentralAdminDataShow/Viewadmindetails";
-import PoliceStationViewSearchResult from "./Components/PoliceStation/ViewSearchResultComponent/ViewSearchResult";
+import PoliceStationViewSearchResult from "./Components/CentralAdminComponent/Centraladminpolicestations/PoliceStation/ViewSearchResultComponent/ViewSearchResult";
 import AdminDashboard from "./Components/CentralAdminComponent/CentraladminDashboard/AdminDashboard";
 import GetRulesCategoriesList from "./Components/CentralAdminComponent/RuleCategories/GetRulesInCategory/GetrulescategoriesList";
-import example from "./Components/CentralAdminComponent/examp";
 import GetRulesCat from "./Components/CentralAdminComponent/Rules/GetRulesInCategories/GetRulesCat";
 import ViewRule from "./Components/CentralAdminComponent/Rules/ViewRule/ViewRule";
-import Comex from "./ExamplesCom/Comex";
+import PoliceStationLogin from "./Components/CentralAdminComponent/Centraladminpolicestations/PoliceStation/PoliceStationLogin/PoliceStationLogin";
 export default class App extends Component {
   render() {
     return (
@@ -46,7 +45,7 @@ export default class App extends Component {
               path="/addRulesCategories"
               component={AddRuleCategories}
             />
-            <Route   exact path="/addRules" component={AddRules} />
+            <Route   exact path="/addRules/:id" component={AddRules} />
             <Route   exact path="/policestationList" component={PoliceStationList} />
             <Route   exact path="/viewAdminDetails" component={Viewadmindetails} />
             <Route
@@ -55,11 +54,10 @@ export default class App extends Component {
             />
 
             <Route   exact path="/" component={AdminDashboard} />
-            <Route exact path="/example" component={example} />
             <Route   exact path="/rulescategorylist" component={GetRulesCategoriesList} />
             <Route exact path="/getrulescat/:id" component={GetRulesCat} />
             <Route exact path="/viewrules/:id" component={ViewRule} />
-            <Route exact path="/comex" component={Comex} />
+            <Route exact path="/policelogin" component={PoliceStationLogin} />
           </Switch>
         </Router>
       </div>

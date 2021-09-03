@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
-import Navbar from "../../CentralAdminComponent/navbarComponent/navbar";
-import Footer from "../../Footer/Footer";
+import Navbar from "../../../../navbarComponent/navbar";
+import Footer from "../../../../Footer/Footer";
 
 
 export default class PoliceStationViewSearchResult extends React.Component {
@@ -97,7 +97,7 @@ export default class PoliceStationViewSearchResult extends React.Component {
         const portal = `-POLICE STATION [${this.props.match.params.id}]-`
         return(
             <div>
-                <Navbar portal ={portal} topic1 = "Police Stations" topic2 = "Admin Panel" />
+                <Navbar portal ={portal} topic1 = "POLICE STATIONS" topic2 = "DASHBOARD" link1="/policestationList" link2= "/" />
                 { stationDetails.map((id, index) => (<section className="p-5">
                         <div className="container">
                             <div className="row align-items-center justify-content-between">
