@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import moment from "moment";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import "react-toastify/dist/ReactToastify.css";
+import { storage } from "../../../firebase/firebase";
 
 export default class TicketOverview extends Component {
   constructor(props) {
@@ -23,6 +24,10 @@ export default class TicketOverview extends Component {
       fineDescription: "",
       fineRule: "",
       officers: "",
+      evidences: [],
+      image: "",
+      evidenceURL: [],
+      evidenceImgs: [],
     };
   }
 
@@ -57,6 +62,22 @@ export default class TicketOverview extends Component {
       })
       .catch((error) => {
         console.log("Violation Data not Retriewed", error);
+      });
+
+    axios
+      .get(`http://localhost:9000/driverEvidence/${this.props.match.params.id}`)
+      .then((response) => {
+        console.log("Evidance Data:", response.data);
+        this.setState({ evidenceImgs: response.data });
+        console.log(this.state.evidenceImgs);
+        this.state.evidenceImgs.map((item, index) =>
+          item.evidence.map((i, k) => {
+            console.log("EVIDANCE LOOP", i.evidenceURLs);
+          })
+        );
+      })
+      .catch((error) => {
+        console.log("Data not Retriewed", error);
       });
   }
 
@@ -110,6 +131,99 @@ export default class TicketOverview extends Component {
       .catch((error) => {
         console.log("Delete Error", error);
         toast.error("Comment Delete Failed! ", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+
+  hnadlerFileChange = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState == 2) {
+        for (let i = 0; i < e.target.files.length; i++) {
+          const newImage = e.target.files[i];
+
+          this.setState({ image: reader.result });
+          // this.setState({ evidences: e.target.files[0] });
+          this.setState((prevState) => ({
+            evidences: [...prevState.evidences, newImage],
+          }));
+        }
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  imageUpload = () => {
+    const promises = [];
+    const { evidences } = this.state;
+    const date = Date.now();
+
+    evidences.map((image) => {
+      const uploadTask = storage
+        .ref(`images/dirverEvidence/${date}_${image.name}`)
+        .put(image);
+      promises.push(uploadTask);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          console.log("image first err", error);
+          toast.error("Image Uploading Failed Failed", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        },
+        async () => {
+          await storage
+            .ref("images/dirverEvidence/")
+            .child(`${date}_${image.name}`)
+            .getDownloadURL()
+            .then((urls) => {
+              console.log(urls);
+              // this.setState({ evidenceURL: url });
+              this.setState((prevState) => ({
+                evidenceURL: [...prevState.evidenceURL, urls],
+              }));
+              setTimeout(this.onAddEvidence(), 1000);
+              this.state.evidenceURL.map((url, i) => {
+                console.log("ImageURL", url);
+              });
+              // console.log("ImageURL", this.state.evidenceURL);
+            })
+            .catch((err) => {
+              console.log("image 2nd err", err);
+              toast.error("Image Uploading Failed Failed", {
+                position: toast.POSITION.TOP_RIGHT,
+              });
+            });
+        }
+      );
+    });
+
+    Promise.all(promises)
+      .then(() => alert("All images uploaded"))
+      .catch((err) => console.log("Promise Error", err));
+  };
+
+  onAddEvidence = () => {
+    const dataSet = {
+      evidenceURLs: this.state.evidenceURL,
+    };
+    console.log("Evidanse data set:", dataSet);
+    axios
+      .post(
+        `http://localhost:9000/driverEvidence/${this.props.match.params.id}`,
+        dataSet
+      )
+      .then(async () => {
+        toast.success("Evidence Added Successfully", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        // window.location.reload();
+      })
+      .catch((error) => {
+        console.log("Evidence Adding Failed", error);
+        toast.error("Evidence Adding Failed", {
           position: toast.POSITION.TOP_RIGHT,
         });
       });
@@ -309,10 +423,75 @@ export default class TicketOverview extends Component {
                     <button
                       type="button"
                       className="btn btn-outline-danger btn-sm px-4"
+                      onClick={this.handleOpen}
                     >
                       Add
                     </button>
                   </label>
+                  <Popup
+                    visible={this.state.popupVisible}
+                    onHiding={this.handleClose}
+                    dragEnabled={false}
+                    closeOnOutsideClick={true}
+                    showCloseButton={true}
+                    showTitle={true}
+                    title="Upload Evidence"
+                    container=".dx-viewport"
+                    width={500}
+                    height={380}
+                  >
+                    <Position
+                      at="center"
+                      my="center"
+                      of={this.state.positionOf}
+                    />
+                    <div className="dx-field" id="d-text-in">
+                      {this.state.evidences.map((url, i) => (
+                        <img
+                          key={i}
+                          src={url || "http://via.placeholder.com/300"}
+                          class="shadow-1-strong rounded mb-4"
+                          id="evidences"
+                          alt=""
+                        />
+                      ))}
+                      {/* <img
+                        src={this.state.image}
+                        class="shadow-1-strong rounded mb-4"
+                        id="evidences"
+                        alt=""
+                      /> */}
+                      <input
+                        type="file"
+                        id="driverImgBtn"
+                        name="profImage"
+                        onChange={this.hnadlerFileChange}
+                        multiple
+                      />
+                      <div class="row">
+                        <div class="col text-center">
+                          <button
+                            type="button"
+                            className="btn btn-outline-danger btn-sm px-4 mt-3"
+                            onClick={this.imageUpload}
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Popup>
+                  <div>
+                    {this.state.evidenceURL.map((url, i) => (
+                      <img
+                        key={i}
+                        src={url || "http://via.placeholder.com/300"}
+                        class="shadow-1-strong rounded mb-4"
+                        id="evidences"
+                        alt=""
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </Paper>
