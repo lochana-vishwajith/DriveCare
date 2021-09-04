@@ -10,6 +10,7 @@ class OfficerDetails extends React.Component {
       officerID: "KLP12345",
       comments: [],
     };
+    this.deleteComment = this.deleteComment.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +22,19 @@ class OfficerDetails extends React.Component {
       })
       .catch((error) => {
         console.log(error.message);
+      });
+  }
+
+  deleteComment(e) {
+    console.log(e);
+    axios
+      .delete(`http://localhost:9000/courtp/deletecp/${e}`)
+      .then((response) => {
+        alert("Comment deleted sucessfully");
+        window.location = "/courtOfficerDetails";
+      })
+      .catch((error) => {
+        console.log(`Error - ${error.message}`);
       });
   }
 
@@ -94,6 +108,15 @@ class OfficerDetails extends React.Component {
               <tr>
                 <td scope="row">{comment.date}</td>
                 <td>{comment.comment}</td>
+                <td>
+                  <i
+                    style={{ color: "red" }}
+                    className="fas fa-trash fa-2x"
+                    onClick={(e) => {
+                      this.deleteComment(comment._id);
+                    }}
+                  />
+                </td>
               </tr>
             </tbody>
           ))}

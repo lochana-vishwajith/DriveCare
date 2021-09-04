@@ -96,4 +96,16 @@ router.get("/getc/:id", async (req, res) => {
   }
 });
 
+//delete a comment
+
+router.delete("/deletecp/:id", async (req, res) => {
+  try {
+    const c = await CourtPolice.findById(req.params.id);
+    const c1 = await c.remove();
+    res.send("Comment deleted !");
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
