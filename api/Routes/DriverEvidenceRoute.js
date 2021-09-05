@@ -35,7 +35,8 @@ router.get("/:id", async (req, res) => {
     await Fine.findById(req.params.id)
       .populate("evidence", "evidenceURLs")
       .then((result) => {
-        res.status(200).send([result]);
+        console.log("Back end URl", result.evidence);
+        res.status(200).send(result.evidence);
       })
       .catch((err) => {
         res.status(501).status(err);
