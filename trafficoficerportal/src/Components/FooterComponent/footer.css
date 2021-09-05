@@ -1,0 +1,32 @@
+.footerUp{
+   
+    display: grid;
+    grid-template-columns: 25% 25% 25%;
+    box-sizing: border-box;
+}
+.footer{
+    background-color: #4a0909;
+    
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-sizing: border-box;
+}
+.footerDown{
+    background-color: black;
+    height: 1rem;
+}
+.right{
+    border-left: 1px solid rgb(34, 3, 3);
+
+}
+.footerlbl{
+    margin-top: 1rem;
+    color: gray;
+}
+.contactPhone{
+    margin-left: 3rem;
+}
+.footerTxtdiv{
+    margin-top: -1rem;
+}

@@ -1,16 +1,17 @@
 import "./trafficOfficerLogin.css";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, Component } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
-import Button from "../../ButtonComponent/button";
+import ButtonCom from "../../ButtonComponent/button";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { UserContext } from "../../../App";
 import { Link, useHistory } from "react-router-dom";
-// import firebase from "../../../firebase/firebase";
-import "firebase/auth";
-import firebase from "firebase/app";
+import firebase from "../../../firebase/firebase";
+import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
+
+import ModalExample from "../../OTPPopupComponent/otpPopup";
 
 toast.configure();
 
@@ -18,6 +19,7 @@ function TrafficOfficerLogin() {
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
   const [officerOne, setofficerOne] = useState("");
+  const [popupVisible, setPopupVisible] = useState(true);
   const [officerTwo, setofficerTwo] = useState("");
   const [otp, setOtp] = useState("");
   const [logo] = useState(
@@ -25,7 +27,13 @@ function TrafficOfficerLogin() {
   );
   const [officerPassword, setofficerPassword] = useState("");
 
-  function pressLoginBtn() {
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+
+  async function pressLoginBtn(e) {
+    alert("press login");
+    setPopupVisible(true);
+    e.preventDefault();
     if (officerOne == "" || officerTwo == "" || officerPassword == "") {
       toast.error("Please Fill The Form Correctly", {
         position: toast.POSITION.TOP_RIGHT,
@@ -40,27 +48,60 @@ function TrafficOfficerLogin() {
       axios
         .post("http://localhost:9000/trafficOfficer/login", credentials)
         .then(async (res) => {
+          localStorage.setItem("officerOne", res.data.id);
           console.log("res in log : ", res);
-          // dispatch({ type: "USER", payload: true });
           await axios
             .get(
               `http://localhost:9000/trafficOfficer/officerreg/${officerTwo}`
             )
-            .then((result) => {
+            .then(async (result) => {
               console.log("officer two details : ", result.data);
-              localStorage.setItem("officerOne", res.data.id);
-              localStorage.setItem("officerTwo", result.data._id);
-
-              toast.success("Login Success", {
-                position: toast.POSITION.TOP_RIGHT,
+              await onSignInSubmit(result.data.mobile).then(() => {
+                toast.success("Login Success", {
+                  position: toast.POSITION.TOP_RIGHT,
+                });
+                setTimeout(() => {
+                  history.push("/createFine");
+                  dispatch({ type: "USER", payload: true });
+                }, 5000);
               });
-              setTimeout(() => {
-                history.push("/createFine");
-                dispatch({ type: "USER", payload: true });
-              }, 5000);
             });
         });
     }
+  }
+
+  function configureCaptcha() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "sign-in-button",
+      {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          onSignInSubmit();
+        },
+      }
+    );
+  }
+
+  async function onSignInSubmit(mobile) {
+    configureCaptcha();
+    const phoneNumber = `+94${mobile}`;
+    console.log(phoneNumber);
+    const appVerifier = window.recaptchaVerifier;
+
+    firebase
+      .auth()
+      .signInWithPhoneNumber(phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+        alert("OTP has been sent");
+      })
+      .catch((error) => {
+        // Error; SMS not sent
+        // ...
+      });
   }
 
   return (
@@ -93,71 +134,74 @@ function TrafficOfficerLogin() {
                 <div class="dx-field">
                   <br />
                   <br />
-                  <div className="officerLogin">
-                    <div className="officerOne">
-                      <label className="loginLong">
-                        Officer Registration ID :
-                      </label>
-                      <label className="loginShort">Officer ID : </label>
+                  <form>
+                    <div id="sign-in-button"></div>
+                    <div className="officerLogin">
+                      <div className="officerOne">
+                        <label className="loginLong">
+                          Officer Registration ID :
+                        </label>
+                        <label className="loginShort">Officer ID : </label>
+                        <TextBox
+                          mask="0000000000"
+                          className="officerReg"
+                          name="officerOne"
+                          value={officerOne}
+                          showClearButton={true}
+                          onValueChanged={(e) => {
+                            setofficerOne(e.value);
+                          }}
+                        />
+                      </div>
+                      <div className="officerTwo">
+                        <label className="loginLong">
+                          Patner Officer Registration ID :
+                        </label>
+                        <label className="loginShort">Patner ID : </label>
+                        <TextBox
+                          mask="0000000000"
+                          className="officerReg"
+                          name="officerTwo"
+                          value={officerTwo}
+                          showClearButton={true}
+                          onValueChanged={(e) => {
+                            setofficerTwo(e.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <br />
+                    <div className="officerPW">
+                      <label>Password </label>
                       <TextBox
-                        mask="0000000000"
-                        className="officerReg"
-                        name="officerOne"
-                        value={officerOne}
+                        mode="password"
+                        placeholder="Enter password"
+                        name="officerPassword"
                         showClearButton={true}
+                        value={officerPassword}
                         onValueChanged={(e) => {
-                          setofficerOne(e.value);
+                          setofficerPassword(e.value);
                         }}
                       />
                     </div>
-                    <div className="officerTwo">
-                      <label className="loginLong">
-                        Patner Officer Registration ID :
-                      </label>
-                      <label className="loginShort">Patner ID : </label>
-                      <TextBox
-                        mask="0000000000"
-                        className="officerReg"
-                        name="officerTwo"
-                        value={officerTwo}
-                        showClearButton={true}
-                        onValueChanged={(e) => {
-                          setofficerTwo(e.value);
-                        }}
+                    <br />
+                    <br />
+                    <br />
+                    <center>
+                      <ButtonCom
+                        id={"officerReg"}
+                        value={"Login"}
+                        classname={"createFineBtn"}
+                        type={"submit"}
+                        onSubmit={pressLoginBtn}
                       />
-                    </div>
-                  </div>
-                  <br />
-                  <div className="officerPW">
-                    <label>Password </label>
-                    <TextBox
-                      mode="password"
-                      placeholder="Enter password"
-                      name="officerPassword"
-                      showClearButton={true}
-                      value={officerPassword}
-                      onValueChanged={(e) => {
-                        setofficerPassword(e.value);
-                      }}
-                    />
-                  </div>
-                  <br />
-                  <br />
-                  <br />
-                  <center>
-                    <Button
-                      id={"officerReg"}
-                      value={"Login"}
-                      classname={"createFineBtn"}
-                      type={"submit"}
-                      onSubmit={pressLoginBtn}
-                    />
-                    <br />
-                    <br />
-                    <p className="pwForgot">
-                      <b>Forgot Your Password?</b>
-                    </p>
-                  </center>
+                      <br />
+                      <br />
+                      <p className="pwForgot">
+                        <b>Forgot Your Password?</b>
+                      </p>
+                    </center>
+                  </form>
                 </div>
               </div>
               <br />
@@ -186,6 +230,18 @@ function TrafficOfficerLogin() {
       </Grid>
     </div>
   );
-  // }
 }
+
+class otpConfirm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      officerMobile: this.props.mobile,
+    };
+  }
+  render() {
+    return <div className="container">Hi</div>;
+  }
+}
+
 export default TrafficOfficerLogin;
