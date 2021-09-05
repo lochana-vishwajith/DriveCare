@@ -15,6 +15,7 @@ import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketCompo
 import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
 import DriverHeader from "./Components/DriverComponent/DriverHeaderComponent/DriverHeader";
 import DriverFooter from "./Components/DriverComponent/DriverFooterComponent/DriverFooter";
+import DriverSummary from "./Components/DriverComponent/DriverSummaryComponent/DriverSummary";
 
 import { initialState, reducer } from "../src/Reducer/UseReduser";
 export const UserContext = createContext();
@@ -41,6 +42,7 @@ function App() {
               path="/ticketOverview/:id"
               component={TicketOverview}
             />
+            <Route exact path="/summary" component={DriverSummary} />
           </Switch>
           <DriverFooter />
         </Router>
