@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
     vehicelNo,
     offenceDate,
     place,
-    CourtPlace : CourtPlace.value,
+    CourtPlace: CourtPlace.value,
     isPayed: false,
   });
   console.log("VV : ", violationType);
@@ -62,7 +62,7 @@ router.post("/", (req, res) => {
 
 //IT18014396 - retrieve ongoing tickets
 router.get("/ongoin/:id", (req, res) => {
-  Fines.find({ driverID: req.params.id }, { isPayed: false })
+  Fines.find({ driverID: req.params.id, isPayed: false })
     .populate("violationType")
     .then((result) => {
       res.status(200).send(result);
@@ -80,6 +80,18 @@ router.get("/:id", (req, res) => {
     .then((result) => {
       console.log(result);
       res.status(200).send([result]);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
+//IT18014396 - retrieve all tickets
+router.get("/summary/:id", (req, res) => {
+  Fines.find({ driverID: req.params.id })
+    .populate("violationType")
+    .then((result) => {
+      res.status(200).send(result);
     })
     .catch((error) => {
       res.send(error);
