@@ -107,7 +107,22 @@ export default class officerDetailsDisplay extends Component {
               </div>
             </Paper>
           </Grid>
-          <div className="policeCenterDisplay"></div>
+          <div className="policeCenterDisplay">
+            <center>
+              <div className="shadow-lg p-3 mb-5 bg-white rounded" id="station">
+                <label className="stationText">
+                  <b>Police Station</b>
+                </label>
+              </div>
+            </center>
+            <center>
+              <div className="shadow-lg p-3 mb-5 bg-white rounded" id="station">
+                <label className="stationText">
+                  <b>Total Traffic Officers</b>
+                </label>
+              </div>
+            </center>
+          </div>
         </div>
       </div>
     );
