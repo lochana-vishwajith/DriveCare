@@ -36,6 +36,17 @@ router.post("/todelterule",async (req, res) => {
     }
 });
 
+// get by id
+router.get("/:deletedid", async (req, res) => {
+    const id = req.params.id;
 
+    await Rules.find({ _id: id })
+        .then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
 
 module.exports = router;

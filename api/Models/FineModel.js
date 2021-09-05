@@ -61,6 +61,13 @@ const fineSchema = new Schema({
       ref: "DriverComments",
     },
   ],
+  evidence: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "DriverEvidence",
+    },
+  ],
 });
 
 const finemodel = mongoose.model("Fines", fineSchema);
