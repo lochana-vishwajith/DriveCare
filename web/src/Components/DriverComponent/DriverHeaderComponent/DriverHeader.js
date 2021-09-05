@@ -116,7 +116,7 @@ export default function DriverHeader() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="#">
+                  <Link className="nav-link" to="/search">
                     Search Driver
                   </Link>
                 </li>
