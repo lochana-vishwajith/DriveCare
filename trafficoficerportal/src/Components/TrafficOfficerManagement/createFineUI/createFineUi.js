@@ -237,14 +237,16 @@ export default class createFineUi extends Component {
       <div>
         <div className="container">
           <div className="createFineMainDiv">
+            <br />
             <div className="createFineGrid">
               <div className="formDiv">
                 <Grid>
                   <Paper elevation={20}>
                     <div className="fineForm">
-                      <h2 className="createFineTxt">
+                      <br />
+                      <h3 className="createFineTxt">
                         <b>Create Fine</b>
-                      </h2>
+                      </h3>
                       <hr />
                       <form>
                         <label className="officerSelectDriver">

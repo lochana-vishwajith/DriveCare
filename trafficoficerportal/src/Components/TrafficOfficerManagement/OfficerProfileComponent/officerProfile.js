@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./officerProfile.css";
 
 export default class officerProfile extends Component {
   render() {
