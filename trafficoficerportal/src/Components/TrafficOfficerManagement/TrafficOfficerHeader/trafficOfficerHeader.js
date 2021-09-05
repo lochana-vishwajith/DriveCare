@@ -11,18 +11,7 @@ export default function TrafficOfficerHeader() {
     "https:firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1629491743966_DriveCare.png?alt=media&token=357fa383-7939-49b9-89d7-2e710f4b73bc "
   );
   const { state, dispatch } = useContext(UserContext);
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     show: true,
-  //     offlicerOne: "",
-  //     officerTwo: "",
-  //     logo: "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1629491743966_DriveCare.png?alt=media&token=357fa383-7939-49b9-89d7-2e710f4b73bc",
-  //   };
-  // }
 
-  // render() {
-  // const { offlicerOne, officerTwo } = this.state;
   return (
     <div>
       {state && (
@@ -55,7 +44,11 @@ export default function TrafficOfficerHeader() {
             >
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <Link className="nav-link" aria-current="page" to="/createFine">
+                  <Link
+                    className="nav-link"
+                    aria-current="page"
+                    to="/createFine"
+                  >
                     Home
                   </Link>
                 </li>
