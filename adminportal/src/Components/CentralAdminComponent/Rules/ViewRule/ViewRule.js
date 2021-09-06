@@ -16,13 +16,17 @@ constructor(props) {
         rules :[],
         show:false,
         popupVisible: false,
-        uPoints:''
+        uPoints:'',
+        obj:''
     }
 }
     componentDidMount() {
         axios.get(`http://localhost:9000/rules/${this.props.match.params.id}`).then((res) => {
             console.log("res : ", res.data);
             this.setState({ rules: res.data });
+
+            const obj = res.data[0];
+            this.setState({obj})
         });
     }
 
@@ -53,6 +57,14 @@ constructor(props) {
             });
 
     }
+
+    handlerDelete = (e) =>{
+
+    alert('caller'+this.state.obj._id);
+
+    }
+
+
     handlerChanged =(e) =>{
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -220,8 +232,9 @@ constructor(props) {
                     <button className="btn btn-outline-secondary text-light px-5 mx-5" type="button"
                             id="button-addon2" onClick={ this.handlerModelStart}>Update
                     </button>
+
                     <button className="btn btn-outline-secondary text-light px-5" type="button"
-                            id="button-addon2">Delete
+                            id="button-addon2" onClick={this.handlerDelete} >Delete
                     </button>
                 </div>
                </center>
