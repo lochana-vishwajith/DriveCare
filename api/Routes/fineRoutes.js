@@ -98,4 +98,16 @@ router.get("/summary/:id", (req, res) => {
     });
 });
 
+//IT18014396 - retrieve all tickets for licence number
+router.get("/thirdpartyDetails/:id", (req, res) => {
+  console.log("ID :", req.params.id);
+  Fines.find({ licenceNumber: req.params.id })
+    .populate("violationType")
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
 module.exports = router;

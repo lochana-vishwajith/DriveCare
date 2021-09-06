@@ -1,0 +1,30 @@
+.d-grid-tp {
+  display: grid;
+  grid-template-columns: 20% 35% 35%;
+  grid-gap: 1%;
+  box-sizing: border-box;
+}
+
+.d-img-tp {
+  width: 194.5px;
+  height: 194.5px;
+  border-radius: 50%;
+}
+
+.d-points-g-tp {
+  color: rgb(20, 170, 20);
+  font-size: 40px;
+}
+
+.d-points-y-tp {
+  color: rgb(204, 204, 21);
+  font-size: 40px;
+}
+
+.d-points-r-tp {
+  color: rgb(199, 31, 31);
+  font-size: 40px;
+}
+.d-grid-tp b {
+  font-size: 20px;
+}
