@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
     vehicelNo,
     offenceDate,
     place,
-    CourtPlace : CourtPlace.value,
+    CourtPlace: CourtPlace.value,
     isPayed: false,
   });
   console.log("VV : ", violationType);
@@ -84,6 +84,16 @@ router.get("/:id", (req, res) => {
     .catch((error) => {
       res.send(error);
     });
+});
+
+//IT19152806
+router.get("/", async (req, res) => {
+  try {
+    const fines = await Fines.find();
+    res.send(fines);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;
