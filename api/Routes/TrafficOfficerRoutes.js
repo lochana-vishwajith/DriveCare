@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { response } = require("express");
 const TrafficOfficer = require("../Models/TrafficOfficerModel");
+const police = require("../Models/PoliceStationModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -15,6 +16,7 @@ router.post("/", (req, res) => {
     nic,
     officerReg,
     profilePicUrl,
+    policeStation,
   } = req.body;
   const password = nic;
   bcrypt.hash(password, 10).then((hash) => {
@@ -29,6 +31,7 @@ router.post("/", (req, res) => {
       officerReg,
       profilePicUrl,
       password: hash,
+      policeStation,
       points: 30,
       isNewUser: true,
       status: "Active",
@@ -37,6 +40,20 @@ router.post("/", (req, res) => {
       .save()
       .then((result) => {
         res.status(200).send({ result });
+        police
+          .findByIdAndUpdate(policeStation, {
+            $push: {
+              officers: result._id,
+            },
+          })
+          .then((data) => {
+            console.log("Successfully added to the police station db");
+            res.status(200).send({ result, data });
+          })
+          .catch((err) => {
+            console.log("error in adding to the police station db");
+            res.status(501).send(err);
+          });
       })
       .catch((err) => {
         res.send(err);
@@ -65,8 +82,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
-  await TrafficOfficer.find()
+router.get("/:id", async (req, res) => {
+  let id = req.params.id;
+
+  await TrafficOfficer.find({ policeStation: id })
     .then((result) => {
       res.status(200).send(result);
     })

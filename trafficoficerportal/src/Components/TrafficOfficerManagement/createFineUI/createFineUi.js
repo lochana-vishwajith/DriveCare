@@ -9,6 +9,8 @@ import DateBox from "devextreme-react/date-box";
 import Button from "../../ButtonComponent/button";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthContext from "../../../Reducer/UseReducer";
+import TrafficOfficerLogin from "../TrafficOfficerloginComponent/trafficOfficerLogin";
 
 const competentDrive = ["A", "B", "C"];
 
@@ -28,6 +30,8 @@ const Court = [
 ];
 
 export default class createFineUi extends Component {
+  static contextType = AuthContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -86,6 +90,7 @@ export default class createFineUi extends Component {
   };
 
   componentDidMount() {
+    const { officerOne, officerTwo } = this.context;
     axios
       .get("http://localhost:9000/driver")
       .then((res) => {
@@ -110,10 +115,7 @@ export default class createFineUi extends Component {
       });
 
     this.setState({
-      Officers: [
-        localStorage.getItem("officerOne"),
-        localStorage.getItem("officerTwo"),
-      ],
+      Officers: [officerOne, officerTwo],
     });
     this.getViolationRules();
   }
@@ -232,333 +234,342 @@ export default class createFineUi extends Component {
       CourtPlace,
       image,
     } = this.state;
+    const { isAutheticated } = this.context;
 
     return (
       <div>
-        <div className="container">
-          <div className="createFineMainDiv">
-            <br />
-            <div className="createFineGrid">
-              <div className="formDiv">
-                <Grid>
-                  <Paper elevation={20}>
-                    <div className="fineForm">
-                      <br />
-                      <h3 className="createFineTxt">
-                        <b>Create Fine</b>
-                      </h3>
-                      <hr />
-                      <form>
-                        <label className="officerSelectDriver">
-                          Driver NIC :
-                        </label>
-                        <Select
-                          className="basic-single"
-                          isSearchable={true}
-                          name="diverNicSearchOff"
-                          options={this.state.diverNicId}
-                          onChange={this.onSelectDriver}
-                          value={onSelectDriver}
-                          id="officerSelectDriver"
-                        />
-                        <hr className="officerSelectDriverHr" />
-
-                        <div className="dx-fieldset">
-                          <div className="fineInnerGrid">
-                            <div className="leftDiv">
-                              <label className="fineDriverName">
-                                Driver Name :
-                              </label>
-                              <br />
-                              <TextBox
-                                value={this.state.driverName}
-                                showClearButton={true}
-                                className="fineTextBox"
-                                readOnly={true}
-                              />
-                            </div>
-                            <div>
-                              <label className="fineDriverName">
-                                Home Address :
-                              </label>
-
-                              <TextBox
-                                value={this.state.address}
-                                showClearButton={true}
-                                className="fineTextBox"
-                                readOnly={true}
-                              />
-                            </div>
-
-                            <div className="leftDiv">
-                              <label className="fineDriverName">
-                                Licence Valid Period :
-                              </label>
-                              <div className="FineValidPerio">
-                                <div>
-                                  <TextBox
-                                    value={this.state.licenseIssueDate}
-                                    showClearButton={true}
-                                    className="fineTextBox"
-                                    readOnly={true}
-                                  />
-                                </div>
-                                <div>
-                                  <label className="fineTo">to</label>
-                                </div>
-                                <div>
-                                  <TextBox
-                                    value={this.state.expire}
-                                    showClearButton={true}
-                                    className="fineTextBox"
-                                    readOnly={true}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div>
-                              <label className="fineDriverName">
-                                Date & Time Of Offence :
-                              </label>
-
-                              <DateBox
-                                type="datetime"
-                                className="fineTextBox"
-                                name="offenceDate"
-                                defaultValue={this.now}
-                                value={this.state.offenceDate}
-                                showClearButton={true}
-                                onValueChanged={this.offenceDateSelected}
-                              />
-                            </div>
-                            <div className="leftDiv">
-                              <label className="fineDriverName">Place :</label>
-                              <br />
-                              <TextBox
-                                value={this.state.place}
-                                showClearButton={true}
-                                className="fineTextBox"
-                                onValueChanged={this.placeChanged}
-                              />
-                            </div>
-                            <div>
-                              <label className="fineDriverName">
-                                Vehicle Registration Number :
-                              </label>
-                              <br />
-                              <TextBox
-                                value={this.state.vehicelNo}
-                                showClearButton={true}
-                                className="fineTextBox"
-                                onValueChanged={this.vehicelNoChanged}
-                              />
-                            </div>
-                          </div>
-
-                          <label className="fineDriverName">
-                            Violation Type :
+        {!isAutheticated && <TrafficOfficerLogin />}
+        {isAutheticated && (
+          <div className="container">
+            <div className="createFineMainDiv">
+              <br />
+              <div className="createFineGrid">
+                <div className="formDiv">
+                  <Grid>
+                    <Paper elevation={20}>
+                      <div className="fineForm">
+                        <br />
+                        <h3 className="createFineTxt">
+                          <b>Create Fine</b>
+                        </h3>
+                        <hr />
+                        <form>
+                          <label className="officerSelectDriver">
+                            Driver NIC :
                           </label>
-
                           <Select
                             className="basic-single"
                             isSearchable={true}
-                            options={this.state.allrules}
-                            onChange={this.onSelectViolationType}
-                            value={violationtype}
-                            id="officerSelectVio"
-                            isMulti
+                            name="diverNicSearchOff"
+                            options={this.state.diverNicId}
+                            onChange={this.onSelectDriver}
+                            value={onSelectDriver}
+                            id="officerSelectDriver"
                           />
-                          <br />
-                          <label className="fineDriverName">
-                            Competent To Drive :
-                          </label>
+                          <hr className="officerSelectDriverHr" />
 
-                          <Select
-                            className="basic-single"
-                            value={competentDrive}
-                            id="officerSelectVio"
-                            isMulti
-                            readOnly
-                          />
-                          <br />
-                          <div className="fineRadio">
-                            <div class="form-check">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="finetype"
-                                id="onPremises"
-                                value="onPremises"
-                                onChange={this.handlerChange}
-                              />
-                              <label
-                                class="form-check-label"
-                                for="flexRadioDefault1"
-                              >
-                                On Premises
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="finetype"
-                                id="court"
-                                value="court"
-                                onChange={this.handlerChange}
-                              />
-                              <label
-                                class="form-check-label"
-                                for="flexRadioDefault1"
-                              >
-                                Court
-                              </label>
-                            </div>
-                          </div>
-                          <br />
-                          {finetype == "court" && (
+                          <div className="dx-fieldset">
                             <div className="fineInnerGrid">
                               <div className="leftDiv">
                                 <label className="fineDriverName">
-                                  Court Date :
+                                  Driver Name :
                                 </label>
-                                <DateBox
-                                  type="date"
-                                  className="courtDate"
-                                  name="courtDate"
-                                  value={this.state.courtDate}
+                                <br />
+                                <TextBox
+                                  value={this.state.driverName}
                                   showClearButton={true}
-                                  onValueChanged={this.courtDateSelected}
+                                  className="fineTextBox"
+                                  readOnly={true}
                                 />
                               </div>
                               <div>
                                 <label className="fineDriverName">
-                                  Court :
+                                  Home Address :
                                 </label>
-                                <Select
-                                  className="basic-single"
-                                  isSearchable={true}
-                                  options={Court}
-                                  onChange={this.onSelectCourt}
-                                  value={CourtPlace}
-                                  id="officerSelectVio"
-                                  onChange={this.onSelectCourtPlace}
+
+                                <TextBox
+                                  value={this.state.address}
+                                  showClearButton={true}
+                                  className="fineTextBox"
+                                  readOnly={true}
+                                />
+                              </div>
+
+                              <div className="leftDiv">
+                                <label className="fineDriverName">
+                                  Licence Valid Period :
+                                </label>
+                                <div className="FineValidPerio">
+                                  <div>
+                                    <TextBox
+                                      value={this.state.licenseIssueDate}
+                                      showClearButton={true}
+                                      className="fineTextBox"
+                                      readOnly={true}
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="fineTo">to</label>
+                                  </div>
+                                  <div>
+                                    <TextBox
+                                      value={this.state.expire}
+                                      showClearButton={true}
+                                      className="fineTextBox"
+                                      readOnly={true}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div>
+                                <label className="fineDriverName">
+                                  Date & Time Of Offence :
+                                </label>
+
+                                <DateBox
+                                  type="datetime"
+                                  className="fineTextBox"
+                                  name="offenceDate"
+                                  defaultValue={this.now}
+                                  value={this.state.offenceDate}
+                                  showClearButton={true}
+                                  onValueChanged={this.offenceDateSelected}
+                                />
+                              </div>
+                              <div className="leftDiv">
+                                <label className="fineDriverName">
+                                  Place :
+                                </label>
+                                <br />
+                                <TextBox
+                                  value={this.state.place}
+                                  showClearButton={true}
+                                  className="fineTextBox"
+                                  onValueChanged={this.placeChanged}
+                                />
+                              </div>
+                              <div>
+                                <label className="fineDriverName">
+                                  Vehicle Registration Number :
+                                </label>
+                                <br />
+                                <TextBox
+                                  value={this.state.vehicelNo}
+                                  showClearButton={true}
+                                  className="fineTextBox"
+                                  onValueChanged={this.vehicelNoChanged}
                                 />
                               </div>
                             </div>
-                          )}
-                        </div>
-                      </form>
-                    </div>
-                    <center>
-                      <Button
-                        id={"createFine"}
-                        value={"Create Fine"}
-                        classname={"createFineBtn"}
-                        type={"submit"}
-                        onSubmit={this.onCreateFine}
-                      />
-                    </center>
-                    <br />
-                    <br />
-                    <br />
-                  </Paper>
-                </Grid>
-              </div>
-              <div className="pointOfficer">
-                <center>
-                  <img
-                    src={image}
-                    class="w-100 shadow-1-strong rounded mb-4"
-                    id="profilePicOfficer"
-                    alt=""
-                  />
-                </center>
-                <div className="diverCards">
-                  <div
-                    className="shadow-lg p-3 mb-5 bg-white rounded"
-                    id="driverOfficerCards"
-                  >
-                    <div className="card-body">
-                      <h5 className="card-title" id="officerDisRem">
-                        Remaining Points
-                      </h5>
+
+                            <label className="fineDriverName">
+                              Violation Type :
+                            </label>
+
+                            <Select
+                              className="basic-single"
+                              isSearchable={true}
+                              options={this.state.allrules}
+                              onChange={this.onSelectViolationType}
+                              value={violationtype}
+                              id="officerSelectVio"
+                              isMulti
+                            />
+                            <br />
+                            <label className="fineDriverName">
+                              Competent To Drive :
+                            </label>
+
+                            <Select
+                              className="basic-single"
+                              value={competentDrive}
+                              id="officerSelectVio"
+                              isMulti
+                              readOnly
+                            />
+                            <br />
+                            <div className="fineRadio">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="finetype"
+                                  id="onPremises"
+                                  value="onPremises"
+                                  onChange={this.handlerChange}
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="flexRadioDefault1"
+                                >
+                                  On Premises
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="finetype"
+                                  id="court"
+                                  value="court"
+                                  onChange={this.handlerChange}
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="flexRadioDefault1"
+                                >
+                                  Court
+                                </label>
+                              </div>
+                            </div>
+                            <br />
+                            {finetype == "court" && (
+                              <div className="fineInnerGrid">
+                                <div className="leftDiv">
+                                  <label className="fineDriverName">
+                                    Court Date :
+                                  </label>
+                                  <DateBox
+                                    type="date"
+                                    className="courtDate"
+                                    name="courtDate"
+                                    value={this.state.courtDate}
+                                    showClearButton={true}
+                                    onValueChanged={this.courtDateSelected}
+                                  />
+                                </div>
+                                <div>
+                                  <label className="fineDriverName">
+                                    Court :
+                                  </label>
+                                  <Select
+                                    className="basic-single"
+                                    isSearchable={true}
+                                    options={Court}
+                                    onChange={this.onSelectCourt}
+                                    value={CourtPlace}
+                                    id="officerSelectVio"
+                                    onChange={this.onSelectCourtPlace}
+                                  />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </form>
+                      </div>
                       <center>
-                        <p className="card-text">
-                          {selectedDriverDetails.points >= 20 && (
-                            <b className="pointGreenOfficer">
-                              {selectedDriverDetails.points}
-                            </b>
-                          )}
-                          {selectedDriverDetails.points >= 10 &&
-                            selectedDriverDetails.points < 20 && (
-                              <b className="pointYellowOfficer">
+                        <Button
+                          id={"createFine"}
+                          value={"Create Fine"}
+                          classname={"createFineBtn"}
+                          type={"submit"}
+                          onSubmit={this.onCreateFine}
+                        />
+                      </center>
+                      <br />
+                      <br />
+                      <br />
+                    </Paper>
+                  </Grid>
+                </div>
+                <div className="pointOfficer">
+                  <center>
+                    <img
+                      src={image}
+                      class="w-100 shadow-1-strong rounded mb-4"
+                      id="profilePicOfficer"
+                      alt=""
+                    />
+                  </center>
+                  <div className="diverCards">
+                    <div
+                      className="shadow-lg p-3 mb-5 bg-white rounded"
+                      id="driverOfficerCards"
+                    >
+                      <div className="card-body">
+                        <h5 className="card-title" id="officerDisRem">
+                          Remaining Points
+                        </h5>
+                        <center>
+                          <p className="card-text">
+                            {selectedDriverDetails.points >= 20 && (
+                              <b className="pointGreenOfficer">
                                 {selectedDriverDetails.points}
                               </b>
                             )}
-                          {selectedDriverDetails.points >= 0 &&
-                            selectedDriverDetails.points < 10 && (
-                              <b className="pointYellowOfficer">
-                                {selectedDriverDetails.points}
+                            {selectedDriverDetails.points >= 10 &&
+                              selectedDriverDetails.points < 20 && (
+                                <b className="pointYellowOfficer">
+                                  {selectedDriverDetails.points}
+                                </b>
+                              )}
+                            {selectedDriverDetails.points >= 0 &&
+                              selectedDriverDetails.points < 10 && (
+                                <b className="pointYellowOfficer">
+                                  {selectedDriverDetails.points}
+                                </b>
+                              )}
+                          </p>
+                        </center>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="diverCards" id="driverStatusOfficer">
+                    <div
+                      className="shadow-lg p-3 mb-5 bg-white rounded"
+                      id="driverOfficerCards"
+                    >
+                      <div className="card-body">
+                        <h5 className="card-title" id="officerDisRem">
+                          Driving Licence Status
+                        </h5>
+                        <center>
+                          <p className="card-text">
+                            {selectedDriverDetails.licenceStatus ===
+                              "Active" && (
+                              <b className="pointGreenOfficer">
+                                {selectedDriverDetails.licenceStatus}
                               </b>
                             )}
-                        </p>
-                      </center>
+                            {selectedDriverDetails.licenceStatus >=
+                              "Pending" && (
+                              <b className="pointYellowOfficer">
+                                {selectedDriverDetails.licenceStatus}
+                              </b>
+                            )}
+                            {selectedDriverDetails.licenceStatus >=
+                              "Cancel" && (
+                              <b className="pointYellowOfficer">
+                                {selectedDriverDetails.licenceStatus}
+                              </b>
+                            )}
+                          </p>
+                        </center>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="diverCards" id="driverStatusOfficer">
-                  <div
-                    className="shadow-lg p-3 mb-5 bg-white rounded"
-                    id="driverOfficerCards"
-                  >
-                    <div className="card-body">
-                      <h5 className="card-title" id="officerDisRem">
-                        Driving Licence Status
-                      </h5>
-                      <center>
-                        <p className="card-text">
-                          {selectedDriverDetails.licenceStatus === "Active" && (
-                            <b className="pointGreenOfficer">
-                              {selectedDriverDetails.licenceStatus}
-                            </b>
-                          )}
-                          {selectedDriverDetails.licenceStatus >= "Pending" && (
-                            <b className="pointYellowOfficer">
-                              {selectedDriverDetails.licenceStatus}
-                            </b>
-                          )}
-                          {selectedDriverDetails.licenceStatus >= "Cancel" && (
-                            <b className="pointYellowOfficer">
-                              {selectedDriverDetails.licenceStatus}
-                            </b>
-                          )}
-                        </p>
-                      </center>
-                    </div>
-                  </div>
-                </div>
-                <div className="diverCards" id="driverStatusOfficer">
-                  <div
-                    className="shadow-lg p-3 mb-5 bg-white rounded"
-                    id="driverOfficerCards"
-                  >
-                    <div className="card-body">
-                      <h5 className="card-title" id="officerDisRem">
-                        Total Fine
-                      </h5>
-                      <center>
-                        <p className="card-text">
-                          <b className="fineTotal">{this.state.totalFine}</b>
-                        </p>
-                      </center>
+                  <div className="diverCards" id="driverStatusOfficer">
+                    <div
+                      className="shadow-lg p-3 mb-5 bg-white rounded"
+                      id="driverOfficerCards"
+                    >
+                      <div className="card-body">
+                        <h5 className="card-title" id="officerDisRem">
+                          Total Fine
+                        </h5>
+                        <center>
+                          <p className="card-text">
+                            <b className="fineTotal">{this.state.totalFine}</b>
+                          </p>
+                        </center>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

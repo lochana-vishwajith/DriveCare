@@ -9,9 +9,14 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
+import Header from "../../HeaderComponent/header";
+import AuthContext from "../../../Reducer/UseReducer";
+
 toast.configure();
 
 export default class trafficOfficerReg extends Component {
+  static contextType = AuthContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -102,6 +107,7 @@ export default class trafficOfficerReg extends Component {
   };
 
   onSubmit = async () => {
+    const { stationID } = this.context;
     try {
       if (
         this.state.firstName === "" ||
@@ -138,6 +144,7 @@ export default class trafficOfficerReg extends Component {
           nic,
           officerReg,
           profilePicUrl,
+          policeStation: stationID,
           password: this.state.nic,
         };
         axios.post("http://localhost:9000/trafficOfficer", details).then(() => {
@@ -157,6 +164,7 @@ export default class trafficOfficerReg extends Component {
     const { image } = this.state;
     return (
       <div>
+        <Header />
         <div className="container">
           <div className="outerDiv">
             <Grid>
