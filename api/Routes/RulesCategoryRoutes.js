@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const RulesCategory = require("../Models/RulesCategoryModel");
+//this api route is used to categorized the routes
+//every rule has a category and one rule be in a one category
 
+//post route for the rule category
 router.post("/", (req, res) => {
     const { categoryName,categoryNumber,range,severity,description} =
         req.body;
@@ -24,6 +27,7 @@ router.post("/", (req, res) => {
 });
 
 
+//get by id route for the rulecategory
 router.get("/:id", async (req, res) => {
     const id = req.params.id;
 
@@ -36,6 +40,8 @@ router.get("/:id", async (req, res) => {
         });
 });
 
+
+//this route is for get all the rules inside a category
 router.get("/getcatrules/:id", async (req, res) => {
     if (req.params && req.params.id) {
         await RulesCategory.findById(req.params.id)
@@ -50,8 +56,8 @@ router.get("/getcatrules/:id", async (req, res) => {
     }
 })
 
+//get all the categories api route
 router.get("/", async(req, res) => {
-    console.log("awaaa");
    await RulesCategory.find()
         .then((result) => {
             console.log("Data are fetched");
