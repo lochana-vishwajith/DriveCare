@@ -116,4 +116,23 @@ router.put("/:id", async (req, res) => {
     });
 });
 
+router.get("/driverdetails/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await Driver.find({ licenceNumber: id })
+    .populate({
+      path: "fines",
+      populate: {
+        path: "violationType",
+        model: "rules",
+      },
+    })
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
 module.exports = router;
