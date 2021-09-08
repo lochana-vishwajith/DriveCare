@@ -28,7 +28,7 @@ export default class App extends Component {
         <Router>
           <CourtHeader />
           <Switch>
-            <Route exact path="/courtAddComment" component={AddComment} />
+            <Route exact path="/courtAddComment/:id" component={AddComment} />
             <Route
               exact
               path="/courtAddCommentpolice"
@@ -44,7 +44,7 @@ export default class App extends Component {
             />
             <Route
               exact
-              path="/courtDriverComments"
+              path="/courtDriverComments/:id"
               component={DriverComments}
             />
             <Route

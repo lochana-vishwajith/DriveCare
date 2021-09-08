@@ -47,7 +47,7 @@ class EditComment extends React.Component {
         console.log("awaaaaaaaaaa");
         console.log(e);
         alert("Comment updated sucessfully");
-        window.location = "/courtDriverComments";
+        //window.location = `/courtDriverComments/${this.props.match.params.id}`;
       })
       .catch((error) => {
         console.log(error.message);
