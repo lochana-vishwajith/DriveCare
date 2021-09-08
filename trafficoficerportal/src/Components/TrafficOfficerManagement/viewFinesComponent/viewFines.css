@@ -1,0 +1,11 @@
+.viewDiv{
+    margin-top: 3%;
+    overflow-y: scroll;
+    height: 30rem;
+}
+#viewDivPay{
+    background-color: greenyellow !important;
+}
+#viewDivPending{
+    background-color: palevioletred !important;
+}
