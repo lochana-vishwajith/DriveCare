@@ -2,21 +2,33 @@ import React, { Component } from "react";
 import "./officerProfile.css";
 import { Grid, Paper } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
+import axios from "axios";
+import AuthContext from "../../../Reducer/UseReducer";
 
 export default class officerProfile extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
-      fullName: "",
-      Initials: "",
-      dob: "",
-      nic: "",
-      mobile: "",
-      reg: "",
+      officerDetails: "",
       place: "",
     };
   }
+  componentDidMount() {
+    const { officerOne } = this.context;
+    axios
+      .get(`http://localhost:9000/trafficOfficer/officerreg/${officerOne}`)
+      .then((data) => {
+        console.log(data.data);
+        this.setState({ officerDetails: data.data });
+        this.setState({ place: data.data.policeStation });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   render() {
+    const { officerDetails, place } = this.state;
     return (
       <div>
         <div className="container">
@@ -26,9 +38,7 @@ export default class officerProfile extends Component {
                 <div>
                   <center>
                     <img
-                      src={
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFJdHCMZ72UWcpaa_XkGXe_-LtCQXua3pwLQ&usqp=CAU"
-                      }
+                      src={officerDetails.profilePicUrl}
                       className="w-100 shadow-1-strong rounded mb-4"
                       id="officerProPic"
                       alt=""
@@ -43,7 +53,9 @@ export default class officerProfile extends Component {
                   <div className="leftContent">
                     <lable>Full Name : </lable>
                     <TextBox
-                      value={this.state.fullName}
+                      value={
+                        officerDetails.firstName + " " + officerDetails.lastName
+                      }
                       className="fineTextBox"
                       readOnly={true}
                     />
@@ -51,7 +63,7 @@ export default class officerProfile extends Component {
                   <div>
                     <lable>Name With Initials : </lable>
                     <TextBox
-                      value={this.state.Initials}
+                      value={officerDetails.nameInitial}
                       className="fineTextBox"
                       readOnly={true}
                     />
@@ -59,7 +71,7 @@ export default class officerProfile extends Component {
                   <div className="leftContent">
                     <lable>Date Of Birth</lable>
                     <TextBox
-                      value={this.state.dob}
+                      value={officerDetails.dob}
                       className="fineTextBox"
                       readOnly={true}
                     />
@@ -67,7 +79,7 @@ export default class officerProfile extends Component {
                   <div>
                     <lable>NIC</lable>
                     <TextBox
-                      value={this.state.nic}
+                      value={officerDetails.nic}
                       className="fineTextBox"
                       readOnly={true}
                     />
@@ -75,7 +87,7 @@ export default class officerProfile extends Component {
                   <div className="leftContent">
                     <lable>Mobile Number</lable>
                     <TextBox
-                      value={this.state.mobile}
+                      value={officerDetails.mobile}
                       className="fineTextBox"
                       readOnly={true}
                     />
@@ -83,7 +95,7 @@ export default class officerProfile extends Component {
                   <div>
                     <lable>Registration Number : </lable>
                     <TextBox
-                      value={this.state.reg}
+                      value={officerDetails.officerReg}
                       className="fineTextBox"
                       readOnly={true}
                     />
@@ -91,12 +103,13 @@ export default class officerProfile extends Component {
                   <div className="leftContent">
                     <lable>Current Working Place : </lable>
                     <TextBox
-                      value={this.state.place}
+                      value={place.workstation_Address}
                       className="fineTextBox"
                       readOnly={true}
                     />
                   </div>
                 </div>
+                <br />
               </Paper>
             </Grid>
           </div>

@@ -24,3 +24,14 @@
 .leftContent{
     padding-right: 2%;
 }
+
+@media (max-width: 1200px) {
+    .detailsDiv {
+        margin-top: 6%;
+        display: block;
+    }
+    #officerProPic{
+        clip-path: circle();
+        transform: translateY(-1rem);
+    }
+}

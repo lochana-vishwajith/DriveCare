@@ -35,7 +35,7 @@ export default class TrafficOfficerHeader extends Component {
               <button
                 className="navbar-toggler border border-info text-info"
                 onClick={() => {
-                  this.setState(!show);
+                  this.setState({ show: !show });
                 }}
                 type="button"
                 data-bs-toggle="collapse"

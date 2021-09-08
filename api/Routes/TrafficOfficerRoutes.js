@@ -95,7 +95,7 @@ router.get("/:id", async (req, res) => {
 });
 router.get("/officerreg/:id", async (req, res) => {
   let id = req.params.id;
-  await TrafficOfficer.findOne({ officerReg: id })
+  await TrafficOfficer.findOne({ officerReg: id }).populate("policeStation", "workstation_Address")
     .then((result) => {
       res.status(200).send(result);
     })
