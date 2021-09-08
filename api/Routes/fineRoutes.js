@@ -86,6 +86,19 @@ router.get("/:id", (req, res) => {
     });
 });
 
+//IT19152806
+router.get("/", async (req, res) => {
+  try {
+    const fines = await Fines.find()
+      .populate("violationType", "ruleName description fineAmount")
+      .populate("comments", "comment")
+      .populate("Officers", "nameInitial officerReg");
+    res.send(fines);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //IT18014396 - retrieve all tickets
 router.get("/summary/:id", (req, res) => {
   Fines.find({ driverID: req.params.id })
