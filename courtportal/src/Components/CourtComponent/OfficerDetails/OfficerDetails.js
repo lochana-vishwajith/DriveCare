@@ -6,19 +6,45 @@ class OfficerDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Kamal Gunarathana",
-      officerID: "KLP12345",
+      name: "",
+      officerID: "",
       comments: [],
     };
     this.deleteComment = this.deleteComment.bind(this);
+    this.navigateAddComment = this.navigateAddComment.bind(this);
   }
 
   componentDidMount() {
     axios
+      .get(`http://localhost:9000/trafficOfficer/`)
+      .then((res) => {
+        console.log("Officer data -", res.data);
+
+        res.data.forEach((officer) => {
+          if (officer._id == this.props.match.params.id) {
+            this.setState({ name: officer.nameInitial });
+            this.setState({ officerID: officer.officerReg });
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
       .get(`http://localhost:9000/courtp/getc/`)
       .then((response) => {
-        this.setState({ comments: response.data });
         console.log(response.data);
+        const officerComments = [];
+
+        response.data.forEach((comment) => {
+          if (comment.officerID == this.props.match.params.id) {
+            officerComments.push(comment);
+          }
+        });
+        console.log(officerComments);
+        this.setState({ comments: officerComments });
+        //this.setState({ comments: response.data });
       })
       .catch((error) => {
         console.log(error.message);
@@ -31,11 +57,15 @@ class OfficerDetails extends React.Component {
       .delete(`http://localhost:9000/courtp/deletecp/${e}`)
       .then((response) => {
         alert("Comment deleted sucessfully");
-        window.location = "/courtOfficerDetails";
+        window.location = `/courtOfficerDetails/${this.props.match.params.id}`;
       })
       .catch((error) => {
         console.log(`Error - ${error.message}`);
       });
+  }
+
+  navigateAddComment(e) {
+    window.location = `/courtAddCommentpolice/${e}`;
   }
 
   render() {
@@ -122,15 +152,18 @@ class OfficerDetails extends React.Component {
           ))}
         </table>
         <br />
-        <a href="/courtAddCommentpolice">
-          <button
-            style={{ float: "right", backgroundColor: "#920e0e" }}
-            type="button"
-            className="btn btn-danger"
-          >
-            Add Comment
-          </button>
-        </a>
+
+        <button
+          style={{ float: "right", backgroundColor: "#920e0e" }}
+          type="button"
+          className="btn btn-danger"
+          onClick={(e) => {
+            this.navigateAddComment(this.props.match.params.id);
+          }}
+        >
+          Add Comment
+        </button>
+
         <br />
       </div>
     );

@@ -12,6 +12,7 @@ class DriverDetails extends React.Component {
       driver: [],
     };
     this.navigateToComment = this.navigateToComment.bind(this);
+    this.navigateToOfficer = this.navigateToOfficer.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +58,10 @@ class DriverDetails extends React.Component {
     console.log(e);
     window.location = `/courtDriverComments/${e}`;
     //window.location = `/courtEditComment/${e}`;
+  }
+
+  navigateToOfficer(e) {
+    window.location = `/courtOfficerDetails/${e}`;
   }
 
   render() {
@@ -128,7 +133,14 @@ class DriverDetails extends React.Component {
                   <h3 className="card-title">Payed : {fine.isPayed}</h3>
                   <h3 className=" card-text">Police Officers</h3>
                   {fine.Officers.map((val, k) => (
-                    <a key={k} href="#" className="card-link">
+                    <a
+                      key={k}
+                      onClick={(e) => {
+                        this.navigateToOfficer(val._id);
+                      }}
+                      href="#"
+                      className="card-link"
+                    >
                       {val.nameInitial}
                     </a>
                   ))}
