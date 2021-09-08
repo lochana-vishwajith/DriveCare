@@ -128,7 +128,7 @@ class DriverDetails extends React.Component {
         {this.state.fines.map((fine) => (
           <div>
             <div>
-              <div className="card" style={{ width: "18rem" }}>
+              <div className="card cardd">
                 <div className="card-body">
                   <h3 className="card-title">Payed : {fine.isPayed}</h3>
                   <h3 className=" card-text">Police Officers</h3>
