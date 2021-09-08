@@ -18,28 +18,6 @@ class DriverDetails extends React.Component {
       .get(`http://localhost:9000/fine/`)
       .then((res) => {
         console.log("fines -", res.data);
-        // this.setState({ fines: res.data });
-        // res.data
-        //   .filter((fine) => {
-        //     if (fine.driverID === this.props.match.params.id) {
-        //       return true;
-        //     }
-        //   })
-        //   .map((fine) => {
-        //     this.setState({ fines: fine });
-        //   });
-        //console.log("ushara", this.state.fines);
-        ////////////////////////////////////////////////////////////////
-        // const f = res.data.filter((fine) => {
-        //   return fine.driverID === this.props.match.params.id;
-        // });
-
-        // console.log(f);
-
-        // f.map((fine) => {
-        //   this.setState({ fines: fine });
-        // });
-        //////////////////////////////////////////////////////
 
         const dFines = [];
 
@@ -135,34 +113,61 @@ class DriverDetails extends React.Component {
 
         <br />
 
-        <table className="table tablee ">
-          <thead>
-            <tr>
-              <th scope="col">Rule Name</th>
-              <th scope="col">Description</th>
+        {this.state.fines.map((fine) => (
+          <div>
+            <div>
+              <div className="card" style={{ width: "18rem" }}>
+                <div className="card-body">
+                  <h3 className="card-title">Payed : {fine.isPayed}</h3>
+                  <h3 className=" card-text">Police Officers</h3>
+                  {fine.Officers.map((val, k) => (
+                    <a key={k} href="#" className="card-link">
+                      {val.nameInitial}
+                    </a>
+                  ))}
 
-              <th scope="col">Fine</th>
-              <th scope="col">Evidence</th>
-              <th scope="col">Comments</th>
-              <th scope="col">Officers</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.fines.map((fine, index) => (
-              <tr key={index}>
-                <td>{fine.violationType.map((val, k) => val.ruleName)}</td>
+                  {/* <a href="#" className="card-link">
+                Officer 02
+              </a> */}
+                  <br />
+                  <br />
+                  <h3 className=" card-text">Drivers Comment</h3>
+                  {fine.comments.map((val, k) => (
+                    <p key={k} className="card-text">
+                      {val.comment}
+                    </p>
+                  ))}
 
-                <td>{fine.violationType.map((val, k) => val.description)}</td>
-                <td>{fine.violationType.map((val, k) => val.fineAmount)}</td>
-                <td>
-                  <p>Evidance</p>
-                </td>
-                <td>{fine.comments.map((val, k) => val.comment)}</td>
-                <td>{fine.Officers.map((val, k) => val.nameInitial)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  <br />
+                  <button className="btn btn-danger">Evidance</button>
+                  <br />
+                  <br />
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Rule Name</th>
+                        <th>Description</th>
+                        <th>Fine</th>
+                      </tr>
+                    </thead>
+                    {fine.violationType.map((val, k) => (
+                      <tbody key={k}>
+                        <tr>
+                          <td>{val.ruleName}</td>
+                          <td>{val.description}</td>
+                          <td>{val.fineAmount}</td>
+                        </tr>
+                      </tbody>
+                    ))}
+                  </table>
+                </div>
+              </div>
+            </div>
+            <br />
+            <br />
+          </div>
+        ))}
+
         <br />
         <a href="/courtDriverComments">
           <button
