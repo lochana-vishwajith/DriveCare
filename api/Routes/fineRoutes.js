@@ -89,7 +89,10 @@ router.get("/:id", (req, res) => {
 //IT19152806
 router.get("/", async (req, res) => {
   try {
-    const fines = await Fines.find();
+    const fines = await Fines.find()
+      .populate("violationType", "ruleName description fineAmount")
+      .populate("comments", "comment")
+      .populate("Officers", "nameInitial officerReg");
     res.send(fines);
   } catch (error) {
     console.log(error);
