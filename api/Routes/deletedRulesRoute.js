@@ -2,8 +2,10 @@ const router = require("express").Router();
 const DeletedRules = require("../Models/DeletedRulesModel");
 const RulesCategory = require("../Models/RulesCategoryModel");
 const mongoose = require('mongoose');
+//this api route is to delte a rule from the main collection and put it into the deleted rule collection
 
 
+//deleted rule get all api
 router.get("/", (req, res) => {
     DeletedRules.find()
         .then((result) => {
@@ -17,6 +19,7 @@ router.get("/", (req, res) => {
 });
 
 
+//this post api route is used to post the deletedrules collection
 router.post("/todelterule",async (req, res) => {
     if (req.body) {
         console.log('awaaa');
@@ -36,6 +39,18 @@ router.post("/todelterule",async (req, res) => {
     }
 });
 
+// get by id
+//used to get the specific deleted rule
+router.get("/:deletedid", async (req, res) => {
+    const id = req.params.id;
 
+    await Rules.find({ _id: id })
+        .then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
 
 module.exports = router;

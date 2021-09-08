@@ -11,7 +11,9 @@ import TrafficOfficerLogin from "./Components/TrafficOfficerManagement/TrafficOf
 import CreateFineUi from "./Components/TrafficOfficerManagement/createFineUI/createFineUi";
 import officerProfile from "./Components/TrafficOfficerManagement/OfficerProfileComponent/officerProfile";
 import Header from "./Components/TrafficOfficerManagement/TrafficOfficerHeader/trafficOfficerHeader";
+import OtpEnterComponent from "./Components/OTPEnterComponent/otpEnterComponent";
 import { initialState, reducer } from "../src/Reducer/UseReducer";
+import Footer from "./Components/FooterComponent/footer";
 
 export const UserContext = createContext();
 function App() {
@@ -25,7 +27,10 @@ function App() {
             <Route exact path="/" component={TrafficOfficerLogin} />
             <Route exact path="/createFine" component={CreateFineUi} />
             <Route exact path="/profile" component={officerProfile} />
+            <Route exact path="/otpConfirm/:id" component={OtpEnterComponent} />
           </Switch>
+
+          <Footer />
         </Router>
       </UserContext.Provider>
     </div>

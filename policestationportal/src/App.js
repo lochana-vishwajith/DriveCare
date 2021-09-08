@@ -8,7 +8,7 @@ import {
   Switch,
 } from "react-router-dom";
 
-import PoliceStationLogin from "./Components/PoliceStation/Login/PoliceStationLogin";
+import PoliceStationLogin from "./Components/PoliceStationLogin/PoliceStationLogin";
 import display from "./Components/PoliceStation/OfficerDetailsDisplay/officerDetailsDisplay";
 import register from "./Components/PoliceStation/TrafficOicRegisterComponent/trafficOfficerReg";
 import Header from "./Components/HeaderComponent/header";
@@ -17,7 +17,6 @@ export default class App extends Component {
     return (
       <div>
         <Router>
-          <Header />
           <Switch>
             <Route exact path="/" component={PoliceStationLogin} />
             <Route exact path="/display" component={display} />

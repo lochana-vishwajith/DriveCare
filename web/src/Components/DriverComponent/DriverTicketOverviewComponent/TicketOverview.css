@@ -29,3 +29,24 @@
 .d-delete {
   cursor: pointer;
 }
+
+#evidences {
+  max-width: 25%;
+  max-height: 25%;
+  padding-right: 4%;
+  margin-top: 2%;
+}
+
+.d-ticket-responsive {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .d-ticket-web {
+    display: none;
+  }
+
+  .d-ticket-responsive {
+    display: grid;
+  }
+}

@@ -3,9 +3,8 @@ import TextBox from "devextreme-react/text-box";
 import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
 import "./PolicestationLogin.css"
-import Button from "../../../../ButtonComponent/button";
-import Navbar from "../../../../navbarComponent/navbar";
-import Footer from "../../../../Footer/Footer";
+import Navbar from "../navbarComponent/navbar";
+import Footer from "../Footer/Footer";
 import axios from "axios";
 
 
@@ -35,7 +34,6 @@ export default class PoliceStationLogin extends Component {
             password
         }
 
-        alert('came')
         axios
             .post(`http://localhost:9000/policeStation/login`, station)
             .then((response) => {

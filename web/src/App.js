@@ -15,6 +15,9 @@ import OngoingTicket from "./Components/DriverComponent/DriverOngoingTicketCompo
 import TicketOverview from "./Components/DriverComponent/DriverTicketOverviewComponent/TicketOverview";
 import DriverHeader from "./Components/DriverComponent/DriverHeaderComponent/DriverHeader";
 import DriverFooter from "./Components/DriverComponent/DriverFooterComponent/DriverFooter";
+import DriverSummary from "./Components/DriverComponent/DriverSummaryComponent/DriverSummary";
+import ThirdPartySearch from "./Components/DriverComponent/DriverThirdPartyComponent/ThirdPartySearch";
+import DriverDetailView from "./Components/DriverComponent/DriverThirdPartyComponent/DriverDetailView";
 
 import { initialState, reducer } from "../src/Reducer/UseReduser";
 export const UserContext = createContext();
@@ -41,6 +44,9 @@ function App() {
               path="/ticketOverview/:id"
               component={TicketOverview}
             />
+            <Route exact path="/summary" component={DriverSummary} />
+            <Route exact path="/search" component={ThirdPartySearch} />
+            <Route exact path="/driver/:id" component={DriverDetailView} />
           </Switch>
           <DriverFooter />
         </Router>

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const  CentralAdmin= require("../Models/CentralAdminModel");
 
+// post method which need to have all the details to post the data to the dab
 router.post("/", (req, res) => {
     const { name,nicNumber,email,workstation,mobileNumber,officeAddress,officeNumber,officerRegistrationNumber} =
         req.body;
@@ -26,6 +27,7 @@ router.post("/", (req, res) => {
         });
 });
 
+//get all the admin related details api
 router.get("/getcentraladmin", async (req, res) => {
     try {
         const admin = await CentralAdmin.find();
@@ -35,6 +37,7 @@ router.get("/getcentraladmin", async (req, res) => {
     }
 });
 
+//update admin details method api
 router.put("/updateadmin/:id", async (req, res) => {
     const id = req.params.id;
     const dataSet = req.body;

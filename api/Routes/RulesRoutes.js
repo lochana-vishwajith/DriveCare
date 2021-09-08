@@ -1,7 +1,11 @@
 const router = require("express").Router();
 const Rules = require("../Models/RulesModel");
 const RulesCategory = require("../Models/RulesCategoryModel");
+//this is the rules api
+//every rule has a category
 
+
+//this is the post method which is used for posting categories only if it has all the fields
 router.post("/", (req, res) => {
   const {
     ruleNo,
@@ -34,6 +38,7 @@ router.post("/", (req, res) => {
     });
 });
 
+//this api route is for get all the categories
 router.get("/", (req, res) => {
   Rules.find()
     .then((result) => {
@@ -46,6 +51,7 @@ router.get("/", (req, res) => {
     });
 });
 
+//this api post is to set a category rule eventhough all the details isnt with the catgory
 router.post("/fullrule",async (req, res) => {
     if (req.body) {
         console.log('awaaa');
@@ -78,6 +84,8 @@ router.post("/fullrule",async (req, res) => {
             });
     }
 });
+
+//this api route is for get the rules using the related id
 router.get("/:id", async (req, res) => {
     const id = req.params.id;
 
@@ -90,6 +98,8 @@ router.get("/:id", async (req, res) => {
         });
 });
 
+
+//this is the api for get rules inside a category
 
 router.get("/getrulesincat/:id", async (req, res) => {
     const id = req.params.id;
