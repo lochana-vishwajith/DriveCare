@@ -6,6 +6,7 @@
 .officerDetailsDisplay {
     margin-top: 2%;
     padding: 1%;
+   
 }
 
 .officerdisplayDiv {
@@ -13,11 +14,12 @@
     grid-template-columns: 80% 20%;
     box-sizing: border-box;
     margin-top: 2%;
-
+    column-gap: 2rem;
 }
 .OfficerDetaisDis{
     margin-top: 2%;
     margin-left: 2%;
+  
 }
 
 th {
@@ -30,4 +32,11 @@ td {
 
 .btnCol {
     width: 1rem;
+}
+#station{
+    background-color: gray !important;
+}
+.stationText{
+    color: black;
+    font-size: larger;
 }
