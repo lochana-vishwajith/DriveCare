@@ -15,6 +15,7 @@ import OtpEnterComponent from "./Components/OTPEnterComponent/otpEnterComponent"
 import { initialState, reducer } from "../src/Reducer/UseReducer";
 import Footer from "./Components/FooterComponent/footer";
 import AuthContext, { AuthProvider } from "../src/Reducer/UseReducer";
+import ViewFine from "./Components/TrafficOfficerManagement/viewFinesComponent/viewFine";
 
 // export const UserContext = createContext();
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
               <Route exact path="/" component={TrafficOfficerLogin} />
               <Route exact path="/createFine" component={CreateFineUi} />
               <Route exact path="/profile" component={officerProfile} />
+              <Route exact path="/view" component={ViewFine} />
               <Route
                 exact
                 path="/otpConfirm/:id"
