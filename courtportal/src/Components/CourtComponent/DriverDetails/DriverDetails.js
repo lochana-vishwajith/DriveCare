@@ -11,6 +11,7 @@ class DriverDetails extends React.Component {
       fines: [],
       driver: [],
     };
+    this.navigateToComment = this.navigateToComment.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +51,12 @@ class DriverDetails extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  navigateToComment(e) {
+    console.log(e);
+    window.location = `/courtDriverComments/${e}`;
+    //window.location = `/courtEditComment/${e}`;
   }
 
   render() {
@@ -169,15 +176,18 @@ class DriverDetails extends React.Component {
         ))}
 
         <br />
-        <a href="/courtDriverComments">
-          <button
-            type="button"
-            style={{ float: "right", backgroundColor: "#920e0e" }}
-            className="btn btn-danger"
-          >
-            Comments
-          </button>
-        </a>
+
+        <button
+          type="button"
+          style={{ float: "right", backgroundColor: "#920e0e" }}
+          className="btn btn-danger"
+          onClick={(e) => {
+            this.navigateToComment(this.props.match.params.id);
+          }}
+        >
+          Comments
+        </button>
+
         <br />
       </div>
     );

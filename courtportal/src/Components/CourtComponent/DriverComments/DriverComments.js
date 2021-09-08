@@ -10,14 +10,25 @@ class DriverComments extends React.Component {
     };
     this.deleteComment = this.deleteComment.bind(this);
     this.updateComment = this.updateComment.bind(this);
+    this.navigateToAddComment = this.navigateToAddComment.bind(this);
   }
 
   componentDidMount() {
     axios
       .get(`http://localhost:9000/court/getc/`)
       .then((response) => {
-        this.setState({ comments: response.data });
+        //this.setState({ comments: response.data });
         console.log(response.data);
+
+        const dComments = [];
+
+        response.data.forEach((comment) => {
+          if (comment.driverID == this.props.match.params.id) {
+            dComments.push(comment);
+          }
+        });
+
+        this.setState({ comments: dComments });
       })
       .catch((error) => {
         console.log(error.message);
@@ -30,7 +41,7 @@ class DriverComments extends React.Component {
       .delete(`http://localhost:9000/court/deletec/${e}`)
       .then((response) => {
         alert("Comment deleted sucessfully");
-        window.location = "/courtDriverComments";
+        window.location = `/courtDriverComments/${this.props.match.params.id}`;
       })
       .catch((error) => {
         console.log(`Error - ${error.message}`);
@@ -40,6 +51,10 @@ class DriverComments extends React.Component {
   updateComment(e) {
     console.log(e);
     window.location = `/courtEditComment/${e}`;
+  }
+
+  navigateToAddComment(e) {
+    window.location = `/courtAddComment/${e}`;
   }
 
   render() {
@@ -114,15 +129,17 @@ class DriverComments extends React.Component {
         <button type="button" class="btn btn-success btnz">
           Generate Report
         </button>
-        <a href="/courtAddComment">
-          <button
-            type="button"
-            class="btn btn-danger btnz"
-            style={{ float: "right", backgroundColor: "#920e0e" }}
-          >
-            Add Comment
-          </button>
-        </a>
+
+        <button
+          type="button"
+          class="btn btn-danger btnz"
+          style={{ float: "right", backgroundColor: "#920e0e" }}
+          onClick={(e) => {
+            this.navigateToAddComment(this.props.match.params.id);
+          }}
+        >
+          Add Comment
+        </button>
       </div>
     );
   }
