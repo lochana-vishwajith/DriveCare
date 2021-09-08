@@ -14,24 +14,23 @@ const AuthContext = React.createContext();
 export class AuthProvider extends Component {
   state = {
     isAutheticated: false,
-    officerOne: "",
-    officerTwo: "",
+    stationID: "",
   };
 
   logIn = () => {
     this.setState({ isAutheticated: true });
   };
 
-  setOfficerId = (officerOne, officerTwo) => {
-    this.setState({ officerOne, officerTwo });
+  setStationId = (stationID) => {
+    this.setState({ stationID });
   };
 
   render() {
-    const { isAutheticated, officerOne, officerTwo } = this.state;
-    const { logIn, setOfficerId } = this;
+    const { isAutheticated, stationID } = this.state;
+    const { logIn, setStationId } = this;
     return (
       <AuthContext.Provider
-        value={{ isAutheticated, officerOne, officerTwo, logIn, setOfficerId }}
+        value={{ isAutheticated, stationID, logIn, setStationId }}
       >
         {this.props.children}
       </AuthContext.Provider>

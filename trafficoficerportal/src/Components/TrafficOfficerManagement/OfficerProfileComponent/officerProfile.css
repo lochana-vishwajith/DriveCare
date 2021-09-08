@@ -1,0 +1,37 @@
+#officerProPic{
+    max-width: 30% !important;
+    clip-path: circle();
+    transform: translateY(-6rem);
+}
+.officerContent{
+    margin-top: 10%;
+}
+.OfficerDetails{
+    font-size: 2rem;
+    margin-left: 3rem;
+}
+.officerDetailHr{
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+.detailsDiv{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-sizing: border-box;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.leftContent{
+    padding-right: 2%;
+}
+
+@media (max-width: 1200px) {
+    .detailsDiv {
+        margin-top: 6%;
+        display: block;
+    }
+    #officerProPic{
+        clip-path: circle();
+        transform: translateY(-1rem);
+    }
+}
