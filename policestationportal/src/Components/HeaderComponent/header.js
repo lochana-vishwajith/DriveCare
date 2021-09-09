@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import "./header.css";
+import AuthContext from "../../Reducer/UseReducer";
+import PoliceStationLogin from "../PoliceStationLogin/PoliceStationLogin";
+import { Link } from "react-router-dom";
 
 export default class header extends Component {
+  static contextType = AuthContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -10,55 +15,63 @@ export default class header extends Component {
     };
   }
   render() {
+    const { isAutheticated } = this.context;
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="container-fluid">
-            <a className="navbar-brand text-info" href="#">
-              <img src={this.state.logo} id="driveLoginLogoH" alt="" />
-            </a>
-            <button
-              className="navbar-toggler border border-info text-info"
-              onClick={() => {
-                this.setState({ show: !this.state.show });
-              }}
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className={
-                this.state.show
-                  ? "collapse navbar-collapse"
-                  : "collapse navbar-collapse active"
-              }
-              id="navbarNav"
-            >
-              <ul className="navbar-nav ms-auto">
-                <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="/display">
-                    Home
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/register">
-                    Officer Register
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Office Info
-                  </a>
-                </li>
-              </ul>
+        {isAutheticated && (
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="container-fluid">
+              <Link className="navbar-brand text-info" to="#">
+                <img src={this.state.logo} id="driveLoginLogoH" alt="" />
+              </Link>
+              <button
+                className="navbar-toggler border border-info text-info"
+                onClick={() => {
+                  this.setState({ show: !this.state.show });
+                }}
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div
+                className={
+                  this.state.show
+                    ? "collapse navbar-collapse"
+                    : "collapse navbar-collapse active"
+                }
+                id="navbarNav"
+              >
+                <ul className="navbar-nav ms-auto">
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link"
+                      aria-current="page"
+                      to="/display"
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/register">
+                      Officer Register
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="#">
+                      Office Info
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        )}
+        {!isAutheticated && <PoliceStationLogin />}
       </div>
     );
   }

@@ -66,10 +66,6 @@
 
 }
 
-.createFineMainDiv {
-    margin-top: 5%;
-}
-
 @media (max-width: 1200px) {
     .createFineMainDiv {
         margin-top: 5%;
@@ -121,7 +117,8 @@
     border: 1px solid #920E0E;
 }
 .createFineTxt{
-    margin-left: 2%;
+  
+    margin-left: 3%;
 }
 .FineValidPerio{
     display: grid;

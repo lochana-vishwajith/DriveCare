@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Fines = require("../Models/FineModel");
 const driver = require("../Models/DriverModel");
+const moment = require("moment");
 
 router.post("/", (req, res) => {
   const {
@@ -86,6 +87,19 @@ router.get("/:id", (req, res) => {
     });
 });
 
+//IT19152806
+router.get("/", async (req, res) => {
+  try {
+    const fines = await Fines.find()
+      .populate("violationType", "ruleName description fineAmount")
+      .populate("comments", "comment")
+      .populate("Officers", "nameInitial officerReg");
+    res.send(fines);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //IT18014396 - retrieve all tickets
 router.get("/summary/:id", (req, res) => {
   Fines.find({ driverID: req.params.id })
@@ -110,4 +124,18 @@ router.get("/thirdpartyDetails/:id", (req, res) => {
       res.send(error);
     });
 });
+
+router.get("/getTFines/", (req, res) => {
+  console.log("inside");
+  const date = moment(Date.now()).format("YYYY-MM-DD");
+  console.log(date);
+  Fines.find({ offenceDate: date })
+    .then((result) => {
+      res.status(200).send({ result });
+    })
+    .catch((err) => {
+      res.status(501).send(err);
+    });
+});
+
 module.exports = router;

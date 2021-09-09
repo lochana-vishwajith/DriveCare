@@ -69,6 +69,11 @@ const trafficOfficerSchema = new Schema({
       ref: "CourtPolice",
     },
   ],
+  policeStation: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    ref: "PoliceStation",
+  },
 });
 
 trafficOfficerSchema.methods.generateAuthToken = async function () {

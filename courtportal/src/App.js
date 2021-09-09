@@ -28,10 +28,10 @@ export default class App extends Component {
         <Router>
           <CourtHeader />
           <Switch>
-            <Route exact path="/courtAddComment" component={AddComment} />
+            <Route exact path="/courtAddComment/:id" component={AddComment} />
             <Route
               exact
-              path="/courtAddCommentpolice"
+              path="/courtAddCommentpolice/:id"
               component={AddCommentPolice}
             />
             <Route exact path="/" component={CourtLogin} />
@@ -44,12 +44,12 @@ export default class App extends Component {
             />
             <Route
               exact
-              path="/courtDriverComments"
+              path="/courtDriverComments/:id"
               component={DriverComments}
             />
             <Route
               exact
-              path="/courtOfficerDetails"
+              path="/courtOfficerDetails/:id"
               component={OfficerDetails}
             />
             <Route exact path="/courtChangePoints" component={ChangePoints} />

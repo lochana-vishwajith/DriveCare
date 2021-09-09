@@ -3,7 +3,7 @@ import "./AddCommentPolice.css";
 import axios from "axios";
 
 const initialState = {
-  officerID: "6123d15301693a4d6009f3f0",
+  officerID: "",
   judgeID: "612273ca2b539024f4063aee",
   date: "",
   comment: "",
@@ -19,6 +19,7 @@ class AddComment extends React.Component {
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+    this.setState({ officerID: this.props.match.params.id });
   }
 
   onSubmit(e) {
@@ -35,7 +36,7 @@ class AddComment extends React.Component {
       .post(`http://localhost:9000/courtp/postc`, comment)
       .then((respose) => {
         alert("Comment entered");
-        window.location = "/courtOfficerDetails";
+        window.location = `/courtOfficerDetails/${this.props.match.params.id}`;
       })
       .catch((error) => {
         console.log(error.message);

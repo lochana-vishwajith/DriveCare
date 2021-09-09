@@ -12,17 +12,20 @@ import PoliceStationLogin from "./Components/PoliceStationLogin/PoliceStationLog
 import display from "./Components/PoliceStation/OfficerDetailsDisplay/officerDetailsDisplay";
 import register from "./Components/PoliceStation/TrafficOicRegisterComponent/trafficOfficerReg";
 import Header from "./Components/HeaderComponent/header";
+import AuthContext, { AuthProvider } from "./Reducer/UseReducer";
 export default class App extends Component {
   render() {
     return (
       <div>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={PoliceStationLogin} />
-            <Route exact path="/display" component={display} />
-            <Route exact path="/register" component={register} />
-          </Switch>
-        </Router>
+        <AuthProvider>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={PoliceStationLogin} />
+              <Route exact path="/display" component={display} />
+              <Route exact path="/register" component={register} />
+            </Switch>
+          </Router>
+        </AuthProvider>
       </div>
     );
   }
