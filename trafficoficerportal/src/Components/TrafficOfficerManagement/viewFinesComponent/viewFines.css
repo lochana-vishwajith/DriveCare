@@ -5,7 +5,9 @@
 }
 #viewDivPay{
     background-color: greenyellow !important;
+
 }
 #viewDivPending{
     background-color: palevioletred !important;
+    margin-top: -2rem;
 }

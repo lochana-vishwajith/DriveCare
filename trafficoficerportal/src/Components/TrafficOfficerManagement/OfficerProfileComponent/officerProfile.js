@@ -4,7 +4,7 @@ import { Grid, Paper } from "@material-ui/core";
 import TextBox from "devextreme-react/text-box";
 import axios from "axios";
 import AuthContext from "../../../Reducer/UseReducer";
-import trafficOfficerLogin from "../TrafficOfficerloginComponent/trafficOfficerLogin";
+import TrafficOfficerLogin from "../TrafficOfficerloginComponent/trafficOfficerLogin";
 
 export default class officerProfile extends Component {
   static contextType = AuthContext;
@@ -120,7 +120,7 @@ export default class officerProfile extends Component {
             </div>
           </div>
         )}
-        {!isAutheticated && <trafficOfficerLogin />}
+        {!isAutheticated && <TrafficOfficerLogin />}
       </div>
     );
   }
