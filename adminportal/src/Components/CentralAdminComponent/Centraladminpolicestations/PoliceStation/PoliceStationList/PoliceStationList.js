@@ -107,6 +107,11 @@ export default class PoliceStationList extends React.Component{
     handlerSearch = () => {
         window.location = `/viewpolicesearch/${this.state.search}`
     }
+
+    onviewHandler=()=>{
+        window.location = `/viewpolicesearch/${this.state.search}`
+
+    }
     render() {
         const { stationDetails} = this.state;
         return (<div>
@@ -168,7 +173,7 @@ export default class PoliceStationList extends React.Component{
 
                                 <div className="col-4" border>
                                         <p className="lead">
-                                            <button className="btn btn-outline-secondary text-light px-5" type="button"
+                                            <button className="btn btn-outline-secondary text-light px-5" type="button" onClick={this.onviewHandler}
                                                     id="button-addon2" pt-5>View
                                             </button>
                                         </p>
