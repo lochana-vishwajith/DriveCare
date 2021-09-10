@@ -95,7 +95,8 @@ router.get("/:id", async (req, res) => {
 });
 router.get("/officerreg/:id", async (req, res) => {
   let id = req.params.id;
-  await TrafficOfficer.findOne({ officerReg: id }).populate("policeStation", "workstation_Address")
+  await TrafficOfficer.findOne({ officerReg: id })
+    .populate("policeStation", "workstation_Address")
     .then((result) => {
       res.status(200).send(result);
     })
@@ -119,6 +120,16 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/updatePw/:id", (req, res) => {
   let id = req.params.id;
+});
+
+//IT19152806
+router.get("/", async (req, res) => {
+  try {
+    const officer = await TrafficOfficer.find();
+    res.send(officer);
+  } catch (error) {
+    res.send(`Error - ${error}`);
+  }
 });
 
 module.exports = router;
