@@ -14,8 +14,8 @@ class OfficerDetails extends React.Component {
     this.navigateAddComment = this.navigateAddComment.bind(this);
   }
 
-  componentDidMount() {
-    axios
+  async componentDidMount() {
+    await axios
       .get(`http://localhost:9000/trafficOfficer/`)
       .then((res) => {
         console.log("Officer data -", res.data);
@@ -31,7 +31,7 @@ class OfficerDetails extends React.Component {
         console.log(error);
       });
 
-    axios
+    await axios
       .get(`http://localhost:9000/courtp/getc/`)
       .then((response) => {
         console.log(response.data);
