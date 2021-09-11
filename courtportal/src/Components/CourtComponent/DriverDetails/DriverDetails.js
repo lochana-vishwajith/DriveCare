@@ -8,11 +8,13 @@ class DriverDetails extends React.Component {
     this.state = {
       name: "",
       nic: "",
+      driverPoints: "",
       fines: [],
       driver: [],
     };
     this.navigateToComment = this.navigateToComment.bind(this);
     this.navigateToOfficer = this.navigateToOfficer.bind(this);
+    this.navigateChangePoints = this.navigateChangePoints.bind(this);
   }
 
   componentDidMount() {
@@ -44,9 +46,11 @@ class DriverDetails extends React.Component {
       .get(`http://localhost:9000/driver/${this.props.match.params.id}`)
       .then((res) => {
         this.setState({ driver: res.data });
-        this.state.driver.map((driver, index) => {
+
+        this.state.driver.forEach((driver) => {
           this.setState({ name: driver.displayName });
           this.setState({ nic: driver.NIC });
+          this.setState({ driverPoints: driver.points });
         });
       })
       .catch((err) => {
@@ -62,6 +66,10 @@ class DriverDetails extends React.Component {
 
   navigateToOfficer(e) {
     window.location = `/courtOfficerDetails/${e}`;
+  }
+
+  navigateChangePoints(e) {
+    window.location = `/courtChangePointsDriver/${e}`;
   }
 
   render() {
@@ -85,13 +93,18 @@ class DriverDetails extends React.Component {
           </div>
           <div className="card-body">
             <h5 className="card-title" style={{ fontSize: "60px" }}>
-              07
+              {this.state.driverPoints}
             </h5>
-            <a href="/courtChangePoints">
-              <button type="button" className="btn btn-success">
-                Change Points
-              </button>
-            </a>
+
+            <button
+              onClick={(e) => {
+                this.navigateChangePoints(this.props.match.params.id);
+              }}
+              type="button"
+              className="btn btn-success"
+            >
+              Change Points
+            </button>
           </div>
         </div>
 
@@ -125,8 +138,8 @@ class DriverDetails extends React.Component {
 
         <br />
 
-        {this.state.fines.map((fine) => (
-          <div>
+        {this.state.fines.map((fine, k) => (
+          <div key={k}>
             <div>
               <div className="card cardd">
                 <div className="card-body">

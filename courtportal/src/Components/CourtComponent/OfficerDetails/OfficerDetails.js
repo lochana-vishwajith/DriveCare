@@ -8,10 +8,12 @@ class OfficerDetails extends React.Component {
     this.state = {
       name: "",
       officerID: "",
+      points: "",
       comments: [],
     };
     this.deleteComment = this.deleteComment.bind(this);
     this.navigateAddComment = this.navigateAddComment.bind(this);
+    this.navigateChangrPoints = this.navigateChangrPoints.bind(this);
   }
 
   async componentDidMount() {
@@ -24,6 +26,7 @@ class OfficerDetails extends React.Component {
           if (officer._id == this.props.match.params.id) {
             this.setState({ name: officer.nameInitial });
             this.setState({ officerID: officer.officerReg });
+            this.setState({ points: officer.points });
           }
         });
       })
@@ -68,6 +71,10 @@ class OfficerDetails extends React.Component {
     window.location = `/courtAddCommentpolice/${e}`;
   }
 
+  navigateChangrPoints(e) {
+    window.location = `/courtChangePoints/${e}`;
+  }
+
   render() {
     return (
       <div className="container">
@@ -90,13 +97,18 @@ class OfficerDetails extends React.Component {
           </div>
           <div className="card-body">
             <h5 className="card-title" style={{ fontSize: "60px" }}>
-              07
+              {this.state.points}
             </h5>
-            <a href="/courtChangePoints">
-              <button type="button" className="btn btn-success">
-                Change Points
-              </button>
-            </a>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                this.navigateChangrPoints(this.props.match.params.id);
+              }}
+              className="btn btn-success"
+            >
+              Change Points
+            </button>
           </div>
         </div>
         <div className="iname">
