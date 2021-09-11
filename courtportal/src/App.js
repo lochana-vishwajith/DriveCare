@@ -52,7 +52,11 @@ export default class App extends Component {
               path="/courtOfficerDetails/:id"
               component={OfficerDetails}
             />
-            <Route exact path="/courtChangePoints" component={ChangePoints} />
+            <Route
+              exact
+              path="/courtChangePoints/:id"
+              component={ChangePoints}
+            />
             <Route exact path="/judgeRegister" component={JudgeRegister} />
           </Switch>
 

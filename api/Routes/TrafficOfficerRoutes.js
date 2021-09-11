@@ -132,4 +132,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+//IT19152806
+router.put("/updateopoints/:id", async (req, res) => {
+  const c = await TrafficOfficer.findById(req.params.id);
+
+  try {
+    c.points = req.body.points;
+    const c1 = c.save(c);
+    res.send(c1);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
