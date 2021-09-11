@@ -135,4 +135,17 @@ router.get("/driverdetails/:id", async (req, res) => {
     });
 });
 
+//IT19152806
+router.put("/updatedpoints/:id", async (req, res) => {
+  const c = await Driver.findById(req.params.id);
+
+  try {
+    c.points = req.body.points;
+    const c1 = c.save(c);
+    res.send(c1);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;

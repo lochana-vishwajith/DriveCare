@@ -20,6 +20,7 @@ import AddCommentPolice from "./Components/CourtComponent/AddCommentPolice/AddCo
 import JudgeRegister from "./Components/CourtComponent/JudgeRegister/JudgeRegister";
 import CourtFooter from "./Components/CourtComponent/CourtFooter/CourtFooter";
 import CourtHeader from "./Components/CourtComponent/CourtHeader/CourtHeader";
+import ChangePointsDriver from "./Components/CourtComponent/ChangePointsDriver/ChangePointsDriver";
 
 export default class App extends Component {
   render() {
@@ -57,6 +58,13 @@ export default class App extends Component {
               path="/courtChangePoints/:id"
               component={ChangePoints}
             />
+
+            <Route
+              exact
+              path="/courtChangePointsDriver/:id"
+              component={ChangePointsDriver}
+            />
+
             <Route exact path="/judgeRegister" component={JudgeRegister} />
           </Switch>
 
