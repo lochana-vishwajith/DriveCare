@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./ChangePoints.css";
+import "./ChangePointsDriver.css";
 import axios from "axios";
 
-//OFFICER CHANGE POINTS
-class ChangePoints extends React.Component {
+//Driver CHANGE POINTS
+class ChangePointsDriver extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,18 +16,15 @@ class ChangePoints extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:9000/trafficOfficer/`)
+      .get(`http://localhost:9000/driver/${this.props.match.params.id}`)
       .then((res) => {
-        console.log("Officer data -", res.data);
-
-        res.data.forEach((officer) => {
-          if (officer._id == this.props.match.params.id) {
-            this.setState({ points: officer.points });
-          }
+        console.log("Driver -", res.data);
+        res.data.forEach((driver) => {
+          this.setState({ points: driver.points });
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -48,11 +45,11 @@ class ChangePoints extends React.Component {
     console.log("driverID -", e);
 
     axios
-      .put(`http://localhost:9000/trafficOfficer/updateopoints/${e}`, newPoint)
+      .put(`http://localhost:9000/driver/updatedpoints/${e}`, newPoint)
       .then((res) => {
         console.log("Response -", res);
         alert("Points updated Successfully !");
-        window.location = `/courtOfficerDetails/${this.props.match.params.id}`;
+        window.location = `/courtDriverDetails/${this.props.match.params.id}`;
       })
       .catch((e) => {
         console.log(e);
@@ -102,4 +99,4 @@ class ChangePoints extends React.Component {
   }
 }
 
-export default ChangePoints;
+export default ChangePointsDriver;
