@@ -100,6 +100,22 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/officer/:id", async (req, res) => {
+  try {
+    const fines = await Fines.find({ Officers: req.params.id })
+      .populate("violationType", "ruleName description fineAmount")
+      .populate(
+        "driverID",
+        "firstName lastName licenceNumber profilePicURL licenceStatus points"
+      )
+      .populate("comments", "comment")
+      .populate("Officers", "nameInitial officerReg");
+    res.send(fines);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //IT18014396 - retrieve all tickets
 router.get("/summary/:id", (req, res) => {
   Fines.find({ driverID: req.params.id })
@@ -122,19 +138,6 @@ router.get("/thirdpartyDetails/:id", (req, res) => {
     })
     .catch((error) => {
       res.send(error);
-    });
-});
-
-router.get("/getTFines/", (req, res) => {
-  console.log("inside");
-  const date = moment(Date.now()).format("YYYY-MM-DD");
-  console.log(date);
-  Fines.find({ offenceDate: date })
-    .then((result) => {
-      res.status(200).send({ result });
-    })
-    .catch((err) => {
-      res.status(501).send(err);
     });
 });
 
