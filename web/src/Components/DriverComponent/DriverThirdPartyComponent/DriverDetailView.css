@@ -28,3 +28,17 @@
 .d-grid-tp b {
   font-size: 20px;
 }
+
+.d-tp-responsive {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .tp-web-d {
+    display: none;
+  }
+
+  .d-tp-responsive {
+    display: grid;
+  }
+}
