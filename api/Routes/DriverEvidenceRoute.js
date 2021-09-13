@@ -43,4 +43,17 @@ router.get("/:id", async (req, res) => {
       });
   }
 });
+
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await Evidence.findByIdAndDelete(id)
+    .then((result) => {
+      console.log("Evidence is deleted");
+      res.status(200).send({ status: result });
+    })
+    .catch((err) => {
+      res.status(501).send(err);
+    });
+});
 module.exports = router;
