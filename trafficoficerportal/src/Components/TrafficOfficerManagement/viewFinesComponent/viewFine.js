@@ -1,8 +1,11 @@
 import "./viewFines.css";
 import React, { Component } from "react";
 import axios from "axios";
+import AuthContext from "../../../Reducer/UseReducer";
 
 export default class viewFine extends Component {
+  static contextType = AuthContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -11,8 +14,9 @@ export default class viewFine extends Component {
   }
 
   componentDidMount() {
+    const { officerOne } = this.context;
     axios
-      .get("http://localhost:9000/fine/")
+      .get(`http://localhost:9000/fine/officer/${officerOne}`)
       .then((res) => {
         this.setState({ fines: res.data });
         console.log("data : ", res.data);
@@ -22,60 +26,46 @@ export default class viewFine extends Component {
       });
   }
   render() {
+    const { fines } = this.state;
     return (
       <div className="container">
-        <div className="viewDiv">
-          <div id="viewDivPay" className="shadow-lg p-3 mb-5 bg-white rounded">
-            Larger shadow
-          </div>
+        {fines.map((fine) => (
+          <div className="viewDiv">
+            {fine.isPayed && fine.fineType === "onPremises" && (
+              <div
+                key={fine._id}
+                id="viewDivPay"
+                className="shadow-lg p-3 mb-5 bg-white rounded"
+              ></div>
+            )}
 
-          <div
-            id="viewDivPending"
-            className="shadow-lg p-3 mb-5 bg-white rounded"
-          >
-            Larger shadow
+            {!fine.isPayed && fine.fineType === "onPremises" && (
+              <div
+                key={fine._id}
+                id="viewDivPending"
+                className="shadow-lg p-3 mb-5 bg-white rounded"
+              >
+                <p className="fineViewTxt first">
+                  <lable>Vehicle Number : </lable>
+                  <label>{fine.vehicelNo}</label>
+                </p>
+                <p className="fineViewTxt">
+                  <label>Violation Type/s : </label>
+                  {fine.violationType.map((vio) => (
+                    <label>{vio.ruleName}</label>
+                  ))}
+                </p>
+                <p className="fineViewTxt">
+                  <label>Total Amount : </label>
+                </p>
+                <p className="fineViewTxt">
+                  <lable>License Number : </lable>
+                  <label>{fine.driverID.licenceNumber}</label>
+                </p>
+              </div>
+            )}
           </div>
-          <div id="viewDivPay" className="shadow-lg p-3 mb-5 bg-white rounded">
-            Larger shadow
-          </div>
-
-          <div
-            id="viewDivPending"
-            className="shadow-lg p-3 mb-5 bg-white rounded"
-          >
-            Larger shadow
-          </div>
-          <div id="viewDivPay" className="shadow-lg p-3 mb-5 bg-white rounded">
-            Larger shadow
-          </div>
-
-          <div
-            id="viewDivPending"
-            className="shadow-lg p-3 mb-5 bg-white rounded"
-          >
-            Larger shadow
-          </div>
-          <div id="viewDivPay" className="shadow-lg p-3 mb-5 bg-white rounded">
-            Larger shadow
-          </div>
-
-          <div
-            id="viewDivPending"
-            className="shadow-lg p-3 mb-5 bg-white rounded"
-          >
-            Larger shadow
-          </div>
-          <div id="viewDivPay" className="shadow-lg p-3 mb-5 bg-white rounded">
-            Larger shadow
-          </div>
-
-          <div
-            id="viewDivPending"
-            className="shadow-lg p-3 mb-5 bg-white rounded"
-          >
-            Larger shadow
-          </div>
-        </div>
+        ))}
       </div>
     );
   }

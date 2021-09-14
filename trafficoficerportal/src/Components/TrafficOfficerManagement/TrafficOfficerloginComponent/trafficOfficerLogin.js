@@ -23,6 +23,8 @@ class trafficOfficerLogin extends Component {
     this.state = {
       officerOne: "",
       officerTwo: "",
+      officerIDOne: "",
+      officerIdTwo: "",
       officerPassword: "",
       logo: "https:firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628967576900_colored-logo.png?alt=media&token=166ac21d-89be-45b2-9b0b-17e5a400e359",
     };
@@ -41,6 +43,7 @@ class trafficOfficerLogin extends Component {
   };
 
   pressLoginBtn = (e) => {
+    const { history } = this.props;
     const { setOfficerId, logIn } = this.context;
     const { officerOne, officerTwo, officerPassword } = this.state;
     e.preventDefault();
@@ -59,20 +62,28 @@ class trafficOfficerLogin extends Component {
         .post("http://localhost:9000/trafficOfficer/login", credentials)
         .then(async (res) => {
           console.log("res in log : ", res);
+          this.setState({ officerIDOne: res.data.id });
           await axios
             .get(
               `http://localhost:9000/trafficOfficer/officerreg/${officerTwo}`
             )
             .then(async (result) => {
+              this.setState({ officerIdTwo: result.data._id });
               console.log("officer two details : ", result.data);
               await this.onSignInSubmit(result.data.mobile);
               toast.success("Login Success", {
                 position: toast.POSITION.TOP_RIGHT,
               });
+              console.log(
+                "officer one ID : ",
+                res.data.id,
+                " offcer 2 id : ",
+                result.data._id
+              );
               setTimeout(() => {
                 logIn();
-                setOfficerId(officerOne, officerTwo);
-                this.props.history.push("/createFine");
+                setOfficerId(this.state.officerIDOne, this.state.officerIdTwo);
+                history.push("/createFine");
               }, 5000);
             });
         });

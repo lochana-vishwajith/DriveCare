@@ -9,5 +9,10 @@
 }
 #viewDivPending{
     background-color: palevioletred !important;
-    margin-top: -2rem;
+  
+}
+.fineViewTxt{
+    color: blanchedalmond;
+    font-weight: bold;
+    margin-bottom: -0.2rem;
 }
