@@ -15,6 +15,7 @@ class DriverDetails extends React.Component {
     this.navigateToComment = this.navigateToComment.bind(this);
     this.navigateToOfficer = this.navigateToOfficer.bind(this);
     this.navigateChangePoints = this.navigateChangePoints.bind(this);
+    this.navigateEvidance = this.navigateEvidance.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +71,10 @@ class DriverDetails extends React.Component {
 
   navigateChangePoints(e) {
     window.location = `/courtChangePointsDriver/${e}`;
+  }
+
+  navigateEvidance(e) {
+    window.location = `/courtDriverEvidance/${e}`;
   }
 
   render() {
@@ -143,7 +148,6 @@ class DriverDetails extends React.Component {
             <div>
               <div className="card cardd">
                 <div className="card-body">
-                  <h3 className="card-title">Payed : {fine.isPayed}</h3>
                   <h3 className=" card-text">Police Officers</h3>
                   {fine.Officers.map((val, k) => (
                     <a
@@ -171,7 +175,22 @@ class DriverDetails extends React.Component {
                   ))}
 
                   <br />
-                  <button className="btn btn-danger">Evidance</button>
+                  <h3 className=" card-text">Drivers Evidance</h3>
+
+                  {/* {fine.evidance.map((val, k) => (
+                    <p key={k} className="card-text">
+                      {val}
+                    </p>
+                  ))} */}
+
+                  {/* <button
+                    onClick={(e) =>
+                      this.navigateEvidance(this.props.match.params.id)
+                    }
+                    className="btn btn-danger"
+                  >
+                    Evidance
+                  </button> */}
                   <br />
                   <br />
                   <table className="table">
