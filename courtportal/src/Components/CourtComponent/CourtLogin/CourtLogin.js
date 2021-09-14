@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./CourtLogin.css";
 //import Button from "../../ButtonComponent/button";
 import Button from "../../ButtonComponent/button";
+import CourtHeader from "../CourtHeader/CourtHeader";
 
 export default class CourtLogin extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class CourtLogin extends Component {
     return (
       <div>
         <div></div>
-
+        <CourtHeader />
         <br />
         <br />
         <br />

@@ -4,6 +4,7 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import exportPDF from "jspdf";
+import Header from "../Header/Header";
 
 class OfficerDetails extends React.Component {
   constructor(props) {
@@ -109,116 +110,119 @@ class OfficerDetails extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div>
+        <Header />
+        <div className="container">
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
 
-        <h1>
-          <strong>Officer Details</strong>
-        </h1>
+          <h1>
+            <strong>Officer Details</strong>
+          </h1>
 
-        <div className="card pointcard">
-          <div className="card-header">
-            {" "}
-            <strong>Points</strong>
+          <div className="card pointcard">
+            <div className="card-header">
+              {" "}
+              <strong>Points</strong>
+            </div>
+            <div className="card-body">
+              <h5 className="card-title" style={{ fontSize: "60px" }}>
+                {this.state.points}
+              </h5>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  this.navigateChangrPoints(this.props.match.params.id);
+                }}
+                className="btn btn-success"
+              >
+                Change Points
+              </button>
+            </div>
           </div>
-          <div className="card-body">
-            <h5 className="card-title" style={{ fontSize: "60px" }}>
-              {this.state.points}
-            </h5>
-
-            <button
-              type="button"
-              onClick={(e) => {
-                this.navigateChangrPoints(this.props.match.params.id);
-              }}
-              className="btn btn-success"
-            >
-              Change Points
-            </button>
-          </div>
-        </div>
-        <div className="iname">
-          <div className="form-group">
-            <label>Name :</label>
-            <input
-              value={this.state.name}
-              disabled
-              type="text"
-              class="form-control"
-              id="name"
-              height="250px"
-            />
+          <div className="iname">
+            <div className="form-group">
+              <label>Name :</label>
+              <input
+                value={this.state.name}
+                disabled
+                type="text"
+                class="form-control"
+                id="name"
+                height="250px"
+              />
+            </div>
+            <br />
+            <div className="form-group">
+              <label>Officer ID :</label>
+              <input
+                value={this.state.officerID}
+                disabled
+                type="text"
+                class="form-control"
+                id="name"
+                height="250px"
+              />
+            </div>
           </div>
           <br />
-          <div className="form-group">
-            <label>Officer ID :</label>
-            <input
-              value={this.state.officerID}
-              disabled
-              type="text"
-              class="form-control"
-              id="name"
-              height="250px"
-            />
-          </div>
-        </div>
-        <br />
-        <table className="table tablee">
-          <thead className="thead-dark">
-            <tr>
-              <th scope="col">DATE</th>
-              <th scope="col">COMMENT</th>
-            </tr>
-          </thead>
-
-          {this.state.comments.map((comment, index) => (
-            <tbody key={index}>
+          <table className="table tablee">
+            <thead className="thead-dark">
               <tr>
-                <td scope="row">{comment.date}</td>
-                <td>{comment.comment}</td>
-                <td>
-                  <i
-                    style={{ color: "red" }}
-                    className="fas fa-trash fa-2x"
-                    onClick={(e) => {
-                      this.deleteComment(comment._id);
-                    }}
-                  />
-                </td>
+                <th scope="col">DATE</th>
+                <th scope="col">COMMENT</th>
               </tr>
-            </tbody>
-          ))}
-        </table>
-        <br />
+            </thead>
 
-        <button
-          onClick={(e) => {
-            this.genaratePFD();
-          }}
-          type="button"
-          class="btn btn-success btnz"
-        >
-          Generate Report
-        </button>
+            {this.state.comments.map((comment, index) => (
+              <tbody key={index}>
+                <tr>
+                  <td scope="row">{comment.date}</td>
+                  <td>{comment.comment}</td>
+                  <td>
+                    <i
+                      style={{ color: "red" }}
+                      className="fas fa-trash fa-2x"
+                      onClick={(e) => {
+                        this.deleteComment(comment._id);
+                      }}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            ))}
+          </table>
+          <br />
 
-        <button
-          style={{ float: "right", backgroundColor: "#920e0e" }}
-          type="button"
-          className="btn btn-danger"
-          onClick={(e) => {
-            this.navigateAddComment(this.props.match.params.id);
-          }}
-        >
-          Add Comment
-        </button>
+          <button
+            onClick={(e) => {
+              this.genaratePFD();
+            }}
+            type="button"
+            class="btn btn-success btnz"
+          >
+            Generate Report
+          </button>
 
-        <br />
+          <button
+            style={{ float: "right", backgroundColor: "#920e0e" }}
+            type="button"
+            className="btn btn-danger"
+            onClick={(e) => {
+              this.navigateAddComment(this.props.match.params.id);
+            }}
+          >
+            Add Comment
+          </button>
+
+          <br />
+        </div>
       </div>
     );
   }
