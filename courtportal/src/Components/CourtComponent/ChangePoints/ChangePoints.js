@@ -2,6 +2,7 @@ import React from "react";
 
 import "./ChangePoints.css";
 import axios from "axios";
+import Header from "../Header/Header";
 
 //OFFICER CHANGE POINTS
 class ChangePoints extends React.Component {
@@ -61,42 +62,45 @@ class ChangePoints extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div>
+        <Header />
+        <div className="container">
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
 
-        <h1 className="headerr">
-          {" "}
-          <strong>Change Points </strong>
-        </h1>
+          <h1 className="headerr">
+            {" "}
+            <strong>Change Points </strong>
+          </h1>
 
-        <div className="form-group">
-          <label>Points</label>
-          <input
-            required="true"
-            name="points"
-            type="number"
-            class="form-control"
-            height="250px"
-            onChange={this.onChange}
-            value={this.state.points}
-          />
+          <div className="form-group">
+            <label>Points</label>
+            <input
+              required="true"
+              name="points"
+              type="number"
+              class="form-control"
+              height="250px"
+              onChange={this.onChange}
+              value={this.state.points}
+            />
+          </div>
+          <br />
+          <button
+            type="button"
+            style={{ float: "right" }}
+            className="btn btn-danger btnSave"
+            onClick={(e) => this.onSubmit(this.props.match.params.id)}
+          >
+            Save
+          </button>
+          <br />
         </div>
-        <br />
-        <button
-          type="button"
-          style={{ float: "right" }}
-          className="btn btn-danger btnSave"
-          onClick={(e) => this.onSubmit(this.props.match.params.id)}
-        >
-          Save
-        </button>
-        <br />
       </div>
     );
   }

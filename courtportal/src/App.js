@@ -21,13 +21,14 @@ import JudgeRegister from "./Components/CourtComponent/JudgeRegister/JudgeRegist
 import CourtFooter from "./Components/CourtComponent/CourtFooter/CourtFooter";
 import CourtHeader from "./Components/CourtComponent/CourtHeader/CourtHeader";
 import ChangePointsDriver from "./Components/CourtComponent/ChangePointsDriver/ChangePointsDriver";
+import DriverEvidance from "./Components/CourtComponent/DriverEvidance/DriverEvidance";
 
 export default class App extends Component {
   render() {
     return (
       <div>
         <Router>
-          <CourtHeader />
+          {/* <CourtHeader /> */}
           <Switch>
             <Route exact path="/courtAddComment/:id" component={AddComment} />
             <Route
@@ -63,6 +64,12 @@ export default class App extends Component {
               exact
               path="/courtChangePointsDriver/:id"
               component={ChangePointsDriver}
+            />
+
+            <Route
+              exact
+              path="/courtDriverEvidance/:id"
+              component={DriverEvidance}
             />
 
             <Route exact path="/judgeRegister" component={JudgeRegister} />

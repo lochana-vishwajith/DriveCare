@@ -1,6 +1,7 @@
 import React from "react";
 import "./SearchDriver.css";
 import axios from "axios";
+import Header from "../Header/Header";
 
 class SearchDriver extends React.Component {
   constructor(props) {
@@ -38,84 +39,87 @@ class SearchDriver extends React.Component {
     const { searchTerm } = this.state;
 
     return (
-      <div className="container">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div>
+        <Header />
+        <div className="container">
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
 
-        <h1>
-          <strong>Search the driver</strong>
-        </h1>
+          <h1>
+            <strong>Search the driver</strong>
+          </h1>
 
-        <br />
-        <br />
-        <h3>Enter the drivers licences number</h3>
-        <br />
-        <div className="input-group rounded">
-          <input
-            onChange={this.onChange}
-            type="search"
-            className="form-control rounded"
-            placeholder="Enter the driver licences number"
-            aria-label="Search"
-            aria-describedby="search-addon"
-          />
-        </div>
-        <br />
-        {/* <button
+          <br />
+          <br />
+          <h3>Enter the drivers licences number</h3>
+          <br />
+          <div className="input-group rounded">
+            <input
+              onChange={this.onChange}
+              type="search"
+              className="form-control rounded"
+              placeholder="Enter the driver licences number"
+              aria-label="Search"
+              aria-describedby="search-addon"
+            />
+          </div>
+          <br />
+          {/* <button
           style={{ backgroundColor: "#920e0e" }}
           className="btn btn-danger btnSearch"
         >
           Search
         </button> */}
-        <br />
-        <br />
-        <br />
+          <br />
+          <br />
+          <br />
 
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Licence Number</th>
-              <th>Name</th>
-              <th>NIC</th>
-            </tr>
-          </thead>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Licence Number</th>
+                <th>Name</th>
+                <th>NIC</th>
+              </tr>
+            </thead>
 
-          {this.state.drivers
-            .filter((val) => {
-              if (searchTerm === "") {
-                return val;
-              } else if (
-                val.licenceNumber
-                  .toLowerCase()
-                  .includes(searchTerm.toLowerCase())
-              ) {
-                return val;
-              }
-            })
-            .map((val, key) => (
-              <tbody key={key}>
-                <tr>
-                  <td>
-                    <div
-                      onClick={(e) => {
-                        this.navigateToDriverProfile(val._id);
-                      }}
-                    >
-                      {val.licenceNumber}
-                    </div>
-                    {/* {val.licenceNumber} */}
-                  </td>
-                  <td>{val.firstName}</td>
-                  <td>{val.NIC}</td>
-                </tr>
-              </tbody>
-            ))}
-        </table>
+            {this.state.drivers
+              .filter((val) => {
+                if (searchTerm === "") {
+                  return val;
+                } else if (
+                  val.licenceNumber
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((val, key) => (
+                <tbody key={key}>
+                  <tr>
+                    <td>
+                      <div
+                        onClick={(e) => {
+                          this.navigateToDriverProfile(val._id);
+                        }}
+                      >
+                        {val.licenceNumber}
+                      </div>
+                      {/* {val.licenceNumber} */}
+                    </td>
+                    <td>{val.firstName}</td>
+                    <td>{val.NIC}</td>
+                  </tr>
+                </tbody>
+              ))}
+          </table>
+        </div>
       </div>
     );
   }
