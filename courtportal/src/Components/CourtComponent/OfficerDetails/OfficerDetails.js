@@ -1,6 +1,9 @@
 import React from "react";
 import "./OfficerDetails.css";
 import axios from "axios";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import exportPDF from "jspdf";
 
 class OfficerDetails extends React.Component {
   constructor(props) {
@@ -14,6 +17,7 @@ class OfficerDetails extends React.Component {
     this.deleteComment = this.deleteComment.bind(this);
     this.navigateAddComment = this.navigateAddComment.bind(this);
     this.navigateChangrPoints = this.navigateChangrPoints.bind(this);
+    this.genaratePFD = this.genaratePFD.bind(this);
   }
 
   async componentDidMount() {
@@ -73,6 +77,34 @@ class OfficerDetails extends React.Component {
 
   navigateChangrPoints(e) {
     window.location = `/courtChangePoints/${e}`;
+  }
+
+  genaratePFD(e) {
+    const unit = "pt";
+    const size = "A4";
+    const orientation = "landscape";
+    const marginLeft = 40;
+    const doc = new jsPDF(orientation, unit, size);
+
+    const title = "Officer Comment Details";
+    const headers = [["Date", "Comment"]];
+
+    const c = this.state.comments.map((comment) => [
+      comment.date,
+      comment.comment,
+    ]);
+
+    let contents = {
+      starty: 50,
+      head: headers,
+      body: c,
+    };
+
+    doc.setFontSize(20);
+    doc.text(title, marginLeft, 40);
+    require("jspdf-autotable");
+    doc.autoTable(contents);
+    doc.save("Officer_Comments.pdf");
   }
 
   render() {
@@ -164,6 +196,16 @@ class OfficerDetails extends React.Component {
           ))}
         </table>
         <br />
+
+        <button
+          onClick={(e) => {
+            this.genaratePFD();
+          }}
+          type="button"
+          class="btn btn-success btnz"
+        >
+          Generate Report
+        </button>
 
         <button
           style={{ float: "right", backgroundColor: "#920e0e" }}

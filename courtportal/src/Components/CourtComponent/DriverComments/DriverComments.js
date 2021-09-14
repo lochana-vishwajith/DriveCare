@@ -1,7 +1,9 @@
 import React from "react";
 import "./DriverComments.css";
 import axios from "axios";
-import { jsPDF } from "jspdf";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import exportPDF from "jspdf";
 
 class DriverComments extends React.Component {
   constructor(props) {
@@ -59,7 +61,33 @@ class DriverComments extends React.Component {
     window.location = `/courtAddComment/${e}`;
   }
 
-  genaratePFD(e) {}
+  genaratePFD(e) {
+    const unit = "pt";
+    const size = "A4";
+    const orientation = "landscape";
+    const marginLeft = 40;
+    const doc = new jsPDF(orientation, unit, size);
+
+    const title = "Driver Comment Details";
+    const headers = [["Date", "Comment"]];
+
+    const c = this.state.comments.map((comment) => [
+      comment.date,
+      comment.comment,
+    ]);
+
+    let contents = {
+      starty: 50,
+      head: headers,
+      body: c,
+    };
+
+    doc.setFontSize(20);
+    doc.text(title, marginLeft, 40);
+    require("jspdf-autotable");
+    doc.autoTable(contents);
+    doc.save("Driver_Comments.pdf");
+  }
 
   render() {
     return (
