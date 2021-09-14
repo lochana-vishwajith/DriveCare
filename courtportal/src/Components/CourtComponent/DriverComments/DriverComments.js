@@ -4,6 +4,7 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import exportPDF from "jspdf";
+import Header from "../Header/Header";
 
 class DriverComments extends React.Component {
   constructor(props) {
@@ -91,37 +92,39 @@ class DriverComments extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div>
+        <Header />
+        <div className="container">
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
 
-        <h1>
-          {" "}
-          <strong>Driver Comments</strong>
-        </h1>
+          <h1>
+            {" "}
+            <strong>Driver Comments</strong>
+          </h1>
 
-        <table id="target" className="table">
-          <thead className="thead-dark">
-            <tr>
-              <th scope="col">DATE</th>
-              <th scope="col">COMMENT</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-
-          {this.state.comments.map((comment, index) => (
-            <tbody key={index}>
+          <table id="target" className="table">
+            <thead className="thead-dark">
               <tr>
-                <td scope="row">{comment.date}</td>
-                <td>{comment.comment}</td>
-                <td>
-                  {/* <button
+                <th scope="col">DATE</th>
+                <th scope="col">COMMENT</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            {this.state.comments.map((comment, index) => (
+              <tbody key={index}>
+                <tr>
+                  <td scope="row">{comment.date}</td>
+                  <td>{comment.comment}</td>
+                  <td>
+                    {/* <button
                     className="btn btn-danger"
                     onClick={(e) => {
                       this.deleteComment(comment._id);
@@ -129,16 +132,16 @@ class DriverComments extends React.Component {
                   >
                     Delete
                   </button> */}
-                  <i
-                    style={{ color: "red" }}
-                    className="fas fa-trash fa-2x"
-                    onClick={(e) => {
-                      this.deleteComment(comment._id);
-                    }}
-                  />
-                </td>
-                <td>
-                  {/* <button
+                    <i
+                      style={{ color: "red" }}
+                      className="fas fa-trash fa-2x"
+                      onClick={(e) => {
+                        this.deleteComment(comment._id);
+                      }}
+                    />
+                  </td>
+                  <td>
+                    {/* <button
                     className="btn btn-primary"
                     onClick={(e) => {
                       this.updateComment(comment._id);
@@ -146,38 +149,39 @@ class DriverComments extends React.Component {
                   >
                     Update
                   </button> */}
-                  <i
-                    className="fas fa-edit fa-2x"
-                    onClick={(e) => {
-                      this.updateComment(comment._id);
-                    }}
-                  ></i>
-                </td>
-              </tr>
-            </tbody>
-          ))}
-        </table>
+                    <i
+                      className="fas fa-edit fa-2x"
+                      onClick={(e) => {
+                        this.updateComment(comment._id);
+                      }}
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
+          </table>
 
-        <button
-          onClick={(e) => {
-            this.genaratePFD();
-          }}
-          type="button"
-          class="btn btn-success btnz"
-        >
-          Generate Report
-        </button>
+          <button
+            onClick={(e) => {
+              this.genaratePFD();
+            }}
+            type="button"
+            class="btn btn-success btnz"
+          >
+            Generate Report
+          </button>
 
-        <button
-          type="button"
-          class="btn btn-danger btnz"
-          style={{ float: "right", backgroundColor: "#920e0e" }}
-          onClick={(e) => {
-            this.navigateToAddComment(this.props.match.params.id);
-          }}
-        >
-          Add Comment
-        </button>
+          <button
+            type="button"
+            class="btn btn-danger btnz"
+            style={{ float: "right", backgroundColor: "#920e0e" }}
+            onClick={(e) => {
+              this.navigateToAddComment(this.props.match.params.id);
+            }}
+          >
+            Add Comment
+          </button>
+        </div>
       </div>
     );
   }

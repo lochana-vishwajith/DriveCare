@@ -28,7 +28,7 @@ export default class App extends Component {
     return (
       <div>
         <Router>
-          <CourtHeader />
+          {/* <CourtHeader /> */}
           <Switch>
             <Route exact path="/courtAddComment/:id" component={AddComment} />
             <Route

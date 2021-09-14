@@ -1,6 +1,7 @@
 import React from "react";
 import "./DriverDetails.css";
 import axios from "axios";
+import Header from "../Header/Header";
 
 class DriverDetails extends React.Component {
   constructor(props) {
@@ -79,111 +80,113 @@ class DriverDetails extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <h1>
-          <strong>Driver Details</strong>
-        </h1>
+      <div>
+        <Header />
+        <div className="container">
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <h1>
+            <strong>Driver Details</strong>
+          </h1>
 
-        <div className="card pointcard">
-          <div className="card-header">
-            {" "}
-            <strong>Points</strong>
-          </div>
-          <div className="card-body">
-            <h5 className="card-title" style={{ fontSize: "60px" }}>
-              {this.state.driverPoints}
-            </h5>
-
-            <button
-              onClick={(e) => {
-                this.navigateChangePoints(this.props.match.params.id);
-              }}
-              type="button"
-              className="btn btn-success"
-            >
-              Change Points
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <div className="iname">
-            <div className="form-group ">
-              <label>Name :</label>
-              <input
-                value={this.state.name}
-                disabled
-                type="text"
-                class="form-control"
-                id="name"
-                height="250px"
-              />
+          <div className="card pointcard">
+            <div className="card-header">
+              {" "}
+              <strong>Points</strong>
             </div>
-            <br />
-            <div className="form-group ">
-              <label>NIC :</label>
-              <input
-                value={this.state.nic}
-                disabled
-                type="text"
-                class="form-control"
-                id="name"
-                height="250px"
-              />
+            <div className="card-body">
+              <h5 className="card-title" style={{ fontSize: "60px" }}>
+                {this.state.driverPoints}
+              </h5>
+
+              <button
+                onClick={(e) => {
+                  this.navigateChangePoints(this.props.match.params.id);
+                }}
+                type="button"
+                className="btn btn-success"
+              >
+                Change Points
+              </button>
             </div>
           </div>
-        </div>
 
-        <br />
+          <div>
+            <div className="iname">
+              <div className="form-group ">
+                <label>Name :</label>
+                <input
+                  value={this.state.name}
+                  disabled
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  height="250px"
+                />
+              </div>
+              <br />
+              <div className="form-group ">
+                <label>NIC :</label>
+                <input
+                  value={this.state.nic}
+                  disabled
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  height="250px"
+                />
+              </div>
+            </div>
+          </div>
 
-        {this.state.fines.map((fine, k) => (
-          <div key={k}>
-            <div>
-              <div className="card cardd">
-                <div className="card-body">
-                  <h3 className=" card-text">Police Officers</h3>
-                  {fine.Officers.map((val, k) => (
-                    <a
-                      key={k}
-                      onClick={(e) => {
-                        this.navigateToOfficer(val._id);
-                      }}
-                      href="#"
-                      className="card-link"
-                    >
-                      {val.nameInitial}
-                    </a>
-                  ))}
+          <br />
 
-                  {/* <a href="#" className="card-link">
+          {this.state.fines.map((fine, k) => (
+            <div key={k}>
+              <div>
+                <div className="card cardd">
+                  <div className="card-body">
+                    <h3 className=" card-text">Police Officers</h3>
+                    {fine.Officers.map((val, k) => (
+                      <a
+                        key={k}
+                        onClick={(e) => {
+                          this.navigateToOfficer(val._id);
+                        }}
+                        href="#"
+                        className="card-link"
+                      >
+                        {val.nameInitial}
+                      </a>
+                    ))}
+
+                    {/* <a href="#" className="card-link">
                 Officer 02
               </a> */}
-                  <br />
-                  <br />
-                  <h3 className=" card-text">Drivers Comment</h3>
-                  {fine.comments.map((val, k) => (
-                    <p key={k} className="card-text">
-                      {val.comment}
-                    </p>
-                  ))}
+                    <br />
+                    <br />
+                    <h3 className=" card-text">Drivers Comment</h3>
+                    {fine.comments.map((val, k) => (
+                      <p key={k} className="card-text">
+                        {val.comment}
+                      </p>
+                    ))}
 
-                  <br />
-                  <h3 className=" card-text">Drivers Evidance</h3>
+                    <br />
+                    <h3 className=" card-text">Drivers Evidance</h3>
 
-                  {/* {fine.evidance.map((val, k) => (
+                    {/* {fine.evidance.map((val, k) => (
                     <p key={k} className="card-text">
                       {val}
                     </p>
                   ))} */}
 
-                  {/* <button
+                    {/* <button
                     onClick={(e) =>
                       this.navigateEvidance(this.props.match.params.id)
                     }
@@ -191,48 +194,49 @@ class DriverDetails extends React.Component {
                   >
                     Evidance
                   </button> */}
-                  <br />
-                  <br />
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Rule Name</th>
-                        <th>Description</th>
-                        <th>Fine</th>
-                      </tr>
-                    </thead>
-                    {fine.violationType.map((val, k) => (
-                      <tbody key={k}>
+                    <br />
+                    <br />
+                    <table className="table">
+                      <thead>
                         <tr>
-                          <td>{val.ruleName}</td>
-                          <td>{val.description}</td>
-                          <td>{val.fineAmount}</td>
+                          <th>Rule Name</th>
+                          <th>Description</th>
+                          <th>Fine</th>
                         </tr>
-                      </tbody>
-                    ))}
-                  </table>
+                      </thead>
+                      {fine.violationType.map((val, k) => (
+                        <tbody key={k}>
+                          <tr>
+                            <td>{val.ruleName}</td>
+                            <td>{val.description}</td>
+                            <td>{val.fineAmount}</td>
+                          </tr>
+                        </tbody>
+                      ))}
+                    </table>
+                  </div>
                 </div>
               </div>
+              <br />
+              <br />
             </div>
-            <br />
-            <br />
-          </div>
-        ))}
+          ))}
 
-        <br />
+          <br />
 
-        <button
-          type="button"
-          style={{ float: "right", backgroundColor: "#920e0e" }}
-          className="btn btn-danger"
-          onClick={(e) => {
-            this.navigateToComment(this.props.match.params.id);
-          }}
-        >
-          Comments
-        </button>
+          <button
+            type="button"
+            style={{ float: "right", backgroundColor: "#920e0e" }}
+            className="btn btn-danger"
+            onClick={(e) => {
+              this.navigateToComment(this.props.match.params.id);
+            }}
+          >
+            Comments
+          </button>
 
-        <br />
+          <br />
+        </div>
       </div>
     );
   }
