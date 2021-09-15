@@ -1,6 +1,7 @@
 import React from "react";
 import "./AddComment.css";
 import axios from "axios";
+import Header from "../Header/Header";
 
 const initialState = {
   driverID: "",
@@ -45,56 +46,59 @@ class AddComment extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div>
+        <Header />
+        <div className="container">
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
 
-        <h1>
-          {" "}
-          <strong>Add Comment</strong>
-        </h1>
+          <h1>
+            {" "}
+            <strong>Add Comment</strong>
+          </h1>
 
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label for="exampleInputEmail1">Enter Date</label>
-            <input
-              required="true"
-              type="date"
-              className="form-control"
-              name="date"
-              placeholder="Enter the date"
-              height="250px"
-              onChange={this.onChange}
-            />
-          </div>
-          <br />
-          <br />
-          <div className="form-group">
-            <label for="exampleInputEmail1">Enter the Description</label>
-            <textarea
-              required="true"
-              type="text"
-              className="form-control"
-              name="comment"
-              aria-describedby="emailHelp"
-              placeholder="Enter the description"
-              onChange={this.onChange}
-            />
-          </div>
-          <br />
-          <button
-            type="submit"
-            style={{ float: "right", backgroundColor: "#920e0e" }}
-            className="btn btn-danger"
-          >
-            Submit
-          </button>
-        </form>
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Enter Date</label>
+              <input
+                required="true"
+                type="date"
+                className="form-control"
+                name="date"
+                placeholder="Enter the date"
+                height="250px"
+                onChange={this.onChange}
+              />
+            </div>
+            <br />
+            <br />
+            <div className="form-group">
+              <label for="exampleInputEmail1">Enter the Description</label>
+              <textarea
+                required="true"
+                type="text"
+                className="form-control"
+                name="comment"
+                aria-describedby="emailHelp"
+                placeholder="Enter the description"
+                onChange={this.onChange}
+              />
+            </div>
+            <br />
+            <button
+              type="submit"
+              style={{ float: "right", backgroundColor: "#920e0e" }}
+              className="btn btn-danger"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
