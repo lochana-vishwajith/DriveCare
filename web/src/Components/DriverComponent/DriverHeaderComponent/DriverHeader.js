@@ -2,6 +2,11 @@ import React, { useContext, useState } from "react";
 import "./DriverHeader.css";
 import { UserContext } from "../../../App";
 import { Link } from "react-router-dom";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import IconButton from "@material-ui/core/IconButton";
+import Badge from "@material-ui/core/Badge";
+import Box from "@material-ui/core/Box";
+import Popper from "@material-ui/core/Popper";
 
 export default function DriverHeader() {
   const [show, setShow] = useState(true);
@@ -9,10 +14,22 @@ export default function DriverHeader() {
     "https:firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1629491743966_DriveCare.png?alt=media&token=357fa383-7939-49b9-89d7-2e710f4b73bc "
   );
   const { state, dispatch } = useContext(UserContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popper" : undefined;
 
   function logout() {
     localStorage.clear();
     window.location = "/";
+  }
+
+  function notify() {
+    alert("notification");
   }
 
   return (
@@ -46,6 +63,44 @@ export default function DriverHeader() {
               id="navbarNav"
             >
               <ul className="navbar-nav ms-auto">
+                <li className="nav-item">
+                  <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                  >
+                    <Badge badgeContent={17} color="error">
+                      <NotificationsIcon onClick={handleClick} />
+                    </Badge>
+                    <Popper id={id} open={open} anchorEl={anchorEl}>
+                      <Box sx={{ border: 5, p: 1, bgcolor: "text.disabled" }}>
+                        <div class="card">
+                          <div class="card-body">
+                            This is some text within a card body.
+                            <p class="card-text">
+                              <small class="text-muted">
+                                Last updated 3 mins ago
+                              </small>
+                            </p>
+                            <hr />
+                          </div>
+                          <div class="card-body">
+                            This is some text within a card body.
+                            <p class="card-text">
+                              <small class="text-muted">
+                                Last updated 3 mins ago
+                              </small>
+                            </p>
+                            <hr />
+                          </div>
+                          <div class="card-body">
+                            This is some text within a card body.
+                          </div>
+                        </div>
+                      </Box>
+                    </Popper>
+                  </IconButton>
+                </li>
                 <li className="nav-item">
                   <Link
                     className="nav-link"
