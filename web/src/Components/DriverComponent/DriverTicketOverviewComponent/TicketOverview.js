@@ -9,6 +9,7 @@ import moment from "moment";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import "react-toastify/dist/ReactToastify.css";
 import { storage } from "../../../firebase/firebase";
+import ImageViewer from "react-simple-image-viewer";
 
 export default class TicketOverview extends Component {
   constructor(props) {
@@ -29,6 +30,8 @@ export default class TicketOverview extends Component {
       evidenceURL: [],
       evidenceImgs: [],
       popupVisibleEv: false,
+      currentImage: 0,
+      isViwerOpen: false,
     };
   }
 
@@ -62,11 +65,13 @@ export default class TicketOverview extends Component {
         console.log("Evidance Data:", response.data);
         this.setState({ evidenceImgs: response.data });
         console.log(this.state.evidenceImgs);
-        // this.state.evidenceImgs.map((item, index) =>
-        //   item.evidenceURLs.map((i, k) => {
-        //     console.log("EVIDANCE LOOP", i);
-        //   })
-        // );
+        this.state.evidenceImgs.map((item, index) =>
+          item.evidenceURLs.map((i, k) => {
+            console.log("EVIDANCE LOOP", i);
+
+            console.log("Item", item);
+          })
+        );
       })
       .catch((error) => {
         console.log("Data not Retriewed", error);
@@ -179,15 +184,15 @@ export default class TicketOverview extends Component {
             .child(`${date}_${image.name}`)
             .getDownloadURL()
             .then((urls) => {
-              console.log(urls);
-              // this.setState({ evidenceURL: url });
-              this.setState((prevState) => ({
-                evidenceURL: [...prevState.evidenceURL, urls],
-              }));
+              console.log("URL", urls);
+              this.setState({ evidenceURL: urls });
+              // this.setState((prevState) => ({
+              //   evidenceURL: [...prevState.evidenceURL, urls],
+              // }));
               setTimeout(this.onAddEvidence(), 1000);
-              this.state.evidenceURL.map((url, i) => {
-                console.log("ImageURL", url);
-              });
+              // this.state.evidenceURL.map((url, i) => {
+              //   console.log("ImageURL", url);
+              // });
               // console.log("ImageURL", this.state.evidenceURL);
             })
             .catch((err) => {
@@ -224,6 +229,47 @@ export default class TicketOverview extends Component {
       .catch((error) => {
         console.log("Evidence Adding Failed", error);
         toast.error("Evidence Adding Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+
+  openImageViewer = (index) => {
+    console.log("Image Open", index);
+    this.setState({ currentImage: index });
+    this.setState({ isViewerOpen: true });
+    this.state.isViewerOpen = true;
+    console.log(this.state.isViwerOpen);
+    console.log(this.state.currentImage);
+  };
+
+  closeImageViewer = () => {
+    console.log("Image Close");
+    this.setState({ currentImage: 0 });
+    this.setState({ isViewerOpen: false });
+  };
+
+  deleteEvidence = (id, url) => {
+    alert("Badu wada");
+    console.log("Deleted Data", id);
+    console.log("Deleted URL", url);
+    const data = {
+      url: JSON.stringify(url),
+    };
+
+    axios
+      .post(`http://localhost:9000/driverEvidence/evidenceDelete/${id}`, data)
+      .then((response) => {
+        console.log(response);
+        toast.success("Evidance Deleted!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("Delete Error", error);
+        toast.error("Evidance Delete Failed! ", {
           position: toast.POSITION.TOP_RIGHT,
         });
       });
@@ -448,33 +494,6 @@ export default class TicketOverview extends Component {
                         of={this.state.positionOf}
                       />
                       <div className="dx-field" id="d-text-in">
-                        {/* {this.state.evidenceImgs.map((item, index) =>
-                        item.evidenceURLs.map((i, k) => {
-                          <img
-                            key={k}
-                            src={i || "http://via.placeholder.com/300"}
-                            class="shadow-1-strong rounded mb-4"
-                            id="evidences"
-                            alt=""
-                          />;
-                          console.log("EVIDANCE LOOP blw", i);
-                        })
-                      )} */}
-                        {/* {this.state.evidences.map((url, i) => (
-                        <img
-                          key={i}
-                          src={url || "http://via.placeholder.com/300"}
-                          class="shadow-1-strong rounded mb-4"
-                          id="evidences"
-                          alt=""
-                        />
-                      ))} */}
-                        {/* <img
-                        src={this.state.image}
-                        class="shadow-1-strong rounded mb-4"
-                        id="evidences"
-                        alt=""
-                      /> */}
                         <input
                           type="file"
                           id="driverImgBtn"
@@ -482,6 +501,17 @@ export default class TicketOverview extends Component {
                           onChange={this.hnadlerFileChange}
                           multiple
                         />
+                        {this.state.evidences.map((url, i) => (
+                          <div className="image-holder">
+                            <img
+                              key={i}
+                              src={url}
+                              class="shadow-1-strong rounded mb-4"
+                              id="evidences"
+                              alt=""
+                            />
+                          </div>
+                        ))}
                         <div class="row">
                           <div class="col text-center">
                             <button
@@ -497,16 +527,28 @@ export default class TicketOverview extends Component {
                     </Popup>
                     <div>
                       {this.state.evidenceImgs.map((item, index) =>
-                        item.evidenceURLs.map((i, k) => {
+                        item.evidenceURLs.map((i, k) => (
                           <img
                             src={i}
                             class="shadow-1-strong rounded mb-4"
                             id="evidences"
                             alt=""
-                          />;
-                          console.log("EVIDANCE LOOP blw", i);
-                        })
+                            key={k}
+                            onClick={() => {
+                              this.deleteEvidence(item._id, i);
+                            }}
+                          />
+                        ))
                       )}
+                      {/* {this.state.isViwerOpen && (
+                        <ImageViewer
+                          src={this.state.evidenceImgs}
+                          currentIndex={this.state.currentImage}
+                          disableScroll={false}
+                          closeOnClickOutside={true}
+                          onClose={this.closeImageViewer}
+                        />
+                      )} */}
                     </div>
                   </div>
                 </div>
@@ -733,12 +775,12 @@ export default class TicketOverview extends Component {
                           alt=""
                         />
                       ))} */}
-                      {/* <img
-                        src={this.state.image}
+                      <img
+                        src={this.state.evidences}
                         class="shadow-1-strong rounded mb-4"
                         id="evidences"
                         alt=""
-                      /> */}
+                      />
                       <input
                         type="file"
                         id="driverImgBtn"
@@ -761,15 +803,19 @@ export default class TicketOverview extends Component {
                   </Popup>
                   <div>
                     {this.state.evidenceImgs.map((item, index) =>
-                      item.evidenceURLs.map((i, k) => {
+                      item.evidenceURLs.map((i, k) => (
                         <img
                           src={i}
                           class="shadow-1-strong rounded mb-4"
                           id="evidences"
                           alt=""
-                        />;
-                        console.log("EVIDANCE LOOP blw", i);
-                      })
+                          onClick={() => {
+                            this.deleteEvidence(item._id, i);
+                          }}
+                        />
+
+                        // console.log("EVIDANCE LOOP blw", i);
+                      ))
                     )}
                   </div>
                 </div>
