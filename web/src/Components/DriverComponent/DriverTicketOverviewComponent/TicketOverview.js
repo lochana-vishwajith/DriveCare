@@ -249,6 +249,32 @@ export default class TicketOverview extends Component {
     this.setState({ isViewerOpen: false });
   };
 
+  deleteEvidence = (id, url) => {
+    alert("Badu wada");
+    console.log("Deleted Data", id);
+    console.log("Deleted URL", url);
+    const data = {
+      url: JSON.stringify(url),
+    };
+
+    axios
+      .post(`http://localhost:9000/driverEvidence/evidenceDelete/${id}`, data)
+      .then((response) => {
+        console.log(response);
+        toast.success("Evidance Deleted!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("Delete Error", error);
+        toast.error("Evidance Delete Failed! ", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+
   render() {
     return (
       <div>
@@ -508,7 +534,9 @@ export default class TicketOverview extends Component {
                             id="evidences"
                             alt=""
                             key={k}
-                            onClick={(k) => this.openImageViewer(k)}
+                            onClick={() => {
+                              this.deleteEvidence(item._id, i);
+                            }}
                           />
                         ))
                       )}
@@ -781,6 +809,9 @@ export default class TicketOverview extends Component {
                           class="shadow-1-strong rounded mb-4"
                           id="evidences"
                           alt=""
+                          onClick={() => {
+                            this.deleteEvidence(item._id, i);
+                          }}
                         />
 
                         // console.log("EVIDANCE LOOP blw", i);
