@@ -1,18 +1,32 @@
-.viewDiv{
+.viewDiv {
     margin-top: 3%;
     overflow-y: scroll;
     height: 30rem;
 }
-#viewDivPay{
+
+#viewDivPay {
     background-color: greenyellow !important;
 
 }
-#viewDivPending{
-    background-color: palevioletred !important;
-  
+
+#viewDivPending {
+    background-color: #c90a0a !important;
+
 }
-.fineViewTxt{
+
+.fineViewTxt {
     color: blanchedalmond;
     font-weight: bold;
     margin-bottom: -0.2rem;
+}
+
+#viewDivPending {
+    display: grid;
+    grid-template-columns: 50% 30% 20%;
+    box-sizing: border-box;
+}
+
+.btn-light {
+    margin-top: 1.4rem;
+    margin-left: 4rem;
 }
