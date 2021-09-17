@@ -17,7 +17,8 @@ constructor(props) {
         show:false,
         popupVisible: false,
         uPoints:'',
-        obj:''
+        obj:'',
+        Upop:false
     }
 }
     componentDidMount() {
@@ -159,28 +160,47 @@ constructor(props) {
 
                     </form>
 
+                </Popup>
 
-                    {/*<div className="dx-field" id="d-text-in">*/}
-                    {/*    <TextArea*/}
-                    {/*        height={150}*/}
-                    {/*        name="newComments"*/}
-                    {/*        value={this.state.newComments}*/}
-                    {/*        onValueChanged={this.commentChange}*/}
-                    {/*        showClearButton={true}*/}
-                    {/*        placeholder="Add Comment here"*/}
-                    {/*    />*/}
-                    {/*    <div class="row">*/}
-                    {/*        <div class="col text-center">*/}
-                    {/*            <button*/}
-                    {/*                type="button"*/}
-                    {/*                className="btn btn-outline-danger btn-sm px-4 mt-3"*/}
-                    {/*                onClick={this.onAddComment}*/}
-                    {/*            >*/}
-                    {/*                Add*/}
-                    {/*            </button>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+
+                <Popup
+                    visible={this.state.Upop}
+                    onHiding={this.handlerModelCancel}
+                    dragEnabled={false}
+                    closeOnOutsideClick={true}
+                    showCloseButton={true}
+                    showTitle={true}
+                    title="UPDATE POINTS"
+                    container=".dx-viewport"
+                    width={300}
+                    height={280}
+                >
+                    <Position
+                        at="center"
+                        my="center"
+                        of={this.state.positionOf}
+                    />
+                    <form onSubmit={this.handlerUpdate} className="form-body-rules">
+                        <div className="row">
+                            <div className="col">
+                                <div className="form-group form-part" >
+                                    <label htmlFor="Mobile"> ENTER DEMERITS POINTS</label>
+                                    <input type="text" name = "uPoints"   className="form-control form-input-border" value={this.state.uPoints} onChange={this.handlerChanged}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+
+                            <div className="col">
+                                <div className="buttonHolder text-ligh pt-5">
+                                    <button className="my-button text-center"  title="I'm Feeling Lucky" name="lucky" type="submit"
+                                            id="btn_i text-light" ><b> UPDATE POINTS</b></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
                 </Popup>
 
 
