@@ -45,10 +45,11 @@ export default class GetRulesCat extends React.Component{
 
     render() {
         const{RulesInList} =this.state
+        const RulesPortalName =`-RULES & CATEGORIES OF ${this.props.match.params.cat}-`.toUpperCase();
         return (
             <div>
                 <div>
-                    <Navbar topic1 = "RULES & CATEGORIES" portal = "-RULES IN CATEGORY-" topic2 ="DASHBOARD" link2 = "/" link1 ="/rulescategorylist"/>
+                    <Navbar topic1 = "RULES & CATEGORIES" portal = {RulesPortalName} topic2 ="DASHBOARD" link2 = "/" link1 ="/rulescategorylist"/>
 /                    {/*{RulesInList.map((rules) => (*/}
                     {/*    <CardView title = {rules.ruleName}  bty = "rule" description ={rules.description} cid ={rules.ruleNo} prid = {rules._id}/>*/}
                     {/*))}*/}

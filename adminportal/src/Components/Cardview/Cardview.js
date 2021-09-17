@@ -5,7 +5,7 @@ export default class CardView extends React.Component{
     handlerSubmit = (e) =>{
         e.preventDefault()
         if(this.props.bty == 'category' ){
-            window.location = `/getrulescat/${this.props.prid}`
+            window.location = `/getrulescat/${this.props.prid}/${this.props.title}`
         }else if(this.props.bty == 'rule' ){
             alert('gamma'+this.props.prid)
             window.location = `/viewrules/${this.props.prid}`
