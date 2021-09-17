@@ -54,7 +54,7 @@ export default class App extends Component {
 
             <Route   exact path="/" component={AdminDashboard} />
             <Route   exact path="/rulescategorylist" component={GetRulesCategoriesList} />
-            <Route exact path="/getrulescat/:id" component={GetRulesCat} />
+            <Route exact path="/getrulescat/:id/:cat" component={GetRulesCat} />
             <Route exact path="/viewrules/:id" component={ViewRule} />
           </Switch>
         </Router>

@@ -42,7 +42,7 @@ router.get("/:id", async (req, res) => {
 
 
 //this route is for get all the rules inside a category
-router.get("/getcatrules/:id", async (req, res) => {
+router.get("/getcatrules/:id/:cat", async (req, res) => {
     if (req.params && req.params.id) {
         await RulesCategory.findById(req.params.id)
             .populate('rules', 'ruleNo ruleName demeritPoints')
