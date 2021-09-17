@@ -17,7 +17,8 @@ constructor(props) {
         show:false,
         popupVisible: false,
         uPoints:'',
-        obj:''
+        obj:'',
+        uPop:false
     }
 }
     componentDidMount() {
@@ -34,9 +35,18 @@ constructor(props) {
         this.setState({popupVisible:false});
     }
 
+    handlerModelCancels =() =>{
+        this.setState({uPop:false});
+    }
+
     handlerModelStart = () => {
         // this.setState({show:true});
         this.setState({ popupVisible: true });
+    }
+
+    handlerModelStarts = () => {
+        // this.setState({show:true});
+        this.setState({ uPop: true });
     }
     handlerUpdate = (e) =>{
 
@@ -72,53 +82,15 @@ constructor(props) {
 
     render() {
 
-    const{rules,show} =this.state
+
+    const{rules,show} =this.state;
+    let portal = `-RULE ${this.state.obj.ruleName} [${this.state.obj.ruleNo}]-`.toUpperCase();
+
         return (
 
             <div>
+                <Navbar portal = {portal} topic1 = "RULES & CATEGORIES" topic2 = "ADMIN DASHBOARD" link1 = '/rulescategorylist' link2 = '/' />
 
-                <Navbar portal = "-VIEW RULES-" topic1 = "RULES & CATEGORIES" topic2 = "ADMIN DASHBOARD" link1 = '/rulescategorylist' link2 = '/' />
-
-                {/*<Modal show={show} className="modal-dialog modal-dialog-centered modal-dialog-scrollable "  tabindex="10">*/}
-                {/*    <Modal.Header><b> Update Rules Points</b></Modal.Header>*/}
-                {/*    <Modal.Body>*/}
-                {/*        <form action="#" className="form-body-rules">*/}
-                {/*            <div className="row">*/}
-                {/*                <div className="col">*/}
-                {/*                    <div className="form-group form-part" >*/}
-                {/*                        <label htmlFor="RegistrationNumber">Registration Number</label>*/}
-                {/*                        <input type="text" name=""  className="form-control form-input-border"/>*/}
-                {/*                    </div>*/}
-                {/*                </div>*/}
-                {/*                <div className="col">*/}
-                {/*                    <div className="form-group form-part" >*/}
-                {/*                        <label htmlFor="Mobile">Mobile</label>*/}
-                {/*                        <input type="text" name = ""   className="form-control form-input-border"/>*/}
-                {/*                    </div>*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
-                {/*            <div className="row">*/}
-
-                {/*                <div className="col">*/}
-                {/*                    <div className="buttonHolder text-ligh pt-5">*/}
-                {/*                        <button className="my-button text-center" value="Submit" title="I'm Feeling Lucky" name="lucky" type="submit"*/}
-                {/*                                id="btn_i text-light" onClick={this.handlerModelCancel}><b> cancel</b></button>*/}
-                {/*                    </div>*/}
-                {/*                </div>*/}
-                {/*                <div className="col">*/}
-
-                {/*                    <div className="buttonHolder text-ligh pt-5">*/}
-                {/*                        <button className="my-button text-center" value="Submit" title="I'm Feeling Lucky" name="lucky" type="submit"*/}
-                {/*                                id="btn_i text-light"><b> Submit </b></button>*/}
-                {/*                    </div>*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
-
-                {/*        </form>*/}
-
-                {/*    </Modal.Body>*/}
-                {/*    <Modal.Footer className="text-center">Click Cancel to Exit from Search menu</Modal.Footer>*/}
-                {/*</Modal>*/}
 
 
                 <Popup
@@ -159,28 +131,47 @@ constructor(props) {
 
                     </form>
 
+                </Popup>
 
-                    {/*<div className="dx-field" id="d-text-in">*/}
-                    {/*    <TextArea*/}
-                    {/*        height={150}*/}
-                    {/*        name="newComments"*/}
-                    {/*        value={this.state.newComments}*/}
-                    {/*        onValueChanged={this.commentChange}*/}
-                    {/*        showClearButton={true}*/}
-                    {/*        placeholder="Add Comment here"*/}
-                    {/*    />*/}
-                    {/*    <div class="row">*/}
-                    {/*        <div class="col text-center">*/}
-                    {/*            <button*/}
-                    {/*                type="button"*/}
-                    {/*                className="btn btn-outline-danger btn-sm px-4 mt-3"*/}
-                    {/*                onClick={this.onAddComment}*/}
-                    {/*            >*/}
-                    {/*                Add*/}
-                    {/*            </button>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+
+                <Popup
+                    visible={this.state.uPop}
+                    onHiding={this.handlerModelCancels}
+                    dragEnabled={false}
+                    closeOnOutsideClick={true}
+                    showCloseButton={true}
+                    showTitle={true}
+                    title="UPDATE POINTS"
+                    container=".dx-viewport"
+                    width={300}
+                    height={280}
+                >
+                    <Position
+                        at="center"
+                        my="center"
+                        of={this.state.positionOf}
+                    />
+                    <form onSubmit={this.handlerUpdate} className="form-body-rules">
+                        <div className="row">
+                            <div className="col">
+                                <div className="form-group form-part" >
+                                    <label htmlFor="Mobile"> ENTER DEMERITS POINTS</label>
+                                    <input type="text" name = "uPoints"   className="form-control form-input-border" value={this.state.uPoints} onChange={this.handlerChanged}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+
+                            <div className="col">
+                                <div className="buttonHolder text-ligh pt-5">
+                                    <button className="my-button text-center"  title="I'm Feeling Lucky" name="lucky" type="submit"
+                                            id="btn_i text-light" ><b> DELETE POINTS</b></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
                 </Popup>
 
 
@@ -234,7 +225,7 @@ constructor(props) {
                     </button>
 
                     <button className="btn btn-outline-secondary text-light px-5" type="button"
-                            id="button-addon2" onClick={this.handlerDelete} >Delete
+                            id="button-addon2" onClick={ this.handlerModelStarts} >Delete
                     </button>
                 </div>
                </center>
