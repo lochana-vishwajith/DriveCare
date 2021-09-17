@@ -186,14 +186,12 @@ class DriverDetails extends React.Component {
                     </p>
                   ))} */}
 
-                    {/* <button
-                    onClick={(e) =>
-                      this.navigateEvidance(this.props.match.params.id)
-                    }
-                    className="btn btn-danger"
-                  >
-                    Evidance
-                  </button> */}
+                    <button
+                      onClick={(e) => this.navigateEvidance(fine._id)}
+                      className="btn btn-danger"
+                    >
+                      Evidance
+                    </button>
                     <br />
                     <br />
                     <table className="table">
