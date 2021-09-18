@@ -1,79 +1,7 @@
 import React from 'react'
-import {Grid, Paper} from "@material-ui/core";
 import axios from "axios";
 import Navbar from "../../../../navbarComponent/navbar";
 import Footer from "../../../../Footer/Footer";
-import Modal from "react-bootstrap/Modal";
-
-/*
-*             <div>
-                <div className="container">
-                    <label className="OfficerDetaisDis">
-                        <h2>
-                            <b>Traffic Officer Details</b>
-                        </h2>
-                    </label>
-                    <hr />
-
-                    <div className="officerdisplayDiv">
-                        <Grid>
-                            <Paper elevation={20}>
-                                <div className="officerDetailsDisplay">
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                        <tr className="table-dark">
-                                            <th scope="col">registrationNo</th>
-                                            <th scope="col">email</th>
-                                            <th scope="col">workstation_Address</th>
-                                            <th scope="col">mobile_Number</th>
-                                            <th scope="col">office_Number</th>
-                                            <th scope="col">station_grade</th>
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {stationDetails.map((office) => (
-                                            <tr className="table-light">
-                                                <td>{office.registrationNo}</td>
-                                                <td>{office.email}</td>
-                                                <td>{office.workstation_Address}</td>
-                                                <td>{office.mobile_Number}</td>
-                                                <td>{office.office_Number}</td>
-                                                <td>{office.station_grade}</td>
-                                                <td className="btnCol">
-                                                    <i
-                                                        className="far fa-eye fa-lg"
-                                                        onClick={this.aaa}
-                                                        id="offView"
-                                                    />
-                                                </td>
-                                                <td className="btnCol">
-                                                    <p className="fas fa-pencil-alt fa-lg" view />
-                                                </td>
-                                                <td className="btnCol">
-                                                    <i className="fas fa-trash fa-lg" />
-                                                </td>
-                                            </tr>
-                                        ))}
-
-                                        </tbody>
-
-                                    </table>
-                                        <button className="btn btn-primary" type="button">Add PoliceStation</button>
-                                </div>
-                            </Paper>
-                        </Grid>
-                        <div className="policeCenterDisplay"></div>
-                    </div>
-                </div>
-            </div>this.state ={
-        show:false
-    }
-*
-* */
-
 
 
 export default class PoliceStationList extends React.Component{
@@ -94,7 +22,6 @@ export default class PoliceStationList extends React.Component{
     }
 
     handlerAdd =() =>{
-
         window.location = '/AddPoliceStation';
     }
 
@@ -108,8 +35,8 @@ export default class PoliceStationList extends React.Component{
         window.location = `/viewpolicesearch/${this.state.search}`
     }
 
-    onviewHandler=()=>{
-        window.location = `/viewpolicesearch/${this.state.search}`
+    OnViewHandler=(id)=>{
+        window.location = `/viewpolicesearch/${id}`
 
     }
     render() {
@@ -173,7 +100,9 @@ export default class PoliceStationList extends React.Component{
 
                                 <div className="col-4" border>
                                         <p className="lead">
-                                            <button className="btn btn-outline-secondary text-light px-5" type="button" onClick={this.onviewHandler}
+                                            <button className="btn btn-outline-secondary text-light px-5" type="button" onClick={() => this.OnViewHandler(office.registrationNo)}
+
+
                                                     id="button-addon2" pt-5>View
                                             </button>
                                         </p>

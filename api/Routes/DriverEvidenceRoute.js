@@ -43,4 +43,41 @@ router.get("/:id", async (req, res) => {
       });
   }
 });
+
+// router.delete("/:id", async (req, res) => {
+// const id = req.params.id;
+
+// console.log("Data enawa", id);
+
+// await Evidence.findByIdAndDelete(id)
+//   .then((result) => {
+//     console.log("Evidence is deleted");
+//     res.status(200).send({ status: result });
+//   })
+//   .catch((err) => {
+//     res.status(501).send(err);
+//   });
+// });
+
+router.post("/evidenceDelete/:id", async (req, res) => {
+  console.log("Inside Evodance Delete");
+  const id = req.params.id;
+
+  const url = req.body;
+
+  const DataTika = {
+    url,
+  };
+  console.log("Deleted Data ID Set Evidance:", id);
+  console.log("Deleted Data Set Evidance:", DataTika.url);
+
+  await Evidence.findByIdAndDelete(id, { evidenceURLs: DataTika.url })
+    .then((result) => {
+      console.log("Evidence is deleted");
+      res.status(200).send({ status: result });
+    })
+    .catch((err) => {
+      res.status(501).send(err);
+    });
+});
 module.exports = router;

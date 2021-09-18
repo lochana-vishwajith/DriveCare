@@ -4,3 +4,12 @@
   padding-top: 10%;
   padding-bottom: 18%;
 }
+
+.eviImage {
+  /* max-width: 100%;
+  height: auto; */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
