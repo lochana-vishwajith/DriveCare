@@ -13,22 +13,6 @@ export default class GetRulesCat extends React.Component{
             RulesInList: [],
         }
     }
-   /* _id: "6121db45cfa8d75d60908b2f"
-​​​
-    date: "2012-04-16T00:00:00.000Z"
-​​​
-    demeritPoints: 7
-​​​
-    description: "very bad wrong"
-​​​
-    fineAmount: 30
-​​​
-    gazetteNo: "3321-238"
-​​​
-    ruleName: "very high speeding"
-​​​
-    ruleNo: "AS28
-*/
     componentDidMount() {
         axios.get(`http://localhost:9000/rules/getrulesincat/${this.props.match.params.id}`).then((res) => {
             console.log("res : ", res);
@@ -108,6 +92,4 @@ export default class GetRulesCat extends React.Component{
             </div>
         )
     }
-
-
 }
