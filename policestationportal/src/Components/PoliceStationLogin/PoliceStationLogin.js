@@ -23,7 +23,9 @@ export default class PoliceStationLogin extends Component {
   };
 
   handlerSubmit = (e) => {
+
     e.preventDefault();
+    window.location = "/dashboard";
     const { registrationNo, password } = this.state;
     const { logIn, setStationId } = this.context;
     //res.data
