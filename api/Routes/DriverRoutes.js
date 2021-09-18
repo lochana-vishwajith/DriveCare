@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Driver = require("../Models/DriverModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Rules = require("./RulesRoutes");
 const Notification = require("../Models/DriverNotificationsModel");
 
 router.post("/", (req, res) => {
@@ -171,5 +172,4 @@ router.put("/updatedpoints/:id", async (req, res) => {
     res.send(error);
   }
 });
-
 module.exports = router;
