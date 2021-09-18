@@ -38,5 +38,38 @@ td {
 }
 .stationText{
     color: black;
-    font-size: larger;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.popupProPic{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    box-sizing: border-box;
+}
+#officerProPicPop{
+    max-width: 250px;
+    max-height: 250px;
+    clip-path:circle();
+}
+.OfficerPopName{
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 3rem;
+    margin-left: -5%;
+}
+
+.pophr{
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-top: -3%;
+}
+#txtDiv{
+    padding-right: 3%;
+    margin-bottom: 3%;
+}
+.count{
+    font-weight: bold;
+    font-size: 4rem;
+    color: white;
 }

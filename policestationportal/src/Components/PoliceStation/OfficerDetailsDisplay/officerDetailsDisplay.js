@@ -10,6 +10,7 @@ import Header from "../../HeaderComponent/header";
 import AuthContext from "../../../Reducer/UseReducer";
 import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
 import TextBox from "devextreme-react/text-box";
+import moment from "moment";
 
 toast.configure();
 
@@ -23,15 +24,22 @@ export default class officerDetailsDisplay extends Component {
       editpopupVisible: false,
       viewpopupVisible: false,
       positionOf: "",
+      officer: "",
+      nic: "",
+      home: "",
+      mobile: "",
+      name: "",
+      id: "",
+      totalOfficers: "",
+      workingPlace: "",
     };
   }
 
-  handleClose = () => {
-    this.setState({ editpopupVisible: false, viewpopupVisible: false });
+  handleCloseView = () => {
+    this.setState({ viewpopupVisible: false });
   };
-
-  aaa = () => {
-    alert("ss");
+  handleCloseEdit = () => {
+    this.setState({ editpopupVisible: false });
   };
 
   deleteOfficer = (id) => {
@@ -59,46 +67,249 @@ export default class officerDetailsDisplay extends Component {
       .then((res) => {
         console.log("res : ", res);
         this.setState({ officerDetails: res.data });
+        this.setState({ totalOfficers: res.data.length });
       });
   }
-  viewDetails = () => {
+  getOfficerDetailsById = (id) => {
+    axios
+      .get(`http://localhost:9000/trafficOfficer/officerDetails/${id}`)
+      .then((res) => {
+        this.setState({ officer: res.data });
+        this.setState({ mobile: res.data.mobile });
+        this.setState({ home: res.data.home });
+        this.setState({ id: res.data._id });
+        this.setState({ name: res.data.nameInitial });
+        this.setState({ workingPlace: res.data.policeStation });
+        this.setState({
+          nic: res.data.nic,
+        });
+        console.log("edit details : ", res.data);
+        console.log("place", this.state.workingPlace);
+      });
+  };
+  viewDetails = async (id) => {
+    await this.getOfficerDetailsById(id);
     this.setState({ viewpopupVisible: true });
   };
-  editDetails = () => {
+
+  editDetails = async (id) => {
+    await this.getOfficerDetailsById(id);
     this.setState({ editpopupVisible: true });
   };
+
+  saveEditedDetails = () => {
+    const { name, mobile, home, nic, id } = this.state;
+    console.log("home : ", this.state.home);
+    const details = {
+      nameInitial: name,
+      mobile,
+      home,
+      nic,
+    };
+    console.log("details : ", details);
+    axios
+      .put(`http://localhost:9000/trafficOfficer/updateDetails/${id}`, details)
+      .then((res) => {
+        console.log("res : ", res);
+        toast.success("Successfully Updated", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Update Failed", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+  NameChanged = (e) => {
+    this.setState({ name: e.value });
+  };
+  mobileChanged = (e) => {
+    this.setState({ mobile: e.value });
+  };
+  homeChanged = (e) => {
+    this.setState({ home: e.value });
+  };
+  nicChanged = (e) => {
+    this.setState({ nic: e.value });
+  };
   render() {
-    const { officerDetails } = this.state;
+    const { officerDetails, officer, id, totalOfficers, workingPlace } =
+      this.state;
     return (
       <div>
         <Popup
           visible={this.state.editpopupVisible}
-          onHiding={this.handleClose}
+          onHiding={this.handleCloseEdit}
           dragEnabled={false}
           closeOnOutsideClick={true}
           showCloseButton={true}
           showTitle={true}
           title="Edit Officer Details"
           container=".dx-viewport"
-          width={900}
-          height={280}
+          width={550}
+          height={500}
         >
           <Position at="center" my="center" of={this.state.positionOf} />
-          <div className="editPopup"></div>
+          <div className="editPopup">
+            <div className="dx-fieldset">
+              <div className="popupProPic">
+                <img
+                  src={officer.profilePicUrl}
+                  className="w-100 shadow-1-strong rounded mb-4"
+                  id="officerProPicPop"
+                  alt=""
+                />
+                <label className="OfficerPopName">
+                  {officer.firstName + " " + officer.lastName}
+                </label>
+              </div>
+              <hr className="pophr" />
+              <div className="popupProPic">
+                <div id="txtDiv">
+                  <label>Name With Initials</label>
+                  <br />
+                  <TextBox
+                    value={this.state.name}
+                    className="fineTextBox"
+                    onValueChanged={this.NameChanged}
+                  />
+                </div>
+                <div id="txtDiv">
+                  <label>Mobile Number</label>
+                  <br />
+                  <TextBox
+                    value={this.state.mobile}
+                    className="fineTextBox"
+                    onValueChanged={this.mobileChanged}
+                  />
+                </div>
+                <div id="txtDiv">
+                  <label>Home Number</label>
+                  <br />
+                  <TextBox
+                    value={this.state.home}
+                    className="fineTextBox"
+                    onValueChanged={this.homeChanged}
+                  />
+                </div>
+                <div id="txtDiv">
+                  <label>NIC</label>
+                  <br />
+                  <TextBox
+                    value={this.state.nic}
+                    className="fineTextBox"
+                    onValueChanged={this.nicChanged}
+                  />
+                </div>
+              </div>
+              <br />
+              <center>
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  onClick={() => this.saveEditedDetails(id)}
+                >
+                  Save Changes
+                </button>
+              </center>
+            </div>
+          </div>
         </Popup>
         <Popup
           visible={this.state.viewpopupVisible}
-          onHiding={this.handleClose}
+          onHiding={this.handleCloseView}
           dragEnabled={false}
           closeOnOutsideClick={true}
           showCloseButton={true}
           showTitle={true}
           title="Display Officer Details"
           container=".dx-viewport"
-          width={900}
-          height={280}
+          width={550}
+          height={500}
         >
           <Position at="center" my="center" of={this.state.positionOf} />
+          <div className="popupProPic">
+            <img
+              src={officer.profilePicUrl}
+              className="w-100 shadow-1-strong rounded mb-4"
+              id="officerProPicPop"
+              alt=""
+            />
+            <label className="OfficerPopName">
+              {officer.firstName + " " + officer.lastName}
+            </label>
+          </div>
+          <hr className="pophr" />
+          <div className="popupProPic">
+            <div id="txtDiv">
+              <label>Name With Initials</label>
+              <br />
+              <TextBox
+                value={officer.nameInitial}
+                className="fineTextBox"
+                readOnly
+              />
+            </div>
+            <div id="txtDiv">
+              <label>Date Of Birth</label>
+              <br />
+              <TextBox
+                value={moment(officer.dob).format("YYYY-MM-DD")}
+                className="fineTextBox"
+                readOnly
+              />
+            </div>
+            <div id="txtDiv">
+              <label>Registartion Number</label>
+              <br />
+              <TextBox
+                value={officer.officerReg}
+                className="fineTextBox"
+                readOnly
+              />
+            </div>
+            <div id="txtDiv">
+              <label>Mobile Number</label>
+              <br />
+              <TextBox
+                value={officer.mobile}
+                className="fineTextBox"
+                readOnly
+              />
+            </div>
+            <div id="txtDiv">
+              <label>Home Number</label>
+              <br />
+              <TextBox value={officer.home} className="fineTextBox" readOnly />
+            </div>
+            <div id="txtDiv">
+              <label>NIC</label>
+              <br />
+              <TextBox value={officer.nic} className="fineTextBox" readOnly />
+            </div>
+            <div id="txtDiv">
+              <label>Working Police Station</label>
+              <br />
+              <TextBox
+                value={workingPlace.workstation_Address}
+                className="fineTextBox"
+                readOnly
+              />
+            </div>
+            <div id="txtDiv">
+              <label>Remaining Points</label>
+              <br />
+              <TextBox
+                value={officer.points}
+                className="fineTextBox"
+                readOnly
+              />
+            </div>
+
+            <br />
+          </div>
         </Popup>
         <Header />
         <div className="container">
@@ -142,14 +353,14 @@ export default class officerDetailsDisplay extends Component {
                           <td className="btnCol">
                             <i
                               className="far fa-eye fa-lg"
-                              onClick={this.viewDetails}
+                              onClick={() => this.viewDetails(officer._id)}
                               id="offView"
                             />
                           </td>
                           <td className="btnCol">
                             <i
                               className="fas fa-pencil-alt fa-lg"
-                              onClick={this.editDetails}
+                              onClick={() => this.editDetails(officer._id)}
                             />
                           </td>
                           <td className="btnCol">
@@ -172,18 +383,11 @@ export default class officerDetailsDisplay extends Component {
                   id="station"
                 >
                   <label className="stationText">
-                    <b>Police Station</b>
-                  </label>
-                </div>
-              </center>
-              <center>
-                <div
-                  className="shadow-lg p-3 mb-5 bg-white rounded"
-                  id="station"
-                >
-                  <label className="stationText">
                     <b>Total Traffic Officers</b>
                   </label>
+                  <p className="count">
+                    <b>{totalOfficers}</b>
+                  </p>
                 </div>
               </center>
             </div>
