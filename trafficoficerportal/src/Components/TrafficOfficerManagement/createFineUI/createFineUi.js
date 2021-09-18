@@ -172,20 +172,21 @@ export default class createFineUi extends Component {
   };
 
   onSelectViolationType = (violationtype) => {
+    alert("ddd");
     this.setState({ violationtype });
+    this.calculateTotalFine(violationtype);
   };
   onSelectCourtPlace = (CourtPlace) => {
     this.setState({ CourtPlace });
   };
 
-  calculateTotalFine = () => {
+  calculateTotalFine = (violationtype) => {
     this.setState(
-      this.state.violationtype.forEach((element) => {
+      violationtype.forEach((element) => {
         this.state.totalFine =
           parseFloat(this.state.totalFine) + parseFloat(element.value[0]);
       })
     );
-    alert(this.state.totalFine);
   };
 
   onCreateFine = () => {

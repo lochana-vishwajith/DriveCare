@@ -25,10 +25,11 @@ export default class viewFine extends Component {
   imageHandleChange = (e) => {
     console.log(e.target.files);
     if (e.target.files) {
+      let tempImages = [];
       Array.from(e.target.files).map((file) => {
-        console.log(URL.createObjectURL(file));
-        this.state.selectedImage.push(URL.createObjectURL(file));
+        tempImages.push(URL.createObjectURL(file));
       });
+      this.setState({ selectedImage: tempImages });
     }
     console.log("images : ", this.state.selectedImage);
   };
