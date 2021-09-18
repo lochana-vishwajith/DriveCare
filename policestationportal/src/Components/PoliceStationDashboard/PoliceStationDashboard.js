@@ -19,7 +19,7 @@ export default class AdminDashboard extends React.Component {
                                     <p className="card-text">MANAGE RULES AND CATEGORIES OF THE APPLICATION VIEW THE RULES OF THE APPLICATION.</p>
                                     <center><button className="btn btn-outline-secondary text-light" type="button"
                                                     id="button-addon2"
-                                    ><a href="/rulescategorylist">CLICK TO</a>
+                                    ><a href="/myStation">CLICK TO</a>
                                     </button></center>
                                 </div>
                             </div>

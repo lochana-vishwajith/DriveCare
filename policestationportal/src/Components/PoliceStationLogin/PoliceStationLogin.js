@@ -9,6 +9,10 @@ import axios from "axios";
 import AuthContext from "../../Reducer/UseReducer";
 
 export default class PoliceStationLogin extends Component {
+  componentDidMount() {
+    localStorage.clear();
+  }
+
   static contextType = AuthContext;
   constructor(props) {
     super(props);
@@ -25,7 +29,7 @@ export default class PoliceStationLogin extends Component {
   handlerSubmit = (e) => {
 
     e.preventDefault();
-    window.location = "/dashboard";
+
     const { registrationNo, password } = this.state;
     const { logIn, setStationId } = this.context;
     //res.data
@@ -42,7 +46,7 @@ export default class PoliceStationLogin extends Component {
           localStorage.setItem("userid", response.data.id);
           logIn();
           setStationId(response.data.id);
-          this.props.history.push(`/display`);
+          this.props.history.push("/dashboard");
         } else {
           alert("login failed");
         }
