@@ -129,3 +129,11 @@
     margin-left: 1rem;
     margin-top: 0.5rem;
 }
+.violationType{
+    display: grid;
+    grid-template-columns: 85% 15%;
+    box-sizing: border-box;
+}
+#fineCal{
+    width: 5rem;
+}

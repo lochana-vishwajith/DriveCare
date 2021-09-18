@@ -22,8 +22,11 @@ class trafficOfficerLogin extends Component {
     super(props);
     this.state = {
       officerOne: "",
+      officerTwoMobile: "",
+      popupVisible: false,
       officerTwo: "",
       officerIDOne: "",
+      otp: "",
       officerIdTwo: "",
       officerPassword: "",
       logo: "https:firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628967576900_colored-logo.png?alt=media&token=166ac21d-89be-45b2-9b0b-17e5a400e359",
@@ -32,6 +35,9 @@ class trafficOfficerLogin extends Component {
 
   setofficerOne = (e) => {
     this.setState({ officerOne: e.value });
+  };
+  setOTP = (e) => {
+    this.setState({ otp: e.value });
   };
 
   setofficerTwo = (e) => {
@@ -43,8 +49,6 @@ class trafficOfficerLogin extends Component {
   };
 
   pressLoginBtn = (e) => {
-    const { history } = this.props;
-    const { setOfficerId, logIn } = this.context;
     const { officerOne, officerTwo, officerPassword } = this.state;
     e.preventDefault();
     if (officerOne == "" || officerTwo == "" || officerPassword == "") {
@@ -69,23 +73,22 @@ class trafficOfficerLogin extends Component {
             )
             .then(async (result) => {
               this.setState({ officerIdTwo: result.data._id });
+              this.setState({ officerTwoMobile: result.data.mobile });
               console.log("officer two details : ", result.data);
-              await this.onSignInSubmit(result.data.mobile);
-              toast.success("Login Success", {
-                position: toast.POSITION.TOP_RIGHT,
-              });
+              this.onSignInSubmit(result.data.mobile);
+
               console.log(
                 "officer one ID : ",
                 res.data.id,
                 " offcer 2 id : ",
                 result.data._id
               );
-              setTimeout(() => {
-                logIn();
-                setOfficerId(this.state.officerIDOne, this.state.officerIdTwo);
-                history.push("/createFine");
-              }, 5000);
             });
+        })
+        .catch((err) => {
+          toast.error("Please check username & password", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
         });
     }
   };
@@ -113,20 +116,93 @@ class trafficOfficerLogin extends Component {
       .auth()
       .signInWithPhoneNumber(phoneNumber, appVerifier)
       .then((confirmationResult) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
         window.confirmationResult = confirmationResult;
+        this.setState({ popupVisible: true });
       })
       .catch((error) => {
         // Error; SMS not sent
         // ...
+        console.log(error);
       });
   };
+
+  confirmOtp = (e) => {
+    const { setOfficerId, logIn } = this.context;
+    const { history } = this.props;
+    e.preventDefault();
+
+    const code = this.state.otp;
+    window.confirmationResult
+      .confirm(code)
+      .then((result) => {
+        // User signed in successfully.
+        const user = result.user;
+        toast.success("Login Success", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setTimeout(() => {
+          logIn();
+          setOfficerId(this.state.officerIDOne, this.state.officerIdTwo);
+          history.push("/createFine");
+        }, 5000);
+        // ...
+      })
+      .catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+        toast.error("Please enter correct OTP", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+
+  handleClose = () => {};
   render() {
-    const { logo, officerOne, officerTwo, officerPassword } = this.state;
+    const { logo, officerOne, officerTwo, officerPassword, otp } = this.state;
 
     return (
       <div className="container" id="login">
+        <Popup
+          visible={this.state.popupVisible}
+          onHiding={this.handleClose}
+          dragEnabled={false}
+          closeOnOutsideClick={true}
+          showCloseButton={true}
+          showTitle={true}
+          title="OTP Confirmation"
+          container=".dx-viewport"
+          width={400}
+          height={500}
+        >
+          <Position at="center" my="center" of={this.state.positionOf} />
+          <div>
+            <img
+              src="https://i.pinimg.com/originals/89/01/34/890134d17f3d0aa0c889979c130470f5.png"
+              class="w-100 shadow-1-strong rounded mb-4"
+              id="driveLoginLogo"
+              alt=""
+            />
+            <p>
+              OTP has been set to the mobile number{" "}
+              {this.state.officerTwoMobile}
+            </p>
+            <TextBox
+              mask="000000"
+              className="officerReg"
+              name="officerOne"
+              value={otp}
+              showClearButton={true}
+              onValueChanged={this.setOTP}
+            />
+            <ButtonCom
+              id={"officerReg"}
+              value={"Confirm OTPs"}
+              classname={"createFineBtn"}
+              type={"submit"}
+              onSubmit={this.confirmOtp}
+            />
+          </div>
+        </Popup>
         <Grid>
           <Paper elevation={20}>
             <div className="trafficloginmaindiv">

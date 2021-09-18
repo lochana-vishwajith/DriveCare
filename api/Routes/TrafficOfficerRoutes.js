@@ -104,6 +104,17 @@ router.get("/officerreg/:id", async (req, res) => {
       res.status(501).send(err);
     });
 });
+router.get("/officerDetails/:id", async (req, res) => {
+  let id = req.params.id;
+  await TrafficOfficer.findOne({ _id: id })
+    .populate("policeStation", "workstation_Address")
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(501).send(err);
+    });
+});
 
 router.delete("/:id", async (req, res) => {
   let id = req.params.id;

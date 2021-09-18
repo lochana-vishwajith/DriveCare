@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { BeatLoader } from "react-spinners";
 import Header from "../../HeaderComponent/header";
 import AuthContext from "../../../Reducer/UseReducer";
+import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
+import TextBox from "devextreme-react/text-box";
 
 toast.configure();
 
@@ -18,8 +20,15 @@ export default class officerDetailsDisplay extends Component {
     super(props);
     this.state = {
       officerDetails: [],
+      editpopupVisible: false,
+      viewpopupVisible: false,
+      positionOf: "",
     };
   }
+
+  handleClose = () => {
+    this.setState({ editpopupVisible: false, viewpopupVisible: false });
+  };
 
   aaa = () => {
     alert("ss");
@@ -52,10 +61,45 @@ export default class officerDetailsDisplay extends Component {
         this.setState({ officerDetails: res.data });
       });
   }
+  viewDetails = () => {
+    this.setState({ viewpopupVisible: true });
+  };
+  editDetails = () => {
+    this.setState({ editpopupVisible: true });
+  };
   render() {
     const { officerDetails } = this.state;
     return (
       <div>
+        <Popup
+          visible={this.state.editpopupVisible}
+          onHiding={this.handleClose}
+          dragEnabled={false}
+          closeOnOutsideClick={true}
+          showCloseButton={true}
+          showTitle={true}
+          title="Edit Officer Details"
+          container=".dx-viewport"
+          width={900}
+          height={280}
+        >
+          <Position at="center" my="center" of={this.state.positionOf} />
+          <div className="editPopup"></div>
+        </Popup>
+        <Popup
+          visible={this.state.viewpopupVisible}
+          onHiding={this.handleClose}
+          dragEnabled={false}
+          closeOnOutsideClick={true}
+          showCloseButton={true}
+          showTitle={true}
+          title="Display Officer Details"
+          container=".dx-viewport"
+          width={900}
+          height={280}
+        >
+          <Position at="center" my="center" of={this.state.positionOf} />
+        </Popup>
         <Header />
         <div className="container">
           <div className="officerdisplayDiv">
@@ -98,12 +142,15 @@ export default class officerDetailsDisplay extends Component {
                           <td className="btnCol">
                             <i
                               className="far fa-eye fa-lg"
-                              onClick={this.aaa}
+                              onClick={this.viewDetails}
                               id="offView"
                             />
                           </td>
                           <td className="btnCol">
-                            <i className="fas fa-pencil-alt fa-lg" />
+                            <i
+                              className="fas fa-pencil-alt fa-lg"
+                              onClick={this.editDetails}
+                            />
                           </td>
                           <td className="btnCol">
                             <i
