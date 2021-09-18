@@ -18,7 +18,7 @@ export default class officerProfile extends Component {
   componentDidMount() {
     const { officerOne } = this.context;
     axios
-      .get(`http://localhost:9000/trafficOfficer/officerreg/${officerOne}`)
+      .get(`http://localhost:9000/trafficOfficer/officerDetails/${officerOne}`)
       .then((data) => {
         console.log(data.data);
         this.setState({ officerDetails: data.data });
