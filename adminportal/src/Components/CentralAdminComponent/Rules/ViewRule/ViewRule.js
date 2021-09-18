@@ -19,6 +19,7 @@ constructor(props) {
         uPoints:'',
         obj:'',
         uPop:false
+
     }
 }
     componentDidMount() {
@@ -141,10 +142,10 @@ constructor(props) {
                     closeOnOutsideClick={true}
                     showCloseButton={true}
                     showTitle={true}
-                    title="UPDATE POINTS"
+                    title="DELETE THE RULE"
                     container=".dx-viewport"
-                    width={300}
-                    height={280}
+                    width={500}
+                    height={500}
                 >
                     <Position
                         at="center"
@@ -153,19 +154,23 @@ constructor(props) {
                     />
                     <form onSubmit={this.handlerUpdate} className="form-body-rules">
                         <div className="row">
-                            <div className="col">
-                                <div className="form-group form-part" >
-                                    <label htmlFor="Mobile"> ENTER DEMERITS POINTS</label>
-                                    <input type="text" name = "uPoints"   className="form-control form-input-border" value={this.state.uPoints} onChange={this.handlerChanged}/>
-                                </div>
+                            <div className="form-group form-part">
+                                <label htmlFor="Comment">Comment</label>
+                                <input type="text" className="form-control form-input-border"name ="3"   />
+                            </div>
+                            <div className="form-group form-part">
+                                <label htmlFor="gazzertNo">Gazzette Number</label>
+                                <input type="text" className="form-control form-input-border"name ="3"   />
                             </div>
                         </div>
+
+
                         <div className="row">
 
                             <div className="col">
                                 <div className="buttonHolder text-ligh pt-5">
                                     <button className="my-button text-center"  title="I'm Feeling Lucky" name="lucky" type="submit"
-                                            id="btn_i text-light" ><b> DELETE POINTS</b></button>
+                                            id="btn_i text-light" ><b> DELETE RULE</b></button>
                                 </div>
                             </div>
                         </div>

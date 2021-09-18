@@ -11,6 +11,9 @@ import {
 import PoliceStationLogin from "./Components/PoliceStationLogin/PoliceStationLogin";
 import display from "./Components/PoliceStation/OfficerDetailsDisplay/officerDetailsDisplay";
 import register from "./Components/PoliceStation/TrafficOicRegisterComponent/trafficOfficerReg";
+import PoliceStationDashboard from "./Components/PoliceStationDashboard/PoliceStationDashboard";
+import MyStation from "./Components/MyStation/MyStation"
+
 import Header from "./Components/HeaderComponent/header";
 import AuthContext, { AuthProvider } from "./Reducer/UseReducer";
 export default class App extends Component {
@@ -23,6 +26,8 @@ export default class App extends Component {
               <Route exact path="/" component={PoliceStationLogin} />
               <Route exact path="/display" component={display} />
               <Route exact path="/register" component={register} />
+              <Route exact path="/dashboard" component={PoliceStationDashboard} />
+              <Route exact path="/myStation" component={MyStation} />
             </Switch>
           </Router>
         </AuthProvider>
