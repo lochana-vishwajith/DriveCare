@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Fines = require("../Models/FineModel");
 const driver = require("../Models/DriverModel");
+const Rules = require("../Models/RulesModel");
 const moment = require("moment");
 
 router.post("/", (req, res) => {
@@ -15,6 +16,7 @@ router.post("/", (req, res) => {
     offenceDate,
     place,
     CourtPlace,
+    totalFine,
   } = req.body;
 
   let violationType = [];
@@ -34,6 +36,7 @@ router.post("/", (req, res) => {
     place,
     CourtPlace: CourtPlace.value,
     isPayed: false,
+    totalFine,
   });
   console.log("VV : ", violationType);
   fineDetails
@@ -46,12 +49,52 @@ router.post("/", (req, res) => {
             fines: result._id,
           },
         })
-        .then((data) => {
+        .then(async (data) => {
           console.log("Successfully added to the driver db");
-          res.status(200).send({ result, data });
+          let rules = [];
+          rules = await Rules.find();
+          let selectedRules = [];
+          violationType.forEach((rule) => {
+            rules.forEach((sele) => {
+              if (rule == sele._id) {
+                selectedRules.push(sele.demeritPoints);
+              }
+            });
+          });
+          let total = 0;
+          selectedRules.forEach((point) => {
+            console.log("points = ", point);
+            total = parseInt(total) + parseInt(point);
+            console.log("total in : ", total);
+          });
+          console.log("point : ", total);
+          const driverD = await driver.findById(driverID);
+          let remaining = 0;
+          remaining = parseInt(driverD.points) - parseInt(total);
+          if (parseInt(remaining) < 0) {
+            remaining = 0;
+          }
+          driver
+            .update(
+              { _id: driverID },
+              {
+                $set: {
+                  points: remaining,
+                  licenceStatus: "Pending",
+                },
+              }
+            )
+            .then((resultTwo) => {
+              console.log("ponits are reduced");
+              res.status(200).send({ result, data, resultTwo });
+            })
+            .catch((err) => {
+              console.log("error in adding to the driver db", err);
+              res.status(501).send(err);
+            });
         })
         .catch((err) => {
-          console.log("error in adding to the driver db");
+          console.log("error in adding to the driver db", err);
           res.status(501).send(err);
         });
     })
@@ -138,6 +181,43 @@ router.get("/thirdpartyDetails/:id", (req, res) => {
     })
     .catch((error) => {
       res.send(error);
+    });
+});
+
+router.put("/uploadImage/:id", async (req, res) => {
+  const { driverID, UploadedImageUrl } = req.body;
+
+  console.log("id : ", driverID);
+  console.log("url : ", UploadedImageUrl);
+  let id = req.params.id;
+  await Fines.update(
+    { _id: id },
+    {
+      $set: {
+        confirmImage: UploadedImageUrl,
+        isPayed: true,
+      },
+    }
+  )
+    .then(async (result) => {
+      console.log("Images Added : ", result);
+      await driver
+        .update(
+          { _id: driverID },
+          {
+            $set: {
+              licenceStatus: "Active",
+            },
+          }
+        )
+        .then((resultTwo) => {
+          console.log("Status changed");
+          res.status(200).send({ result, resultTwo });
+        });
+    })
+    .catch((err) => {
+      console.log("Images not added : ", err);
+      res.status(500).send(err);
     });
 });
 

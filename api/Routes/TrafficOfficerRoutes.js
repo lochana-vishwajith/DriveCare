@@ -17,6 +17,7 @@ router.post("/", (req, res) => {
     officerReg,
     profilePicUrl,
     policeStation,
+    totalFine,
   } = req.body;
   const password = nic;
   bcrypt.hash(password, 10).then((hash) => {
@@ -35,6 +36,7 @@ router.post("/", (req, res) => {
       points: 30,
       isNewUser: true,
       status: "Active",
+      totalFine,
     });
     trafficOfficerDetails
       .save()

@@ -23,6 +23,10 @@ const fineSchema = new Schema({
     type: String,
     required: true,
   },
+  totalFine: {
+    type: Number,
+    required: true,
+  },
   vehicelNo: {
     type: String,
     required: true,
@@ -36,10 +40,12 @@ const fineSchema = new Schema({
     required: false,
   },
 
-  confirmImage: {
-    type: String,
-    required: false,
-  },
+  confirmImage: [
+    {
+      type: String,
+      required: false,
+    },
+  ],
   violationType: [
     {
       type: mongoose.Schema.Types.ObjectId,

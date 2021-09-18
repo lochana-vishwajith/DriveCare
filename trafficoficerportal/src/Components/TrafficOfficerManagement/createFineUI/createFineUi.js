@@ -172,21 +172,22 @@ export default class createFineUi extends Component {
   };
 
   onSelectViolationType = (violationtype) => {
-    alert("ddd");
     this.setState({ violationtype });
-    this.calculateTotalFine(violationtype);
   };
   onSelectCourtPlace = (CourtPlace) => {
     this.setState({ CourtPlace });
   };
 
-  calculateTotalFine = (violationtype) => {
-    this.setState(
-      violationtype.forEach((element) => {
-        this.state.totalFine =
-          parseFloat(this.state.totalFine) + parseFloat(element.value[0]);
-      })
-    );
+  calculateTotalFine = () => {
+    let total = 0;
+    this.state.violationtype.forEach((type) => {
+      this.state.ViolationRules.forEach((violations) => {
+        if (type.value == violations._id) {
+          total = parseInt(total) + parseInt(violations.fineAmount);
+        }
+      });
+    });
+    this.setState({ totalFine: total });
   };
 
   onCreateFine = () => {
@@ -200,6 +201,7 @@ export default class createFineUi extends Component {
       offenceDate,
       place,
       CourtPlace,
+      totalFine,
     } = this.state;
     console.log("v : ", violationtype);
     const details = {
@@ -212,6 +214,7 @@ export default class createFineUi extends Component {
       offenceDate,
       place,
       CourtPlace,
+      totalFine,
     };
     axios
       .post("http://localhost:9000/fine", details)
@@ -363,19 +366,32 @@ export default class createFineUi extends Component {
                                 />
                               </div>
                             </div>
-
-                            <label className="fineDriverName">
-                              Violation Type :
-                            </label>
-                            <Select
-                              className="basic-single"
-                              isSearchable={true}
-                              options={this.state.allrules}
-                              onChange={this.onSelectViolationType}
-                              value={violationtype}
-                              id="officerSelectVio"
-                              isMulti
-                            />
+                            <div className="vioType">
+                              <div>
+                                <label className="fineDriverName">
+                                  Violation Type :
+                                </label>
+                                <Select
+                                  className="basic-single"
+                                  isSearchable={true}
+                                  options={this.state.allrules}
+                                  onChange={this.onSelectViolationType}
+                                  value={violationtype}
+                                  id="officerSelectVio"
+                                  isMulti
+                                />
+                              </div>
+                              <div className="calcBtn">
+                                <br />
+                                <button
+                                  type="button"
+                                  className="btn btn-dark"
+                                  onClick={this.calculateTotalFine}
+                                >
+                                  Calculate Total
+                                </button>
+                              </div>
+                            </div>
 
                             <br />
                             <label className="fineDriverName">
@@ -533,15 +549,15 @@ export default class createFineUi extends Component {
                                 {selectedDriverDetails.licenceStatus}
                               </b>
                             )}
-                            {selectedDriverDetails.licenceStatus >=
+                            {selectedDriverDetails.licenceStatus ===
                               "Pending" && (
                               <b className="pointYellowOfficer">
                                 {selectedDriverDetails.licenceStatus}
                               </b>
                             )}
-                            {selectedDriverDetails.licenceStatus >=
+                            {selectedDriverDetails.licenceStatus ===
                               "Cancel" && (
-                              <b className="pointYellowOfficer">
+                              <b className="pointRedOfficer">
                                 {selectedDriverDetails.licenceStatus}
                               </b>
                             )}
