@@ -133,6 +133,28 @@ router.put("/updatePw/:id", (req, res) => {
   let id = req.params.id;
 });
 
+router.put("/updateDetails/:id", async (req, res) => {
+  let id = req.params.id;
+
+  await TrafficOfficer.update(
+    { _id: id },
+    {
+      $set: {
+        mobile: req.body.mobile,
+        home: req.body.home,
+        nic: req.body.nic,
+        nameInitial: req.body.nameInitial,
+      },
+    }
+  )
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(501).send(err);
+    });
+});
+
 //IT19152806
 router.get("/", async (req, res) => {
   try {
