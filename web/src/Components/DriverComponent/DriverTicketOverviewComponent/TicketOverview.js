@@ -10,6 +10,7 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import "react-toastify/dist/ReactToastify.css";
 import { storage } from "../../../firebase/firebase";
 import ImageViewer from "react-simple-image-viewer";
+import { LoadIndicator } from "devextreme-react/load-indicator";
 
 export default class TicketOverview extends Component {
   constructor(props) {
@@ -32,6 +33,9 @@ export default class TicketOverview extends Component {
       popupVisibleEv: false,
       currentImage: 0,
       isViwerOpen: false,
+      selectedImage: [],
+      isImageAdded: false,
+      loadIndicatorVisible: false,
     };
   }
 
@@ -88,6 +92,8 @@ export default class TicketOverview extends Component {
 
   handleOpenEvidence = () => {
     this.setState({ popupVisibleEv: true });
+    this.setState({ selectedImage: [] });
+    this.setState({ isImageAdded: false });
   };
 
   handleCloseEvidence = () => {
@@ -157,9 +163,21 @@ export default class TicketOverview extends Component {
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+    console.log(e.target.files);
+
+    if (e.target.files) {
+      let tempImages = [];
+      Array.from(e.target.files).map((file) => {
+        tempImages.push(URL.createObjectURL(file));
+      });
+      this.setState({ selectedImage: tempImages });
+      this.setState({ isImageAdded: true });
+    }
+    console.log("images : ", this.state.selectedImage);
   };
 
   imageUpload = () => {
+    this.setState({ loadIndicatorVisible: true });
     const promises = [];
     const { evidences } = this.state;
     const date = Date.now();
@@ -190,10 +208,6 @@ export default class TicketOverview extends Component {
               //   evidenceURL: [...prevState.evidenceURL, urls],
               // }));
               setTimeout(this.onAddEvidence(), 1000);
-              // this.state.evidenceURL.map((url, i) => {
-              //   console.log("ImageURL", url);
-              // });
-              // console.log("ImageURL", this.state.evidenceURL);
             })
             .catch((err) => {
               console.log("image 2nd err", err);
@@ -206,11 +220,14 @@ export default class TicketOverview extends Component {
     });
 
     Promise.all(promises)
-      .then(() => alert("All images uploaded"))
+      .then(() => {
+        this.setState({ loadIndicatorVisible: false });
+      })
       .catch((err) => console.log("Promise Error", err));
   };
 
   onAddEvidence = () => {
+    this.setState({ loadIndicatorVisible: true });
     const dataSet = {
       evidenceURLs: this.state.evidenceURL,
     };
@@ -224,6 +241,7 @@ export default class TicketOverview extends Component {
         toast.success("Evidence Added Successfully", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        this.setState({ loadIndicatorVisible: false });
         // window.location.reload();
       })
       .catch((error) => {
@@ -250,7 +268,6 @@ export default class TicketOverview extends Component {
   };
 
   deleteEvidence = (id, url) => {
-    alert("Badu wada");
     console.log("Deleted Data", id);
     console.log("Deleted URL", url);
     const data = {
@@ -296,50 +313,102 @@ export default class TicketOverview extends Component {
                       <h3>Violation Details</h3>
                     </label>
                     {this.state.fine.map((item, index) => (
-                      <div className="ml-2 d-violation-body">
-                        <label>Violation : </label>
-                        <b>
-                          <ol>
-                            {item.violationType.map((val, k) => (
-                              <li className="d-inline"> {val.ruleName} |</li>
-                            ))}
-                          </ol>
-                        </b>
-                        <br />
-                        <label>Location : </label>
-                        <b>{item.place}</b>
-                        <br />
-                        <label>Description : </label>
-                        <b>
-                          {item.violationType.map((val, k) => val.description)}
-                        </b>
-                        <br />
-                        <label>Vehicle Number : </label>
-                        <b>{item.vehicelNo}</b>
-                        <br />
-                        <label>Fine : </label>
-                        <b>
-                          Rs.{" "}
-                          {item.violationType.map((val, k) => val.fineAmount)}
-                        </b>
-                        <br />
-                        {item.courtDate ? (
-                          <div>
-                            <label>Court Date : </label>
-                            <b>
-                              {moment(item.courtDate).format(
-                                "MMMM Do YYYY, h:mm:ss a"
-                              )}
-                            </b>
-                            <label>Court : </label>
-                            <b>{item.CourtPlace}</b>
+                      <div>
+                        <div class="col-md-12 mt-2">
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Violation</label>
+                            </div>
+                            <div class="col-sm-9 ">
+                              <b>
+                                <ul>
+                                  {item.violationType.map((val, k) => (
+                                    <li className="d-inline">
+                                      {val.ruleName}
+                                      <br />
+                                    </li>
+                                  ))}
+                                </ul>
+                              </b>
+                            </div>
                           </div>
-                        ) : (
-                          <div>
-                            <label>Fine Type : </label>
-                            <b>On Premises</b>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Location</label>
+                            </div>
+                            <div class="col-sm-9">
+                              <b>{item.place}</b>
+                            </div>
                           </div>
-                        )}
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Description</label>
+                            </div>
+                            <div class="col-sm-9">
+                              <b>
+                                {item.violationType.map(
+                                  (val, k) => val.description
+                                )}
+                              </b>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Vehicle Number</label>
+                            </div>
+                            <div class="col-sm-9">
+                              <b>{item.vehicelNo}</b>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Fine</label>
+                            </div>
+                            <div class="col-sm-9">
+                              <b>
+                                Rs.{" "}
+                                {item.violationType.map(
+                                  (val, k) => val.fineAmount
+                                )}
+                              </b>
+                            </div>
+                          </div>
+                          <hr />
+                          {item.courtDate ? (
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <label class="mb-0">Court Date</label>
+                              </div>
+                              <div class="col-sm-4">
+                                <b>
+                                  {moment(item.courtDate).format(
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                  )}
+                                </b>
+                              </div>
+                              <div class="col-sm-1">|</div>
+                              <div class="col-sm-2">
+                                <label class="mb-0">Court</label>
+                              </div>
+                              <div class="col-sm-1">
+                                <b>{item.CourtPlace}</b>
+                              </div>
+                            </div>
+                          ) : (
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <label class="mb-0">Fine Type</label>
+                              </div>
+                              <div class="col-sm-9">
+                                <b>On Premises</b>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -348,27 +417,52 @@ export default class TicketOverview extends Component {
                       <h3>Officer Details</h3>
                     </label>
                     {this.state.fine.map((item, index) => (
-                      <div className="ml-2 d-violation-body">
-                        <div key={index}>
-                          <label>Officer Name : </label>
-                          <b>
-                            <ul>
-                              {item.Officers.map((i, k) => (
-                                <li className="d-inline">{i.nameInitial} |</li>
-                              ))}
-                            </ul>
-                          </b>
-                          <br />
-                          <label>Officer ID : </label>
-                          <b>
-                            <ul>
-                              {item.Officers.map((i, k) => (
-                                <li className="d-inline">{i.officerReg}</li>
-                              ))}
-                            </ul>
-                          </b>
-                          <br />
-                          <label>Police Station : </label>
+                      <div>
+                        <div class="col-md-12 mt-2">
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Officer Name</label>
+                            </div>
+                            <div class="col-sm-9 ">
+                              <b>
+                                <ul>
+                                  {item.Officers.map((i, k) => (
+                                    <li className="d-inline-of">
+                                      {i.nameInitial}
+                                      <br />
+                                    </li>
+                                  ))}
+                                </ul>
+                              </b>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Officer ID</label>
+                            </div>
+                            <div class="col-sm-9 ">
+                              <b>
+                                <ul>
+                                  {item.Officers.map((i, k) => (
+                                    <li className="d-inline-of">
+                                      {i.officerReg}
+                                      <br />
+                                    </li>
+                                  ))}
+                                </ul>
+                              </b>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Police Station</label>
+                            </div>
+                            <div class="col-sm-9">
+                              <b>Battaramulla</b>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -501,17 +595,28 @@ export default class TicketOverview extends Component {
                           onChange={this.hnadlerFileChange}
                           multiple
                         />
-                        {this.state.evidences.map((url, i) => (
+                        <br />
+
+                        {this.state.selectedImage.map((url, i) => (
                           <div className="image-holder">
                             <img
                               key={i}
                               src={url}
-                              class="shadow-1-strong rounded mb-4"
+                              className="shadow-1-strong rounded mb-4 "
                               id="evidences"
                               alt=""
                             />
                           </div>
                         ))}
+                        <br />
+                        <div className="row">
+                          <LoadIndicator
+                            id="large-indicator"
+                            visible={this.state.loadIndicatorVisible}
+                            height={60}
+                            width={60}
+                          />
+                        </div>
                         <div class="row">
                           <div class="col text-center">
                             <button
@@ -526,18 +631,28 @@ export default class TicketOverview extends Component {
                       </div>
                     </Popup>
                     <div>
+                      <br />
                       {this.state.evidenceImgs.map((item, index) =>
                         item.evidenceURLs.map((i, k) => (
-                          <img
-                            src={i}
-                            class="shadow-1-strong rounded mb-4"
-                            id="evidences"
-                            alt=""
-                            key={k}
-                            onClick={() => {
-                              this.deleteEvidence(item._id, i);
-                            }}
-                          />
+                          <div className="responsive-imageview-d">
+                            <div className="gallery-d">
+                              <img
+                                src={i}
+                                alt="evidence"
+                                key={k}
+                                className="single-gallery-img-d"
+                              />
+                              <br />
+                              <center>
+                                <i
+                                  className="far fa-trash-alt del-icon-d"
+                                  onClick={() => {
+                                    this.deleteEvidence(item._id, i);
+                                  }}
+                                ></i>
+                              </center>
+                            </div>
+                          </div>
                         ))
                       )}
                       {/* {this.state.isViwerOpen && (
@@ -559,49 +674,102 @@ export default class TicketOverview extends Component {
                     <h3>Violation Details</h3>
                   </label>
                   {this.state.fine.map((item, index) => (
-                    <div className="ml-2 d-violation-body">
-                      <label>Violation : </label>
-                      <b>
-                        <ol>
-                          {item.violationType.map((val, k) => (
-                            <li className="d-inline"> {val.ruleName} |</li>
-                          ))}
-                        </ol>
-                      </b>
-                      <br />
-                      <label>Location : </label>
-                      <b>{item.place}</b>
-                      <br />
-                      <label>Description : </label>
-                      <b>
-                        {item.violationType.map((val, k) => val.description)}
-                      </b>
-                      <br />
-                      <label>Vehicle Number : </label>
-                      <b>{item.vehicelNo}</b>
-                      <br />
-                      <label>Fine : </label>
-                      <b>
-                        Rs. {item.violationType.map((val, k) => val.fineAmount)}
-                      </b>
-                      <br />
-                      {item.courtDate ? (
-                        <div>
-                          <label>Court Date : </label>
-                          <b>
-                            {moment(item.courtDate).format(
-                              "MMMM Do YYYY, h:mm:ss a"
-                            )}
-                          </b>
-                          <label>Court : </label>
-                          <b>{item.CourtPlace}</b>
+                    <div>
+                      <div class="col-md-12 mt-2">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label class="mb-0">Violation</label>
+                          </div>
+                          <div class="col-sm-9 ">
+                            <b>
+                              <ul>
+                                {item.violationType.map((val, k) => (
+                                  <li className="d-inline">
+                                    {val.ruleName}
+                                    <br />
+                                  </li>
+                                ))}
+                              </ul>
+                            </b>
+                          </div>
                         </div>
-                      ) : (
-                        <div>
-                          <label>Fine Type : </label>
-                          <b>On Premises</b>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label class="mb-0">Location</label>
+                          </div>
+                          <div class="col-sm-9">
+                            <b>{item.place}</b>
+                          </div>
                         </div>
-                      )}
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label class="mb-0">Description</label>
+                          </div>
+                          <div class="col-sm-9">
+                            <b>
+                              {item.violationType.map(
+                                (val, k) => val.description
+                              )}
+                            </b>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label class="mb-0">Vehicle Number</label>
+                          </div>
+                          <div class="col-sm-9">
+                            <b>{item.vehicelNo}</b>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label class="mb-0">Fine</label>
+                          </div>
+                          <div class="col-sm-9">
+                            <b>
+                              Rs.{" "}
+                              {item.violationType.map(
+                                (val, k) => val.fineAmount
+                              )}
+                            </b>
+                          </div>
+                        </div>
+                        <hr />
+                        {item.courtDate ? (
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Court Date</label>
+                            </div>
+                            <div class="col-sm-4">
+                              <b>
+                                {moment(item.courtDate).format(
+                                  "MMMM Do YYYY, h:mm:ss a"
+                                )}
+                              </b>
+                            </div>
+                            <div class="col-sm-1">|</div>
+                            <div class="col-sm-2">
+                              <label class="mb-0">Court</label>
+                            </div>
+                            <div class="col-sm-1">
+                              <b>{item.CourtPlace}</b>
+                            </div>
+                          </div>
+                        ) : (
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <label class="mb-0">Fine Type</label>
+                            </div>
+                            <div class="col-sm-9">
+                              <b>On Premises</b>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -610,27 +778,52 @@ export default class TicketOverview extends Component {
                     <h3>Officer Details</h3>
                   </label>
                   {this.state.fine.map((item, index) => (
-                    <div className="ml-2 d-violation-body">
-                      <div key={index}>
-                        <label>Officer Name : </label>
-                        <b>
-                          <ul>
-                            {item.Officers.map((i, k) => (
-                              <li className="d-inline">{i.nameInitial} |</li>
-                            ))}
-                          </ul>
-                        </b>
-                        <br />
-                        <label>Officer ID : </label>
-                        <b>
-                          <ul>
-                            {item.Officers.map((i, k) => (
-                              <li className="d-inline">{i.officerReg}</li>
-                            ))}
-                          </ul>
-                        </b>
-                        <br />
-                        <label>Police Station : </label>
+                    <div>
+                      <div class="col-md-12 mt-2">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label class="mb-0">Officer Name</label>
+                          </div>
+                          <div class="col-sm-9 ">
+                            <b>
+                              <ul>
+                                {item.Officers.map((i, k) => (
+                                  <li className="d-inline-of">
+                                    {i.nameInitial}
+                                    <br />
+                                  </li>
+                                ))}
+                              </ul>
+                            </b>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label class="mb-0">Officer ID</label>
+                          </div>
+                          <div class="col-sm-9 ">
+                            <b>
+                              <ul>
+                                {item.Officers.map((i, k) => (
+                                  <li className="d-inline-of">
+                                    {i.officerReg}
+                                    <br />
+                                  </li>
+                                ))}
+                              </ul>
+                            </b>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label class="mb-0">Police Station</label>
+                          </div>
+                          <div class="col-sm-9">
+                            <b>Battaramulla</b>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -754,33 +947,6 @@ export default class TicketOverview extends Component {
                       of={this.state.positionOf}
                     />
                     <div className="dx-field" id="d-text-in">
-                      {/* {this.state.evidenceImgs.map((item, index) =>
-                        item.evidenceURLs.map((i, k) => {
-                          <img
-                            key={k}
-                            src={i || "http://via.placeholder.com/300"}
-                            class="shadow-1-strong rounded mb-4"
-                            id="evidences"
-                            alt=""
-                          />;
-                          console.log("EVIDANCE LOOP blw", i);
-                        })
-                      )} */}
-                      {/* {this.state.evidences.map((url, i) => (
-                        <img
-                          key={i}
-                          src={url || "http://via.placeholder.com/300"}
-                          class="shadow-1-strong rounded mb-4"
-                          id="evidences"
-                          alt=""
-                        />
-                      ))} */}
-                      <img
-                        src={this.state.evidences}
-                        class="shadow-1-strong rounded mb-4"
-                        id="evidences"
-                        alt=""
-                      />
                       <input
                         type="file"
                         id="driverImgBtn"
@@ -788,6 +954,28 @@ export default class TicketOverview extends Component {
                         onChange={this.hnadlerFileChange}
                         multiple
                       />
+                      <br />
+
+                      {this.state.selectedImage.map((url, i) => (
+                        <div className="image-holder">
+                          <img
+                            key={i}
+                            src={url}
+                            className="shadow-1-strong rounded mb-4 "
+                            id="evidences"
+                            alt=""
+                          />
+                        </div>
+                      ))}
+                      <br />
+                      <div className="row">
+                        <LoadIndicator
+                          id="large-indicator"
+                          visible={this.state.loadIndicatorVisible}
+                          height={60}
+                          width={60}
+                        />
+                      </div>
                       <div class="row">
                         <div class="col text-center">
                           <button
@@ -802,19 +990,28 @@ export default class TicketOverview extends Component {
                     </div>
                   </Popup>
                   <div>
+                    <br />
                     {this.state.evidenceImgs.map((item, index) =>
                       item.evidenceURLs.map((i, k) => (
-                        <img
-                          src={i}
-                          class="shadow-1-strong rounded mb-4"
-                          id="evidences"
-                          alt=""
-                          onClick={() => {
-                            this.deleteEvidence(item._id, i);
-                          }}
-                        />
-
-                        // console.log("EVIDANCE LOOP blw", i);
+                        <div className="responsive-imageview-d">
+                          <div className="gallery-d">
+                            <img
+                              src={i}
+                              alt="evidence"
+                              key={k}
+                              className="single-gallery-img-d"
+                            />
+                            <br />
+                            <center>
+                              <i
+                                className="far fa-trash-alt del-icon-d"
+                                onClick={() => {
+                                  this.deleteEvidence(item._id, i);
+                                }}
+                              ></i>
+                            </center>
+                          </div>
+                        </div>
                       ))
                     )}
                   </div>

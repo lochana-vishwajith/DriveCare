@@ -1,12 +1,3 @@
-//export const initialState = null;
-
-// export const reducer = (state, action) => {
-//   if (action.type === "USER") {
-//     return action.payload;
-//   }
-
-//   return state;
-// };
 import React, { Component } from "react";
 
 const AuthContext = React.createContext();
