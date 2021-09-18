@@ -5,22 +5,15 @@ import React, { useContext, useState, Component } from "react";
 import "./DriverLogin.css";
 import Button from "../../ButtonComponent/button";
 import axios from "axios";
-// import { UserContext } from "../../../App";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../../../Reducer/UseReduser";
-// import { Component } from "devextreme-react/core/component";
 
 toast.configure();
 
-// function DriverLogin() {
 class DriverLogin extends Component {
   static contextType = AuthContext;
-  // const history = useHistory();
-  // const { state, dispatch } = useContext(UserContext);
-  // const [dlicenceNo, setdlicenceNo] = useState("");
-  // const [password, setpassword] = useState("");
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +30,6 @@ class DriverLogin extends Component {
     this.setState({ password: e.value });
   };
 
-  // function onSubmit() {
   onSubmit = () => {
     const { logIn, setDriverId } = this.context;
     const loginDetails = {

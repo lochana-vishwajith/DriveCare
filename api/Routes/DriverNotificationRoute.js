@@ -16,7 +16,7 @@ router.get("/:id", (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const id = req.params.id;
-  const dataSet = req.body;
+  // const dataSet = req.body;
   // console.log("Data", dataSet);
   await Notification.findByIdAndUpdate(id, { $set: { isViewed: true } })
     .then((data) => {

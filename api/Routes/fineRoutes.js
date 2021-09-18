@@ -66,7 +66,7 @@ router.post("/", async (req, res) => {
         .save()
         .then((response) => {
           console.log("Successfully added to the Notification");
-          res.status(200).send({ result, response });
+          // res.status(200).send({ result, response });
         })
         .catch((error) => {
           console.log("error in adding to the Nofication");

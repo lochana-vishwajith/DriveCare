@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./DriverHeader.css";
-// import { UserContext } from "../../../App";
 import { Link } from "react-router-dom";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,12 +7,9 @@ import Badge from "@material-ui/core/Badge";
 import Box from "@material-ui/core/Box";
 import Popper from "@material-ui/core/Popper";
 import axios from "axios";
-// import AuthContext from "../../../Reducer/UseReducer";
-import { render } from "react-dom";
 import AuthContext from "../../../Reducer/UseReduser";
 import moment from "moment";
 
-// export default function DriverHeader() {
 class DriverHeader extends Component {
   static contextType = AuthContext;
   constructor(props) {
@@ -44,7 +40,14 @@ class DriverHeader extends Component {
       : this.setState({ anchorEl: event.currentTarget });
     this.flipOpen();
     this.setState({ notificationCount: null });
-    this.removeNotification();
+    if (this.state.notification) {
+      setTimeout(() => {
+        this.removeNotification();
+      }, 240000);
+    }
+    setTimeout(() => {
+      this.removeNotification();
+    }, 24000);
   };
 
   logout = () => {
@@ -87,11 +90,22 @@ class DriverHeader extends Component {
   }
 
   removeNotification() {
-    let notiID = [];
-    this.state.notification.map((item, index) => {
-      item.map((i, k) => notiID.push(i._id));
-    });
-    console.log("NOTIFICATION REMOCVE:", notiID);
+    if (this.state.notification) {
+      this.state.notification.map((item, index) => {
+        item.map((i, k) =>
+          axios
+            .put(`http://localhost:9000/notifications/${i._id}`)
+            .then((response) => {
+              console.log("Data:", response);
+              console.log("Notification removed");
+              this.setState({ notification: null });
+            })
+            .catch((error) => {
+              console.log("Notification not removed", error);
+            })
+        );
+      });
+    }
   }
 
   render() {
@@ -155,17 +169,21 @@ class DriverHeader extends Component {
                       >
                         <Box sx={{ border: 5, p: 1, bgcolor: "text.disabled" }}>
                           <div class="card">
-                            {this.state.notification.map((item, index) =>
-                              item.map((i, k) => (
-                                <div class="card-body" key={k}>
-                                  {i.description}
-                                  <p class="card-text">
-                                    <small class="text-muted">
-                                      {moment(i.createdDate).fromNow()}
-                                    </small>
-                                  </p>
-                                </div>
-                              ))
+                            {this.state.notification != null ? (
+                              this.state.notification.map((item, index) =>
+                                item.map((i, k) => (
+                                  <div class="card-body" key={k}>
+                                    {i.description}
+                                    <p class="card-text">
+                                      <small class="text-muted">
+                                        {moment(i.createdDate).fromNow()}
+                                      </small>
+                                    </p>
+                                  </div>
+                                ))
+                              )
+                            ) : (
+                              <div class="card-body">You catch up all</div>
                             )}
                           </div>
                         </Box>
