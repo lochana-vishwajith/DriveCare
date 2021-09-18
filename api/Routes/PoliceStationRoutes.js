@@ -83,6 +83,21 @@ console.log(id)
         });
 });
 
+
+router.get("/my/:id", async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await PoliceStation.find({ _id: id })
+        .then((result) => {
+            res.status(200).send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
+
+
 router.post("/login", async (req, res) => {
     const { registrationNo, password } = req.body;
     console.log('awaa')
