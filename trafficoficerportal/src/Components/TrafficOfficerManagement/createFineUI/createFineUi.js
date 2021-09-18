@@ -173,7 +173,6 @@ export default class createFineUi extends Component {
 
   onSelectViolationType = (violationtype) => {
     this.setState({ violationtype });
-    console.log("v T :", violationtype);
   };
   onSelectCourtPlace = (CourtPlace) => {
     this.setState({ CourtPlace });
@@ -182,9 +181,11 @@ export default class createFineUi extends Component {
   calculateTotalFine = () => {
     this.setState(
       this.state.violationtype.forEach((element) => {
-        this.state.totalFine = this.state.totalFine + element.value[0];
+        this.state.totalFine =
+          parseFloat(this.state.totalFine) + parseFloat(element.value[0]);
       })
     );
+    alert(this.state.totalFine);
   };
 
   onCreateFine = () => {
@@ -365,7 +366,6 @@ export default class createFineUi extends Component {
                             <label className="fineDriverName">
                               Violation Type :
                             </label>
-
                             <Select
                               className="basic-single"
                               isSearchable={true}
@@ -375,6 +375,7 @@ export default class createFineUi extends Component {
                               id="officerSelectVio"
                               isMulti
                             />
+
                             <br />
                             <label className="fineDriverName">
                               Competent To Drive :
@@ -505,7 +506,7 @@ export default class createFineUi extends Component {
                               )}
                             {selectedDriverDetails.points >= 0 &&
                               selectedDriverDetails.points < 10 && (
-                                <b className="pointYellowOfficer">
+                                <b className="pointRedOfficer">
                                   {selectedDriverDetails.points}
                                 </b>
                               )}
