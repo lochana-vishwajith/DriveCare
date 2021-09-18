@@ -1,14 +1,13 @@
 import React from 'react'
-import Navbar from '../../navbarComponent/navbar'
-import Footer from "../../Footer/Footer";
-
+import Navbar from "../navbarComponent/navbar";
+import Footer from "../Footer/Footer";
 //Admin dashboard
 //commit to check
 export default class AdminDashboard extends React.Component {
     render() {
         return(<div>
 
-                <Navbar portal = "-ADMIN DASHBOARD-" topic1 ="DASHBOARD" link1 = "/" topic2 = "LOGOUT" link2 = "/adminLogin"/>
+                <Navbar portal = "-ADMIN DASHBOARD-" topic1 ="DASHBOARD" link1 = "/" topic2 = "LOGOUT" link2 = "/"/>
                 <div className="container">
                     <div className="row">
 
@@ -16,7 +15,7 @@ export default class AdminDashboard extends React.Component {
 
                             <div className="card card-body-cus-pan" >
                                 <div className="card-body">
-                                    <h5 className="card-title">RULES & CATEGORIES</h5>
+                                    <h5 className="card-title">MY STATION</h5>
                                     <p className="card-text">MANAGE RULES AND CATEGORIES OF THE APPLICATION VIEW THE RULES OF THE APPLICATION.</p>
                                     <center><button className="btn btn-outline-secondary text-light" type="button"
                                                     id="button-addon2"
@@ -29,7 +28,7 @@ export default class AdminDashboard extends React.Component {
 
                             <div className="card card-body-cus-pan">
                                 <div className="card-body">
-                                    <h5 className="card-title">POLICE STATIONS</h5>
+                                    <h5 className="card-title">TRAFFIC OFFICERS</h5>
                                     <p className="card-text">ADD POLICE STATIONS MANAGE POLICE STATIONS AND VIEW POLICE STATION DETAILS</p>
                                     <center><button className="btn btn-outline-secondary text-light" type="button"
                                                     id="button-addon2"
@@ -72,11 +71,7 @@ export default class AdminDashboard extends React.Component {
                             </div>
                         </div>
 
-
                     </div>
-
-
-
                 </div>
                 <Footer/>
             </div>
