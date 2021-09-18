@@ -3,6 +3,7 @@ const Driver = require("../Models/DriverModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Rules = require("./RulesRoutes");
+const Notification = require("../Models/DriverNotificationsModel");
 
 router.post("/", (req, res) => {
   console.log("inside post");
@@ -138,12 +139,35 @@ router.get("/driverdetails/:id", async (req, res) => {
 
 //IT19152806
 router.put("/updatedpoints/:id", async (req, res) => {
+  console.log("inside update points");
   const c = await Driver.findById(req.params.id);
-
+  //IT18014396
+  const notificationDetails = new Notification({
+    driverID: req.params.id,
+    description: `Points Updated. New Points: ${req.body.points}`,
+    createdDate: new Date(),
+    isViewed: false,
+  });
+  console.log("NOTIFICATIONDETAILS:", notificationDetails);
   try {
+    console.log("inside update points try");
     c.points = req.body.points;
+    console.log(c.points);
+
     const c1 = c.save(c);
+    console.log(c1);
     res.send(c1);
+    //IT18014396
+    notificationDetails
+      .save()
+      .then((response) => {
+        console.log("Successfully added to the Notification");
+        // res.status(200).send(response);
+      })
+      .catch((error) => {
+        console.log("error in adding to the Nofication");
+        res.status(501).send(error);
+      });
   } catch (error) {
     res.send(error);
   }

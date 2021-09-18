@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "devextreme/dist/css/dx.light.css";
 import {
@@ -18,41 +18,46 @@ import DriverFooter from "./Components/DriverComponent/DriverFooterComponent/Dri
 import DriverSummary from "./Components/DriverComponent/DriverSummaryComponent/DriverSummary";
 import ThirdPartySearch from "./Components/DriverComponent/DriverThirdPartyComponent/ThirdPartySearch";
 import DriverDetailView from "./Components/DriverComponent/DriverThirdPartyComponent/DriverDetailView";
+import AuthContext, { AuthProvider } from "../src/Reducer/UseReduser";
 
-import { initialState, reducer } from "../src/Reducer/UseReduser";
-export const UserContext = createContext();
-function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  // render() {
-  return (
-    <div>
-      <UserContext.Provider value={{ state, dispatch }}>
-        <Router>
-          <DriverHeader />
-          <Switch>
-            <Route exact path="/driverRegister" component={DriverReg} />
-            <Route exact path="/" component={DriverLogin} />
-            <Route exact path="/driverDisplay" component={DriverProfile} />
-            <Route
-              exact
-              path="/driverProfileUpdate/:id"
-              component={DriverProfileUpdate}
-            />
-            <Route exact path="/ongoingTickets" component={OngoingTicket} />
-            <Route
-              exact
-              path="/ticketOverview/:id"
-              component={TicketOverview}
-            />
-            <Route exact path="/summary" component={DriverSummary} />
-            <Route exact path="/search" component={ThirdPartySearch} />
-            <Route exact path="/driver/:id" component={DriverDetailView} />
-          </Switch>
-          <DriverFooter />
-        </Router>
-      </UserContext.Provider>
-    </div>
-  );
+// import { initialState, reducer } from "../src/Reducer/UseReduser";
+// export const UserContext = createContext();
+// function App() {
+//   const [state, dispatch] = useReducer(reducer, initialState);
+class App extends Component {
+  render() {
+    return (
+      <div>
+        {/* <UserContext.Provider value={{ state, dispatch }}> */}
+        <AuthProvider>
+          <Router>
+            <DriverHeader />
+            <Switch>
+              <Route exact path="/driverRegister" component={DriverReg} />
+              <Route exact path="/" component={DriverLogin} />
+              <Route exact path="/driverDisplay" component={DriverProfile} />
+              <Route
+                exact
+                path="/driverProfileUpdate/:id"
+                component={DriverProfileUpdate}
+              />
+              <Route exact path="/ongoingTickets" component={OngoingTicket} />
+              <Route
+                exact
+                path="/ticketOverview/:id"
+                component={TicketOverview}
+              />
+              <Route exact path="/summary" component={DriverSummary} />
+              <Route exact path="/search" component={ThirdPartySearch} />
+              <Route exact path="/driver/:id" component={DriverDetailView} />
+            </Switch>
+            <DriverFooter />
+          </Router>
+          {/* </UserContext.Provider> */}
+        </AuthProvider>
+      </div>
+    );
+  }
 }
 
 export default App;

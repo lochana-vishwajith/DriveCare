@@ -2,9 +2,10 @@ const router = require("express").Router();
 const Fines = require("../Models/FineModel");
 const driver = require("../Models/DriverModel");
 const Rules = require("../Models/RulesModel");
+const Notification = require("../Models/DriverNotificationsModel");
 const moment = require("moment");
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const {
     driverID,
     violationtype,
@@ -38,8 +39,15 @@ router.post("/", (req, res) => {
     isPayed: false,
     totalFine,
   });
+
+  const notificationDetails = new Notification({
+    driverID,
+    description: `You Got a New Fine ${fineType}`,
+    createdDate: offenceDate,
+    isViewed: false,
+  });
   console.log("VV : ", violationType);
-  fineDetails
+  await fineDetails
     .save()
     .then((result) => {
       console.log("Successfully added to the fine db");
@@ -96,6 +104,16 @@ router.post("/", (req, res) => {
         .catch((err) => {
           console.log("error in adding to the driver db", err);
           res.status(501).send(err);
+        });
+      notificationDetails
+        .save()
+        .then((response) => {
+          console.log("Successfully added to the Notification");
+          // res.status(200).send({ result, response });
+        })
+        .catch((error) => {
+          console.log("error in adding to the Nofication");
+          res.status(501).send(error);
         });
     })
     .catch((err) => {
