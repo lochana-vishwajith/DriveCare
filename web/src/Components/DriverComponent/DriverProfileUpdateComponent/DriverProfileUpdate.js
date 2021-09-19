@@ -35,6 +35,8 @@ export default class DriverProfileUpdate extends Component {
       vehicleCategories: [],
       allCategories: [],
       vehicleType: [],
+      selectedImage: [],
+      isImageAdded: false,
     };
   }
   componentDidMount() {
@@ -148,6 +150,15 @@ export default class DriverProfileUpdate extends Component {
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+
+    if (e.target.files) {
+      let tempImages = [];
+      Array.from(e.target.files).map((file) => {
+        tempImages.push(URL.createObjectURL(file));
+      });
+      this.setState({ selectedImage: tempImages });
+      this.setState({ isImageAdded: true });
+    }
   };
 
   imageUpload = () => {
@@ -279,6 +290,17 @@ export default class DriverProfileUpdate extends Component {
                         alt=""
                       />
                     )}
+                    {this.state.selectedImage.map((url, i) => (
+                      <div>
+                        <img
+                          key={i}
+                          src={url}
+                          className="shadow-1-strong rounded mb-4 "
+                          id="profilePic"
+                          alt=""
+                        />
+                      </div>
+                    ))}
                     <br />
                     <input
                       type="file"
