@@ -124,4 +124,21 @@ router.put("/update/:id", async (req, res) => {
     });
 });
 
+
+router.delete("/delete/:id", async (req, res) => {
+
+ console.log('delete rule called');
+  let id = req.params.id;
+
+  await Rules.findByIdAndDelete(id)
+      .then((result) => {
+        console.log("data is deleted");
+        res.status(200).send({ status: result });
+      })
+      .catch((err) => {
+        res.status(501).send(err);
+      });
+});
+
+
 module.exports = router;

@@ -18,7 +18,9 @@ constructor(props) {
         popupVisible: false,
         uPoints:'',
         obj:'',
-        uPop:false
+        uPop:false,
+        gazetteno:'',
+        comment:''
 
     }
 }
@@ -29,6 +31,7 @@ constructor(props) {
 
             const obj = res.data[0];
             this.setState({obj})
+            console.log("resobj",obj);
         });
     }
 
@@ -73,7 +76,61 @@ constructor(props) {
 
     alert('caller'+this.state.obj._id);
 
+    const {comment,obj,gazetteno} = this.state;
+
+    alert(comment+gazetteno+"gass");
+
+        const{
+            ruleNo,
+                ruleName,
+                description,
+                gazetteNo,
+                date,
+                demeritPoints,
+                fineAmount,
+                RuleCategoryId,
+                }= this.state.obj;
+
+
+    let newobj ={
+        deletedGazetteNo : gazetteno,
+        comment : comment,
+        ruleNo,
+        ruleName,
+        description,
+        gazetteNo,
+        date,
+        demeritPoints,
+        fineAmount,
+        RuleCategoryId,
+
     }
+
+    alert(newobj.fineAmount+newobj.ruleName+ruleNo+comment);
+        e.preventDefault();
+        axios
+            .delete(`http://localhost:9000/rules/delete/${this.state.obj._id}`)
+            .then((response) => {
+                console.log("Data:", response);
+                alert('Success Fully deleted')
+                axios
+                    .post(`http://localhost:9000/deletedrules/todelterule`, newobj)
+                    .then((response) => {
+                        alert("Rule Added");
+                        window.location = "/"
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                    });
+            })
+            .catch((error) => {
+                console.log("Data not Retriewed", error);
+                alert("Sorry Cannot update now")
+            })
+        alert('came')
+    }
+
+
 
 
     handlerChanged =(e) =>{
@@ -152,15 +209,15 @@ constructor(props) {
                         my="center"
                         of={this.state.positionOf}
                     />
-                    <form onSubmit={this.handlerUpdate} className="form-body-rules">
+                    <form onSubmit={this.handlerDelete} className="form-body-rules">
                         <div className="row">
                             <div className="form-group form-part">
                                 <label htmlFor="Comment">Comment</label>
-                                <input type="text" className="form-control form-input-border"name ="3"   />
+                                <input type="text" className="form-control form-input-border"name ="comment" onChange={this.handlerChanged} value={this.state.comment}   />
                             </div>
                             <div className="form-group form-part">
                                 <label htmlFor="gazzertNo">Gazzette Number</label>
-                                <input type="text" className="form-control form-input-border"name ="3"   />
+                                <input type="text" className="form-control form-input-border"name ="gazetteno" onChange={this.handlerChanged} value={this.state.gazetteno}  />
                             </div>
                         </div>
 

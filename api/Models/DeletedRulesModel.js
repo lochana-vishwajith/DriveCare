@@ -46,9 +46,6 @@ const DeletedRules = new Schema({
         type:String,
         required:true
     },
-    ruleId:{
-        type:String
-    }
 });
 const deletedRulesModel = mongoose.model(
     'deletedrules',
