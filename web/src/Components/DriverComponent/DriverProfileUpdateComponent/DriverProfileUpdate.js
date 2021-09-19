@@ -225,6 +225,9 @@ export default class DriverProfileUpdate extends Component {
       bloodGroup: this.state.bloodGroup
         ? this.state.bloodGroup
         : this.state.driverDetails[0].bloodGroup,
+      competentDrive: this.state.vehicleType
+        ? this.state.vehicleType
+        : this.state.driverDetails[0].competentDrive,
     };
     console.log("Data:", dataSet);
     axios

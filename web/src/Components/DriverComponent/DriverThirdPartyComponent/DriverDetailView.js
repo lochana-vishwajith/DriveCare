@@ -3,6 +3,10 @@ import axios from "axios";
 import React, { Component } from "react";
 import "./DriverDetailView.css";
 import moment from "moment";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default class DriverDetailView extends Component {
   constructor(props) {
@@ -14,7 +18,10 @@ export default class DriverDetailView extends Component {
       driverDetails: [],
       summaryDetails: [],
       fines: [],
+      userData: [],
     };
+
+    this.generateViolationReport = this.generateViolationReport.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +38,7 @@ export default class DriverDetailView extends Component {
           });
         });
         console.log("fine details", this.state.fines);
+        this.generateData();
       })
       .catch((error) => {
         console.log("Data not Retriewed", error);
@@ -50,16 +58,110 @@ export default class DriverDetailView extends Component {
       });
   }
 
+  generateData = () => {
+    let userDetails = [];
+    this.state.driverDetails.map((item) => {
+      item.fines.map((fine) => {
+        fine.violationType.map((violation) => {
+          const dataSet = {
+            name: item.firstName + " " + item.lastName,
+            nic: item.NIC,
+            address: item.address,
+            licenseNo: item.licenceNumber,
+            exdate: moment(item.licenceExpiryDate).format("DD-MM-YYYY"),
+            points: item.points,
+            photo: item.profilePicURL,
+            violationType: violation.description,
+            amount: violation.fineAmount,
+            location: fine.place,
+            type: fine.fineType,
+            date: moment(fine.offenceDate).format("DD-MM-YYYY"),
+          };
+          userDetails.push(dataSet);
+        });
+      });
+    });
+
+    this.setState({ userData: userDetails });
+    console.log("USER DATA:", this.state.userData);
+  };
+
+  generateViolationReport() {
+    const unit = "pt";
+    const size = "A4";
+    const orientation = "landscape";
+    const marginLeft = 40;
+    // orientation, unit, size
+    const doc = new jsPDF();
+
+    const title = "Driver Violation Report";
+    doc.setFontSize(15);
+    doc.setTextColor(128, 0, 0);
+    doc.text(title, 100, 10, null, null, "center");
+    doc.addImage(`${this.state.userData[0].photo}`, "JPEG", 20, 30, 80, 80);
+    doc.setTextColor(0);
+    doc.setFontSize(12);
+    doc.text(`Full Name: ${this.state.userData[0].name}`, 20, 30, null, null);
+    doc.text(`Address: ${this.state.userData[0].address}`, 120, 30, null, null);
+    doc.text(`NIC: ${this.state.userData[0].nic}`, 20, 40, null, null);
+    doc.text(
+      `Driving License Number: ${this.state.userData[0].licenseNo}`,
+      120,
+      40,
+      null,
+      null
+    );
+    doc.text(`Points: ${this.state.userData[0].points}/30`, 20, 50, null, null);
+    doc.text(
+      `License Expiry Date: ${this.state.userData[0].exdate}`,
+      120,
+      50,
+      null,
+      null
+    );
+    const headers = [["Violation", "Fine Amount", "Location", "Type", "Date"]];
+
+    const data = this.state.userData.map((item) => [
+      item.violationType,
+      item.amount,
+      item.location,
+      item.type,
+      item.date,
+    ]);
+    let contents = {
+      startY: 80,
+      head: headers,
+      body: data,
+    };
+
+    // doc.setFontSize(20);
+    // require("jspdf-autotable");
+    doc.autoTable(contents);
+    doc.save("Driver_Violation_Report.pdf");
+    toast.success("Report Downloaded.", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
+
   render() {
     return (
       <div>
         <div className="container">
           <div className="mt-3">
-            <label>
-              <h2>
-                <b>Violation History</b>
-              </h2>
-            </label>
+            <div className="d-flex justify-content-between">
+              <label>
+                <h2>
+                  <b>Violation History</b>
+                </h2>
+              </label>
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm px-4"
+                onClick={this.generateViolationReport}
+              >
+                Download Report
+              </button>
+            </div>
             <hr />
           </div>
           <Grid>
