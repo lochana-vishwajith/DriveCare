@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from "../navbarComponent/navbar";
 import Footer from "../Footer/Footer";
+import {Link} from 'react-router-dom'
 //Admin dashboard
 //commit to check
 export default class AdminDashboard extends React.Component {
@@ -19,7 +20,7 @@ export default class AdminDashboard extends React.Component {
                                     <p className="card-text">MANAGE RULES AND CATEGORIES OF THE APPLICATION VIEW THE RULES OF THE APPLICATION.</p>
                                     <center><button className="btn btn-outline-secondary text-light" type="button"
                                                     id="button-addon2"
-                                    ><a href="/myStation">CLICK TO</a>
+                                    ><Link to="/myStation">CLICK TO</Link>
                                     </button></center>
                                 </div>
                             </div>
@@ -33,7 +34,7 @@ export default class AdminDashboard extends React.Component {
                                     <center><button className="btn btn-outline-secondary text-light" type="button"
                                                     id="button-addon2"
                                                     onClick={this.handlerSubmit}
-                                    ><a href="/policestationList">CLICK TO</a>
+                                    ><Link to="/display">CLICK TO</Link>
                                     </button></center>
                                 </div>
                             </div>
@@ -51,7 +52,7 @@ export default class AdminDashboard extends React.Component {
                                     <p className="card-text">UPDATE ADMIN DETAILS.</p>
                                     <center><button className="btn btn-outline-secondary text-light" type="button"
                                                     id="button-addon2"
-                                    ><a href="/centralAdminAdd">CLICK TO</a>
+                                    ><Link to="/centralAdminAdd">CLICK TO</Link>
                                     </button></center>
                                 </div>
                             </div>
@@ -65,7 +66,7 @@ export default class AdminDashboard extends React.Component {
                                     <center><button className="btn btn-outline-secondary text-light" type="button"
                                                     id="button-addon2"
 
-                                    ><a href="/">CLICK TO</a>
+                                    ><Link to="/">CLICK TO</Link>
                                     </button></center>
                                 </div>
                             </div>
