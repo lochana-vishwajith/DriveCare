@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../../../Reducer/UseReducer";
 import TrafficOfficerLogin from "../TrafficOfficerloginComponent/trafficOfficerLogin";
+import { LoadPanel } from "devextreme-react/load-panel";
 
 const competentDrive = ["A", "B", "C"];
 
@@ -58,11 +59,27 @@ export default class createFineUi extends Component {
       vehicelNo: "",
       CourtPlace: "",
       allrules: [],
+      loadPanelVisible: false,
+      showIndicator: true,
+      shading: true,
+      showPane: true,
+      closeOnOutsideClick: false,
       image:
         "https://firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628183905292_pngwing.com.png?alt=media&token=0f85489d-8c99-4f2b-9d0e-1144b64c733d",
     };
     this.now = new Date();
   }
+  LoadPanel = () => {
+    this.setState({
+      loadPanelVisible: true,
+    });
+  };
+
+  hideLoadPanel = () => {
+    this.setState({
+      loadPanelVisible: false,
+    });
+  };
 
   getViolationRules = () => {
     axios
@@ -90,6 +107,7 @@ export default class createFineUi extends Component {
   };
 
   componentDidMount() {
+    this.setState({ loadPanelVisible: true });
     const { officerOne, officerTwo } = this.context;
     axios
       .get("http://localhost:9000/driver")
@@ -106,6 +124,7 @@ export default class createFineUi extends Component {
           dirivers.push(categoryDetails);
         });
         this.setState({ diverNicId: dirivers });
+        this.setState({ loadPanelVisible: false });
       })
       .catch((err) => {
         console.log(err);
@@ -121,6 +140,8 @@ export default class createFineUi extends Component {
   }
 
   getDriverDetailsByNic = (id) => {
+    this.setState({ loadPanelVisible: true });
+
     console.log("Nic : ", id);
     this.state.diverDetails.forEach((element) => {
       if (element._id === id) {
@@ -143,6 +164,7 @@ export default class createFineUi extends Component {
         });
       }
     });
+    this.setState({ loadPanelVisible: false });
   };
 
   offenceDateChanged = (e) => {
@@ -179,6 +201,8 @@ export default class createFineUi extends Component {
   };
 
   calculateTotalFine = () => {
+    this.setState({ loadPanelVisible: true });
+
     let total = 0;
     this.state.violationtype.forEach((type) => {
       this.state.ViolationRules.forEach((violations) => {
@@ -188,9 +212,12 @@ export default class createFineUi extends Component {
       });
     });
     this.setState({ totalFine: total });
+    this.setState({ loadPanelVisible: false });
   };
 
   onCreateFine = () => {
+    this.setState({ loadPanelVisible: true });
+
     const {
       selectedDriverDetails,
       violationtype,
@@ -222,11 +249,13 @@ export default class createFineUi extends Component {
         toast.success("Successfully Fine Created", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        this.setState({ loadPanelVisible: false });
       })
       .catch((err) => {
         toast.error("Fine Creation Failed", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        this.setState({ loadPanelVisible: false });
       });
   };
 
@@ -243,6 +272,15 @@ export default class createFineUi extends Component {
 
     return (
       <div>
+        <LoadPanel
+          shadingColor="rgba(0,0,0,0.4)"
+          onHiding={this.hideLoadPanel}
+          visible={this.state.loadPanelVisible}
+          showIndicator={this.state.showIndicator}
+          shading={this.state.shading}
+          showPane={this.state.showPane}
+          closeOnOutsideClick={this.state.closeOnOutsideClick}
+        />
         {!isAutheticated && <TrafficOfficerLogin />}
         {isAutheticated && (
           <div className="container">
