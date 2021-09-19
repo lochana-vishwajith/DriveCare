@@ -10,10 +10,10 @@ import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "../../../firebase/firebase";
 import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
-
+import { LoadPanel } from "devextreme-react/load-panel";
 import ModalExample from "../../OTPPopupComponent/otpPopup";
 import AuthContext from "../../../Reducer/UseReducer";
-
+import imageO from "../../Images/otp.png";
 toast.configure();
 
 class trafficOfficerLogin extends Component {
@@ -29,9 +29,32 @@ class trafficOfficerLogin extends Component {
       otp: "",
       officerIdTwo: "",
       officerPassword: "",
+      loadPanelVisible: false,
+      showIndicator: true,
+      shading: true,
+      showPane: true,
+      closeOnOutsideClick: false,
       logo: "https:firebasestorage.googleapis.com/v0/b/drivecare-466b1.appspot.com/o/images%2FprofileImages%2F1628967576900_colored-logo.png?alt=media&token=166ac21d-89be-45b2-9b0b-17e5a400e359",
     };
   }
+
+  LoadPanel = () => {
+    this.setState({
+      loadPanelVisible: true,
+    });
+  };
+
+  hideLoadPanel = () => {
+    this.setState({
+      loadPanelVisible: false,
+    });
+  };
+
+  onCloseOnOutsideClickChange = (e) => {
+    this.setState({
+      closeOnOutsideClick: e.value,
+    });
+  };
 
   setofficerOne = (e) => {
     this.setState({ officerOne: e.value });
@@ -49,6 +72,7 @@ class trafficOfficerLogin extends Component {
   };
 
   pressLoginBtn = (e) => {
+    this.setState({ loadPanelVisible: true });
     const { officerOne, officerTwo, officerPassword } = this.state;
     e.preventDefault();
     if (officerOne == "" || officerTwo == "" || officerPassword == "") {
@@ -83,12 +107,17 @@ class trafficOfficerLogin extends Component {
                 " offcer 2 id : ",
                 result.data._id
               );
+            })
+            .catch((err) => {
+              console.log(err);
+              this.setState({ loadPanelVisible: false });
             });
         })
         .catch((err) => {
           toast.error("Please check username & password", {
             position: toast.POSITION.TOP_RIGHT,
           });
+          this.setState({ loadPanelVisible: false });
         });
     }
   };
@@ -117,6 +146,7 @@ class trafficOfficerLogin extends Component {
       .signInWithPhoneNumber(phoneNumber, appVerifier)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
+        this.hideLoadPanel();
         this.setState({ popupVisible: true });
       })
       .catch((error) => {
@@ -127,6 +157,7 @@ class trafficOfficerLogin extends Component {
   };
 
   confirmOtp = (e) => {
+    this.setState({ loadPanelVisible: true });
     const { setOfficerId, logIn } = this.context;
     const { history } = this.props;
     e.preventDefault();
@@ -143,6 +174,7 @@ class trafficOfficerLogin extends Component {
         setTimeout(() => {
           logIn();
           setOfficerId(this.state.officerIDOne, this.state.officerIdTwo);
+          this.setState({ loadPanelVisible: false });
           history.push("/createFine");
         }, 5000);
         // ...
@@ -153,15 +185,27 @@ class trafficOfficerLogin extends Component {
         toast.error("Please enter correct OTP", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        this.setState({ loadPanelVisible: false });
       });
   };
 
-  handleClose = () => {};
+  handleClose = () => {
+    this.setState({ popupVisible: false });
+  };
   render() {
     const { logo, officerOne, officerTwo, officerPassword, otp } = this.state;
 
     return (
       <div className="container" id="login">
+        <LoadPanel
+          shadingColor="rgba(0,0,0,0.4)"
+          onHiding={this.hideLoadPanel}
+          visible={this.state.loadPanelVisible}
+          showIndicator={this.state.showIndicator}
+          shading={this.state.shading}
+          showPane={this.state.showPane}
+          closeOnOutsideClick={this.state.closeOnOutsideClick}
+        />
         <Popup
           visible={this.state.popupVisible}
           onHiding={this.handleClose}
@@ -173,17 +217,20 @@ class trafficOfficerLogin extends Component {
           container=".dx-viewport"
           width={400}
           height={500}
+          id="otpPopup"
         >
           <Position at="center" my="center" of={this.state.positionOf} />
           <div>
-            <img
-              src="https://i.pinimg.com/originals/89/01/34/890134d17f3d0aa0c889979c130470f5.png"
-              class="w-100 shadow-1-strong rounded mb-4"
-              id="driveLoginLogo"
-              alt=""
-            />
-            <p>
-              OTP has been set to the mobile number{" "}
+            <div class="text-center">
+              <img src={imageO} class="rounded" alt="..." id="otpImg" />
+            </div>
+
+            <p className="otpTxtOne">
+              To login to the system, you should validate your partner officer
+              by providing the OTP that have been sent.
+            </p>
+            <p className="otpTxt">
+              OTP has been set to the mobile number
               {this.state.officerTwoMobile}
             </p>
             <TextBox
@@ -194,13 +241,15 @@ class trafficOfficerLogin extends Component {
               showClearButton={true}
               onValueChanged={this.setOTP}
             />
-            <ButtonCom
-              id={"officerReg"}
-              value={"Confirm OTPs"}
-              classname={"createFineBtn"}
-              type={"submit"}
-              onSubmit={this.confirmOtp}
-            />
+            <center>
+              <ButtonCom
+                id={"otpBtn"}
+                value={"Confirm OTP"}
+                classname={"createFineBtn"}
+                type={"submit"}
+                onSubmit={this.confirmOtp}
+              />
+            </center>
           </div>
         </Popup>
         <Grid>

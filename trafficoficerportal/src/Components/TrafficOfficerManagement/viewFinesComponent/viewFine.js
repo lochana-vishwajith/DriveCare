@@ -9,6 +9,7 @@ import Button from "../../ButtonComponent/button";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { storage } from "../../../firebase/firebase";
+import { LoadPanel } from "devextreme-react/load-panel";
 
 toast.configure();
 
@@ -31,6 +32,11 @@ export default class viewFine extends Component {
       totalFine: "",
       id: "",
       driverID: "",
+      loadPanelVisible: false,
+      showIndicator: true,
+      shading: true,
+      showPane: true,
+      closeOnOutsideClick: false,
     };
   }
 
@@ -60,6 +66,8 @@ export default class viewFine extends Component {
   };
 
   handleOpen = (id) => {
+    this.setState({ loadPanelVisible: true });
+
     this.setState({ popupVisible: true });
     this.setState({ selectedImage: [] });
     this.setState({ isImageAdded: false });
@@ -75,6 +83,7 @@ export default class viewFine extends Component {
         });
       }
     });
+    this.setState({ loadPanelVisible: false });
   };
   handleClose = () => {
     this.setState({ popupVisible: false });
@@ -95,6 +104,7 @@ export default class viewFine extends Component {
         toast.success("Image Uploading Successfull", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        this.setState({ loadPanelVisible: false });
       })
       .catch((err) => {
         console.log(err);
@@ -105,12 +115,15 @@ export default class viewFine extends Component {
   };
 
   componentDidMount() {
+    this.setState({ loadPanelVisible: true });
+
     const { officerOne } = this.context;
     axios
       .get(`http://localhost:9000/fine/officer/${officerOne}`)
       .then((res) => {
         this.setState({ fines: res.data });
         console.log("data : ", res.data);
+        this.setState({ loadPanelVisible: false });
       })
       .catch((err) => {
         console.log(err);
@@ -125,6 +138,8 @@ export default class viewFine extends Component {
 
   imageUpload = () => {
     try {
+      this.setState({ loadPanelVisible: true });
+
       const { finePayImgs } = this.state;
       const date = Date.now();
       let confirmImageUrl = [];
@@ -159,6 +174,7 @@ export default class viewFine extends Component {
       toast.error("Image Uploading Failed Failed", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      this.setState({ loadPanelVisible: false });
     }
   };
   render() {
@@ -166,6 +182,15 @@ export default class viewFine extends Component {
     const { isAutheticated } = this.context;
     return (
       <div className="container">
+        <LoadPanel
+          shadingColor="rgba(0,0,0,0.4)"
+          onHiding={this.hideLoadPanel}
+          visible={this.state.loadPanelVisible}
+          showIndicator={this.state.showIndicator}
+          shading={this.state.shading}
+          showPane={this.state.showPane}
+          closeOnOutsideClick={this.state.closeOnOutsideClick}
+        />
         <Popup
           visible={this.state.popupVisible}
           onHiding={this.handleClose}

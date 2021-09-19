@@ -107,3 +107,20 @@
 .pwForgot{
     color: black;
 }
+#otpBtn{
+    width: 6rem;
+    height: 2rem;
+    font-size: small;
+    margin-top: 9%;
+}
+.otpTxtOne{
+    font-size: medium;
+}
+
+#otpImg{
+    max-width: 12rem;
+}
+.otpTxt{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
