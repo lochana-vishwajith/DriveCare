@@ -20,6 +20,7 @@ import AdminDashboard from "./Components/CentralAdminComponent/CentraladminDashb
 import GetRulesCategoriesList from "./Components/CentralAdminComponent/RuleCategories/GetRulesInCategory/GetrulescategoriesList";
 import GetRulesCat from "./Components/CentralAdminComponent/Rules/GetRulesInCategories/GetRulesCat";
 import ViewRule from "./Components/CentralAdminComponent/Rules/ViewRule/ViewRule";
+import ViewDeletedRules from "./Components/CentralAdminComponent/DeletedRules/ViewDeletedRulesList/viewList";
 export default class App extends Component {
   render() {
     return (
@@ -56,6 +57,7 @@ export default class App extends Component {
             <Route   exact path="/rulescategorylist" component={GetRulesCategoriesList} />
             <Route exact path="/getrulescat/:id/:cat" component={GetRulesCat} />
             <Route exact path="/viewrules/:id" component={ViewRule} />
+            <Route exact path="/deletedRules" component={ViewDeletedRules} />
           </Switch>
         </Router>
       </div>
