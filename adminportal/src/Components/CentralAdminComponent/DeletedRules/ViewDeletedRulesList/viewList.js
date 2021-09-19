@@ -21,6 +21,7 @@ export default class DeletedRulesList extends React.Component{
 
     handlerView = (id) =>{
 
+        window.location = `/drule/${id}`
     }
 
     render() {

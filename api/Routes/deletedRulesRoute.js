@@ -41,10 +41,10 @@ router.post("/todelterule",async (req, res) => {
 
 // get by id
 //used to get the specific deleted rule
-router.get("/:deletedid", async (req, res) => {
+router.get("/:id", async (req, res) => {
     const id = req.params.id;
 
-    await Rules.find({ _id: id })
+    await DeletedRules.find({ _id: id })
         .then((result) => {
             res.status(200).send(result);
         })
