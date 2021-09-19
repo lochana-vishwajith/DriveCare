@@ -81,6 +81,10 @@ export default class DriverProfile extends Component {
                           <label>Date of Birth</label>
                           <br />
                           <b>{moment(item.dob).format("MMMM Do YYYY")}</b>
+                          <br />
+                          <label>Blood Group</label>
+                          <br />
+                          <b>{item.bloodGroup}</b>
                         </div>
                       </div>
                       <div className="border rounded border-danger p-3 d-grid-clr">
