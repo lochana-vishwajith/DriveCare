@@ -7,7 +7,8 @@ import Modal from "react-bootstrap/Modal";
 import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
 import TextArea from "devextreme-react/text-area";
 import {toast} from "react-toastify";
-
+import jsPDF from "jspdf"
+import {Button} from "@material-ui/core";
 
 export default class ViewDeletedRule extends React.Component{
     constructor(props) {
@@ -28,6 +29,61 @@ export default class ViewDeletedRule extends React.Component{
             console.log("resobj",obj);
         });
     }
+
+
+
+
+    createPDF = async (date,description,deletedDate,deletedGazetteNo,comment,ruleName,fineAmount,demeritPoints) =>{
+                console.log(description);
+        console.log(deletedDate);
+
+        alert(date);
+        const unit = "pt";
+        const size = "A4"; //page size
+        const orientation = "landscape";
+        const marginLeft = 40;
+        const doc = new jsPDF( orientation , unit , size ); //create document
+        const noteduetoreports =`DEMERITS POINTS :  ${demeritPoints}`;
+        const title = `GAZZETE NUMBER OF DELETED RULE ${deletedGazetteNo} `;
+        const suggesion = ` DELETED DATE: ${deletedDate} `;
+        const medicine = `COMMENTS ON DELETEION: ${comment} `;
+        const othernote = `DESCRIPTION OF THE RULE: ${description} `;
+        const doctar = `RULE NAME: ${ruleName} `;
+
+         const left = 30;
+        const top = 8;
+        const imgWidth = 100;
+        const imgHeight = 100;
+        const lefts = 500;
+        const tops = 300;
+        const imgWidths = 300;
+        const imgHeights = 300;
+        doc.setFontSize( 20 );
+        doc.text (title, 40,150);
+        doc.text (doctar, 150,80);
+        doc.text(suggesion, 60 ,250);
+        doc.text(medicine, 60,300);
+        doc.text( othernote, 60,350);
+        doc.text(noteduetoreports, 60,400);
+        alert('Ok');
+        doc.save ("deletedRule.pdf")
+    }
+
+
+    handlerPdf = (date,description,deletedDate,deletedGazetteNo,comment,ruleName,fineAmount,demeritPoints) =>{
+        function createPDF(date, description, deletedDate, deletedGazetteNo, comment, ruleName, fineAmount, demeritPoints) {
+
+        }
+
+        this.createPDF(date,description,deletedDate,deletedGazetteNo,comment,ruleName,fineAmount,demeritPoints);
+    };
+
+
+
+
+
+
+
     render() {
 
 
@@ -96,9 +152,7 @@ export default class ViewDeletedRule extends React.Component{
 
 
                 <center>
-                    <button className="btn btn-outline-secondary text-light px-5" type="button"
-                            id="button-addon2" onClick={ this.handlerModelStarts} >Delete
-                    </button>
+                    <Button variant="outline-dark" onClick = {()=>this.handlerPdf(obj.date,obj.description,obj.deletedDate,obj.deletedGazetteNo,obj.comment,obj.ruleName,obj.fineAmount,obj.demeritPoints)}>Generate Report</Button>
                 </center>
                 <br></br> <br></br> <br></br> <br></br>
                 <Footer/>
