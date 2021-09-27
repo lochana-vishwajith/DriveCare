@@ -25,14 +25,11 @@ export default class Viewadmindetails extends Component {
                 console.log("Data not Retriewed", error);
             });
     }
-    render() {
-        const { adminDetails } = this.state;
-        return (
-            <div>
 
-                        <Navbar portal ="-ADMIN DETAILS-" topic1 = "ADMIN DETAILS" link1 ="/viewAdminDetails" topic2= "POLICE STATION LOGIN" link2 = "/policelogin" />
-                        <hr />
-                        <div className="container">
+
+    /*
+    *
+    * <div className="container">
                             {adminDetails.map((item, index) => (
                                 <div className=" text-center " key={index} >
                                     <div className="text-center">
@@ -72,8 +69,52 @@ export default class Viewadmindetails extends Component {
                 <br></br>
                 <br></br>
                 <Footer/>
-                    </div>
 
+    *
+    * */
+    render() {
+        const { adminDetails } = this.state;
+        return (
+            <div>
+
+                        <Navbar portal ="-ADMIN DETAILS-" topic1 = "ADMIN DETAILS" link1 ="/viewAdminDetails" topic2= "POLICE STATION LOGIN" link2 = "/policelogin" />
+                        <hr />
+
+                {adminDetails.map((item, index) => (
+
+                <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h1 className="card-title">ADMIN INFO</h1>
+                                    <br></br> <br/>
+                                    <h3 className="card-text">{item.name.toUpperCase()}</h3>
+                                    <br/><br/>
+                                    <h3 className="card-text">{item.nicNumber.toUpperCase()}</h3>
+                                    <br/><br/>
+                                    <h3 className="card-text">OFFICE NUMBER : {item.workstation} </h3>
+                                   <br/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="card" >
+                                <div className="card-body">
+                                    <h1 className="card-title">ADMIN CONTACT DETAILS</h1>
+                                    <br/><br/><br/>
+                                    <h3 className="card-text">{item.email}</h3>
+                                    <br/><br/>
+                                    <h3 className="card-text">{item.mobileNumber}</h3>
+                                    <br/><br/>
+                                    <h3 className="card-text">{item.officeAddress.toUpperCase()}</h3>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>))}
+            </div>
         );
     }
 }

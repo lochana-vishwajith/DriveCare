@@ -133,40 +133,6 @@ export default class MyStation extends React.Component {
         alert(uobj.PidD+uobj.registrationNo+uobj.mobile_Number+uobj.comment+uobj.password+uobj.workstation_Address);
 
 
-
-
-
-
-/*
-        if(officers.length>0){
-
-            alert('more than 1 officer You Cant request to delete when active officers are working in the system.');
-        }else{
-            const{dreqcomment}=this.state
-
-            const redobj = {
-
-                PidD :_id,registrationNo,email,mobile_Number,station_grade,comment:dreqcomment,password
-            }
-
-            alert(redobj.PidD+redobj.registrationNo+redobj.mobile_Number+redobj.comment);
-            axios.post('http://localhost:9000/delpolice/deletereq',redobj).then(e => {
-                    alert(e.data);
-                    alert('Added Sucess');
-                    this.setState({uPop:false});
-                }
-            )
-                .catch(err =>{
-                    console.log(err.error);
-                    alert(e.error);
-                })
-
-
-
-
-        }*/
-
-
     }
 
         componentDidMount() {
@@ -349,12 +315,12 @@ export default class MyStation extends React.Component {
                         </div>
                         <hr/>
                         <center><div className="row"> <div className="btn-group btn-group-lg text-center align-items-center px-5 buttonHolder pb-5 pt-5 col" role="group" aria-label="...">
-                            <button className="btn btn-outline-secondary text-light px-5 mx-5" type="button"
+                            <button className="btn btn-outline-success  px-5 mx-5" type="button"
                                     id="button-addon2" onClick={ this.handlerModelStarted}>REQUEST UPDATE
                             </button>
                         </div>
                             <div className="btn-group btn-group-lg text-center align-items-center px-5 buttonHolder pb-5 pt-5 col" role="group" aria-label="...">
-                                <button className="btn btn-outline-secondary text-light px-5 mx-5" type="button"
+                                <button className="btn btn-outline-danger px-5 mx-5" type="button"
                                         id="button-addon2" onClick={ this.handlerModelStart}>REQUEST DELETE
                                 </button>
                             </div>

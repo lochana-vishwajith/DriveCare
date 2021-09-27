@@ -14,7 +14,7 @@ export default class CardView extends React.Component{
     }
     render() {
         return(
-            <section className="p-2 px-5">
+            <section className="cardsecbody">
 
                 <div className="container card-body-border">
 
@@ -34,7 +34,7 @@ export default class CardView extends React.Component{
                             <br></br>
                             <b> SEVERITY {this.props.severity}</b>
                         </p>
-                        <div className="buttonHolder text-light">
+                        <div className="buttonHolder text-light" style={{paddingBottom:"2vh"}}>
                             <button className="my-button text-center" value="Submit" title="I'm Feeling Lucky" name="lucky" btype ={this.props.bty} type="submit"
                                     id="btn_i text-light" onClick={this.handlerSubmit}><b> VIEW RULES </b></button>
                         </div>
