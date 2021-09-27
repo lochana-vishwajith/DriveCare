@@ -14,6 +14,10 @@ export default class PoliceStationViewSearchResult extends React.Component {
         };
     }
 
+    handlerviewRequests
+
+
+
     componentDidMount() {
         axios
             .get(`http://localhost:9000/policeStation/${this.props.match.params.id}`)
@@ -26,6 +30,11 @@ export default class PoliceStationViewSearchResult extends React.Component {
                 console.log("Data not Retrieved", error);
             });
     }
+
+
+    handlerViewRequests = (id) =>{
+        window.location = `/specificdreqs/${id}`
+}
 
     render() {
         const {stationDetails} =this.state;
@@ -73,7 +82,7 @@ export default class PoliceStationViewSearchResult extends React.Component {
                         <hr/>
                         <center> <div className="btn-group btn-group-lg text-center align-items-center px-5 buttonHolder pb-5 pt-5" role="group" aria-label="...">
                             <button className="btn btn-outline-secondary text-light px-5 mx-5" type="button"
-                                    id="button-addon2" onClick={ this.handlerModelStart}>View Requests
+                                    id="button-addon2" onClick={ ()=>this.handlerViewRequests(id._id)}>View Requests
                             </button>
                         </div>
                         </center>

@@ -26,6 +26,18 @@ const policeStationsDelete = new Schema({
     PidD:{
         type: String,
         required: true,
+    },
+    Status:{
+      type:String  ,
+        default:'Pending',
+    },
+    DateInquired:{
+        type:Date,
+        default:Date.now
+    },
+    AdminComment:{
+        type:String,
+        default:"No comments yet"
     }
 });
 

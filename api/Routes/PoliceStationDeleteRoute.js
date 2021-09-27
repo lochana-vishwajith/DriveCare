@@ -38,7 +38,7 @@ router.get("/", (req, res) => {
 router.get("/:id", async (req, res) => {
     const id = req.params.id;
 
-    await PoliceDelete.find({ _id: id })
+    await PoliceDelete.find({ PidD: id })
         .then((result) => {
             res.status(200).send(result);
         })
@@ -46,6 +46,21 @@ router.get("/:id", async (req, res) => {
             res.send(error);
         });
 });
+
+router.put("/update/:id", async (req, res) => {
+    const id = req.params.id;
+    const dataSet = req.body;
+    console.log("Data", dataSet);
+    await PoliceDelete.findByIdAndUpdate(id, dataSet)
+        .then((data) => {
+            console.log(data);
+            res.status(200).send({ data: data });
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+});
+
 
 module.exports = router;
 
