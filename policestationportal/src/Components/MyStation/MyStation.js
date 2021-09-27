@@ -19,12 +19,14 @@ export default class MyStation extends React.Component {
             show:false,
             popupVisible: false,
             uPop:false,
-            dreqcomment:''
-
-
+            dreqcomment:'',
+            office_Number:'',
+            mobile_Number:'',
+            workstation_Address:'',
+            email:'',
+            password:'',
+            passwordchange:false
         };
-
-
     }
 
     handlerChanged = (e) => {
@@ -38,7 +40,22 @@ export default class MyStation extends React.Component {
         this.setState({ uPop: true });
     }
 
-    handlerUpdate = (e) => {
+
+
+    handlerModelCanceled =() =>{
+        this.setState({popupVisible:false});
+    }
+    handlerModelStarted = () => {
+        this.setState({ popupVisible: true,office_Number:this.state.obj.office_Number,
+            mobile_Number:this.state.obj.mobile_Number,
+            workstation_Address:this.state.obj.workstation_Address,
+            email:this.state.obj.email });
+    }
+
+
+
+
+    handlerDelete = (e) => {
 
         e.preventDefault();
         const{_id,registrationNo,email,mobile_Number,station_grade,officers
@@ -74,7 +91,83 @@ export default class MyStation extends React.Component {
 
 
     }
+    handlerUpdate = (e) => {
 
+        e.preventDefault();
+       const{_id,registrationNo,station_grade,officers
+        } =this.state.obj
+
+        const{office_Number,
+            mobile_Number,
+            workstation_Address,
+            email}=this.state
+
+
+        const uobj = {
+            registrationNo,email,mobile_Number,station_grade,officers,PidD :_id, workstation_Address
+        }
+
+
+        if(this.state.password){
+            const uobj = {
+                registrationNo,email,mobile_Number,station_grade,officers,PidD :_id, workstation_Address,password:this.state.password
+            }
+
+        }
+
+
+        if(this.state.office_Number){
+            alert('office_Number have')
+        }
+
+        if(this.state.workstation_Address){
+            alert('workstation_Address')
+        }
+
+        if(this.state.mobile_Number){
+            alert('mobile_Number')
+        }
+
+
+
+        alert(uobj.PidD+uobj.registrationNo+uobj.mobile_Number+uobj.comment+uobj.password+uobj.workstation_Address);
+
+
+
+
+
+
+/*
+        if(officers.length>0){
+
+            alert('more than 1 officer You Cant request to delete when active officers are working in the system.');
+        }else{
+            const{dreqcomment}=this.state
+
+            const redobj = {
+
+                PidD :_id,registrationNo,email,mobile_Number,station_grade,comment:dreqcomment,password
+            }
+
+            alert(redobj.PidD+redobj.registrationNo+redobj.mobile_Number+redobj.comment);
+            axios.post('http://localhost:9000/delpolice/deletereq',redobj).then(e => {
+                    alert(e.data);
+                    alert('Added Sucess');
+                    this.setState({uPop:false});
+                }
+            )
+                .catch(err =>{
+                    console.log(err.error);
+                    alert(e.error);
+                })
+
+
+
+
+        }*/
+
+
+    }
 
         componentDidMount() {
         const stationID = localStorage.getItem("userid");
@@ -115,21 +208,19 @@ export default class MyStation extends React.Component {
                         my="center"
                         of={this.state.positionOf}
                     />
-                    <form onSubmit={this.handlerUpdate} className="form-body-rules">
+                    <form onSubmit={this.handlerDelete} className="form-body-rules">
                         <div className="row">
                             <div className="form-group form-part">
                                 <label htmlFor="Comment">Comment</label>
                                 <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="dreqcomment" value = {this.state.dreqcomment}  />
                             </div>
                         </div>
-
-
                         <div className="row">
 
                             <div className="col">
                                 <div className="buttonHolder text-ligh pt-5">
                                     <button className="my-button text-center"  title="I'm Feeling Lucky" name="lucky" type="submit"
-                                            id="btn_i text-light" ><b> DELETE RULE</b></button>
+                                            id="btn_i text-light" ><b> </b>DELETE</button>
                                 </div>
                             </div>
                         </div>
@@ -142,16 +233,16 @@ export default class MyStation extends React.Component {
 
 
                 <Popup
-                    visible={this.state.uPop}
-                    onHiding={this.handlerModelCancels}
+                    visible={this.state.popupVisible}
+                    onHiding={this.handlerModelCanceled}
                     dragEnabled={false}
                     closeOnOutsideClick={true}
                     showCloseButton={true}
                     showTitle={true}
-                    title="DELETE THE RULE"
+                    title="Update THE RULE"
                     container=".dx-viewport"
-                    width={500}
-                    height={500}
+                    width={700}
+                    height={600}
                 >
                     <Position
                         at="center"
@@ -161,18 +252,53 @@ export default class MyStation extends React.Component {
                     <form onSubmit={this.handlerUpdate} className="form-body-rules">
                         <div className="row">
                             <div className="form-group form-part">
-                                <label htmlFor="Comment">Comment</label>
+                                <label htmlFor="Comment">Email</label>
+                                <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="email" value = {this.state.email}  />
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="form-group form-part">
+                                <label htmlFor="Comment">TELEPHONE</label>
+                                <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="office_Number" value = {this.state.office_Number}  />
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="form-group form-part">
+                                <label htmlFor="Comment">HOTLINE</label>
+                                <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="mobile_Number" value = {this.state.mobile_Number}  />
+                            </div>
+                        </div> <div className="row">
+                            <div className="form-group form-part">
+                                <label htmlFor="Comment">WORK ADDRESS</label>
+                                <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="workstation_Address" value = {this.state.workstation_Address}  />
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="form-group form-part">
+                                <label htmlFor="Comment">COMMENT</label>
                                 <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="dreqcomment" value = {this.state.dreqcomment}  />
                             </div>
                         </div>
 
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="passwordchange" id="exampleRadios1"
+                                    checked = {this.state.passwordchange} onChange={this.handlerChanged}
+                                    value={this.state.passwordchange}
+                            />
+                                <label className="form-check-label" htmlFor="exampleRadios1">
+                                    Change Password
+                                </label>
+                        </div>
 
                         <div className="row">
 
                             <div className="col">
                                 <div className="buttonHolder text-ligh pt-5">
                                     <button className="my-button text-center"  title="I'm Feeling Lucky" name="lucky" type="submit"
-                                            id="btn_i text-light" ><b> DELETE RULE</b></button>
+                                            id="btn_i text-light" ><b> UPDATE RULE</b></button>
                                 </div>
                             </div>
                         </div>
@@ -224,7 +350,7 @@ export default class MyStation extends React.Component {
                         <hr/>
                         <center><div className="row"> <div className="btn-group btn-group-lg text-center align-items-center px-5 buttonHolder pb-5 pt-5 col" role="group" aria-label="...">
                             <button className="btn btn-outline-secondary text-light px-5 mx-5" type="button"
-                                    id="button-addon2" onClick={ this.handlerModelStart}>REQUEST UPDATE
+                                    id="button-addon2" onClick={ this.handlerModelStarted}>REQUEST UPDATE
                             </button>
                         </div>
                             <div className="btn-group btn-group-lg text-center align-items-center px-5 buttonHolder pb-5 pt-5 col" role="group" aria-label="...">

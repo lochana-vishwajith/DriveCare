@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from "../../navbarComponent/navbar";
 import Footer from "../../Footer/Footer";
 import axios from "axios";
-
+import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
 
 export default class DeletePoliceRequests extends React.Component{
 
@@ -10,6 +10,11 @@ export default class DeletePoliceRequests extends React.Component{
         super(props);
         this.state={
             requestList: [],
+            show:false,
+            popupVisible: false,
+            uPop:false,
+            dreqcomment:'',
+            id:''
         }
     }
     componentDidMount() {
@@ -19,9 +24,85 @@ export default class DeletePoliceRequests extends React.Component{
         });
     }
 
+    handlerUpdate = (e) =>{
+
+        const dataSet={
+            AdminComment:this.dreqcomment,
+            Status:"DECLINED"
+        }
+        e.preventDefault();
+        axios
+            .put(`http://localhost:9000/delpolice/update/${this.state.id}`, dataSet)
+            .then((response) => {
+                console.log("Data:", response);
+                alert('Sucess fully Commented')
+                window.location = `/preqs`;
+            })
+            .catch((error) => {
+                console.log("Data not Retriewed", error);
+                alert("Sorry Cannot update now")
+            });
+
+    }
+
+
+
+    handlerChanged = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
+    handlerModelCancels =() =>{
+        this.setState({popupVisible:false});
+    }
+
+    handlerModelStart = (id) => {
+
+        this.setState({id});
+        alert(this.state.id);
+        this.setState({ popupVisible: true });
+    }
+
+
     handlerView = (id) =>{
 
         window.location = `/viewpolicesearch/${id}`
+    }
+
+    handlerAccept =(id,Pid)=>{
+
+        const dataSet ={
+            Status:"ACCEPTED"
+        }
+        axios
+            .delete(`http://localhost:9000/policeStation/deletepolice/${Pid}`)
+            .then((response) => {
+                console.log("Data:", response);
+                axios
+                    .put(`http://localhost:9000/delpolice/update/${id}`,dataSet)
+                    .then((response) => {
+                        console.log("Data:", response);
+                    })
+                    .catch((error) => {
+                        console.log("Data not Retriewed", error);
+                        alert("Sorry Cannot update now")
+                    });
+
+            })
+            .catch((error) => {
+                console.log("Data not Retriewed", error);
+                alert("Sorry Cannot update now")
+            })
+        alert("The Police Station SuccessFully Deleted");
+
+
+
+
+    }
+
+    handlerDecline=(id)=>{
+
+        alert(id);
+
     }
 
     render() {
@@ -29,6 +110,48 @@ export default class DeletePoliceRequests extends React.Component{
         const RulesPortalName =`-POLICE STATION REQUESTS -`.toUpperCase();
         return (
             <div>
+
+
+                <Popup
+                    visible={this.state.popupVisible}
+                    onHiding={this.handlerModelCancels}
+                    dragEnabled={false}
+                    closeOnOutsideClick={true}
+                    showCloseButton={true}
+                    showTitle={true}
+                    title="UPDATE POINTS"
+                    container=".dx-viewport"
+                    width={300}
+                    height={280}
+                >
+                    <Position
+                        at="center"
+                        my="center"
+                        of={this.state.positionOf}
+                    />
+                    <form onSubmit={this.handlerUpdate} className="form-body-rules">
+                        <div className="row">
+                            <div className="col">
+                                <div className="form-group form-part" >
+                                    <label htmlFor="Mobile">Comment</label>
+                                    <input type="text" name = "dreqcomment"   className="form-control form-input-border" value={this.state.dreqcomment} onChange={this.handlerChanged}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+
+                            <div className="col">
+                                <div className="buttonHolder text-ligh pt-5">
+                                    <button className="my-button text-center"  title="I'm Feeling Lucky" name="lucky" type="submit"
+                                            id="btn_i text-light" ><b> DECLINE</b></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </Popup>
+
                 <div>
                     <Navbar topic1 = "DELETE REQUEST" portal = {RulesPortalName} topic2 ="UPDATE REQUEST"  topic3 = "DASHBOARD" link3= "/" link1 ="/" LINK2="/"/>
                     /                    {/*{RulesInList.map((rules) => (*/}
@@ -51,29 +174,26 @@ export default class DeletePoliceRequests extends React.Component{
                                             <b>PHONE NUMBER - {req.mobile_Number}</b>
                                             <br></br>
                                             <br></br>
-                                            <p className="lead">
-                                                <button className="btn btn-outline-secondary text-light px-5" type="button"
-                                                        id="button-addon2" onClick={() =>this.handlerView(req.registrationNo)} pt-5>View
-                                                </button>
-                                            </p>
+                                            {(req.Status=="Pending") &&<b>DATE ADDED-{req.DateInquired}</b>}
+                                            <br></br>
+                                            <b>STATUS-{req.Status}</b>
                                         </p>
                                     </div>
-
+                                    {(req.Status=="Pending") &&
                                     <div className="col-4" border>
 
-
                                         <p className="lead">
                                             <button className="btn btn-outline-secondary text-light px-5" type="button"
-                                                    id="button-addon2" onClick={() =>this.handlerView(req._id)} pt-5>Accept
+                                                    id="button-addon2" onClick={() =>this.handlerAccept(req._id,req.PidD)} pt-5>Accept
                                             </button>
                                         </p>
 
                                         <p className="lead">
                                             <button className="btn btn-outline-secondary text-light px-5" type="button"
-                                                    id="button-addon2" onClick={() =>this.handlerView(req._id)} pt-5>Decline
+                                                    id="button-addon2" onClick={() =>this.handlerModelStart(req._id)} pt-5>Decline
                                             </button>
                                         </p>
-                                    </div>
+                                    </div>}
 
                                 </div>
                             </div>
