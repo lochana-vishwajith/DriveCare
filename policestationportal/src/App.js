@@ -16,6 +16,9 @@ import MyStation from "./Components/MyStation/MyStation"
 
 import Header from "./Components/HeaderComponent/header";
 import AuthContext, { AuthProvider } from "./Reducer/UseReducer";
+import MyRequest from "./Components/MyRequests/MyDeleterequests";
+import MyDeleteRequest from "./Components/MyRequests/MyDeleterequests";
+import ViewAdminInformation from "./Components/ShowAdminDetails/ShowAdminDetails";
 export default class App extends Component {
   render() {
     return (
@@ -28,6 +31,8 @@ export default class App extends Component {
               <Route exact path="/register" component={register} />
               <Route exact path="/dashboard" component={PoliceStationDashboard} />
               <Route exact path="/myStation" component={MyStation} />
+              <Route exact path="/myStationRequest" component={MyDeleteRequest} />
+              <Route exact path="/viewAdmin" component={ViewAdminInformation} />
             </Switch>
           </Router>
         </AuthProvider>

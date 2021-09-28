@@ -5,6 +5,11 @@ import {Link} from 'react-router-dom'
 //Admin dashboard
 //commit to check
 export default class AdminDashboard extends React.Component {
+    handlerMyreqs = (e) =>{
+        e.preventDefault();
+        window.location = '/myStationRequest'
+    }
+
     render() {
         return(<div>
 
@@ -18,7 +23,7 @@ export default class AdminDashboard extends React.Component {
                                 <div className="card-body">
                                     <h5 className="card-title">MY STATION</h5>
                                     <p className="card-text">MANAGE RULES AND CATEGORIES OF THE APPLICATION VIEW THE RULES OF THE APPLICATION.</p>
-                                    <center><button className="btn btn-outline-secondary text-light" type="button"
+                                    <center><button className="btn btn-danger" type="button"
                                                     id="button-addon2"
                                     ><Link to="/myStation">CLICK TO</Link>
                                     </button></center>
@@ -27,12 +32,11 @@ export default class AdminDashboard extends React.Component {
                         </div>
                         <div className="col p-5">
 
-                            <div className="card card-body-cus-pan">
+                            <div className="card ">
                                 <div className="card-body">
                                     <h5 className="card-title">TRAFFIC OFFICERS</h5>
                                     <p className="card-text">ADD POLICE STATIONS MANAGE POLICE STATIONS AND VIEW POLICE STATION DETAILS</p>
-                                    <center><button className="btn btn-outline-secondary text-light" type="button"
-                                                    id="button-addon2"
+                                    <center><button className="btn btn-danger" type="button"
                                                     onClick={this.handlerSubmit}
                                     ><Link to="/display">CLICK TO</Link>
                                     </button></center>
@@ -48,11 +52,11 @@ export default class AdminDashboard extends React.Component {
                         <div className="col p-5">
                             <div className="card card-body-cus-pan pt-5">
                                 <div className="card-body">
-                                    <h5 className="card-title">MY DETAILS</h5>
+                                    <h5 className="card-title">MY REQUESTS</h5>
                                     <p className="card-text">UPDATE ADMIN DETAILS.</p>
-                                    <center><button className="btn btn-outline-secondary text-light" type="button"
+                                    <center><button className="btn btn-danger" type="button" onClick={this.handlerMyreqs}
                                                     id="button-addon2"
-                                    ><Link to="/centralAdminAdd">CLICK TO</Link>
+                                    >MY DELETE REQUEST
                                     </button></center>
                                 </div>
                             </div>
@@ -63,7 +67,7 @@ export default class AdminDashboard extends React.Component {
                                 <div className="card-body">
                                     <h5 className="card-title">REPORTS</h5>
                                     <p className="card-text">CREATE REPORTS VIEW REPORTS AND CREATE SUMMARY DETAILS</p>
-                                    <center><button className="btn btn-outline-secondary text-light" type="button"
+                                    <center><button className="btn btn-danger" type="button"
                                                     id="button-addon2"
 
                                     ><Link to="/">CLICK TO</Link>

@@ -1,12 +1,8 @@
-import { Grid, Paper, Link } from "@material-ui/core";
-import TextBox from "devextreme-react/text-box";
-import Validator, { RequiredRule } from "devextreme-react/validator";
 import React, { Component } from "react";
 import "./CentralAdminLogin.css"
-import Button from "../../ButtonComponent/button";
 import Navbar from "../../navbarComponent/navbar";
 import Footer from "../../Footer/Footer";
-import {Route} from "react-router-dom";
+import {Card}from "react-bootstrap"
 export default class CentralAdminLogin extends Component {
     constructor(props) {
         super(props);
@@ -51,37 +47,63 @@ export default class CentralAdminLogin extends Component {
             <div>
                 <Navbar portal = "-ADMIN LOGIN-" topic1 = "ADMIN LOGIN" link1 ="/adminLogin"/>
 
-        <div className="container">
-                <form className="form-body-rules p-2 " onSubmit={this.handlerSubmit}></form>
-                <div className="row">
-
-                    <div className="form-group pt-5 form-part" >
-                        <label htmlFor="username">OFFICER ID</label>
-                        <input type="text" className="form-control form-input-border"name ="officerNo" onChange={this.handlerChanged} value={this.state.officerNo} required={true}/>
-                    </div>
 
 
-                </div>
-
-                <div className="row">
-                    <div className="form-group pt-1 form-part" >
-                        <label htmlFor="username">PASSWORD</label>
-                        <input type="password" className="form-control form-input-border"name ="password" value = {this.state.password} onChange={this.handlerChanged}/>
-                    </div>
-
-                </div>
 
 
-<br></br>
-                <br></br>
 
-            <center><button className="btn btn-outline-secondary text-light" type="submit"
-                            id="button-addon2"
-                            onClick={this.handlerSubmit}
-            >LOGIN
-            </button></center>
 
-        </div>
+                <center><div style={{ paddingTop: '3rem' }}><Card
+                    border="danger" style={{ width: '50rem',boxShadow: "0.8px 0.8px 15px 1px" }}
+                >
+                    <Card.Body>
+
+                        <div className="container">
+                            <form className="form-body-rules " onSubmit={this.handlerSubmit}></form>
+                            <div className="row">
+
+                                <div className="form-group  form-part" >
+                                    <label htmlFor="username">OFFICER ID</label>
+                                    <input type="text" className="form-control form-input-border"name ="officerNo" onChange={this.handlerChanged} value={this.state.officerNo} required={true}/>
+                                </div>
+
+
+                            </div>
+
+                            <div className="row">
+                                <div className="form-group pt-1 form-part" >
+                                    <label htmlFor="username">PASSWORD</label>
+                                    <input type="password" className="form-control form-input-border"name ="password" value = {this.state.password} onChange={this.handlerChanged}/>
+                                </div>
+
+                            </div>
+
+
+                            <br></br>
+                            <br></br>
+
+                            <center><button className="btn btn-outline-secondary text-light" type="submit"
+                                            id="button-addon2"
+                                            onClick={this.handlerSubmit}
+                            >LOGIN
+                            </button></center>
+
+                        </div>
+
+                    </Card.Body>
+                </Card></div>
+                </center>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

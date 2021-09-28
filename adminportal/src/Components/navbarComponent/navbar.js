@@ -29,7 +29,7 @@ export default class navbar extends React.Component{
                                 <a href={this.props.link2} className="nav-link text-light"><b>{this.props.topic2}</b></a>
                             </li>
                             <li className="nav-item">
-                                <a href={this.props.link2}  className="nav-link text-light"><b>{this.props.topic3}</b></a>
+                                <a href={this.props.link3}  className="nav-link text-light"><b>{this.props.topic3}</b></a>
                             </li>
                         </ul>
                     </div>

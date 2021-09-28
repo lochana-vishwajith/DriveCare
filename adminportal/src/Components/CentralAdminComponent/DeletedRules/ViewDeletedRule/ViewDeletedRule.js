@@ -2,14 +2,7 @@ import React from 'react'
 import Navbar from "../../../navbarComponent/navbar";
 import Footer from "../../../Footer/Footer";
 import axios from "axios";
-import CardView from "../../../Cardview/Cardview";
-import Modal from "react-bootstrap/Modal";
-import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
-import TextArea from "devextreme-react/text-area";
-import {toast} from "react-toastify";
 import jsPDF from "jspdf"
-import {Button} from "@material-ui/core";
-
 export default class ViewDeletedRule extends React.Component{
     constructor(props) {
         super(props);
@@ -34,8 +27,10 @@ export default class ViewDeletedRule extends React.Component{
 
 
     createPDF = async (date,description,deletedDate,deletedGazetteNo,comment,ruleName,fineAmount,demeritPoints) =>{
-                console.log(description);
+        console.log(description);
         console.log(deletedDate);
+
+
 
         alert(date);
         const unit = "pt";
@@ -44,11 +39,17 @@ export default class ViewDeletedRule extends React.Component{
         const marginLeft = 40;
         const doc = new jsPDF( orientation , unit , size ); //create document
         const noteduetoreports =`DEMERITS POINTS :  ${demeritPoints}`;
-        const title = `GAZZETE NUMBER OF DELETED RULE ${deletedGazetteNo} `;
-        const suggesion = ` DELETED DATE: ${deletedDate} `;
-        const medicine = `COMMENTS ON DELETEION: ${comment} `;
-        const othernote = `DESCRIPTION OF THE RULE: ${description} `;
-        const doctar = `RULE NAME: ${ruleName} `;
+        const image = "https://res.cloudinary.com/iplus/image/upload/v1632764773/1629491743966_DriveCare_bnkiqs.png";
+
+
+
+
+        const title = `GAZZETE NUMBER OF DELETED RULE ${deletedGazetteNo} `.toUpperCase();
+        const deleteddate = ` DELETED DATE: ${deletedDate} `.toUpperCase();
+        const comments = `COMMENTS ON DELETION: ${comment} `.toUpperCase();
+        const descriptions = `DESCRIPTION OF THE RULE: ${description} `.toUpperCase();
+        const rulName = `RULE NAME: ${ruleName} `.toUpperCase();
+        const end = `===============================END========================================`
 
          const left = 30;
         const top = 8;
@@ -59,13 +60,17 @@ export default class ViewDeletedRule extends React.Component{
         const imgWidths = 300;
         const imgHeights = 300;
         doc.setFontSize( 20 );
-        doc.text (title, 40,150);
-        doc.text (doctar, 150,80);
-        doc.text(suggesion, 60 ,250);
-        doc.text(medicine, 60,300);
-        doc.text( othernote, 60,350);
-        doc.text(noteduetoreports, 60,400);
-        alert('Ok');
+        doc.text (title, 180,70);
+        doc.text (rulName, 160,200);
+        doc.text(comments, 160 ,270);
+        doc.text(descriptions , 160,340);
+        doc.text(deleteddate, 160,410);
+        doc.text(end, 0,500);
+
+
+        doc.addImage(image, 'PNG', left, top, imgWidth, imgHeight);
+
+        alert('Please Wait Processing the Report');
         doc.save ("deletedRule.pdf")
     }
 
@@ -77,11 +82,6 @@ export default class ViewDeletedRule extends React.Component{
 
         this.createPDF(date,description,deletedDate,deletedGazetteNo,comment,ruleName,fineAmount,demeritPoints);
     };
-
-
-
-
-
 
 
     render() {
@@ -152,7 +152,7 @@ export default class ViewDeletedRule extends React.Component{
 
 
                 <center>
-                    <Button variant="outline-dark" onClick = {()=>this.handlerPdf(obj.date,obj.description,obj.deletedDate,obj.deletedGazetteNo,obj.comment,obj.ruleName,obj.fineAmount,obj.demeritPoints)}>Generate Report</Button>
+                    <button  className="btn btn-outline-danger" onClick = {()=>this.handlerPdf(obj.date,obj.description,obj.deletedDate,obj.deletedGazetteNo,obj.comment,obj.ruleName,obj.fineAmount,obj.demeritPoints)}>Generate Report</button>
                 </center>
                 <br></br> <br></br> <br></br> <br></br>
                 <Footer/>

@@ -19,7 +19,9 @@ export default class PoliceStationLogin extends Component {
             mobileNumber:'',
             officeAddress:'',
             officeNumber:'',
-            officerRegistrationNumber:''
+            officerRegistrationNumber:'',
+            adminDetails:'',
+            id:''
         }
 
     }
@@ -46,13 +48,37 @@ export default class PoliceStationLogin extends Component {
             officerRegistrationNumber
         }
         axios
-            .post(`http://localhost:9000/adminDetails`, admin)
+            .put(`http://localhost:9000/adminDetails/updateadmin/${this.state.id}`, admin)
             .then((response) => {
-                alert("ADMIN INFORMATION ADDED SUCCESSFULLY");
-                window.location = '/'
+                console.log("Data:", response);
+                alert('Success Fully updated')
+                window.location = `/centralAdminAdd`;
             })
             .catch((error) => {
-                console.log(error.message);
+                console.log("Data not Retriewed", error);
+                alert("Sorry Cannot update now")
+            });
+    }
+
+    componentDidMount() {
+        axios
+            .get(`http://localhost:9000/adminDetails/getcentraladmin`)
+            .then((result) => {
+                console.log("Data:", result.data);
+                this.setState({ adminDetails: result.data[0] });
+                this.setState({     nicNumber:result.data[0].nicNumber,
+                    email:result.data[0].email,
+                    workstation:result.data[0].workstation,
+                    mobileNumber:result.data[0].mobileNumber,
+                    officeAddress:result.data[0].officeAddress,
+                    officeNumber:result.data[0].officeNumber,
+                    officerRegistrationNumber:result.data[0].officerRegistrationNumber,
+                    name:result.data[0].name,id:result.data[0]._id},
+                    )
+
+            })
+            .catch((error) => {
+                console.log("Data not Retriewed", error);
             });
     }
 
@@ -82,10 +108,11 @@ export default class PoliceStationLogin extends Component {
         this.setState({officeNumber:'0812433657'})
     }
     render() {
+        const{ adminDetails} =this.state;
         return (
             <div>
             <div className="div">
-                <Navbar portal = "-ADD MY DETAILS-" topic1 = "MY DETAILS" topic2 = "DASHBOARD" link2 = "/" link1 = "/centralAdminAdd" />
+                <Navbar portal = "-ADD MY DETAILS-" topic1 = "UPDATE DETAILS" topic2 = "VIEW MY DETAILS" topic3 = "DASHBOARD" link1 = "/centralAdminAdd" link3 = "/"  link2= "/viewAdminDetails" />
             </div>
 
         <form action="#" className="form-body-rules" onSubmit={this.handlerSubmit}>

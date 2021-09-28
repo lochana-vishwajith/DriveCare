@@ -7,6 +7,7 @@ import Navbar from "../navbarComponent/navbar";
 import Footer from "../Footer/Footer";
 import axios from "axios";
 import AuthContext from "../../Reducer/UseReducer";
+import {Card} from "react-bootstrap";
 
 export default class PoliceStationLogin extends Component {
   componentDidMount() {
@@ -37,6 +38,9 @@ export default class PoliceStationLogin extends Component {
       registrationNo,
       password,
     };
+
+
+
 
     axios
       .post(`http://localhost:9000/policeStation/login`, station)
@@ -77,55 +81,80 @@ export default class PoliceStationLogin extends Component {
           topic1="POLICE STATION LOGIN"
           topic2="VIEW ADMIN DETAILS"
           link1="/policelogin"
-          link2="/viewAdminDetails"
+          link2="/viewAdmin"
         />
 
-        <div className="container">
-          <form
-            className="form-body-rules p-2 "
-            onSubmit={this.handlerSubmit}
-          ></form>
-          <div className="row">
-            <div className="form-group pt-5 form-part">
-              <label htmlFor="username">OFFICE ID</label>
-              <input
-                type="text"
-                className="form-control form-input-border"
-                name="registrationNo"
-                onChange={this.handlerChanged}
-                value={this.state.registrationNo}
-                required={true}
-              />
+
+
+
+
+
+        <center><div style={{ paddingTop: '3rem' }}><Card
+            border="danger" style={{ width: '35rem',boxShadow: "0.8px 0.8px 15px 1px" }}
+        >
+          <Card.Body>
+            <div className="container">
+              <form
+                  className="form-body-rules "
+                  onSubmit={this.handlerSubmit}
+              ></form>
+              <div className="row">
+                <div className="form-group  form-part">
+                  <label htmlFor="username">OFFICE ID</label>
+                  <input
+                      type="text"
+                      className="form-control form-input-border"
+                      name="registrationNo"
+                      onChange={this.handlerChanged}
+                      value={this.state.registrationNo}
+                      required={true}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="form-group pt-1 form-part">
+                  <label htmlFor="username">PASSWORD</label>
+                  <input
+                      type="password"
+                      className="form-control form-input-border"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handlerChanged}
+                  />
+                </div>
+              </div>
+
+              <br></br>
+              <br></br>
+
+              <center>
+                <button
+                    className="btn btn-outline-danger"
+                    type="button"
+                    id="button-addon2"
+                    onClick={this.handlerSubmit}
+                >
+                  LOGIN
+                </button>
+              </center>
             </div>
-          </div>
 
-          <div className="row">
-            <div className="form-group pt-1 form-part">
-              <label htmlFor="username">PASSWORD</label>
-              <input
-                type="password"
-                className="form-control form-input-border"
-                name="password"
-                value={this.state.password}
-                onChange={this.handlerChanged}
-              />
-            </div>
-          </div>
+          </Card.Body>
+        </Card></div>
+        </center>
 
-          <br></br>
-          <br></br>
 
-          <center>
-            <button
-              className="btn btn-outline-secondary text-light"
-              type="button"
-              id="button-addon2"
-              onClick={this.handlerSubmit}
-            >
-              LOGIN
-            </button>
-          </center>
-        </div>
+
+
+
+
+
+
+
+
+
+
 
         <br></br>
         <br></br>

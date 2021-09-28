@@ -14,10 +14,6 @@ export default class PoliceStationViewSearchResult extends React.Component {
         };
     }
 
-    handlerviewRequests
-
-
-
     componentDidMount() {
         axios
             .get(`http://localhost:9000/policeStation/${this.props.match.params.id}`)
@@ -42,10 +38,15 @@ export default class PoliceStationViewSearchResult extends React.Component {
         return(
             <div>
                 <Navbar portal ={portal} topic1 = "POLICE STATIONS" topic2 = "DASHBOARD" link1="/policestationList" link2= "/" />
+
+
+                {stationDetails.length==0 && <center><div style={{paddingBottom:"80vh",paddingLeft:"20vh"}}><h1  style={{paddingTop:"40vh"}}>  <b>There is no Such police Station</b> </h1></div></center>
+                }
                 { stationDetails.map((id, index) => (<section className="p-5">
                         <div className="container">
                             <div className="row align-items-center justify-content-between">
                                 <div className="col-md p-5">
+
                                     <p className="lead">
                                         <b> REGISTRATION NUMBER  - {id.registrationNo} </b>
                                         <br></br>

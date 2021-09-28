@@ -1,6 +1,4 @@
 import React from 'react'
-import { Link } from "react-router-dom";
-import moment from "moment";
 import axios from "axios";
 import Navbar from "../navbarComponent/navbar";
 import Footer from "../Footer/Footer";
@@ -25,7 +23,8 @@ export default class MyStation extends React.Component {
             workstation_Address:'',
             email:'',
             password:'',
-            passwordchange:false
+            passwordchange:false,
+            showtextbox:true
         };
     }
 
@@ -43,7 +42,7 @@ export default class MyStation extends React.Component {
 
 
     handlerModelCanceled =() =>{
-        this.setState({popupVisible:false});
+        this.setState({popupVisible:false,});
     }
     handlerModelStarted = () => {
         this.setState({ popupVisible: true,office_Number:this.state.obj.office_Number,
@@ -74,83 +73,6 @@ export default class MyStation extends React.Component {
 
             alert(redobj.PidD+redobj.registrationNo+redobj.mobile_Number+redobj.comment);
             axios.post('http://localhost:9000/delpolice/deletereq',redobj).then(e => {
-                 alert(e.data);
-                 alert('Added Sucess');
-                this.setState({uPop:false});
-                }
-            )
-            .catch(err =>{
-                console.log(err.error);
-                alert(e.error);
-            })
-
-
-
-
-        }
-
-
-    }
-    handlerUpdate = (e) => {
-
-        e.preventDefault();
-       const{_id,registrationNo,station_grade,officers
-        } =this.state.obj
-
-        const{office_Number,
-            mobile_Number,
-            workstation_Address,
-            email}=this.state
-
-
-        const uobj = {
-            registrationNo,email,mobile_Number,station_grade,officers,PidD :_id, workstation_Address
-        }
-
-
-        if(this.state.password){
-            const uobj = {
-                registrationNo,email,mobile_Number,station_grade,officers,PidD :_id, workstation_Address,password:this.state.password
-            }
-
-        }
-
-
-        if(this.state.office_Number){
-            alert('office_Number have')
-        }
-
-        if(this.state.workstation_Address){
-            alert('workstation_Address')
-        }
-
-        if(this.state.mobile_Number){
-            alert('mobile_Number')
-        }
-
-
-
-        alert(uobj.PidD+uobj.registrationNo+uobj.mobile_Number+uobj.comment+uobj.password+uobj.workstation_Address);
-
-
-
-
-
-
-/*
-        if(officers.length>0){
-
-            alert('more than 1 officer You Cant request to delete when active officers are working in the system.');
-        }else{
-            const{dreqcomment}=this.state
-
-            const redobj = {
-
-                PidD :_id,registrationNo,email,mobile_Number,station_grade,comment:dreqcomment,password
-            }
-
-            alert(redobj.PidD+redobj.registrationNo+redobj.mobile_Number+redobj.comment);
-            axios.post('http://localhost:9000/delpolice/deletereq',redobj).then(e => {
                     alert(e.data);
                     alert('Added Sucess');
                     this.setState({uPop:false});
@@ -161,15 +83,55 @@ export default class MyStation extends React.Component {
                     alert(e.error);
                 })
 
+        }
 
 
+    }
+    handlerUpdate = (e) => {
 
-        }*/
+        e.preventDefault();
+        const{
+            office_Number,
+            mobile_Number,
+            workstation_Address,
+            email,password}=this.state
+
+        const dataSet ={
+            office_Number,
+            mobile_Number,
+            workstation_Address,
+            email,
+        }
+        const stationID = localStorage.getItem("userid");
+        axios
+
+            .put(`http://localhost:9000/policeStation/updatepol/${stationID}`, dataSet)
+            .then((response) => {
+                console.log("Data:", response);
+                alert('Success Fully updated')
+                window.location = `/myStation`;
+            })
+            .catch((error) => {
+                console.log("Data not Retriewed", error);
+                alert("Sorry Cannot update now")
+            });
+
 
 
     }
 
-        componentDidMount() {
+    handlerClicked =(e)=>{
+      if(e.target.checked && this.state.showtextbox==true){
+          this.setState({showtextbox:false});
+      }
+      if(this.state.showtextbox == false){
+          this.setState({showtextbox:true});
+      }
+
+
+    }
+
+    componentDidMount() {
         const stationID = localStorage.getItem("userid");
         axios
             .get(`http://localhost:9000/policeStation/my/${stationID}`)
@@ -220,7 +182,7 @@ export default class MyStation extends React.Component {
                             <div className="col">
                                 <div className="buttonHolder text-ligh pt-5">
                                     <button className="my-button text-center"  title="I'm Feeling Lucky" name="lucky" type="submit"
-                                            id="btn_i text-light" ><b> </b>DELETE</button>
+                                            id="btn_i text-light" ><b> </b>REQUEST DELETE</button>
                                 </div>
                             </div>
                         </div>
@@ -270,35 +232,17 @@ export default class MyStation extends React.Component {
                                 <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="mobile_Number" value = {this.state.mobile_Number}  />
                             </div>
                         </div> <div className="row">
-                            <div className="form-group form-part">
-                                <label htmlFor="Comment">WORK ADDRESS</label>
-                                <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="workstation_Address" value = {this.state.workstation_Address}  />
-                            </div>
+                        <div className="form-group form-part">
+                            <label htmlFor="Comment">WORK ADDRESS</label>
+                            <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="workstation_Address" value = {this.state.workstation_Address}  />
                         </div>
-
-                        <div className="row">
-                            <div className="form-group form-part">
-                                <label htmlFor="Comment">COMMENT</label>
-                                <input type="text" className="form-control form-input-border" onChange={this.handlerChanged} name ="dreqcomment" value = {this.state.dreqcomment}  />
-                            </div>
-                        </div>
-
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="passwordchange" id="exampleRadios1"
-                                    checked = {this.state.passwordchange} onChange={this.handlerChanged}
-                                    value={this.state.passwordchange}
-                            />
-                                <label className="form-check-label" htmlFor="exampleRadios1">
-                                    Change Password
-                                </label>
-                        </div>
-
+                    </div>
                         <div className="row">
 
                             <div className="col">
                                 <div className="buttonHolder text-ligh pt-5">
                                     <button className="my-button text-center"  title="I'm Feeling Lucky" name="lucky" type="submit"
-                                            id="btn_i text-light" ><b> UPDATE RULE</b></button>
+                                            id="btn_i text-light" ><b> UPDATE MY STATION</b></button>
                                 </div>
                             </div>
                         </div>
@@ -309,7 +253,7 @@ export default class MyStation extends React.Component {
 
 
 
-                <Navbar portal ={portal} topic1 = "POLICE STATIONS" topic2 = "DASHBOARD" link1="/policestationList" link2= "/" />
+                <Navbar portal ={portal} topic1 = "POLICE STATIONS" topic2 = "DASHBOARD" topic3 = "MY DELETE REQUEST" link1="/policestationList" link2= "/" link3="/myStationRequest" />
                 { stationDetails.map((id, index) => (<section className="p-5">
                         <div className="container">
                             <div className="row align-items-center justify-content-between">
@@ -349,12 +293,12 @@ export default class MyStation extends React.Component {
                         </div>
                         <hr/>
                         <center><div className="row"> <div className="btn-group btn-group-lg text-center align-items-center px-5 buttonHolder pb-5 pt-5 col" role="group" aria-label="...">
-                            <button className="btn btn-outline-secondary text-light px-5 mx-5" type="button"
+                            <button className="btn btn-outline-success  px-5 mx-5" type="button"
                                     id="button-addon2" onClick={ this.handlerModelStarted}>REQUEST UPDATE
                             </button>
                         </div>
                             <div className="btn-group btn-group-lg text-center align-items-center px-5 buttonHolder pb-5 pt-5 col" role="group" aria-label="...">
-                                <button className="btn btn-outline-secondary text-light px-5 mx-5" type="button"
+                                <button className="btn btn-outline-danger px-5 mx-5" type="button"
                                         id="button-addon2" onClick={ this.handlerModelStart}>REQUEST DELETE
                                 </button>
                             </div>
