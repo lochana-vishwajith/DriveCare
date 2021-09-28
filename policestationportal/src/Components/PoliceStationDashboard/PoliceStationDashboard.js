@@ -5,6 +5,11 @@ import {Link} from 'react-router-dom'
 //Admin dashboard
 //commit to check
 export default class AdminDashboard extends React.Component {
+    handlerMyreqs = (e) =>{
+        e.preventDefault();
+        window.location = '/myStationRequest'
+    }
+
     render() {
         return(<div>
 
@@ -47,11 +52,11 @@ export default class AdminDashboard extends React.Component {
                         <div className="col p-5">
                             <div className="card card-body-cus-pan pt-5">
                                 <div className="card-body">
-                                    <h5 className="card-title">MY DETAILS</h5>
+                                    <h5 className="card-title">MY REQUESTS</h5>
                                     <p className="card-text">UPDATE ADMIN DETAILS.</p>
-                                    <center><button className="btn btn-danger" type="button"
+                                    <center><button className="btn btn-danger" type="button" onClick={this.handlerMyreqs}
                                                     id="button-addon2"
-                                    ><Link to="/centralAdminAdd">CLICK TO</Link>
+                                    >MY DELETE REQUEST
                                     </button></center>
                                 </div>
                             </div>

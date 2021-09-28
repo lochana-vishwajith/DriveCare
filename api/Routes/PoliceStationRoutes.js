@@ -144,6 +144,7 @@ router.put("/updatepol/:id", async (req, res) => {
 router.delete("/deletepolice/:id", async (req, res) => {
     const id = req.params.id;
     const dataSet = req.body;
+
     console.log("Data", dataSet);
     await PoliceStation.findByIdAndDelete(id)
         .then((data) => {
