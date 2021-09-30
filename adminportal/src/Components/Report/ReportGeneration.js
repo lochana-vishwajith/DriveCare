@@ -73,6 +73,11 @@ export default class Report extends Component {
         doc.save ("summary report.pdf")
     }
 
+    graphsum =(e)=>{
+        e.preventDefault();
+        window.location='/graph'
+    }
+
     render() {
         const { report } = this.state;
         return (
@@ -104,7 +109,17 @@ export default class Report extends Component {
                                     <center>
                                         <button  className="btn btn-outline-danger" onClick = {()=>this.handlerPdf(report.stations,report.drivers,report.officers,report.rules)}>Generate Report</button>
                                     </center>
+
                                     </div>
+
+                                    <div style={{paddingBottom:"4vh"}}>
+                                        <center>
+                                            <button  className="btn btn-outline-secondary" onClick={this.graphsum} >Show User Graph</button>
+                                        </center>
+
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>

@@ -71,9 +71,8 @@ export default class MyStation extends React.Component {
                 PidD :_id,registrationNo,email,mobile_Number,station_grade,comment:dreqcomment
             }
 
-            alert(redobj.PidD+redobj.registrationNo+redobj.mobile_Number+redobj.comment);
             axios.post('http://localhost:9000/delpolice/deletereq',redobj).then(e => {
-                    alert(e.data);
+
                     alert('Added Sucess');
                     this.setState({uPop:false});
                 }
