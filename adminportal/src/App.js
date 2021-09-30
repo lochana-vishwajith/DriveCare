@@ -25,7 +25,8 @@ import ViewDeletedRule from "./Components/CentralAdminComponent/DeletedRules/Vie
 import DeletePoliceRequests from "./Components/CentralAdminComponent/ShowPoliceStationRequest/DeleteRequest";
 import DeletePoliceSpecificRequests
   from "./Components/CentralAdminComponent/Centraladminpolicestations/PoliceStation/PoliceStationSpecificRequests/PoliceStationRequests";
-import Report from "./Components/Report/ReportGeneration"
+import Report from "./Components/Report/ReportGeneration";
+import Graph from "./Components/Report/Summarygraph";
 export default class App extends Component {
   render() {
     return (
@@ -67,6 +68,7 @@ export default class App extends Component {
             <Route exact path="/preqs" component={DeletePoliceRequests} />
             <Route exact path="/specificdreqs/:id" component={DeletePoliceSpecificRequests} />
             <Route exact path="/report" component={Report} />
+            <Route exact path="/graph" component={Graph} />
           </Switch>
         </Router>
       </div>

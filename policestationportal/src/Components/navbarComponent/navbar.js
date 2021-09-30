@@ -1,7 +1,8 @@
 import React from "react";
 import "./navbar.css";
 import AuthContext from "../../Reducer/UseReducer";
-import Header from "../HeaderComponent/header";
+import {Link} from 'react-router-dom'
+
 
 export default class navbar extends React.Component {
   static contextType = AuthContext;
@@ -9,7 +10,7 @@ export default class navbar extends React.Component {
     const { isAutheticated } = this.context;
     return (
       <div>
-        {!isAutheticated && (
+
           <nav className="navbar navbar-expand-lg navbar-dark " id="navbarNav">
             <div className="container">
               <img
@@ -30,29 +31,27 @@ export default class navbar extends React.Component {
               <div className="collapse navbar-collapse" id="navMenu">
                 <ul className="navbar-nav ms-auto nav-pills ">
                   <li className="nav-item">
-                    <a
-                      href={this.props.link1}
+                    <Link
+                      to={this.props.link1}
                       className="nav-link active text-light"
                     >
                       <b>{this.props.topic1}</b>
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a href={this.props.link2} className="nav-link text-light">
+                    <Link to={this.props.link2} className="nav-link text-light">
                       <b>{this.props.topic2}</b>
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a href={this.props.link3} className="nav-link text-light">
+                    <Link to={this.props.link3} className="nav-link text-light">
                       <b>{this.props.topic3}</b>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
-        )}
-        {isAutheticated && <Header />}
         <section className="bg-light text-dark p-3 text-center thicker">
           <div className="container">
             <div>
