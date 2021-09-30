@@ -9,7 +9,7 @@ export default class AdminDashboard extends React.Component {
 
     handlerReport=()=>{
 
-        window.location='/deletedRules';
+        window.location='/report';
     }
 
     handlerPoliceStation=()=>{

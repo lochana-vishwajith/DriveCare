@@ -30,7 +30,7 @@ export default class DeletedRulesList extends React.Component{
         return (
             <div>
                 <div>
-                    <Navbar topic1 = "RULES & CATEGORIES" portal = {RulesPortalName} topic2 ="DASHBOARD" topic3 = "POLICE STATION REQUESTS" link2 = "/dashboard" link1 ="/rulescategorylist" link3="/preqs"/>
+                    <Navbar topic1 = "DELETED RULES" portal = {RulesPortalName} topic3="SUMMARY REPORTS" topic2 ="DASHBOARD"  link2 = "/dashboard" link1 ="/deletedRules" link3="/report"/>
                     /                    {/*{RulesInList.map((rules) => (*/}
                     {/*    <CardView title = {rules.ruleName}  bty = "rule" description ={rules.description} cid ={rules.ruleNo} prid = {rules._id}/>*/}
                     {/*))}*/}

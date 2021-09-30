@@ -33,13 +33,12 @@ export default class GetRulesCat extends React.Component{
         return (
             <div>
                 <div>
-                    <Navbar topic1 = "RULES & CATEGORIES" portal = {RulesPortalName} topic2 ="DASHBOARD" link2 = "/" link1 ="/rulescategorylist"/>
+                    <Navbar topic1 = "RULES & CATEGORIES" portal = {RulesPortalName} topic2 ="DASHBOARD" link2 = "/dashboard" link1 ="/rulescategorylist"/>
 /                    {/*{RulesInList.map((rules) => (*/}
                     {/*    <CardView title = {rules.ruleName}  bty = "rule" description ={rules.description} cid ={rules.ruleNo} prid = {rules._id}/>*/}
                     {/*))}*/}
-
+<div style={{paddingBottom:"20vh"}}>
                     {RulesInList.map((rule) => (
-
                         <div className="card p-5">
                             <div className="card-body card border-dark mb-3 card-body-cus">
                                 <div className="row">
@@ -86,7 +85,7 @@ export default class GetRulesCat extends React.Component{
                     <br></br>
                     <br></br>
                     <br></br>
-
+</div>
                     <Footer/>
                 </div>
             </div>

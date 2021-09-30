@@ -153,11 +153,12 @@ export default class DeletePoliceSpecificRequests extends React.Component{
                 </Popup>
 
                 <div>
-                    <Navbar topic1 = "DELETE REQUEST" portal = {RulesPortalName}  topic2 = "DASHBOARD"  link2="/dashboard"/>
+                    <Navbar topic1 = "DELETE REQUESTS"  topic3 = " POLICE STATION LIST" portal = {RulesPortalName} link1="/preqs" link3="/policestationList" topic2 = "DASHBOARD"  link2="/dashboard"/>
                     /                    {/*{RulesInList.map((rules) => (*/}
                     {/*    <CardView title = {rules.ruleName}  bty = "rule" description ={rules.description} cid ={rules.ruleNo} prid = {rules._id}/>*/}
                     {/*))}*/}
-
+<div style={{paddingBottom:"20vh"}}>
+                    {requestList.length==0 &&<h1>THERE IS NO DELETE REQUEST FROM THIS POLICE STATION</h1>}
                     {requestList.map((req) => (
 
                         <div className="card p-5">
@@ -211,6 +212,7 @@ export default class DeletePoliceSpecificRequests extends React.Component{
                     <br></br>
                     <br></br>
                     <br></br>
+</div>
                     <Footer/>
                 </div>
             </div>

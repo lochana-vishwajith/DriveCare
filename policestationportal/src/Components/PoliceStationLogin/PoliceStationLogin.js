@@ -69,8 +69,8 @@ export default class PoliceStationLogin extends Component {
     this.setState({ password: "HELLO" });
   };
   handlerSuccess = () => {
-    this.setState({ registrationNo: "CPKY12224" });
-    this.setState({ password: "kandy1" });
+    this.setState({ registrationNo: "KKG1234" });
+    this.setState({ password: "hasitha" });
   };
 
   render() {

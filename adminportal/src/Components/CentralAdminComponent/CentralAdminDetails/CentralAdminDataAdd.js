@@ -28,36 +28,45 @@ export default class PoliceStationLogin extends Component {
 
     handlerSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state);
-        const{name,
-            nicNumber,
-            email,
-            workstation,
-            mobileNumber,
-            officeAddress,
-            officeNumber,
-            officerRegistrationNumber} =this.state
 
-        const admin = {name,
-            nicNumber,
-            email,
-            workstation,
-            mobileNumber,
-            officeAddress,
-            officeNumber,
-            officerRegistrationNumber
+        if(this.state.mobileNumber.trim().length ==10){
+            console.log(this.state);
+            const{name,
+                nicNumber,
+                email,
+                workstation,
+                mobileNumber,
+                officeAddress,
+                officeNumber,
+                officerRegistrationNumber} =this.state
+
+            const admin = {name,
+                nicNumber,
+                email,
+                workstation,
+                mobileNumber,
+                officeAddress,
+                officeNumber,
+                officerRegistrationNumber
+            }
+            axios
+                .put(`http://localhost:9000/adminDetails/updateadmin/${this.state.id}`, admin)
+                .then((response) => {
+                    console.log("Data:", response);
+                    alert('Success Fully updated')
+                    window.location = `/centralAdminAdd`;
+                })
+                .catch((error) => {
+                    console.log("Data not Retriewed", error);
+                    alert("Sorry Cannot update now")
+                });
+
+
+        }else{
+
+            alert('PHONE NUMBERS SHOULD BE LENGTH OF 10');
         }
-        axios
-            .put(`http://localhost:9000/adminDetails/updateadmin/${this.state.id}`, admin)
-            .then((response) => {
-                console.log("Data:", response);
-                alert('Success Fully updated')
-                window.location = `/centralAdminAdd`;
-            })
-            .catch((error) => {
-                console.log("Data not Retriewed", error);
-                alert("Sorry Cannot update now")
-            });
+
     }
 
     componentDidMount() {
