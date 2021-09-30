@@ -34,7 +34,7 @@ export default class CentralAdminLogin extends Component {
 
         if(password =='hasitha' && officerNo == 'IT1911KB'){
             alert('WELCOME ADMIN YOU\'VE SIGNED IN');
-            window.location = '/'
+            window.location = '/dashboard'
         }else{
             alert('INVALID USER NAME OR PASSWORD')
         }

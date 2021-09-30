@@ -153,7 +153,7 @@ export default class DeletePoliceSpecificRequests extends React.Component{
                 </Popup>
 
                 <div>
-                    <Navbar topic1 = "DELETE REQUEST" portal = {RulesPortalName}  topic2 = "DASHBOARD"  link2="/"/>
+                    <Navbar topic1 = "DELETE REQUEST" portal = {RulesPortalName}  topic2 = "DASHBOARD"  link2="/dashboard"/>
                     /                    {/*{RulesInList.map((rules) => (*/}
                     {/*    <CardView title = {rules.ruleName}  bty = "rule" description ={rules.description} cid ={rules.ruleNo} prid = {rules._id}/>*/}
                     {/*))}*/}

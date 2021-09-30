@@ -30,7 +30,7 @@ export default class GetRulesCategoriesList extends React.Component{
     return(
 
         <div>
-            <Navbar topic1 = "RULES & CATEGORIES " link1 = "/rulescategorylist" link2 ="/" topic2 = "DASHBOARD" portal = "-CATEGORIES LIST-"/>
+            <Navbar topic1 = "RULES & CATEGORIES " link1 = "/rulescategorylist" link2 ="/dashboard" topic2 = "DASHBOARD" portal = "-CATEGORIES LIST-"/>
             {RulesCategoryList.map((category) => (
              <CardView title = {category.categoryName} severity = {category.severity} prid = {category._id} bty = "category" range = {category.range} description ={category.description} cid ={category.categoryNumber} />
             ))}

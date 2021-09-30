@@ -35,7 +35,7 @@ export default class AdminDashboard extends React.Component {
     render() {
         return(<div>
 
-                <Navbar portal = "-ADMIN DASHBOARD-" topic1 ="DASHBOARD" link1 = "/" topic2 = "LOGOUT" link2 = "/adminLogin"/>
+                <Navbar portal = "-ADMIN DASHBOARD-" topic1 ="DASHBOARD" link1 = "/dashboard" topic2 = "LOGOUT" link2 = "/"/>
                 <div className="container">
          <div className="row">
 

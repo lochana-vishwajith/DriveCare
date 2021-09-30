@@ -188,7 +188,7 @@ export default class PoliceStationLogin extends Component {
         return (
             <div>
                 <div className="div">
-                    <Navbar portal = "-ADD POLICE STATIONS-" topic1 = "POLICE STATIONS" topic2 = "DASHBOARD" link1 ="/AddPoliceStation" link2 ="/"/>
+                    <Navbar portal = "-ADD POLICE STATIONS-" topic1 = "POLICE STATIONS" topic2 = "DASHBOARD" link1 ="/AddPoliceStation" link2 ="/dashboard"/>
                 </div>
 
                 <form action="#" className="form-body-rules" onSubmit={this.handlerSubmit}>
