@@ -93,7 +93,7 @@ export default class ViewDeletedRule extends React.Component{
         return (
 
             <div>
-                <Navbar portal = {portal} topic1 = "RULES & CATEGORIES" topic2 = "ADMIN DASHBOARD" link1 = '/rulescategorylist' link2 = '/' />
+                <Navbar portal = {portal} topic1 = "RULES & CATEGORIES" topic2 = "ADMIN DASHBOARD" link1 = '/rulescategorylist' link2 = '/dashboard' />
                  <section className="p-5">
                         <div className="container">
                             <div className="row align-items-center justify-content-between">

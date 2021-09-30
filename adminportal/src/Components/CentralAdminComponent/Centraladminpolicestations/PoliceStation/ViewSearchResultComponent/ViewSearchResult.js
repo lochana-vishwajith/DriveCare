@@ -37,7 +37,7 @@ export default class PoliceStationViewSearchResult extends React.Component {
         const portal = `-POLICE STATION [${this.props.match.params.id}]-`
         return(
             <div>
-                <Navbar portal ={portal} topic1 = "POLICE STATIONS" topic2 = "DASHBOARD" link1="/policestationList" link2= "/" />
+                <Navbar portal ={portal} topic1 = "POLICE STATIONS" topic2 = "DASHBOARD" link1="/policestationList" link2= "/dashboard" />
 
 
                 {stationDetails.length==0 && <center><div style={{paddingBottom:"80vh",paddingLeft:"20vh"}}><h1  style={{paddingTop:"40vh"}}>  <b>There is no Such police Station</b> </h1></div></center>

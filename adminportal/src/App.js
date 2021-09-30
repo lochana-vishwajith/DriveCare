@@ -37,7 +37,7 @@ export default class App extends Component {
               component={CentralAdminAddDetails}
             />
 
-            <Route exact path="/adminLogin" component={AdminLogin} />
+            <Route exact path="/" component={AdminLogin} />
 
             <Route
               exact
@@ -57,7 +57,7 @@ export default class App extends Component {
               component={PoliceStationViewSearchResult}
             />
 
-            <Route   exact path="/" component={AdminDashboard} />
+            <Route   exact path="/dashboard" component={AdminDashboard} />
             <Route   exact path="/rulescategorylist" component={GetRulesCategoriesList} />
             <Route exact path="/getrulescat/:id/:cat" component={GetRulesCat} />
             <Route exact path="/viewrules/:id" component={ViewRule} />

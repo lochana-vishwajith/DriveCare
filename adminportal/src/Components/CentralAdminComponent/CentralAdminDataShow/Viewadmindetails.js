@@ -32,7 +32,7 @@ export default class Viewadmindetails extends Component {
         return (
             <div>
 
-                        <Navbar portal ="-ADMIN DETAILS-" topic1 = "ADMIN DETAILS" link1 ="/viewAdminDetails" topic2= "UPDATE MY DETAILS" link2 = "/centralAdminAdd" />
+                        <Navbar portal ="-ADMIN DETAILS-" topic1 = "ADMIN DETAILS" topic3="DASHBOARD" link1 ="/viewAdminDetails" topic2= "UPDATE MY DETAILS" link2 = "/centralAdminAdd" link3 = "/dashboard" />
                         <hr />
 
                 {adminDetails.map((item, index) => (
