@@ -5,6 +5,7 @@ import navbar from "../../../navbarComponent/navbar";
 import CButton from "../../../ButtonComponent/button"
 import example from "../../examp";
 import Navbar from "../../../navbarComponent/navbar";
+import Footer from "../../../Footer/Footer";
 import axios from "axios";
 export default class AddRules extends React.Component{
     constructor(props) {
@@ -19,6 +20,7 @@ export default class AddRules extends React.Component{
             fineAmount:'',
             RuleCategoryId:this.props.match.params.id
         }
+
     }
     handlerSubmit = (e) =>{
         e.preventDefault();
@@ -32,30 +34,40 @@ export default class AddRules extends React.Component{
             RuleCategoryId
         }=this.state
 
-        const rule = {
-            ruleNo,
-            ruleName,
-            description,
-            gazetteNo,
-            demeritPoints,
-            fineAmount,
-            RuleCategoryId
+        const dpoints = parseInt(this.state.demeritPoints)
+        if(dpoints>0 && dpoints<50){
+            const rule = {
+                ruleNo,
+                ruleName,
+                description,
+                gazetteNo,
+                demeritPoints,
+                fineAmount,
+                RuleCategoryId
+            }
+
+            axios
+                .post(`http://localhost:9000/rules/fullrule`, rule)
+                .then((response) => {
+                    alert("Rule Added");
+                    window.location = "/rulescategorylist"
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        }else {
+            alert('Doesnt validated');
         }
 
-        axios
-            .post(`http://localhost:9000/rules/fullrule`, rule)
-            .then((response) => {
-                alert("Rule Added");
-                window.location = "/rulescategorylist"
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
+
 
     }
 
     handlerChange=(e)=>{
         this.setState({ [e.target.name]: e.target.value });
+
+
+
     }
 
     handlerError=()=>{
@@ -78,11 +90,12 @@ export default class AddRules extends React.Component{
 
     }
 
+
     render() {
         const portal =`-ADD RULES-`
         return (
             <div>
-                <Navbar portal = {portal}  topic1 = "RULES & CATEGORIES"  topic2 = "DASHBOARD" link2 ="/" link1 ="/rulescategorylist"  />
+                <Navbar portal = {portal}  topic1 = "RULES & CATEGORIES"  topic2 = "DASHBOARD" link2 ="/dashboard" link1 ="/rulescategorylist"  />
                 <form action="#" className=" p-1" onSubmit={this.handlerSubmit}>
 
                     <section className="mt-0">
@@ -156,7 +169,7 @@ export default class AddRules extends React.Component{
                     <button type="button" className="btn btn-primary" onClick={this.handlerSuccess}>DEMO SUCCESS</button>
                 </div>
 
-                <footer/>
+                <Footer/>
 
             </div>
         );

@@ -32,7 +32,6 @@ export default class ViewDeletedRule extends React.Component{
 
 
 
-        alert(date);
         const unit = "pt";
         const size = "A4"; //page size
         const orientation = "landscape";
@@ -63,9 +62,9 @@ export default class ViewDeletedRule extends React.Component{
         doc.text (title, 180,70);
         doc.text (rulName, 160,200);
         doc.text(comments, 160 ,270);
-        doc.text(descriptions , 160,340);
-        doc.text(deleteddate, 160,410);
-        doc.text(end, 0,500);
+        doc.text(deleteddate, 160,340);
+        doc.text(noteduetoreports, 160,410);
+        doc.text(end, 0,600);
 
 
         doc.addImage(image, 'PNG', left, top, imgWidth, imgHeight);
@@ -93,7 +92,7 @@ export default class ViewDeletedRule extends React.Component{
         return (
 
             <div>
-                <Navbar portal = {portal} topic1 = "RULES & CATEGORIES" topic2 = "ADMIN DASHBOARD" link1 = '/rulescategorylist' link2 = '/dashboard' />
+                <Navbar portal = {portal} topic1 = "DELETED RULES" topic2 = "ADMIN DASHBOARD"  link1 = '/deletedRules' link2 = '/dashboard'  />
                  <section className="p-5">
                         <div className="container">
                             <div className="row align-items-center justify-content-between">
@@ -130,7 +129,7 @@ export default class ViewDeletedRule extends React.Component{
                                        <b>DELETED DATE- {obj.deletedDate}</b>
                                         <br></br>
                                         <br></br>
-                                        <b>GAZETTE NUMBER For DELETION- {obj.deletedGazetteNo}</b>
+                                        <b>GAZETTE NUMBER FOR DELETION- {obj.deletedGazetteNo}</b>
                                         <br></br>
                                         <br></br>
                                         <b>COMMENT - {obj.comment} </b>

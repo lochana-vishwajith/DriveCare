@@ -81,6 +81,8 @@ export default class DeletePoliceRequests extends React.Component{
                     .put(`http://localhost:9000/delpolice/update/${id}`,dataSet)
                     .then((response) => {
                         console.log("Data:", response);
+                        alert('decline');
+                        window.location='/preqs';
                     })
                     .catch((error) => {
                         console.log("Data not Retriewed", error);
@@ -153,11 +155,14 @@ export default class DeletePoliceRequests extends React.Component{
                 </Popup>
 
                 <div>
-                    <Navbar topic1 = "DELETE REQUEST" portal = {RulesPortalName} topic1 ="DELETE REQUEST"  topic2 = "DASHBOARD" link2= "/dashboard" link1 = "/preqs"/>
+                    <Navbar topic1 = "DELETE REQUEST" portal = {RulesPortalName} topic1 ="DELETE REQUESTS"  topic2 = "DASHBOARD" topic3="POLICE STATIONS" link2= "/dashboard" link1 = "/preqs" link3="/policestationList"/>
+
+                   <div style={{paddingBottom:"20vh"}}>
                     /                    {/*{RulesInList.map((rules) => (*/}
                     {/*    <CardView title = {rules.ruleName}  bty = "rule" description ={rules.description} cid ={rules.ruleNo} prid = {rules._id}/>*/}
                     {/*))}*/}
 
+                       {(requestList.length==0) && <h1>NO REQUESTS FROM STATIONS</h1>}
                     {requestList.map((req) => (
 
                         <div className="card p-5">
@@ -202,16 +207,7 @@ export default class DeletePoliceRequests extends React.Component{
                     ))}
 
                     <hr/>
-                    <br></br>
-                    <br></br><br></br>
-                    <br></br><br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <Footer/>
+                    </div>
                 </div>
             </div>
         )

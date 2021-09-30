@@ -70,7 +70,7 @@ export default class AddRuleCategories extends React.Component{
         this.setState({ severity:'HIGH'});
         this.setState({  min:'2'});
         this.setState({ max:'15'});
-        this.setState({ categoryNumber:'HV-1233'});
+
 
 
     }
@@ -82,6 +82,7 @@ export default class AddRuleCategories extends React.Component{
         this.setState({ description:'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia'});
         this.setState({  min:'2'});
         this.setState({ max:'15'});
+        this.setState({ categoryNumber:'HV-1233'});
     }
 
 

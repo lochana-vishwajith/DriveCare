@@ -74,11 +74,9 @@ constructor(props) {
 
     handlerDelete = (e) =>{
 
-    alert('caller'+this.state.obj._id);
 
     const {comment,obj,gazetteno} = this.state;
 
-    alert(comment+gazetteno+"gass");
 
         const{
             ruleNo,
@@ -106,7 +104,6 @@ constructor(props) {
 
     }
 
-    alert(newobj.fineAmount+newobj.ruleName+ruleNo+comment);
         e.preventDefault();
         axios
             .delete(`http://localhost:9000/rules/delete/${this.state.obj._id}`)
@@ -116,8 +113,7 @@ constructor(props) {
                 axios
                     .post(`http://localhost:9000/deletedrules/todelterule`, newobj)
                     .then((response) => {
-                        alert("Rule Added");
-                        window.location = "/"
+                        window.location = "/rulescategorylist"
                     })
                     .catch((error) => {
                         console.log(error.message);
@@ -127,7 +123,6 @@ constructor(props) {
                 console.log("Data not Retriewed", error);
                 alert("Sorry Cannot update now")
             })
-        alert('came')
     }
 
 

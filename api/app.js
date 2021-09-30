@@ -67,6 +67,9 @@ app.use("/notifications", driverNotification);
 const PoliceDeleteReq = require("./Routes/PoliceStationDeleteRoute");
 app.use("/delpolice",PoliceDeleteReq);
 
+const ReportUsers = require("./Routes/ReportRoute");
+app.use("/report",ReportUsers);
+
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Connected to mongo DB");
