@@ -1,5 +1,6 @@
 import React from 'react'
 import "./navbar.css"
+import {Link} from 'react-router-dom'
 
 export default class navbar extends React.Component{
 
@@ -23,13 +24,13 @@ export default class navbar extends React.Component{
 
                         <ul className="navbar-nav ms-auto nav-pills "  >
                             <li className="nav-item">
-                                <a href={this.props.link1} className="nav-link active text-light"><b>{this.props.topic1}</b></a>
+                                <Link to={this.props.link1} className="nav-link active text-light"><b>{this.props.topic1}</b></Link>
                             </li>
                             <li className="nav-item">
-                                <a href={this.props.link2} className="nav-link text-light"><b>{this.props.topic2}</b></a>
+                                <Link to={this.props.link2} className="nav-link text-light"><b>{this.props.topic2}</b></Link>
                             </li>
                             <li className="nav-item">
-                                <a href={this.props.link3}  className="nav-link text-light"><b>{this.props.topic3}</b></a>
+                                <Link to={this.props.link3}  className="nav-link text-light"><b>{this.props.topic3}</b></Link>
                             </li>
                         </ul>
                     </div>
