@@ -24,7 +24,7 @@ export default class CentralAdminLogin extends Component {
     handlerSuccess = () =>{
 
         this.setState({ officerNo:'IT1911KB'})
-        this.setState({ password:'hasitha'})
+        this.setState({ password:'hasitha123'})
     }
 
     handlerSubmit = (e) =>{
@@ -32,7 +32,7 @@ export default class CentralAdminLogin extends Component {
         const{officerNo,
             password} =this.state
 
-        if(password =='hasitha' && officerNo == 'IT1911KB'){
+        if(password =='hasitha123' && officerNo == 'IT1911KB'){
             alert('WELCOME ADMIN YOU\'VE SIGNED IN');
             window.location = '/dashboard'
         }else{
