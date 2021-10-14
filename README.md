@@ -3,11 +3,11 @@
 
 UniqueScripters
 
-Name										IT Number						Username
-Wishwajith W.L					it19140230			lochana-vishwajith
-A. D. Savith Rangana 		it18014396				saviya98
-Attanayake A.M.H.B			it19111520				hasiitha
-Geekiyanage T.U. 				it19152806				ushara09
+Name										
+Wishwajith W.L	- it19140230 - lochana-vishwajith
+A. D. Savith Rangana - it18014396 - saviya98
+Attanayake A.M.H.B - it19111520 - hasiitha
+Geekiyanage T.U. - it19152806 - ushara09
 
 Description
 
