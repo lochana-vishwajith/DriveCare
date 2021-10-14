@@ -29,13 +29,17 @@ The Drivers who can provide their driving histry,pay their fines through system.
 The Court who is capable of adding comments to the drivers and adding demerit points to the police officers.
 
 Technologies
-	1.React
-	2.Node JS
-	3.Express
-	4.Mongo DB
+	1. React
+	2. Node JS
+	3. Express
+	4. Mongo DB
 
 prerequisites: 
-	1.
+	1. need to install node JS in your machine
+	2. need to install react in your machine
+	3. need to have knowledge about MERN
 
 procedure of setting up prerequisites and run the project
-	1.
+	1. Clone the project from the GitHub
+	2. Go to the each folder and run the 'npm i' on terminal
+	3. Then run the project using npm start
